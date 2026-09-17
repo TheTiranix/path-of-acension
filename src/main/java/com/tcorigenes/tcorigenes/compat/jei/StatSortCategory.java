@@ -1,34 +1,38 @@
 package com.tcorigenes.tcorigenes.compat.jei;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Categoria generica de JEI: solo el icono del item con su stat (daño o armadura) superpuesto
- * como numero chico, del mismo tamaño que un slot de inventario (18x18) para que JEI pueda
- * acomodar muchos por pagina en grilla, como la lista de ingredientes normal.
+ * Categoria de JEI con UNA sola "receta" (toda la lista ordenada de una vez), mostrada como una
+ * grilla scrolleable de items uno al lado del otro (como la lista de ingredientes normal), en
+ * vez de una fila por item que obligaba a pasar de pagina en pagina. El valor (daño/armadura) se
+ * ve en el tooltip al pasar el mouse por cada item.
  */
-public class StatSortCategory implements IRecipeCategory<StatEntry> {
+public class StatSortCategory implements IRecipeCategory<StatSortRecipe> {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.##");
-    private static final int WIDTH = 18;
-    private static final int HEIGHT = 18;
+    private static final int COLUMNS = 9;
+    private static final int ROWS = 6;
+    private static final int WIDTH = COLUMNS * 18;
+    private static final int HEIGHT = ROWS * 18;
 
-    private final RecipeType<StatEntry> type;
+    private final RecipeType<StatSortRecipe> type;
     private final Component title;
     private final IDrawable icon;
     private final IDrawable background;
 
-    public StatSortCategory(RecipeType<StatEntry> type, Component title, ItemStack iconStack, IGuiHelper guiHelper) {
+    public StatSortCategory(RecipeType<StatSortRecipe> type, Component title, ItemStack iconStack, IGuiHelper guiHelper) {
         this.type = type;
         this.title = title;
         this.icon = guiHelper.createDrawableItemStack(iconStack);
@@ -36,7 +40,7 @@ public class StatSortCategory implements IRecipeCategory<StatEntry> {
     }
 
     @Override
-    public RecipeType<StatEntry> getRecipeType() {
+    public RecipeType<StatSortRecipe> getRecipeType() {
         return type;
     }
 
@@ -66,19 +70,18 @@ public class StatSortCategory implements IRecipeCategory<StatEntry> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, StatEntry entry, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0).addItemStack(entry.stack());
+    public void setRecipe(IRecipeLayoutBuilder builder, StatSortRecipe recipe, IFocusGroup focuses) {
+        for (StatEntry entry : recipe.entries()) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT)
+                    .addItemStack(entry.stack())
+                    .addTooltipCallback((slotView, tooltip) ->
+                            tooltip.add(Component.literal(recipe.statLabel() + ": " + FORMAT.format(entry.value()))));
+        }
     }
 
     @Override
-    public void draw(StatEntry entry, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        // Numero chico en la esquina inferior derecha del icono, como una cuenta de stack.
-        var font = net.minecraft.client.Minecraft.getInstance().font;
-        String text = FORMAT.format(entry.value());
-        int x = WIDTH - font.width(text) - 1;
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(0.0, 0.0, 300.0);
-        guiGraphics.drawString(font, text, x, 9, 0xFFFFA0, true);
-        guiGraphics.pose().popPose();
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, StatSortRecipe recipe, IFocusGroup focuses) {
+        List<IRecipeSlotDrawable> slots = builder.getRecipeSlots().getSlots();
+        builder.addScrollGridWidget(slots, WIDTH, HEIGHT);
     }
 }
