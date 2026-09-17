@@ -10,6 +10,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import com.tcorigenes.tcorigenes.item.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,6 +47,12 @@ public class ModJeiPlugin implements IModPlugin {
                 new StatSortCategory(ARMOR_SORT, Component.literal("Ordenado por armadura"),
                         new ItemStack(Items.NETHERITE_CHESTPLATE), guiHelper));
     }
+
+    /** Catalizadores: tienen que ser items que NUNCA aparezcan en ninguna de las dos listas, si
+     *  no JEI filtra los "usos" a solo la fila de ese mismo item (por eso antes se veia "1/1"
+     *  usando la espada/pechera de netherite como catalizador, ya que ESA misma espada/pechera
+     *  es una de las entradas). Nuestros items propios no tienen atributos de daño ni armadura,
+     *  asi que sirven de catalizador puro sin ese problema. */
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
@@ -93,8 +100,8 @@ public class ModJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalysts(DAMAGE_SORT, Items.NETHERITE_SWORD);
-        registration.addRecipeCatalysts(ARMOR_SORT, Items.NETHERITE_CHESTPLATE);
+        registration.addRecipeCatalysts(DAMAGE_SORT, ModItems.ORBE_DE_ORIGENES.get());
+        registration.addRecipeCatalysts(ARMOR_SORT, ModItems.ANILLO_DE_PURIFICACION.get());
     }
 
     /** Suma solo los modifiers de tipo ADDITION (el "+X" que ya se ve en el tooltip vanilla). */
