@@ -464,6 +464,10 @@ public class ModEvents {
         }
         if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
             com.tcorigenes.tcorigenes.favor.FavorManager.syncToClient(serverPlayer);
+            // Re-manda la raza en cada respawn/cambio de dimension: cubre el caso de que la
+            // sincronizacion de login sola no alcance a llegar a tiempo para todos los clientes.
+            player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
+                    .ifPresent(raceInfo -> com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(serverPlayer, raceInfo.getRace()));
         }
     }
 

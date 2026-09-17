@@ -51,6 +51,7 @@ public final class ModModelLayers {
     }
 
     private static void addWing(PartDefinition root, String side, float xPivotSign, float angleSign) {
+        // Pivote subido de y=4.0 a y=2.0 (media espalda alta, no la zona lumbar) por pedido.
         for (int i = 0; i < FEATHERS_PER_WING; i++) {
             float length = 17.0F - i * 2.2F;
             float fanAngle = angleSign * (0.45F + i * 0.22F);
@@ -58,7 +59,7 @@ public final class ModModelLayers {
             CubeListBuilder builder = CubeListBuilder.create().texOffs(0, 0)
                     .addBox(0.0F, 0.0F, -0.5F, 1.0F, length, 1.0F);
             root.addOrReplaceChild(side + "_feather_" + i, builder,
-                    PartPose.offsetAndRotation(xPivotSign * 1.0F, 4.0F, 2.5F, droop, fanAngle, 0.0F));
+                    PartPose.offsetAndRotation(xPivotSign * 1.0F, 2.0F, 2.5F, droop, fanAngle, 0.0F));
         }
     }
 }
