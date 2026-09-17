@@ -1,38 +1,36 @@
 package com.tcorigenes.tcorigenes.compat.jei;
 
 import java.text.DecimalFormat;
-import java.util.List;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Categoria de JEI con UNA sola "receta" (toda la lista ordenada de una vez), mostrada como una
- * grilla scrolleable de items uno al lado del otro (como la lista de ingredientes normal), en
- * vez de una fila por item que obligaba a pasar de pagina en pagina. El valor (daño/armadura) se
- * ve en el tooltip al pasar el mouse por cada item.
+ * Categoria de JEI, una fila por item (icono + numero de daño/armadura), paginada con las
+ * flechas de arriba (ej "38/412"). Se probo una grilla con scroll para que se vean muchos items
+ * juntos como la lista de ingredientes normal, pero la API de JEI para eso no se comporto como
+ * documentado (termino dibujando sin limites, tapando toda la pantalla) - esta version paginada
+ * es la que funciona de forma estable.
  */
-public class StatSortCategory implements IRecipeCategory<StatSortRecipe> {
+public class StatSortCategory implements IRecipeCategory<StatEntry> {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.##");
-    private static final int COLUMNS = 9;
-    private static final int ROWS = 6;
-    private static final int WIDTH = COLUMNS * 18;
-    private static final int HEIGHT = ROWS * 18;
+    private static final int WIDTH = 90;
+    private static final int HEIGHT = 18;
 
-    private final RecipeType<StatSortRecipe> type;
+    private final RecipeType<StatEntry> type;
     private final Component title;
     private final IDrawable icon;
     private final IDrawable background;
 
-    public StatSortCategory(RecipeType<StatSortRecipe> type, Component title, ItemStack iconStack, IGuiHelper guiHelper) {
+    public StatSortCategory(RecipeType<StatEntry> type, Component title, ItemStack iconStack, IGuiHelper guiHelper) {
         this.type = type;
         this.title = title;
         this.icon = guiHelper.createDrawableItemStack(iconStack);
@@ -40,7 +38,7 @@ public class StatSortCategory implements IRecipeCategory<StatSortRecipe> {
     }
 
     @Override
-    public RecipeType<StatSortRecipe> getRecipeType() {
+    public RecipeType<StatEntry> getRecipeType() {
         return type;
     }
 
@@ -70,18 +68,13 @@ public class StatSortCategory implements IRecipeCategory<StatSortRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, StatSortRecipe recipe, IFocusGroup focuses) {
-        for (StatEntry entry : recipe.entries()) {
-            builder.addSlot(RecipeIngredientRole.OUTPUT)
-                    .addItemStack(entry.stack())
-                    .addTooltipCallback((slotView, tooltip) ->
-                            tooltip.add(Component.literal(recipe.statLabel() + ": " + FORMAT.format(entry.value()))));
-        }
+    public void setRecipe(IRecipeLayoutBuilder builder, StatEntry entry, IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 1, 1).addItemStack(entry.stack());
     }
 
     @Override
-    public void createRecipeExtras(IRecipeExtrasBuilder builder, StatSortRecipe recipe, IFocusGroup focuses) {
-        List<IRecipeSlotDrawable> slots = builder.getRecipeSlots().getSlots();
-        builder.addScrollGridWidget(slots, WIDTH, HEIGHT);
+    public void draw(StatEntry entry, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        guiGraphics.drawString(net.minecraft.client.Minecraft.getInstance().font,
+                FORMAT.format(entry.value()), 22, 5, 0x404040, false);
     }
 }

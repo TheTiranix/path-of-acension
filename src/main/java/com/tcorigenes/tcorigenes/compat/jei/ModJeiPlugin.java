@@ -30,8 +30,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
     private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath("tcorigenes", "jei_plugin");
-    public static final RecipeType<StatSortRecipe> DAMAGE_SORT = RecipeType.create("tcorigenes", "damage_sort", StatSortRecipe.class);
-    public static final RecipeType<StatSortRecipe> ARMOR_SORT = RecipeType.create("tcorigenes", "armor_sort", StatSortRecipe.class);
+    public static final RecipeType<StatEntry> DAMAGE_SORT = RecipeType.create("tcorigenes", "damage_sort", StatEntry.class);
+    public static final RecipeType<StatEntry> ARMOR_SORT = RecipeType.create("tcorigenes", "armor_sort", StatEntry.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -94,8 +94,8 @@ public class ModJeiPlugin implements IModPlugin {
                 "[tcorigenes] JEI: {} items con daño, {} con armadura ({} items tiraron error al leerlos)",
                 damageEntries.size(), armorEntries.size(), errors);
 
-        registration.addRecipes(DAMAGE_SORT, List.of(new StatSortRecipe(damageEntries, "Daño")));
-        registration.addRecipes(ARMOR_SORT, List.of(new StatSortRecipe(armorEntries, "Armadura")));
+        registration.addRecipes(DAMAGE_SORT, damageEntries);
+        registration.addRecipes(ARMOR_SORT, armorEntries);
     }
 
     @Override
