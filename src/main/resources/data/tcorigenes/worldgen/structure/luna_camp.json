@@ -1,0 +1,22 @@
+{
+  "type": "tcorigenes:faction_camp",
+  "faction": "luna",
+  "biomes": [
+    "minecraft:dark_forest",
+    "minecraft:taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "ars_nouveau:archwood_forest",
+    "quark:glimmering_weald",
+    "twilightforest:dark_forest",
+    "twilightforest:dark_forest_center",
+    "twilightforest:spooky_forest",
+    "twilightforest:enchanted_forest",
+    "twilightforest:glacier",
+    "twilightforest:snowy_forest",
+    "twilightforest:underground",
+    "alexscaves:abyssal_chasm"
+  ],
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

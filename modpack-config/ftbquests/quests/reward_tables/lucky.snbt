@@ -1,0 +1,166 @@
+{
+	id: "06338107B8C74E66"
+	loot_size: 1
+	order_index: 3
+	rewards: [
+		{
+			item: {
+				Count: 1
+				id: "relics:rage_glove"
+				tag: {
+					abilities: {
+						phlebotomy: {
+							points: 0
+							stats: {
+								attack_speed: 0.00892d
+								heal: 1.9E-4d
+								movement_speed: 0.01125d
+							}
+						}
+						rage: {
+							points: 0
+							stats: {
+								dealt_damage: 0.06867d
+								duration: 2.69646d
+								incoming_damage: 0.04266d
+							}
+						}
+						spurt: {
+							points: 0
+							stats: {
+								cooldown: 16.40931d
+								damage: 0.16403d
+								distance: 3.7738d
+							}
+						}
+					}
+				}
+			}
+		}
+		{
+			item: {
+				Count: 1
+				id: "relics:bastion_ring"
+				tag: {
+					abilities: {
+						trade: {
+							points: 0
+							stats: {
+								rolls: 0.62897d
+							}
+						}
+					}
+					affix_data: {
+						sockets: 1
+					}
+				}
+			}
+		}
+		{
+			item: {
+				Count: 1
+				id: "relics:holy_locket"
+				tag: {
+					abilities: {
+						belief: {
+							points: 0
+							stats: {
+								amount: 0.17897d
+								capacity: 11.31174d
+								count: 2.05312d
+								radius: 5.42534d
+							}
+						}
+						blessing: {
+							points: 0
+							stats: {
+								consumption: 6.27115d
+							}
+							temp: {
+								ticking: 1b
+							}
+						}
+						repentance: {
+							points: 0
+							stats: {
+								damage: 0.11557d
+								radius: 4.12521d
+							}
+						}
+					}
+					affix_data: {
+						sockets: 1
+					}
+				}
+			}
+		}
+		{
+			item: {
+				Count: 1
+				id: "relics:magic_mirror"
+				tag: {
+					abilities: {
+						teleport: {
+							points: 0
+							stats: {
+								cooldown: 84.28784d
+								distance: 575.08392d
+							}
+						}
+					}
+				}
+			}
+		}
+		{
+			item: {
+				Count: 1
+				id: "relics:midnight_robe"
+				tag: {
+					abilities: {
+						backstab: {
+							points: 0
+							stats: {
+								damage: 1.4778d
+								distance: 18.73746d
+							}
+						}
+						vanish: {
+							points: 0
+							stats: {
+								light: 1.85397d
+								speed: 0.22142d
+							}
+							temp: {
+								ticking: 1b
+							}
+						}
+					}
+				}
+			}
+		}
+		{
+			item: {
+				Count: 1
+				id: "relics:infinity_ham"
+				tag: {
+					abilities: {
+						autophagy: {
+							points: 0
+							stats: {
+								feed: 1.75653d
+							}
+						}
+						infusion: {
+							points: 0
+							stats: {
+								duration: 1.70023d
+							}
+						}
+					}
+					pieces: 10
+				}
+			}
+		}
+	]
+	title: "Lucky"
+}

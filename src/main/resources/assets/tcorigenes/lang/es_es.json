@@ -1,0 +1,20 @@
+{
+  "item.tcorigenes.orbe_de_origenes": "Orbe de Orígenes",
+  "item.tcorigenes.anillo_de_purificacion": "Anillo de Purificación",
+  "item.tcorigenes.bateria_lunar": "Batería Lunar",
+  "item.tcorigenes.vinculo_de_carne": "Vínculo de Carne",
+  "block.tcorigenes.altar_pater": "Altar de Pater",
+  "block.tcorigenes.altar_filis": "Altar de Filis",
+  "block.tcorigenes.altar_luna": "Altar de Luna",
+  "block.tcorigenes.altar_meidris": "Altar de Meidris",
+  "block.tcorigenes.altar_deiros": "Altar de Deiros",
+  "block.tcorigenes.altar_tempo": "Altar de Tempo",
+  "entity.tcorigenes.faction_npc": "NPC de Facción",
+  "creativetab.tcorigenes_tab": "TCOrigenes",
+  "key.categories.tcorigenes": "La Caída de los Dioses",
+  "key.tcorigenes.activate_ability": "Activar Habilidad",
+  "key.tcorigenes.open_ability_tree": "Abrir Árbol de Habilidades",
+  "key.tcorigenes.activate_racial": "Activar Habilidad Racial",
+  "ability.tcorigenes.furia_berserker.description": "+Daño, +Crítico por 10s, cooldown 5 min. Cuesta sangre.",
+  "ability.tcorigenes.guardia_total.description": "Invulnerabilidad total por 5s. Cooldown 60s."
+}

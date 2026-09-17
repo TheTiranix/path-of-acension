@@ -1,0 +1,26 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "ASA",
+    " N "
+  ],
+  "key": {
+    "S": {
+      "item": "testamentodelacarne:espada_anima_1"
+    },
+    "E": {
+      "item": "testamentodelacarne:engranaje_arcano"
+    },
+    "A": {
+      "item": "testamentodelacarne:alma_corrupta"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:espada_anima_2"
+  }
+}

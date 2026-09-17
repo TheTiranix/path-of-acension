@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "testamentodelacarne:item/corazon_de_piedra_inerte"
+  }
+}

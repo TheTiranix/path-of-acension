@@ -1,0 +1,33 @@
+{
+  "item.testamentodelacarne.fragmento_de_memoria": "Fragmento de Memoria",
+  "item.testamentodelacarne.corazon_de_piedra_inerte": "Corazón de Piedra Inerte",
+  "item.testamentodelacarne.engranaje_arcano": "Engranaje Arcano",
+  "item.testamentodelacarne.lente_de_la_verdad_oculta": "Lente de la Verdad Oculta",
+  "item.testamentodelacarne.lagrima_consagrada": "Lágrima Consagrada",
+  "item.testamentodelacarne.buscador_de_ecos": "Buscador de Ecos",
+  "item.testamentodelacarne.nucleo_de_automata": "Núcleo de Autómata",
+  "item.testamentodelacarne.alma_corrupta": "Alma Corrupta",
+  "item.testamentodelacarne.espada_anima_1": "Espada Ánima",
+  "item.testamentodelacarne.espada_anima_2": "Espada Ánima T2",
+  "item.testamentodelacarne.espada_anima_3": "Espada Ánima T3",
+  "item.testamentodelacarne.chasis_engranaje": "Chasis de Engranaje de Precisión",
+  "item.testamentodelacarne.gema_sangre_imbuida": "Gema de Sangre Imbuida",
+  "item.testamentodelacarne.reliquia_del_apostata": "Tiza bañada en sangre",
+
+
+
+
+  "tooltip.testamentodelacarne.nucleo_de_automata": "El corazón de una máquina ancestral. Zumba con un poder inimaginable.",
+  "tooltip.testamentodelacarne.fragmento_de_memoria": "Un eco cristalizado de un mundo olvidado.",
+  "tooltip.testamentodelacarne.corazon_de_piedra_inerte": "Palpita con una energía latente.",
+  "tooltip.testamentodelacarne.engranaje_arcano": "Dientes de metal frío grabados con runas calientes al tacto.",
+  "tooltip.testamentodelacarne.lente_de_la_verdad_oculta": "Permite ver las débiles costuras de la realidad.",
+  "tooltip.testamentodelacarne.lagrima_consagrada": "Una gota de agua bendecida...",
+  "tooltip.testamentodelacarne.buscador_de_ecos": "Esta extraña maquinaria resuena con el poder del Vacío.",
+  "tooltip.testamentodelacarne.alma_corrupta": "Una pequeña alma absorbida por la corrupcion.",
+  "tooltip.testamentodelacarne.espada_anima_1": "Sientes como la espada esta ligada a tu alma.",
+  "tooltip.testamentodelacarne.espada_anima_2": "Sientes como la espada esta ligada a tu alma.",
+  "tooltip.testamentodelacarne.espada_anima_3": "Sientes como la espada esta ligada a tu alma.",
+
+  "creativetab.testamento_tab": "Testamento de la Carne"
+}

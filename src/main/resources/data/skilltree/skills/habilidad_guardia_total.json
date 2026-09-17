@@ -1,0 +1,22 @@
+{
+  "id": "skilltree:habilidad_guardia_total",
+  "cost": 2,
+  "bonuses": [],
+  "directConnections": ["skilltree:pacto_iniciado"],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "minecraft:textures/item/shield.png",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Guardia Total",
+  "positionX": 225.0,
+  "positionY": 400.0,
+  "buttonSize": 50,
+  "isStartingPoint": false,
+  "description": [
+    {
+      "translate": "ability.tcorigenes.guardia_total.description"
+    }
+  ]
+}

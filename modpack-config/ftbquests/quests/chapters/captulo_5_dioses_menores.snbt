@@ -1,0 +1,168 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "captulo_5_dioses_menores"
+	group: "75FA889261D15232"
+	id: "3EB124278D62362A"
+	order_index: 4
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Descubres que en este mundo las creencias y la fe de la gente no eran puras idioteces. Luego de visitar distintas dimensiones y recolectar objetos unicos de este mundo, Unos dioses se presentan ante ti y te hablan sobre ellos... que representan....su nombre... Deberias elegir en quien creer...."]
+			id: "77A2BD2C26FCA053"
+			subtitle: "Esto sobrepasa tu entendimiento humano"
+			tasks: [
+				{
+					id: "708548A14F40323F"
+					title: "PATER"
+					type: "checkmark"
+				}
+				{
+					id: "573AE4E8CF4AB97B"
+					title: "MEIDRIS"
+					type: "checkmark"
+				}
+				{
+					id: "29155FF7A0A24780"
+					title: "FILIS"
+					type: "checkmark"
+				}
+				{
+					id: "6D7B0FCD4C5DDE92"
+					title: "LUNA"
+					type: "checkmark"
+				}
+			]
+			title: "Los Dioses menores"
+			x: 0.5d
+			y: -1.0d
+		}
+		{
+			id: "36113DA6D0ABB05D"
+			tasks: [{
+				id: "46C619213D85D10B"
+				type: "checkmark"
+			}]
+			x: 6.5d
+			y: 2.5d
+		}
+		{
+			id: "2B76D2F1BCC2C234"
+			tasks: [{
+				id: "1AEDC8076F8F9ED3"
+				type: "checkmark"
+			}]
+			x: 3.5d
+			y: 2.5d
+		}
+		{
+			id: "3B0BECD679370690"
+			tasks: [{
+				id: "233A1A340E458A03"
+				type: "checkmark"
+			}]
+			x: 1.0d
+			y: 2.5d
+		}
+		{
+			id: "3657381B98344D0E"
+			tasks: [{
+				id: "4B0EED5EA6623325"
+				type: "checkmark"
+			}]
+			x: -1.5d
+			y: 2.5d
+		}
+		{
+			id: "0AF9E3640A3E8DA9"
+			tasks: [{
+				id: "5801E2D7E7613FE7"
+				type: "checkmark"
+			}]
+			x: -4.0d
+			y: 2.5d
+		}
+		{
+			id: "57DA2CA7773C89B2"
+			tasks: [{
+				id: "22635C5311721984"
+				type: "checkmark"
+			}]
+			x: -6.5d
+			y: 2.5d
+		}
+		{
+			id: "7D455B0A87002AC7"
+			tasks: [{
+				id: "0B6C5814BB6A4F2A"
+				type: "checkmark"
+			}]
+			x: -2.5d
+			y: 5.0d
+		}
+		{
+			id: "090E220526C7315A"
+			tasks: [{
+				id: "32E695DB5B40EA87"
+				type: "checkmark"
+			}]
+			x: 0.0d
+			y: 5.0d
+		}
+		{
+			id: "54DB34641A2AFEF0"
+			tasks: [{
+				id: "5BA2E3B84ABC2192"
+				type: "checkmark"
+			}]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			id: "531B568D9544C94E"
+			tasks: [{
+				id: "6491AC71921ED45E"
+				type: "checkmark"
+			}]
+			x: 4.5d
+			y: 5.0d
+		}
+		{
+			id: "46C4E394F00C4015"
+			tasks: [{
+				id: "5E12D76422037941"
+				type: "checkmark"
+			}]
+			x: -4.5d
+			y: 5.0d
+		}
+		{
+			id: "1E6813A4A192FE6F"
+			tasks: [{
+				id: "2D0FA51675491E0A"
+				type: "checkmark"
+			}]
+			x: -1.5d
+			y: 7.0d
+		}
+		{
+			id: "6ED72E160DF6CBCD"
+			tasks: [{
+				id: "1DECC1420B0E795C"
+				type: "checkmark"
+			}]
+			x: 0.5d
+			y: 7.0d
+		}
+		{
+			id: "6966251937B34FC1"
+			tasks: [{
+				id: "6AA21A058E6657FC"
+				type: "checkmark"
+			}]
+			x: 2.5d
+			y: 7.0d
+		}
+	]
+	title: "Capítulo 5: \"Dioses Menores\""
+}

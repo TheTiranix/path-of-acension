@@ -1,0 +1,16 @@
+{
+  "structures": [
+    { "structure": "tcorigenes:pater_camp", "weight": 1 },
+    { "structure": "tcorigenes:filis_camp", "weight": 1 },
+    { "structure": "tcorigenes:meidris_camp", "weight": 1 },
+    { "structure": "tcorigenes:luna_camp", "weight": 1 },
+    { "structure": "tcorigenes:deiros_camp", "weight": 1 },
+    { "structure": "tcorigenes:tempo_camp", "weight": 1 }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 24,
+    "separation": 10,
+    "salt": 336712
+  }
+}

@@ -1,0 +1,701 @@
+{
+	autofocus_id: "3CDDDA4E4BA3B574"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "captulo_1_el_despertar_sin_fe"
+	group: "75FA889261D15232"
+	id: "3CF29414CE0CBD02"
+	images: [{
+		height: 50.0d
+		image: "kubejs:textures/gui/quest/background.png"
+		rotation: 0.0d
+		width: 50.0d
+		x: -2.5d
+		y: 2.0d
+	}]
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["3A36DDF9C343D4A1"]
+			description: [" El mundo que conocía ya no existe. Solo quedan fragmentos, ecos de una realidad rota. Mi primer instinto, el único que me queda, es sobrevivir. Debo construir un refugio, por primitivo que sea, para ver el amanecer de este nuevo y terrible mundo."]
+			icon: "minecraft:torch"
+			id: "3CDDDA4E4BA3B574"
+			progression_mode: "linear"
+			rewards: [
+				{
+					id: "4C6387C4FF4A08F3"
+					item: {
+						Count: 1
+						id: "minecraft:wooden_pickaxe"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4739A45C60FD024A"
+					item: {
+						Count: 1
+						id: "minecraft:wooden_axe"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "32C721F2D6FDD50C"
+					item: {
+						Count: 1
+						id: "minecraft:wooden_sword"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 16
+					id: "2C27079C938CFE26"
+					item: "minecraft:bread"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "52A7E992E0234627"
+					item: "minecraft:apple"
+					type: "item"
+				}
+				{
+					count: 4
+					id: "2F08EE15C1A325DD"
+					item: "minecraft:torch"
+					type: "item"
+				}
+			]
+			size: 2.0d
+			subtitle: "La noche se acerca. Los susurros en la oscuridad no son producto de mi imaginación. Necesito herramientas, un refugio... algo para ver a lo que me acecha."
+			tasks: [{
+				id: "07B4311064E3A286"
+				item: "minecraft:crafting_table"
+				type: "item"
+			}]
+			title: "Un Eco en la Oscuridad"
+			x: 0.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["3CDDDA4E4BA3B574"]
+			dependency_requirement: "all_started"
+			description: ["Mientras buscaba entre las ruinas de este mundo muerto, encontré algo... diferente. Un cristal que pulsa con una luz tenue y susurra ecos de un tiempo olvidado. No es un mineral. Es un recuerdo, una pieza del alma rota de este mundo. Siento que debo reunir más de estos..."]
+			id: "0FB8A71917E13644"
+			progression_mode: "linear"
+			rewards: [
+				{
+					id: "0DF2AA65239A54D1"
+					type: "xp_levels"
+					xp_levels: 20
+				}
+				{
+					command: "/playsound minecraft:entity.warden.listening player @p"
+					id: "16417631728A60BA"
+					type: "command"
+				}
+			]
+			subtitle: "Un sonido resonante que vibra en tu alma. (Este comando reproducirá un sonido místico para el jugador al completar la misión, aumentando la inmersión)."
+			tasks: [{
+				id: "76E8C456BD090FBA"
+				item: "testamentodelacarne:fragmento_de_memoria"
+				type: "item"
+			}]
+			title: "Susurros Cristalizados"
+			x: 2.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3CDDDA4E4BA3B574"]
+			description: ["Los muertos no descansan. Se arrastran fuera de sus tumbas, con la carne podrida y los ojos vacíos. No son monstruos sin mente; son un recordatorio de lo que nos espera a todos si fallamos. Debo limpiar esta plaga, al menos en mi pequeño rincón de este infierno."]
+			icon: "minecraft:rotten_flesh"
+			id: "189961DE9070A239"
+			rewards: [
+				{
+					id: "2F8EF38F44DB2378"
+					item: {
+						Count: 1
+						id: "minecraft:iron_sword"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5AF2B67BD8FFE4B0"
+					item: {
+						Count: 1
+						id: "minecraft:iron_chestplate"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "Un arma mejor. La necesitaré."
+			tasks: [{
+				entity: "minecraft:zombie"
+				id: "7EA73A57FA7E2E7F"
+				type: "kill"
+				value: 20L
+			}]
+			title: "La Carne Corrupta"
+			x: 0.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["189961DE9070A239"]
+			description: ["La magia de los dioses ha muerto, pero el ingenio del hombre sobrevive. He encontrado diagramas que hablan de mecanismos, de engranajes y de la fuerza del movimiento. Quizás este es el camino. Si no puedo confiar en los cielos, confiaré en el acero. Este es el primer paso en la Senda del Acero."]
+			id: "6316FAAF839EE1BF"
+			rewards: [
+				{
+					count: 4
+					id: "7E24F41F60576998"
+					item: "create:andesite_alloy"
+					type: "item"
+				}
+				{
+					id: "61CCACE355543179"
+					type: "xp_levels"
+					xp_levels: 15
+				}
+			]
+			tasks: [{
+				id: "7F6D3CDB46E038A2"
+				item: "create:cogwheel"
+				type: "item"
+			}]
+			title: "La Rueda del Progreso"
+			x: 3.0d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3CDDDA4E4BA3B574"]
+			description: ["Las paredes no detendrán los susurros, pero mantendrán a raya a las bestias. Necesito un techo, un lugar al que pueda llamar \"seguro\", aunque sea una mentira."]
+			id: "299E87845C5935B7"
+			rewards: [
+				{
+					id: "142876D4D88B6F23"
+					item: "minecraft:red_bed"
+					type: "item"
+				}
+				{
+					count: 2
+					id: "4B492636DB9C354D"
+					item: "minecraft:chest"
+					type: "item"
+				}
+				{
+					id: "2F1A602A67A7DBF8"
+					item: "sophisticatedbackpacks:backpack"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "450CF07E5A007543"
+				title: "He construido mi primer refugio"
+				type: "checkmark"
+			}]
+			title: "El Primer Refugio"
+			x: 3.5d
+			y: -0.5d
+		}
+		{
+			dependencies: [
+				"3CDDDA4E4BA3B574"
+				"299E87845C5935B7"
+				"0FB8A71917E13644"
+			]
+			description: ["He reunido estos fragmentos rotos del mundo. Siento que, si los uno con la materia más fundamental, la piedra, podría recrear algo. Un catalizador. Un corazón para un mundo que ya no tiene uno."]
+			id: "080DC894E762EB0C"
+			rewards: [{
+				id: "1BE981AD201960BC"
+				type: "xp_levels"
+				xp_levels: 25
+			}]
+			tasks: [{
+				id: "5CED9CB23BEE2A6E"
+				item: "testamentodelacarne:corazon_de_piedra_inerte"
+				type: "item"
+			}]
+			title: "El Corazón Palpitante"
+			x: 3.5d
+			y: 1.5d
+		}
+		{
+			dependencies: ["080DC894E762EB0C"]
+			description: ["Con este corazón de piedra, siento que puedo imbuir su esencia en mis herramientas. No será mucho, pero es un comienzo. Un hacha para talar este bosque muerto, un pico para cavar en las entrañas de este mundo herido."]
+			id: "532D8639E4CD8329"
+			rewards: [
+				{
+					count: 8
+					id: "42378BF4CBC44E8E"
+					item: "minecraft:coal"
+					type: "item"
+				}
+				{
+					count: 4
+					id: "353E2D5D83D8AF39"
+					item: "minecraft:raw_iron"
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "1FE7A542559C475C"
+					item: {
+						Count: 1
+						id: "minecraft:stone_pickaxe"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "2AE9A89D0A5B67AA"
+					item: {
+						Count: 1
+						id: "minecraft:stone_axe"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "La Primera Herramienta Verdadera"
+			x: 5.5d
+			y: 2.5d
+		}
+		{
+			description: ["Has despertado sin pacto ni memoria. El mundo es una cicatriz. Sobrevive."]
+			id: "3A36DDF9C343D4A1"
+			size: 3.0d
+			tasks: [{
+				id: "71F811849EEE83DB"
+				title: "Un mundo roto"
+				type: "checkmark"
+			}]
+			title: "Un Mundo Roto"
+			x: 0.0d
+			y: -5.0d
+		}
+		{
+			dependencies: ["189961DE9070A239"]
+			description: ["La vida arrebatada deja un eco. Esta esencia corrupta puede ser la clave."]
+			id: "0E160F9EFF1A59A2"
+			tasks: [{
+				id: "3FFABE06E444B710"
+				item: "testamentodelacarne:alma_corrupta"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 5.0d
+		}
+		{
+			description: [" La carne es débil, pero la piel de otras criaturas puede proteger la tuya. Caza para sobrevivir y obtener los materiales necesarios."]
+			id: "4758BC7BC14B3D4A"
+			rewards: [
+				{
+					count: 2
+					id: "3F9ADA3CDCDCDA7C"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+				{
+					id: "19974F4146B4FFA9"
+					type: "xp_levels"
+					xp_levels: 5
+				}
+			]
+			size: 2.5d
+			subtitle: "Piel y Hueso"
+			tasks: [{
+				count: 24L
+				id: "180591FF5CAFF6FF"
+				item: { Count: 24, id: "minecraft:leather" }
+				type: "item"
+			}]
+			title: "Vestigios de Protección"
+			x: -6.5d
+			y: -4.0d
+		}
+		{
+			dependencies: ["4758BC7BC14B3D4A"]
+			description: ["Una protección rudimentaria, pero te mantendrá con vida un poco más. Cada pieza cuenta."]
+			id: "753524E5DF0F74C9"
+			rewards: [
+				{
+					count: 3
+					id: "121687B6537D3151"
+					item: "testamentodelacarne:fragmento_de_memoria"
+					type: "item"
+				}
+				{
+					id: "51E05E1B603AA6FE"
+					type: "xp_levels"
+					xp_levels: 5
+				}
+			]
+			tasks: [
+				{
+					id: "70B0679F9794E722"
+					item: {
+						Count: 1
+						id: "minecraft:leather_helmet"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1A2FC454109E15F7"
+					item: {
+						Count: 1
+						id: "minecraft:leather_chestplate"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "587BB53405EC5125"
+					item: {
+						Count: 1
+						id: "minecraft:leather_leggings"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "58D96477E0AFBEA0"
+					item: {
+						Count: 1
+						id: "minecraft:leather_boots"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5F40D5CFC837DC21"
+					item: {
+						Count: 1
+						id: "aether:leather_gloves"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "Armadura Primitiva"
+			x: -8.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["4758BC7BC14B3D4A"]
+			description: ["Para trabajar los metales necesitarás una forja. Las viejas formas han sido olvidadas; solo el poder de un Corazón de Piedra puede dar forma al hierro."]
+			id: "3E621DDC5C652761"
+			rewards: [{
+				count: 5
+				id: "7B4DD6F82230790A"
+				item: "minecraft:iron_ingot"
+				type: "item"
+			}]
+			tasks: [{
+				id: "2AC75A1F5852DBCC"
+				item: "minecraft:anvil"
+				type: "item"
+			}]
+			title: "La Forja Olvidada"
+			x: -4.5d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"753524E5DF0F74C9"
+				"3E621DDC5C652761"
+			]
+			description: ["El hierro es la voluntad del hombre hecha materia. Fórjate una nueva piel, una más resistente. Estarás más preparado para los horrores que acechan."]
+			id: "7A47993D73215E44"
+			rewards: [
+				{
+					id: "734322CA49D3C573"
+					item: {
+						Count: 1
+						id: "minecraft:iron_pickaxe"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6D167AD17F9F70FC"
+					item: {
+						Count: 1
+						id: "minecraft:enchanted_book"
+						tag: {
+							StoredEnchantments: [{
+								id: "minecraft:efficiency"
+								lvl: 1s
+							}]
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "323821EB496C18DF"
+					item: {
+						Count: 1
+						id: "minecraft:iron_helmet"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6F7EF84CA8E09EA2"
+					item: {
+						Count: 1
+						id: "minecraft:iron_chestplate"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "54BCED9991A31668"
+					item: {
+						Count: 1
+						id: "minecraft:iron_leggings"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6C182D014834B969"
+					item: {
+						Count: 1
+						id: "minecraft:iron_boots"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "Coraza de Hierro"
+			x: -6.5d
+			y: 1.0d
+		}
+		{
+			description: ["En este mundo, la luz no es eterna. Aprende a crear fuentes de luz temporales para mantener a raya a las sombras... por un tiempo."]
+			id: "0FFFFD9AA8F9734B"
+			rewards: [{
+				count: 8
+				id: "1F17FB551A5FBB2A"
+				item: "minecraft:coal"
+				type: "item"
+			}]
+			size: 2.0d
+			subtitle: "Luz en la Oscuridad"
+			tasks: [{
+				count: 16L
+				id: "3A74922D091B9160"
+				item: { Count: 16, id: "realistictorches:lit_torch" }
+				type: "item"
+			}]
+			title: "Herramientas del Apóstata"
+			x: 10.0d
+			y: -5.0d
+		}
+		{
+			dependencies: ["0FFFFD9AA8F9734B"]
+			description: ["Adéntrate en las profundidades. El mundo esconde sus tesoros para aquellos lo suficientemente valientes como para arrancárselos de sus entrañas de piedra."]
+			id: "56BE9FA8632AB6C6"
+			rewards: [{
+				id: "49B76AB0BB57773F"
+				item: {
+					Count: 1
+					id: "minecraft:shield"
+					tag: {
+						Damage: 0
+						affix_data: {
+							sockets: 1
+						}
+					}
+				}
+				type: "item"
+			}]
+			tasks: [{
+				count: 32L
+				id: "45459F9A548DD215"
+				item: { Count: 32, id: "minecraft:iron_ingot" }
+				type: "item"
+			}]
+			title: "El Corazón de la Montaña"
+			x: 10.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["56BE9FA8632AB6C6"]
+			description: ["Un arma para defenderte, un hacha para dominar la madera y un pico para desgarrar la piedra. El trío esencial para cualquier apóstata que se precie."]
+			id: "34609AAAE4B24103"
+			rewards: [
+				{
+					id: "0917375088B8FE8C"
+					item: {
+						Count: 1
+						id: "minecraft:bow"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 16
+					id: "1B5B39D02D6E9506"
+					item: "minecraft:arrow"
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "603492BACC503B6A"
+					item: {
+						Count: 1
+						id: "minecraft:iron_sword"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "3F2B03EDF3A8B8B1"
+					item: {
+						Count: 1
+						id: "minecraft:iron_axe"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "556ADF8A872844B5"
+					item: {
+						Count: 1
+						id: "minecraft:iron_pickaxe"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "Arsenal Básico"
+			x: 8.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["56BE9FA8632AB6C6"]
+			description: ["El conocimiento arcano no se regala. Solo combinando la lógica y la materia podrás empezar a doblegar la magia a tu voluntad."]
+			id: "0BF0F7277E802CBD"
+			rewards: [
+				{
+					count: 10
+					id: "56310576AED77B1A"
+					item: "minecraft:lapis_lazuli"
+					type: "item"
+				}
+				{
+					count: 3
+					id: "4E8FD6CB3D18333C"
+					item: "minecraft:book"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "5BE5D954A348BAF6"
+				item: "minecraft:enchanting_table"
+				type: "item"
+			}]
+			title: "El Primer Encantamiento"
+			x: 12.5d
+			y: -2.0d
+		}
+	]
+	title: "Capítulo 1: \"El Despertar sin Fe\""
+}

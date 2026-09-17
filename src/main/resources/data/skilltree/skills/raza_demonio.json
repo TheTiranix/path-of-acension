@@ -1,0 +1,28 @@
+{
+  "id": "skilltree:raza_demonio",
+  "cost": 1,
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "id": "c2be8252-4fcb-5f8e-8d56-29cf62650d6d",
+      "name": "Raza",
+      "amount": 0.5,
+      "operation": 0,
+      "player_multiplier": { "type": "skilltree:none" },
+      "player_condition": { "type": "skilltree:none" }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "minecraft:textures/item/blaze_powder",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Origen: Demonio",
+  "positionX": -195.0,
+  "positionY": -450.0,
+  "buttonSize": 50,
+  "isStartingPoint": false
+}

@@ -1,0 +1,293 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "captulo_2_la_bifurcacin_del_saber"
+	group: "75FA889261D15232"
+	id: "4EF84125AC834FF2"
+	images: [{
+		height: 1.0d
+		image: "create:textures/gui/title/background/panorama_0.png"
+		rotation: 0.0d
+		width: 1.0d
+		x: 7.5d
+		y: -1.5d
+	}]
+	order_index: 1
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["0FB8A71917E13644"]
+			description: ["Los Fragmentos de Memoria resuenan en mi mente. Ya no veo el mundo como antes. Percibo... tensiones. Una lucha silenciosa entre fuerzas que no comprendo. Una energía salvaje y sangrienta que emana de la tierra, una lógica fría y metálica que yace dormida en la piedra, y un eco de orden casi divino en los patrones del mundo. Para entender, debo ver más allá de mis ojos mortales."]
+			id: "25A7A88A2D621E5F"
+			rewards: [{
+				id: "7496E2BB9510C297"
+				type: "xp"
+				xp: 200
+			}]
+			size: 2.5d
+			subtitle: "Tus ojos se han abierto. Tres caminos se revelan ante ti. Elige sabiamente, pues no se puede servir a dos señores."
+			tasks: [{
+				id: "6A4D6E219CF0C158"
+				item: "testamentodelacarne:lente_de_la_verdad_oculta"
+				type: "item"
+			}]
+			title: "El Velo se Rasga"
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["25A7A88A2D621E5F"]
+			description: ["La tierra está viva y tiene sed. Siento su poder primordial llamándome. No es un poder de intelecto o de fe, sino de instinto, de vida y de muerte. Para comulgar con él, debo ofrecerle una parte de mí. La sangre llama a la sangre."]
+			id: "1F34465FCBAC96F5"
+			rewards: [
+				{
+					id: "6CEEC46C11E7549F"
+					item: {
+						Count: 1
+						id: "occultism:dictionary_of_spirits"
+						tag: {
+							"modonomicon:book_id": "occultism:dictionary_of_spirits"
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 4
+					id: "31F1A39D92917249"
+					item: "occultism:otherworld_ashes"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "0935CBEA95B0859B"
+				item: {
+					Count: 1
+					id: "occultism:butcher_knife"
+					tag: {
+						Damage: 0
+					}
+				}
+				type: "item"
+			}]
+			title: "El Pacto de Sangre"
+			x: 0.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["1F34465FCBAC96F5"]
+			description: ["Este libro... habla de patrones, de pentáculos que pueden canalizar el poder crudo del Otro Lado. No es un poder que se pueda contener, solo dirigir. Debo dibujar mi primer círculo y prepararme para lo que pueda responder."]
+			id: "20F8693024EF2A80"
+			rewards: [
+				{
+					count: 4
+					id: "1228B8C1A265059A"
+					item: "minecraft:candle"
+					type: "item"
+				}
+				{
+					id: "7FBF6348D42A8A76"
+					type: "xp_levels"
+					xp_levels: 10
+				}
+			]
+			tasks: [
+				{
+					id: "14FFE950E01201E2"
+					item: {
+						Count: 1
+						id: "occultism:chalk_gold"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					icon: {
+						Count: 1
+						id: "occultism:chalk_white"
+						tag: {
+							Damage: 0
+						}
+					}
+					id: "04A8E021ACC4BECA"
+					optional_task: true
+					title: "Craftear y colocar un círculo de occultism:chalk_glyph_white"
+					type: "custom"
+				}
+			]
+			title: "El Primer Círculo"
+			x: 0.0d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1F34465FCBAC96F5"]
+			description: ["El universo no es caótico, es un gran mecanismo. Cada río que fluye, cada ráfaga de viento, es energía esperando ser aprovechada. Rechazo los susurros de los dioses y abrazo la certeza de la física. La energía cinética será mi primer dogma."]
+			icon: "create:water_wheel"
+			id: "397BB22C8F3AC751"
+			rewards: [
+				{
+					count: 4
+					id: "3AF747A2EE3B4D01"
+					item: "create:large_cogwheel"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "1391CD60A988ADB1"
+					item: "create:shaft"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "1D15447EEF4EC9F5"
+				item: "create:water_wheel"
+				type: "item"
+			}]
+			title: "La Lógica del Movimiento"
+			x: 2.5d
+			y: 3.0d
+		}
+		{
+			dependencies: ["397BB22C8F3AC751"]
+			description: ["La rotación por sí sola no es nada. Debo convertir este movimiento en trabajo útil. La compresión, la fuerza bruta aplicada con precisión, me permitirá dar forma a los metales y construir las bases de un nuevo orden, uno basado en la lógica y la eficiencia."]
+			id: "41BD077068BC910F"
+			rewards: [
+				{
+					count: 16
+					id: "1F6C864E827DEC90"
+					item: "create:zinc_nugget"
+					type: "item"
+				}
+				{
+					id: "7BF8B91DD31694D7"
+					type: "xp"
+					xp: 500
+				}
+			]
+			tasks: [{
+				id: "4D2A16713875D4CE"
+				item: "create:mechanical_press"
+				type: "item"
+			}]
+			title: "La Fuerza de la Compresión"
+			x: 5.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["25A7A88A2D621E5F"]
+			dependency_requirement: "one_completed"
+			description: ["Entre el caos de la sangre y la frialdad del acero, existe un camino intermedio. El poder de la intención, de dar forma a la realidad a través de la voluntad y el conocimiento. No es un pacto, es un estudio. Para empezar, necesito un lienzo para mis pensamientos, un lugar donde anotar las palabras de poder que empiezan a formarse en mi mente."]
+			id: "07C3BBEF32DCC0B3"
+			rewards: [{
+				count: 10
+				id: "04E65FC7D74B475E"
+				item: "ars_nouveau:source_gem"
+				type: "item"
+			}]
+			tasks: [{
+				id: "6DCA5845B85B1D91"
+				item: "ars_nouveau:worn_notebook"
+				type: "item"
+			}]
+			title: "El Verbo y la Forma"
+			x: 0.0d
+			y: -3.5d
+		}
+		{
+			dependencies: ["07C3BBEF32DCC0B3"]
+			description: ["La magia es un lenguaje. El libro es mi diccionario, pero necesito aprender la gramática. El primer concepto, el más fundamental, es el \"Yo\". Todo hechizo nace de la intención del lanzador. Debo inscribir esta primera verdad."]
+			id: "4E467AABA66F3866"
+			rewards: [{
+				exclude_from_claim_all: true
+				id: "028D5F780E104119"
+				table_id: 8915080205900394279L
+				type: "choice"
+			}]
+			tasks: [{
+				id: "5417F4D22667EB21"
+				item: "ars_nouveau:glyph_self"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["397BB22C8F3AC751"]
+			description: ["La fuerza bruta no basta. Para extraer la verdadera esencia de los metales, primero debes reducirlos a polvo. Conecta el molino a tu rueda y descubre el primer paso hacia la multiplicación de recursos."]
+			id: "2E60869B48FCB5D7"
+			rewards: [{
+				id: "1C9CB245364388B2"
+				item: "create:goggles"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "1835B19595651654"
+					item: "create:millstone"
+					type: "item"
+				}
+				{
+					id: "61D6186FD366E983"
+					item: "occultism:iron_dust"
+					type: "item"
+				}
+			]
+			title: "Piedra Molida"
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["07C3BBEF32DCC0B3"]
+			description: ["Tus ideas deben tomar forma. Esta mesa te permitirá transcribir los glifos de poder, los verbos del universo, en pergaminos que podrás usar para construir tus hechizos."]
+			id: "1D62B938722BA253"
+			rewards: [{
+				count: 16
+				id: "60CA0A21E2634BC9"
+				item: "ars_nouveau:blank_parchment"
+				type: "item"
+			}]
+			tasks: [{
+				id: "6C34FEA89A8305A1"
+				item: "ars_nouveau:scribes_table"
+				type: "item"
+			}]
+			title: "El Verbo y la Forma"
+			x: -2.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["07C3BBEF32DCC0B3"]
+			description: ["Combina el verbo y la forma. Crea tu primer grimorio y plásmale el hechizo más fundamental: tomar la energía y lanzarla. Este es el primer paso para doblegar la realidad a tu voluntad."]
+			id: "0F49B703AACB8028"
+			rewards: [{
+				count: 3
+				id: "56FE72F83FD9801F"
+				item: {
+					Count: 1
+					id: "rpgsmw:smallmanapotion"
+					tag: {
+						Damage: 0
+					}
+				}
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "569EDD7B03DA7B6C"
+					item: "ars_nouveau:novice_spell_book"
+					type: "item"
+				}
+				{
+					id: "188C9561018D5FE8"
+					item: "ars_nouveau:glyph_projectile"
+					type: "item"
+				}
+			]
+			title: "Tu Primer Hechizo"
+			x: 1.0d
+			y: -5.5d
+		}
+	]
+	title: " Capítulo 2: \"La Bifurcación del Saber\"."
+}

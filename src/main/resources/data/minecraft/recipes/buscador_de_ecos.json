@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "bloodmagic"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " E ",
+          "LCL",
+          " F "
+        ],
+        "key": {
+          "E": {
+            "item": "testamentodelacarne:engranaje_arcano"
+          },
+          "L": {
+            "item": "testamentodelacarne:lagrima_consagrada"
+          },
+          "C": {
+            "item": "bloodmagic:weakbloodorb"
+          },
+          "F": {
+            "item": "testamentodelacarne:corazon_de_piedra_inerte"
+          }
+        },
+        "result": {
+          "item": "testamentodelacarne:buscador_de_ecos"
+        }
+      }
+    }
+  ]
+}

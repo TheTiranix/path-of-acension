@@ -1,0 +1,718 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "captulo_3___abriendo_los_viejos_caminos"
+	group: "75FA889261D15232"
+	id: "04FFB2A65619BEA3"
+	images: [{
+		height: 50.0d
+		image: "kubejs:textures/gui/quest/background2.png"
+		rotation: 0.0d
+		width: 50.0d
+		x: 7.5d
+		y: 2.5d
+	}]
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["25A7A88A2D621E5F"]
+			description: ["Mis nuevos sentidos perciben una resonancia... un eco persistente de un mundo que no debería estar aquí. Un bosque atrapado en un crepúsculo eterno, un lugar donde la naturaleza misma se ha vuelto salvaje y consciente. Los textos lo llaman el Dominio Crepuscular. Para entrar, no se necesita una puerta de obsidiana, sino una llave de sangre, flores y un diamante que refleje la luz de las estrellas."]
+			icon: "twilightforest:magic_map"
+			id: "25A77E3FB9714DA7"
+			rewards: [
+				{
+					id: "6CB680E2395899D5"
+					item: "relics:researching_table"
+					type: "item"
+				}
+				{
+					count: 4
+					id: "65563872453E9573"
+					item: "minecraft:cooked_mutton"
+					type: "item"
+				}
+				{
+					id: "086E9467E3B87DBA"
+					type: "xp"
+					xp: 100
+				}
+				{
+					command: "/season set early_winter"
+					id: "0AEDF166E4F153B1"
+					title: "El Inverno se acerca "
+					type: "command"
+				}
+			]
+			size: 3.0d
+			tasks: [
+				{
+					id: "2A7D9E80E2EF61C3"
+					title: " Realizar el ritual de apertura del portal a The Twilight Forest (lanzar un diamante a un estanque de 2x2 de agua rodeado de flores)."
+					type: "checkmark"
+				}
+				{
+					id: "358C119B250FBDDD"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "640140A3BCBCD5B6"
+					item: { Count: 4, id: "minecraft:rose_bush" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "681956DBB51D6C43"
+					item: { Count: 64, id: "minecraft:dandelion" }
+					type: "item"
+				}
+			]
+			title: "El Corazón del Bosque"
+			x: 0.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["25A77E3FB9714DA7"]
+			description: ["He cruzado el umbral. El aire aquí es pesado, antiguo. Cada sombra parece moverse. Siento ojos observándome, no de monstruos comunes, sino de guardianes primordiales. Para adentrarme en este dominio, debo demostrar mi valía y eliminar a uno de sus centinelas: las voraces plantas carnívoras conocidas como Foliaath."]
+			id: "28CAC4D6A87F4907"
+			rewards: [
+				{
+					count: 4
+					id: "5514AC21FD869A62"
+					item: "twilightforest:ironwood_ingot"
+					type: "item"
+				}
+				{
+					id: "138A0780F779BF1A"
+					item: {
+						Count: 1
+						id: "relics:jellyfish_necklace"
+						tag: {
+							abilities: {
+								paralysis: {
+									points: 0
+									stats: {
+										duration: 1.03386d
+									}
+								}
+								shock: {
+									points: 0
+									stats: {
+										damage: 1.99533d
+									}
+									temp: {
+										ticking: 1b
+									}
+								}
+							}
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				entity: "mowziesmobs:foliaath"
+				icon: "mowziesmobs:foliaath_seed"
+				id: "25CE3B05A264E2DB"
+				title: "KILL foliaath"
+				type: "kill"
+				value: 1L
+			}]
+			title: "El Guardián de la Entrada"
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["28CAC4D6A87F4907"]
+			description: ["Occultism solo me enseñó a pedir prestado el poder. Aquí, en el Dominio Crepuscular, siento una verdad más profunda y terrible: el poder no se pide, se toma. Y el catalizador más potente es la esencia de la vida misma: la sangre. He encontrado un texto que habla de un arte prohibido, una magia que se alimenta del sacrificio..."]
+			id: "239950B08AC29CB3"
+			rewards: [
+				{
+					id: "560E4C3F5A91B103"
+					item: "bloodmagic:weakbloodorb"
+					type: "item"
+				}
+				{
+					id: "3B271D72A1335491"
+					item: "bloodmagic:altar"
+					type: "item"
+				}
+				{
+					exclude_from_claim_all: true
+					id: "413DC2DF7FEC079B"
+					table_id: 18760584328938450L
+					type: "choice"
+				}
+			]
+			tasks: [{
+				id: "54FB925A7B9BBDA8"
+				item: {
+					Count: 1
+					id: "bloodmagic:sacrificialdagger"
+					tag: { }
+				}
+				type: "item"
+			}]
+			title: "La Sangre es la Vida"
+			x: 2.0d
+			y: 1.5d
+		}
+		{
+			dependencies: ["239950B08AC29CB3"]
+			description: ["Esta piedra rúnica será el foco de tu poder. Es aquí donde la vida se convierte en magia. Colócala bajo el cielo abierto, donde los dioses puedan ver tu devoción"]
+			id: "7B8834DFDFBF3CC0"
+			rewards: [{
+				id: "551CEDAFE58DC471"
+				type: "xp"
+				xp: 500
+			}]
+			tasks: [{
+				id: "790F4882CF92C3B4"
+				item: "bloodmagic:altar"
+				type: "item"
+			}]
+			title: "Un Altar para la Sangre"
+			x: 2.0d
+			y: 4.0d
+		}
+		{
+			dependencies: ["7B8834DFDFBF3CC0"]
+			description: ["El altar tiene sed. Ofrécele tu vida. Siente cómo tu esencia fluye hacia la piedra, lista para ser moldeada. Este es tu primer pacto con la Madre Silente."]
+			id: "632C92E63F82B04F"
+			rewards: [{
+				id: "024C7D8BB796B72C"
+				item: {
+					Count: 1
+					id: "patchouli:guide_book"
+					tag: {
+						"patchouli:book": "bloodmagic:guide"
+					}
+				}
+				type: "item"
+			}]
+			tasks: [{
+				id: "2C020DC2415FFA6C"
+				title: "Usar la daga en ti mismo cerca del altar para llenarlo con 2000 LP (Life Essence)."
+				type: "checkmark"
+			}]
+			title: "La Primera Ofrenda"
+			x: 0.0d
+			y: 4.0d
+		}
+		{
+			dependencies: ["25A77E3FB9714DA7"]
+			description: ["Los viejos caminos no son de piedra, sino de ritual. Uno de ellos susurra sobre un pacto con la naturaleza: un portal a un dominio de crepúsculo eterno, donde guardianes ancestrales custodian un poder inmenso."]
+			icon: "twilightforest:twilight_portal_miniature_structure"
+			id: "57C05861D7306361"
+			rewards: [{
+				id: "52AC775460AC903C"
+				item: {
+					Count: 1
+					id: "explorerscompass:explorerscompass"
+					tag: { }
+				}
+				type: "item"
+			}]
+			size: 2.0d
+			tasks: [{
+				dimension: "twilightforest:twilight_forest"
+				id: "2DC650307BF8D554"
+				type: "dimension"
+			}]
+			title: "El Portal Esmeralda"
+			x: -4.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["57C05861D7306361"]
+			description: [" El primer guardián del bosque es una sierpe de poder ancestral. Su piel es fuerte como el acero y sus movimientos, veloces como el viento. Derrótala para demostrar tu valía en este nuevo reino."]
+			id: "4B754E59BD83D9DC"
+			rewards: [
+				{
+					id: "07CA9ACBF72CDB40"
+					item: {
+						Count: 1
+						id: "twilightforest:ironwood_pickaxe"
+						tag: {
+							Damage: 0
+							Enchantments: [{
+								id: "minecraft:efficiency"
+								lvl: 1s
+							}]
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6CA752EFF0471E4F"
+					item: {
+						Count: 1
+						id: "twilightforest:ironwood_axe"
+						tag: {
+							Damage: 0
+							Enchantments: [{
+								id: "minecraft:fortune"
+								lvl: 1s
+							}]
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "1A12CCCF31F7237D"
+					item: "twilightforest:naga_scale"
+					type: "item"
+				}
+				{
+					id: "20F4618CB8A0479E"
+					item: "twilightforest:naga_trophy"
+					type: "item"
+				}
+			]
+			title: "La Piel de la Sierpe"
+			x: -5.5d
+			y: -6.5d
+		}
+		{
+			dependencies: ["57C05861D7306361"]
+			description: ["En lo alto de una torre ruinosa, un rey hechicero se aferra a la no-muerte, comandando legiones de espectros. Asalta su fortaleza laberíntica y reclama el poder arcano que custodia."]
+			id: "79C5693725209D27"
+			rewards: [
+				{
+					exclude_from_claim_all: true
+					id: "3B15C21B8AE5C7E0"
+					table_id: 2819128485115546517L
+					type: "random"
+				}
+				{
+					id: "4CF233A23126FB26"
+					type: "xp_levels"
+					xp_levels: 20
+				}
+			]
+			tasks: [
+				{
+					id: "2019C212E4FD1886"
+					item: "twilightforest:lich_trophy"
+					title: "Conquistar una Torre del Lich y derrotar al Twilight Lich."
+					type: "item"
+				}
+				{
+					id: "77E72E340BDB567E"
+					item: {
+						Count: 1
+						id: "iceandfire:lich_staff"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "El Conocimiento del Rey Exánime"
+			x: -5.5d
+			y: -3.0d
+		}
+		{
+			dependencies: [
+				"79C5693725209D27"
+				"4B754E59BD83D9DC"
+			]
+			description: [" Bajo tierra, en un laberinto de hongos, brama una bestia de fuerza descomunal. Su hacha puede pulverizar la piedra. Adéntrate en la oscuridad y apacigua su furia."]
+			id: "72A5767D5F190603"
+			rewards: [
+				{
+					id: "270C2316F5E92690"
+					item: "aether:iron_ring"
+					type: "item"
+				}
+				{
+					exclude_from_claim_all: true
+					id: "5E8FC9DF73BC4297"
+					table_id: 446842658204634726L
+					type: "random"
+				}
+			]
+			tasks: [{
+				id: "6020E48CBF716B45"
+				item: "twilightforest:minoshroom_trophy"
+				type: "item"
+			}]
+			title: "La Furia del Minotauro"
+			x: -8.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["79C5693725209D27"]
+			id: "4BAB67D2BEAF3BFB"
+			rewards: [{
+				id: "3DC8553F4E9B9F4B"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "0B18C08327D4BDBE"
+				item: "twilightforest:hydra_trophy"
+				type: "item"
+			}]
+			x: -7.5d
+			y: -1.5d
+		}
+		{
+			dependencies: ["4BAB67D2BEAF3BFB"]
+			id: "6B5C184FCD531C52"
+			rewards: [{
+				id: "294DAEEAF96FC614"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "5DA63702E0744DDE"
+				item: "twilightforest:ur_ghast_trophy"
+				type: "item"
+			}]
+			x: -5.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["6B5C184FCD531C52"]
+			id: "0ACF92C8DABB6D69"
+			rewards: [{
+				id: "6CD0C46E64243B60"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "3154D61697A5AFEF"
+				item: "twilightforest:knight_phantom_trophy"
+				type: "item"
+			}]
+			x: -3.5d
+			y: -1.5d
+		}
+		{
+			dependencies: ["104505F6DF61F112"]
+			id: "78251DA9F47E6A23"
+			rewards: [{
+				id: "65553447727E121E"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "6D2652E447C124A4"
+				item: "twilightforest:alpha_yeti_trophy"
+				type: "item"
+			}]
+			x: -5.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["0ACF92C8DABB6D69"]
+			id: "104505F6DF61F112"
+			rewards: [{
+				id: "501D3FA0C24D1D2C"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "40F51D2DE029F944"
+				item: "twilightforest:snow_queen_trophy"
+				type: "item"
+			}]
+			x: -8.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["78251DA9F47E6A23"]
+			id: "6A11FE788F2606D3"
+			rewards: [{
+				id: "17EB612C7812763C"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "04240BEEABC6398F"
+				item: "twilightforest:quest_ram_trophy"
+				type: "item"
+			}]
+			x: -3.0d
+			y: 1.5d
+		}
+		{
+			icon: "aether:aether_portal_frame"
+			id: "3676E56C5C874DDE"
+			rewards: [
+				{
+					count: 10
+					id: "15AE86D06F95650A"
+					item: "minecraft:white_bed"
+					type: "item"
+				}
+				{
+					id: "69394AD27733B276"
+					item: {
+						Count: 1
+						id: "minecraft:potion"
+						tag: {
+							Potion: "minecraft:fire_resistance"
+						}
+					}
+					type: "item"
+				}
+			]
+			size: 2.0d
+			tasks: [
+				{
+					count: 14L
+					id: "5C74A2DDB9AEF4E8"
+					item: "minecraft:obsidian"
+					type: "item"
+				}
+				{
+					id: "4772C1592923BB21"
+					item: {
+						Count: 1
+						id: "minecraft:flint_and_steel"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "Descendiendo al Inferno"
+			x: 1.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["3676E56C5C874DDE"]
+			id: "401154503FCAFA1A"
+			tasks: [{
+				dimension: "minecraft:the_nether"
+				id: "13552B1210297912"
+				type: "dimension"
+			}]
+			x: 4.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["401154503FCAFA1A"]
+			id: "6E8B501525A446E0"
+			tasks: [{
+				id: "2A1950271388581E"
+				structure: "betterdungeons:small_nether_dungeon"
+				type: "structure"
+			}]
+			x: 6.5d
+			y: 10.0d
+		}
+		{
+			dependencies: ["401154503FCAFA1A"]
+			id: "66C040D4FEE57C2A"
+			tasks: [{
+				id: "4C0FE411584AF547"
+				structure: "minecraft:nether_fossil"
+				type: "structure"
+			}]
+			x: 6.5d
+			y: 8.0d
+		}
+		{
+			dependencies: [
+				"66C040D4FEE57C2A"
+				"6E8B501525A446E0"
+			]
+			id: "24E9704697F9C0D7"
+			tasks: [
+				{
+					entity: "minecraft:wither_skeleton"
+					id: "22B341ECB65CDFFC"
+					type: "kill"
+					value: 14L
+				}
+				{
+					count: 14L
+					id: "1D42308C9EB2D3D7"
+					item: { Count: 14, id: "minecraft:coal" }
+					type: "item"
+				}
+			]
+			x: 9.0d
+			y: 12.0d
+		}
+		{
+			dependencies: ["24E9704697F9C0D7"]
+			id: "4AE31F8308974A5C"
+			tasks: [{
+				count: 40L
+				id: "3C9FAFBC5FAE2474"
+				item: "minecraft:glowstone_dust"
+				type: "item"
+			}]
+			x: 5.0d
+			y: 13.0d
+		}
+		{
+			dependencies: ["4AE31F8308974A5C"]
+			id: "563FACFB2D73490D"
+			tasks: [{
+				count: 14L
+				id: "49FE882137D97512"
+				item: { Count: 14, id: "minecraft:glowstone" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 14.0d
+		}
+		{
+			dependencies: ["25A77E3FB9714DA7"]
+			description: ["En las cumbres más frías del mundo anidan bestias de invierno primordial. Su aliento congela el alma. Caza a uno de estos grandes dragones; su sangre y sus huesos son reactivos de un poder inmenso."]
+			id: "07B94ABF20DD4F99"
+			rewards: [
+				{
+					count: 2
+					id: "1C1AE623D5B13D5A"
+					item: {
+						Count: 1
+						id: "apotheosis:gem"
+						tag: {
+							affix_data: {
+								rarity: "apotheosis:uncommon"
+							}
+							gem: "apotheosis:core/ballast"
+						}
+					}
+					type: "item"
+				}
+				{
+					command: "/season set early_summer"
+					id: "24611653867D413E"
+					type: "command"
+				}
+				{
+					id: "26AF0DB0468E892B"
+					item: {
+						Count: 1
+						id: "iceandfire:dragonbone_pickaxe"
+						tag: {
+							Damage: 0
+							affix_data: {
+								sockets: 0
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				entity: "iceandfire:ice_dragon"
+				id: "729179BDBAB040B7"
+				type: "kill"
+				value: 1L
+			}]
+			title: "El Invierno Encarnado"
+			x: 4.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["07B94ABF20DD4F99"]
+			description: ["En las tierras áridas y desiertos abrasadores habitan los señores de la llama. Su fuego lo derrite todo. Demuestra tu dominio sobre el calor y tráeme el corazón de la bestia."]
+			id: "51729ADCEA3AF4F4"
+			tasks: [{
+				entity: "iceandfire:fire_dragon"
+				id: "20D0BD26F9A35CB1"
+				type: "kill"
+				value: 1L
+			}]
+			title: "El Corazón de la Forja"
+			x: 6.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["51729ADCEA3AF4F4"]
+			description: ["No todos los guardianes son de carne y hueso. En las profundidades yace un autómata de una era olvidada, inmune a casi todo daño. Descubre su debilidad, rómpelo y reclama su núcleo de poder."]
+			id: "321A432C6BDC45A3"
+			rewards: [{
+				id: "4BF66224999C9988"
+				type: "xp_levels"
+				xp_levels: 25
+			}]
+			size: 1.5d
+			tasks: [
+				{
+					id: "12A8948B41F2C796"
+					item: {
+						Count: 1
+						id: "mowziesmobs:wrought_axe"
+						tag: {
+							affix_data: {
+								sockets: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					entity: "mowziesmobs:ferrous_wroughtnaut"
+					id: "667CC6EE906CE86C"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Guardián Inmóvil"
+			x: 9.5d
+			y: -4.5d
+		}
+		{
+			dependencies: ["321A432C6BDC45A3"]
+			description: ["Sientes toda la energia del Núcleo en tus manos.... Es como si toda esta energia se pudiera transformar en algo más.."]
+			id: "367579D5FE6BF723"
+			rewards: [{
+				id: "5BD81CDA5E15A0D9"
+				type: "xp_levels"
+				xp_levels: 10
+			}]
+			tasks: [{
+				id: "3B84630D03C41155"
+				item: "testamentodelacarne:nucleo_de_automata"
+				type: "item"
+			}]
+			x: 13.0d
+			y: -4.5d
+		}
+		{
+			dependencies: [
+				"367579D5FE6BF723"
+				"321A432C6BDC45A3"
+			]
+			description: ["Al interactuar con el buscador sientes como una gran onda se desprende de tu mano. La magia que desprende es atraida por las almas corruptas."]
+			id: "04D105A33EC3789D"
+			rewards: [{
+				id: "6C63984FDD1118F5"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			tasks: [{
+				id: "766F04D5547A1EF5"
+				item: "testamentodelacarne:buscador_de_ecos"
+				type: "item"
+			}]
+			x: 11.5d
+			y: -1.5d
+		}
+	]
+	title: " Capítulo 3 : \"Abriendo los Viejos Caminos\""
+}

@@ -1,0 +1,20 @@
+{
+  "item.tcorigenes.orbe_de_origenes": "Orb of Origins",
+  "item.tcorigenes.anillo_de_purificacion": "Ring of Purification",
+  "item.tcorigenes.bateria_lunar": "Lunar Battery",
+  "item.tcorigenes.vinculo_de_carne": "Bond of Flesh",
+  "block.tcorigenes.altar_pater": "Altar of Pater",
+  "block.tcorigenes.altar_filis": "Altar of Filis",
+  "block.tcorigenes.altar_luna": "Altar of Luna",
+  "block.tcorigenes.altar_meidris": "Altar of Meidris",
+  "block.tcorigenes.altar_deiros": "Altar of Deiros",
+  "block.tcorigenes.altar_tempo": "Altar of Tempo",
+  "entity.tcorigenes.faction_npc": "Faction NPC",
+  "creativetab.tcorigenes_tab": "TCOrigenes",
+  "key.categories.tcorigenes": "The Fall of the Gods",
+  "key.tcorigenes.activate_ability": "Activate Ability",
+  "key.tcorigenes.open_ability_tree": "Open Ability Tree",
+  "key.tcorigenes.activate_racial": "Activate Racial Ability",
+  "ability.tcorigenes.furia_berserker.description": "+Damage, +Crit for 10s, 5 min cooldown. Costs blood.",
+  "ability.tcorigenes.guardia_total.description": "Full invulnerability for 5s. 60s cooldown."
+}

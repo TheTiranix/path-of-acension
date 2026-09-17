@@ -1,0 +1,31 @@
+{
+  "id": "skilltree:pacto_iniciado",
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.armor",
+      "id": "9af2ec19-8669-4a26-9b38-d1ebe582f03f",
+      "name": "Skill",
+      "amount": 1.0,
+      "operation": 0,
+      "player_multiplier": {
+        "type": "skilltree:none"
+      },
+      "player_condition": {
+        "type": "skilltree:none"
+      }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/keystone.png",
+  "iconTexture": "testamentodelacarne:textures/item/reliquia_del_apostata.png",
+  "borderTexture": "skilltree:textures/tooltip/keystone.png",
+  "title": "Pacto Iniciado",
+  "positionX": 0.0,
+  "positionY": 0.0,
+  "buttonSize": 40,
+  "isStartingPoint": true
+}

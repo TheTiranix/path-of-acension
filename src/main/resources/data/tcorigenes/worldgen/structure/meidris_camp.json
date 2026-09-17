@@ -1,0 +1,20 @@
+{
+  "type": "tcorigenes:faction_camp",
+  "faction": "meidris",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:jungle",
+    "minecraft:bamboo_jungle",
+    "minecraft:flower_forest",
+    "aether:skyroot_forest",
+    "aether:skyroot_woodland",
+    "twilightforest:forest",
+    "twilightforest:dense_forest",
+    "twilightforest:mushroom_forest",
+    "twilightforest:dense_mushroom_forest",
+    "twilightforest:clearing"
+  ],
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

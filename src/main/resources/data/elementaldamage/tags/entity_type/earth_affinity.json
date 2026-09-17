@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:skeleton",
+    "minecraft:silverfish",
+    "minecraft:ravager",
+    "minecraft:piglin_brute"
+  ]
+}

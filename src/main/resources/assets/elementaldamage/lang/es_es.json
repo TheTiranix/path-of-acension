@@ -1,0 +1,14 @@
+{
+  "death.attack.elementaldamage.light": "%1$s fue calcinado por la luz",
+  "death.attack.elementaldamage.fire_elemental": "%1$s ardió en fuego elemental",
+  "death.attack.elementaldamage.water_elemental": "%1$s fue ahogado por agua elemental",
+  "death.attack.elementaldamage.lunar": "%1$s fue consumido por la energía lunar",
+  "death.attack.elementaldamage.ender_elemental": "%1$s fue desgarrado entre dimensiones",
+  "attribute.name.elementaldamage.dodge_chance": "Chance de Esquive",
+  "attribute.name.elementaldamage.arrow_dodge_chance": "Chance de Esquive de Flechas",
+  "attribute.name.elementaldamage.resist_light": "Resistencia a la Luz",
+  "attribute.name.elementaldamage.resist_fire": "Resistencia al Fuego Elemental",
+  "attribute.name.elementaldamage.resist_water": "Resistencia al Agua Elemental",
+  "attribute.name.elementaldamage.resist_lunar": "Resistencia Lunar",
+  "attribute.name.elementaldamage.resist_ender": "Resistencia Ender"
+}

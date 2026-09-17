@@ -1,0 +1,28 @@
+{
+  "id": "skilltree:raza_ender_warrior",
+  "cost": 1,
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "id": "49e76088-a04f-5417-ac33-300bc63f9917",
+      "name": "Raza",
+      "amount": 2.0,
+      "operation": 0,
+      "player_multiplier": { "type": "skilltree:none" },
+      "player_condition": { "type": "skilltree:none" }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "minecraft:textures/item/ender_eye",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Origen: Ender Warrior",
+  "positionX": 195.0,
+  "positionY": -450.0,
+  "buttonSize": 50,
+  "isStartingPoint": false
+}

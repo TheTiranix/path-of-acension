@@ -1,0 +1,28 @@
+{
+  "id": "skilltree:raza_malnacido",
+  "cost": 1,
+  "bonuses": [
+    {
+      "type": "skilltree:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "id": "df3f3910-a828-5548-99c1-22125e2532c1",
+      "name": "Raza",
+      "amount": 0.05,
+      "operation": 1,
+      "player_multiplier": { "type": "skilltree:none" },
+      "player_condition": { "type": "skilltree:none" }
+    }
+  ],
+  "directConnections": [],
+  "longConnections": [],
+  "oneWayConnections": [],
+  "tags": [],
+  "backgroundTexture": "skilltree:textures/icons/background/notable.png",
+  "iconTexture": "minecraft:textures/item/rotten_flesh",
+  "borderTexture": "skilltree:textures/tooltip/notable.png",
+  "title": "Origen: Malnacido",
+  "positionX": 325.0,
+  "positionY": -450.0,
+  "buttonSize": 50,
+  "isStartingPoint": false
+}

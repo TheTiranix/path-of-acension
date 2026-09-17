@@ -1,0 +1,16 @@
+{
+  "type": "tcorigenes:faction_camp",
+  "faction": "pater",
+  "biomes": [
+    "minecraft:badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:wooded_badlands",
+    "twilightforest:highlands",
+    "twilightforest:thornlands",
+    "twilightforest:fire_swamp",
+    "twilightforest:swamp"
+  ],
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "tcorigenes:faction_camp",
+  "faction": "tempo",
+  "biomes": [
+    "minecraft:cherry_grove",
+    "twilightforest:lake",
+    "twilightforest:stream",
+    "twilightforest:final_plateau",
+    "alexscaves:primordial_caves"
+  ],
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

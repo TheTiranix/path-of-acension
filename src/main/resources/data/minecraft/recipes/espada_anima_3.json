@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DLD",
+    "ASA",
+    " B "
+  ],
+  "key": {
+    "S": {
+      "item": "testamentodelacarne:espada_anima_2"
+    },
+    "L": {
+      "item": "testamentodelacarne:lagrima_consagrada"
+    },
+    "A": {
+      "item": "testamentodelacarne:nucleo_de_automata"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "B": {
+      "item": "testamentodelacarne:buscador_de_ecos"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:espada_anima_3"
+  }
+}

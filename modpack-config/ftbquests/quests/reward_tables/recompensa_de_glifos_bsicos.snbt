@@ -1,0 +1,11 @@
+{
+	id: "7BB8BA3690CF2F27"
+	loot_size: 1
+	order_index: 0
+	rewards: [
+		{ item: "ars_nouveau:glyph_touch" }
+		{ item: "ars_nouveau:glyph_projectile" }
+		{ item: "ars_nouveau:glyph_aoe" }
+	]
+	title: "Recompensa de Glifos Básicos"
+}

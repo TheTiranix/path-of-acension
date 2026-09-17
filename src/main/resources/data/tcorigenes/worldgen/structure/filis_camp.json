@@ -1,0 +1,16 @@
+{
+  "type": "tcorigenes:faction_camp",
+  "faction": "filis",
+  "biomes": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:meadow",
+    "aether:skyroot_grove",
+    "aether:skyroot_meadow",
+    "twilightforest:oak_savannah",
+    "twilightforest:firefly_forest"
+  ],
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}
