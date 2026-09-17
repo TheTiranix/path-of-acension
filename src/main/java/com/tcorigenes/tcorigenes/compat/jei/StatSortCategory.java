@@ -13,10 +13,14 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-/** Categoria generica de JEI: un item a la izquierda + su stat (daño o armadura) a la derecha. Una lista ordenada, un item por fila visual de JEI. */
+/**
+ * Categoria generica de JEI: solo el icono del item con su stat (daño o armadura) superpuesto
+ * como numero chico, del mismo tamaño que un slot de inventario (18x18) para que JEI pueda
+ * acomodar muchos por pagina en grilla, como la lista de ingredientes normal.
+ */
 public class StatSortCategory implements IRecipeCategory<StatEntry> {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.##");
-    private static final int WIDTH = 90;
+    private static final int WIDTH = 18;
     private static final int HEIGHT = 18;
 
     private final RecipeType<StatEntry> type;
@@ -63,12 +67,18 @@ public class StatSortCategory implements IRecipeCategory<StatEntry> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, StatEntry entry, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 1, 1).addItemStack(entry.stack());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0).addItemStack(entry.stack());
     }
 
     @Override
     public void draw(StatEntry entry, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        guiGraphics.drawString(net.minecraft.client.Minecraft.getInstance().font,
-                FORMAT.format(entry.value()), 22, 5, 0x404040, false);
+        // Numero chico en la esquina inferior derecha del icono, como una cuenta de stack.
+        var font = net.minecraft.client.Minecraft.getInstance().font;
+        String text = FORMAT.format(entry.value());
+        int x = WIDTH - font.width(text) - 1;
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(0.0, 0.0, 300.0);
+        guiGraphics.drawString(font, text, x, 9, 0xFFFFA0, true);
+        guiGraphics.pose().popPose();
     }
 }
