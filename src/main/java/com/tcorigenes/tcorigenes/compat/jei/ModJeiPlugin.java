@@ -52,25 +52,40 @@ public class ModJeiPlugin implements IModPlugin {
         List<StatEntry> damageEntries = new ArrayList<>();
         List<StatEntry> armorEntries = new ArrayList<>();
 
+        int errors = 0;
         for (Item item : ForgeRegistries.ITEMS.getValues()) {
-            ItemStack stack = new ItemStack(item);
+            // Con miles de items de ~180 mods, alguno raro puede tirar excepcion al calcular sus
+            // modifiers (implementaciones custom de getAttributeModifiers). Si no se aisla item
+            // por item, UN item roto puede abortar el registro de TODA la lista sin avisar.
+            try {
+                ItemStack stack = new ItemStack(item);
+                if (stack.isEmpty()) {
+                    continue;
+                }
 
-            float damage = sumModifiers(stack, EquipmentSlot.MAINHAND, Attributes.ATTACK_DAMAGE);
-            if (damage > 0.0F) {
-                damageEntries.add(new StatEntry(stack, damage));
-            }
+                float damage = sumModifiers(stack, EquipmentSlot.MAINHAND, Attributes.ATTACK_DAMAGE);
+                if (damage > 0.0F) {
+                    damageEntries.add(new StatEntry(stack, damage));
+                }
 
-            float armor = sumModifiers(stack, EquipmentSlot.HEAD, Attributes.ARMOR)
-                    + sumModifiers(stack, EquipmentSlot.CHEST, Attributes.ARMOR)
-                    + sumModifiers(stack, EquipmentSlot.LEGS, Attributes.ARMOR)
-                    + sumModifiers(stack, EquipmentSlot.FEET, Attributes.ARMOR);
-            if (armor > 0.0F) {
-                armorEntries.add(new StatEntry(stack, armor));
+                float armor = sumModifiers(stack, EquipmentSlot.HEAD, Attributes.ARMOR)
+                        + sumModifiers(stack, EquipmentSlot.CHEST, Attributes.ARMOR)
+                        + sumModifiers(stack, EquipmentSlot.LEGS, Attributes.ARMOR)
+                        + sumModifiers(stack, EquipmentSlot.FEET, Attributes.ARMOR);
+                if (armor > 0.0F) {
+                    armorEntries.add(new StatEntry(stack, armor));
+                }
+            } catch (Exception e) {
+                errors++;
             }
         }
 
         damageEntries.sort(Comparator.comparingDouble(StatEntry::value));
         armorEntries.sort(Comparator.comparingDouble(StatEntry::value));
+
+        org.slf4j.LoggerFactory.getLogger(ModJeiPlugin.class).info(
+                "[tcorigenes] JEI: {} items con daño, {} con armadura ({} items tiraron error al leerlos)",
+                damageEntries.size(), armorEntries.size(), errors);
 
         registration.addRecipes(DAMAGE_SORT, damageEntries);
         registration.addRecipes(ARMOR_SORT, armorEntries);
