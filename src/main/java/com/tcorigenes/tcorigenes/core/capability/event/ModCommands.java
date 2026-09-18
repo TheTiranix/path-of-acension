@@ -3,6 +3,7 @@ package com.tcorigenes.tcorigenes.core.capability.event;
 import com.tcorigenes.tcorigenes.command.AbilityDebugCommand;
 import com.tcorigenes.tcorigenes.command.FavorCommand;
 import com.tcorigenes.tcorigenes.command.GrantSkillPointsCommand;
+import com.tcorigenes.tcorigenes.command.RankingsCommand;
 import com.tcorigenes.tcorigenes.command.SetAbilityCommand;
 import com.tcorigenes.tcorigenes.command.SetClassCommand;
 import com.tcorigenes.tcorigenes.command.SetRaceCommand;
@@ -22,6 +23,7 @@ public class ModCommands {
         new GrantSkillPointsCommand(event.getDispatcher());
         new AbilityDebugCommand(event.getDispatcher());
         new FavorCommand(event.getDispatcher());
+        new RankingsCommand(event.getDispatcher());
         FactionNpcCommand.register(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
     }
