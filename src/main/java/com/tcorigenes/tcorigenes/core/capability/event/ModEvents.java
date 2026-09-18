@@ -15,9 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -56,6 +59,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
  * Guerrero Anima/Ritualista (restriccion de armas).
  */
 public class ModEvents {
+    /** Daño de Tough As Nails (no hay constantes vanilla para esto). */
+    private static final ResourceKey<DamageType> TOUGH_AS_NAILS_HYPERTHERMIA =
+            ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("toughasnails", "hyperthermia"));
+    private static final ResourceKey<DamageType> TOUGH_AS_NAILS_THIRST =
+            ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("toughasnails", "thirst"));
+    /** Jugador -> ultimo nivel de exhaustion de hambre visto (para el 50% extra del Ender Warrior). */
+    private static final Map<UUID, Float> LAST_EXHAUSTION = new HashMap<>();
+
     /** Jugador -> id de entidad marcada como "punto debil" (Hereje). */
     private static final Map<UUID, Integer> WEAK_POINT_TARGET = new HashMap<>();
     /** Jugador -> tick de juego en que se marco el punto debil: desaparece a los 3s (60 ticks) si no lo golpea. */
@@ -104,12 +115,51 @@ public class ModEvents {
                 markWeakPoint(player);
             }
 
-            if (playerRace == Race.ENDER_WARRIOR && player.tickCount % 20 == 0 && player.isInWater()) {
-                // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no "drown")
-                // para que ademas se le aplique su propia debilidad de +20% (ver RaceAttributeManager).
-                com.tudominio.elementaldamage.ElementalDamageSource.hurt(player, ModDamageTypes.WATER_ELEMENTAL, player, 1.0F);
+            if (playerRace == Race.ENDER_WARRIOR) {
+                if (player.tickCount % 20 == 0 && player.isInWater()) {
+                    // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no
+                    // "drown") para que ademas se le aplique su propia debilidad de +20% (ver
+                    // RaceAttributeManager).
+                    com.tudominio.elementaldamage.ElementalDamageSource.hurt(player, ModDamageTypes.WATER_ELEMENTAL, player, 1.0F);
+                }
+                tickEnderWarriorHunger(player);
+                if (player.tickCount % 5 == 0 && player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+                    // Particula distintiva (violeta, estilo Enderman/portal) para notar la raza a simple vista.
+                    serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.PORTAL,
+                            player.getX(), player.getY() + 1.0, player.getZ(), 2, 0.3, 0.5, 0.3, 0.0);
+                }
             }
         });
+    }
+
+    /** El hambre le baja un 50% mas rapido: cada vez que la exhaustion (lo que hace bajar el
+     *  hambre) sube, se le suma un 50% extra de esa misma suba. */
+    private static void tickEnderWarriorHunger(Player player) {
+        var foodData = player.getFoodData();
+        float current = foodData.getExhaustionLevel();
+        float last = LAST_EXHAUSTION.getOrDefault(player.getUUID(), current);
+        float delta = current - last;
+        if (delta > 0.0F) {
+            foodData.addExhaustion(delta * 0.5F);
+            current = foodData.getExhaustionLevel();
+        }
+        LAST_EXHAUSTION.put(player.getUUID(), current);
+    }
+
+    /** Vaca/cerdo/caballo "neutrales": si les pegan, devuelven un golpe (no los persiguen
+     *  activamente todavia, eso necesitaria agregarles IA de ataque que no tienen de base). */
+    @SubscribeEvent
+    public static void onNeutralAnimalHurt(LivingHurtEvent event) {
+        LivingEntity victim = event.getEntity();
+        var type = victim.getType();
+        if (type != net.minecraft.world.entity.EntityType.COW
+                && type != net.minecraft.world.entity.EntityType.PIG
+                && type != net.minecraft.world.entity.EntityType.HORSE) {
+            return;
+        }
+        if (event.getSource().getEntity() instanceof LivingEntity attacker && attacker != victim) {
+            attacker.hurt(victim.damageSources().mobAttack(victim), 2.0F);
+        }
     }
 
     private static void handleSiervoDeLaLunaTick(Player player) {
@@ -270,12 +320,18 @@ public class ModEvents {
 
                 if (playerRace == Race.DEMONIO) {
                     if (source.is(DamageTypes.IN_FIRE) || source.is(DamageTypes.ON_FIRE)
-                            || source.is(DamageTypes.LAVA) || source.is(DamageTypes.HOT_FLOOR)) {
+                            || source.is(DamageTypes.LAVA) || source.is(DamageTypes.HOT_FLOOR)
+                            || source.is(TOUGH_AS_NAILS_HYPERTHERMIA)) {
                         event.setCanceled(true);
                     }
                 } else if (playerRace == Race.ENDER_WARRIOR) {
                     if (source.is(DamageTypes.DROWN)) {
                         event.setAmount(event.getAmount() * 1.2F);
+                    } else if (source.is(TOUGH_AS_NAILS_THIRST)) {
+                        // "No debe tomar agua": inmune a morir de sed. La barra en si sigue
+                        // bajando (no tenemos la API de Tough As Nails para tocar eso directo),
+                        // pero nunca le hace daño ni le bloquea la regeneracion por estar seco.
+                        event.setCanceled(true);
                     }
                 } else if (playerRace == Race.MALNACIDO) {
                     // Inmune a veneno/daño instantaneo (magic) y wither: en vez de dañarlo, lo cura.
