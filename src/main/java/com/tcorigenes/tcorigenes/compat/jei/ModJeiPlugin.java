@@ -30,8 +30,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
     private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath("tcorigenes", "jei_plugin");
-    public static final RecipeType<StatEntry> DAMAGE_SORT = RecipeType.create("tcorigenes", "damage_sort", StatEntry.class);
-    public static final RecipeType<StatEntry> ARMOR_SORT = RecipeType.create("tcorigenes", "armor_sort", StatEntry.class);
+    public static final RecipeType<StatSortRecipe> DAMAGE_SORT = RecipeType.create("tcorigenes", "damage_sort", StatSortRecipe.class);
+    public static final RecipeType<StatSortRecipe> ARMOR_SORT = RecipeType.create("tcorigenes", "armor_sort", StatSortRecipe.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -94,8 +94,19 @@ public class ModJeiPlugin implements IModPlugin {
                 "[tcorigenes] JEI: {} items con daño, {} con armadura ({} items tiraron error al leerlos)",
                 damageEntries.size(), armorEntries.size(), errors);
 
-        registration.addRecipes(DAMAGE_SORT, damageEntries);
-        registration.addRecipes(ARMOR_SORT, armorEntries);
+        registration.addRecipes(DAMAGE_SORT, chunk(damageEntries, "Daño"));
+        registration.addRecipes(ARMOR_SORT, chunk(armorEntries, "Armadura"));
+    }
+
+    /** Parte la lista completa en tandas de GRID_COLUMNS*GRID_ROWS para que cada pagina de JEI
+     *  muestre una grilla llena en vez de un solo item. */
+    private static List<StatSortRecipe> chunk(List<StatEntry> sorted, String label) {
+        int pageSize = StatSortCategory.GRID_COLUMNS * StatSortCategory.GRID_ROWS;
+        List<StatSortRecipe> pages = new ArrayList<>();
+        for (int i = 0; i < sorted.size(); i += pageSize) {
+            pages.add(new StatSortRecipe(sorted.subList(i, Math.min(i + pageSize, sorted.size())), label));
+        }
+        return pages;
     }
 
     @Override
