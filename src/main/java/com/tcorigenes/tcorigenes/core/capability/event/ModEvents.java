@@ -25,6 +25,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -116,7 +117,13 @@ public class ModEvents {
             }
 
             if (playerRace == Race.ENDER_WARRIOR) {
-                if (player.tickCount % 20 == 0 && player.isInWater()) {
+                boolean wearingEscafandra = player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ESCAFANDRA.get());
+                if (wearingEscafandra) {
+                    // TODO: cuando el brazalete (Curios) este implementado, exigir tambien que
+                    // este puesto para dar inmunidad total, como pidio el usuario originalmente.
+                    player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 220, 0, true, false, false));
+                }
+                if (player.tickCount % 20 == 0 && player.isInWater() && !wearingEscafandra) {
                     // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no
                     // "drown") para que ademas se le aplique su propia debilidad de +20% (ver
                     // RaceAttributeManager).

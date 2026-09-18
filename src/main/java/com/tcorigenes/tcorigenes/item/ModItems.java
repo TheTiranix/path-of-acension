@@ -22,6 +22,9 @@ public class ModItems {
     public static final RegistryObject<Item> VINCULO_DE_CARNE = ITEMS.register(
             "vinculo_de_carne", () -> new VinculoDeCarneItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
+    public static final RegistryObject<Item> ESCAFANDRA = ITEMS.register(
+            "escafandra", () -> new EscafandraItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
