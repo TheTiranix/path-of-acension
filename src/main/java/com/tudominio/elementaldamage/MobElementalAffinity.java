@@ -37,6 +37,11 @@ public final class MobElementalAffinity {
 
     private static final Map<EntityType<?>, Profile> PROFILES = new HashMap<>();
 
+    /** Jefes/mobs clave: SIEMPRE tienen su elemento (primario y secundario), sin el roll de
+     *  20%/15% de abajo. No tiene sentido que el Wither o el Warden salgan "sin nada" al azar. */
+    private static final java.util.Set<EntityType<?>> GUARANTEED = java.util.Set.of(
+            EntityType.WITHER, EntityType.WARDEN, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN);
+
     static {
         // Fuego
         PROFILES.put(EntityType.BLAZE, Profile.of(ModDamageTypes.FIRE_ELEMENTAL));
@@ -57,7 +62,6 @@ public final class MobElementalAffinity {
         // Agua
         PROFILES.put(EntityType.DROWNED, Profile.of(ModDamageTypes.WATER_ELEMENTAL));
         PROFILES.put(EntityType.GUARDIAN, Profile.of(ModDamageTypes.WATER_ELEMENTAL));
-        PROFILES.put(EntityType.ELDER_GUARDIAN, Profile.of(ModDamageTypes.WATER_ELEMENTAL));
 
         // Luz
         PROFILES.put(EntityType.IRON_GOLEM, Profile.of(ModDamageTypes.LIGHT));
@@ -66,7 +70,15 @@ public final class MobElementalAffinity {
         PROFILES.put(EntityType.ENDERMAN, Profile.of(ModDamageTypes.ENDER_ELEMENTAL));
         PROFILES.put(EntityType.ENDERMITE, Profile.of(ModDamageTypes.ENDER_ELEMENTAL));
         PROFILES.put(EntityType.SHULKER, Profile.of(ModDamageTypes.ENDER_ELEMENTAL));
-        PROFILES.put(EntityType.ENDER_DRAGON, Profile.of(ModDamageTypes.ENDER_ELEMENTAL));
+        PROFILES.put(EntityType.ENDER_DRAGON, Profile.of(ModDamageTypes.ENDER_ELEMENTAL, ModDamageTypes.AIR));
+
+        // Jefes/mobs clave nuevos
+        PROFILES.put(EntityType.WITHER, Profile.of(ModDamageTypes.LUNAR, ModDamageTypes.FIRE_ELEMENTAL));
+        PROFILES.put(EntityType.WARDEN, Profile.of(ModDamageTypes.EARTH, ModDamageTypes.LUNAR));
+        PROFILES.put(EntityType.ELDER_GUARDIAN, Profile.of(ModDamageTypes.WATER_ELEMENTAL, ModDamageTypes.ICE));
+        PROFILES.put(EntityType.PIGLIN, Profile.of(ModDamageTypes.EARTH, ModDamageTypes.FIRE_ELEMENTAL));
+        PROFILES.put(EntityType.VINDICATOR, Profile.of(ModDamageTypes.EARTH));
+        PROFILES.put(EntityType.PILLAGER, Profile.of(ModDamageTypes.EARTH));
 
         // Lunar: el zombie base es lunar (no-muerto maldito), con tierra como secundario ocasional
         PROFILES.put(EntityType.ZOMBIE, Profile.of(ModDamageTypes.LUNAR, ModDamageTypes.EARTH));
@@ -113,14 +125,20 @@ public final class MobElementalAffinity {
         }
 
         RandomSource random = entity.getRandom();
-        if (random.nextDouble() >= OVERALL_CHANCE) {
-            return; // no le tocó (80% de los mobs con perfil se quedan sin elemento igual).
-        }
-
         List<ResourceKey<DamageType>> chosen = new ArrayList<>();
-        chosen.add(profile.primary());
-        if (!profile.secondary().isEmpty() && random.nextDouble() < SECOND_ELEMENT_CHANCE) {
-            chosen.add(profile.secondary().get(random.nextInt(profile.secondary().size())));
+
+        if (GUARANTEED.contains(entity.getType())) {
+            // Jefes: siempre su elemento primario Y todos los secundarios, nada de azar.
+            chosen.add(profile.primary());
+            chosen.addAll(profile.secondary());
+        } else {
+            if (random.nextDouble() >= OVERALL_CHANCE) {
+                return; // no le tocó (80% de los mobs con perfil se quedan sin elemento igual).
+            }
+            chosen.add(profile.primary());
+            if (!profile.secondary().isEmpty() && random.nextDouble() < SECOND_ELEMENT_CHANCE) {
+                chosen.add(profile.secondary().get(random.nextInt(profile.secondary().size())));
+            }
         }
 
         ListTag listTag = new ListTag();
