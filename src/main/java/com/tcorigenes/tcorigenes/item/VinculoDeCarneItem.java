@@ -2,6 +2,8 @@ package com.tcorigenes.tcorigenes.item;
 
 import com.tcorigenes.tcorigenes.core.Race;
 import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
+import com.tcorigenes.tcorigenes.favor.Deity;
+import com.tcorigenes.tcorigenes.favor.FavorManager;
 import com.tcorigenes.tcorigenes.playerclass.ClassAttributeManager;
 import com.tcorigenes.tcorigenes.playerclass.PlayerClass;
 import com.tcorigenes.tcorigenes.playerclass.capability.PlayerClassProvider;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +28,7 @@ import net.minecraft.world.level.Level;
 public class VinculoDeCarneItem extends Item {
     private static final int WINDOW_TICKS = 20 * 5;
     private static final double MAX_DISTANCE = 3.0;
+    private static final int MEIDRIS_FAVOR_PER_RITUAL = 25;
     private static final Map<UUID, Long> PENDING = new HashMap<>();
 
     public VinculoDeCarneItem(Properties properties) {
@@ -91,5 +95,8 @@ public class VinculoDeCarneItem extends Item {
                 ClassAttributeManager.updateAttributes(player, PlayerClass.RITUALISTA_ARCANO);
             }
         });
+        if (player instanceof ServerPlayer serverPlayer) {
+            FavorManager.addFavor(serverPlayer, Deity.MEIDRIS, MEIDRIS_FAVOR_PER_RITUAL);
+        }
     }
 }

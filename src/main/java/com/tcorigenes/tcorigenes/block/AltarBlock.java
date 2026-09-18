@@ -19,8 +19,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-/** Click derecho con una ofrenda valida (ver AltarOfferings) la consume y da favor de ese dios. */
+/** Click derecho con una ofrenda valida (ver AltarOfferings) la consume y da favor de ese dios.
+ *  Click derecho con la mano vacia y agachado en el altar de Pater es "rezar": da un poco de
+ *  favor sin consumir nada, limitado por un cooldown para que no se pueda spamear. */
 public class AltarBlock extends Block {
+    private static final int PRAYER_FAVOR = 2;
+    private static final int PRAYER_COOLDOWN_TICKS = 20 * 60 * 5;
+    private static final java.util.Map<java.util.UUID, Long> LAST_PRAYER = new java.util.HashMap<>();
+
     private final Deity deity;
 
     public AltarBlock(Deity deity, Properties properties) {
@@ -35,6 +41,10 @@ public class AltarBlock extends Block {
         }
 
         ItemStack stack = player.getItemInHand(hand);
+        if (stack.isEmpty() && player.isCrouching()) {
+            return handlePrayer(serverPlayer, level, pos);
+        }
+
         Integer favorAmount = AltarOfferings.getFavorValue(deity, stack.getItem());
         if (favorAmount == null) {
             player.displayClientMessage(Component.literal("El altar de " + deity.getDisplayName() + " no acepta esta ofrenda."), true);
@@ -50,6 +60,27 @@ public class AltarBlock extends Block {
         ServerLevel serverLevel = (ServerLevel) level;
         serverLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0F, 1.0F);
         serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 12, 0.3, 0.3, 0.3, 0.02);
+        return InteractionResult.CONSUME;
+    }
+
+    private InteractionResult handlePrayer(ServerPlayer player, Level level, BlockPos pos) {
+        if (deity != Deity.PATER) {
+            player.displayClientMessage(Component.literal("Solo se reza en el altar de Pater."), true);
+            return InteractionResult.FAIL;
+        }
+        long now = level.getGameTime();
+        Long last = LAST_PRAYER.get(player.getUUID());
+        if (last != null && now - last < PRAYER_COOLDOWN_TICKS) {
+            player.displayClientMessage(Component.literal("Pater ya escuchó tu plegaria por ahora."), true);
+            return InteractionResult.FAIL;
+        }
+        LAST_PRAYER.put(player.getUUID(), now);
+        FavorManager.addFavor(player, Deity.PATER, PRAYER_FAVOR);
+        player.displayClientMessage(Component.literal(
+                "Pater escucha tu plegaria. (+" + PRAYER_FAVOR + " favor)"), true);
+        ServerLevel serverLevel = (ServerLevel) level;
+        serverLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1.0F, 0.8F);
+        serverLevel.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 6, 0.2, 0.3, 0.2, 0.01);
         return InteractionResult.CONSUME;
     }
 }
