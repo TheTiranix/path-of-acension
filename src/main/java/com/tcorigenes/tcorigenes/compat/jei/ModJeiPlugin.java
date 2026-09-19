@@ -10,10 +10,16 @@ import java.util.Map;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.gui.handlers.IGuiContainerHandler;
+import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -109,6 +115,22 @@ public class ModJeiPlugin implements IModPlugin {
             pages.add(new StatSortRecipe(sorted.subList(i, Math.min(i + pageSize, sorted.size())), label));
         }
         return pages;
+    }
+
+    /** Reserva la zona de los botones de ranking para que la lista de items de JEI no los tape. */
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        registration.addGuiContainerHandler(InventoryScreen.class, rankingButtonsArea());
+        registration.addGuiContainerHandler(CreativeModeInventoryScreen.class, rankingButtonsArea());
+    }
+
+    private static <T extends AbstractContainerScreen<?>> IGuiContainerHandler<T> rankingButtonsArea() {
+        return new IGuiContainerHandler<T>() {
+            @Override
+            public List<Rect2i> getGuiExtraAreas(T screen) {
+                return List.of(com.tcorigenes.tcorigenes.client.RankingButtons.area(screen));
+            }
+        };
     }
 
     /** Catalizadores: items que NUNCA aparecen en las listas (si no JEI filtra los "usos" a ese item). */
