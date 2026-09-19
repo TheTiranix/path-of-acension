@@ -5,6 +5,7 @@ import com.tcorigenes.tcorigenes.ability.network.ActivateAbilityPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateRacialAbilityPacket;
 import com.tcorigenes.tcorigenes.favor.network.FavorSyncPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
+import com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.RaceSyncPacket;
 import com.tcorigenes.tcorigenes.progression.network.UnlockAbilityPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -72,6 +73,12 @@ public class Networking {
                 .decoder(RaceSyncPacket::new)
                 .encoder(RaceSyncPacket::toBytes)
                 .consumerMainThread(RaceSyncPacket::handle)
+                .add();
+
+        net.messageBuilder(DropsResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(DropsResultPacket::new)
+                .encoder(DropsResultPacket::toBytes)
+                .consumerMainThread(DropsResultPacket::handle)
                 .add();
     }
 

@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * /drops <item>: lista que mobs (loot tables "entities/*") pueden soltar ese item. Lee las
+ * /drops <item>: abre una grilla (DropsScreen) con los mobs (loot tables "entities/*") que pueden soltar ese item. Lee las
  * loot tables del servidor, asi incluye las de los mods; no ve modificaciones hechas por
  * scripts (LootJS) ni tablas referenciadas desde otras tablas.
  */
@@ -39,7 +39,7 @@ public class DropsCommand {
         var gson = Deserializers.createLootTableSerializer().create();
         var lootData = source.getServer().getLootData();
         String needle = itemId.toString();
-        List<String> mobs = new ArrayList<>();
+        List<ResourceLocation> entityIds = new ArrayList<>();
         for (ResourceLocation tableId : lootData.getKeys(LootDataType.TABLE)) {
             if (!tableId.getPath().startsWith("entities/")) {
                 continue;
@@ -49,19 +49,20 @@ public class DropsCommand {
                 if (containsItem(gson.toJsonTree(table), needle)) {
                     ResourceLocation entityId = ResourceLocation.fromNamespaceAndPath(tableId.getNamespace(),
                             tableId.getPath().substring("entities/".length()));
-                    var type = ForgeRegistries.ENTITY_TYPES.getValue(entityId);
-                    mobs.add(type != null && ForgeRegistries.ENTITY_TYPES.containsKey(entityId)
-                            ? type.getDescription().getString() + " (" + entityId + ")" : entityId.toString());
+                    if (ForgeRegistries.ENTITY_TYPES.containsKey(entityId)) {
+                        entityIds.add(entityId);
+                    }
                 }
             } catch (Exception ignored) {
             }
         }
-        if (mobs.isEmpty()) {
-            source.sendSuccess(() -> Component.literal("Ningun mob suelta " + needle + " en sus loot tables."), false);
-            return 0;
+        if (source.getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
+            com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
+                    new com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket(itemId, entityIds));
+        } else {
+            source.sendSuccess(() -> Component.literal("Sueltan " + needle + ": " + entityIds), false);
         }
-        source.sendSuccess(() -> Component.literal("Sueltan " + needle + ": " + String.join(", ", mobs)), false);
-        return mobs.size();
+        return entityIds.size();
     }
 
     private static boolean containsItem(JsonElement element, String itemId) {
