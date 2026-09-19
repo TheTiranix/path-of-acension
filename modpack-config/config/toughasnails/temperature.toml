@@ -9,7 +9,7 @@
 	#The order in which to apply built-in temperature modifiers
 	temperature_modifier_order = ["player_modifiers", "item_modifier", "armor_modifier", "internal_modifier"]
 	#Number of ticks to delay taking damage when icy or hot.
-	extremity_damage_delay = 1600
+	extremity_damage_delay = 24000
 	#Number of ticks to delay changing the player's temperature after their temperature changes from consuming a heating or cooling item.
 	internal_temperature_change_delay = 20
 	#Number of ticks to delay changing the player's temperature after their temperature changes when wearing armor.

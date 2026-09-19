@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DTD",
-    "D D"
+    "M M",
+    "M M",
+    "S S"
   ],
   "key": {
-    "D": {
+    "M": {
       "item": "born_in_chaos_v1:dark_metal_ingot"
     },
-    "T": {
-      "item": "minecraft:turtle_helmet"
+    "S": {
+      "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "tcorigenes:escafandra"
+    "item": "tcorigenes:brazalete_dark_metal"
   }
 }

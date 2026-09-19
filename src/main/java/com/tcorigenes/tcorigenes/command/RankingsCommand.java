@@ -26,6 +26,11 @@ public class RankingsCommand {
                         .suggests((context, builder) -> {
                             builder.suggest("damage");
                             builder.suggest("armor");
+                            builder.suggest("helmets");
+                            builder.suggest("chestplates");
+                            builder.suggest("leggings");
+                            builder.suggest("boots");
+                            builder.suggest("others");
                             return builder.buildFuture();
                         })
                         .executes(context -> show(context.getSource(), StringArgumentType.getString(context, "stat"), 1))
@@ -33,6 +38,17 @@ public class RankingsCommand {
                                 .executes(context -> show(context.getSource(),
                                         StringArgumentType.getString(context, "stat"),
                                         IntegerArgumentType.getInteger(context, "pagina"))))));
+    }
+
+    private static ItemStatRanking.ArmorCategory categoryOf(String stat) {
+        return switch (stat.toLowerCase()) {
+            case "helmets", "cascos" -> ItemStatRanking.ArmorCategory.HELMET;
+            case "chestplates", "pecheras" -> ItemStatRanking.ArmorCategory.CHESTPLATE;
+            case "leggings", "pantalones" -> ItemStatRanking.ArmorCategory.LEGGINGS;
+            case "boots", "botas" -> ItemStatRanking.ArmorCategory.BOOTS;
+            case "others", "otros" -> ItemStatRanking.ArmorCategory.OTHER;
+            default -> null;
+        };
     }
 
     private int show(CommandSourceStack source, String stat, int page) {
@@ -44,8 +60,11 @@ public class RankingsCommand {
         } else if (stat.equalsIgnoreCase("armor") || stat.equalsIgnoreCase("armadura")) {
             entries = ItemStatRanking.armorRanking();
             label = "Armadura";
+        } else if (categoryOf(stat) != null) {
+            entries = ItemStatRanking.armorRanking(categoryOf(stat));
+            label = "Armadura - " + categoryOf(stat).label();
         } else {
-            source.sendFailure(Component.literal("Usa /rankings damage o /rankings armor"));
+            source.sendFailure(Component.literal("Usa /rankings damage, armor, helmets, chestplates, leggings, boots u others"));
             return 0;
         }
 

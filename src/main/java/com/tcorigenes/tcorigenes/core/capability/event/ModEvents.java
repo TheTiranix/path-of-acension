@@ -128,7 +128,7 @@ public class ModEvents {
                         && !player.getItemBySlot(EquipmentSlot.LEGS).isEmpty()
                         && !player.getItemBySlot(EquipmentSlot.FEET).isEmpty()
                         && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasAnyInSlot(player, "hands")
-                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.isEquipped(player, ModItems.BRAZALETE_ENDER.get());
+                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasBracelet(player);
                 if (player.tickCount % 20 == 0 && player.isInWater() && !swimProtected) {
                     // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no
                     // "drown") para que ademas se le aplique su propia debilidad de +20% (ver
@@ -153,7 +153,10 @@ public class ModEvents {
         float last = LAST_EXHAUSTION.getOrDefault(player.getUUID(), current);
         float delta = current - last;
         if (delta > 0.0F) {
-            foodData.addExhaustion(delta * 0.5F);
+            // +50% normal; con calor extremo el consumo de hambre se duplica (x2 en total).
+            boolean extremeHeat = com.tcorigenes.tcorigenes.compat.TanCompat.isLoaded()
+                    && com.tcorigenes.tcorigenes.compat.TanCompat.isExtremeHeat(player);
+            foodData.addExhaustion(delta * (extremeHeat ? 1.0F : 0.5F));
             current = foodData.getExhaustionLevel();
         }
         LAST_EXHAUSTION.put(player.getUUID(), current);

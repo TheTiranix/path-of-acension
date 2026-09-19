@@ -16,6 +16,14 @@ public final class CuriosCompat {
                 && CuriosApi.getCuriosInventory(entity).map(handler -> handler.isEquipped(item)).orElse(false);
     }
 
+    /** Hay algun brazalete (de cualquier material) puesto. */
+    public static boolean hasBracelet(LivingEntity entity) {
+        return ModList.get().isLoaded("curios")
+                && CuriosApi.getCuriosInventory(entity)
+                        .map(handler -> handler.isEquipped(stack -> stack.getItem() instanceof com.tcorigenes.tcorigenes.item.BrazaleteItem))
+                        .orElse(false);
+    }
+
     /** Hay algo (cualquier item) puesto en el slot de Curios con ese id. */
     public static boolean hasAnyInSlot(LivingEntity entity, String slotId) {
         return ModList.get().isLoaded("curios")

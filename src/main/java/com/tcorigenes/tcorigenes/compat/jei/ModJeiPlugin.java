@@ -1,30 +1,43 @@
 package com.tcorigenes.tcorigenes.compat.jei;
 
 import com.tcorigenes.tcorigenes.compat.ItemStatRanking;
+import com.tcorigenes.tcorigenes.compat.ItemStatRanking.ArmorCategory;
+import com.tcorigenes.tcorigenes.item.ModItems;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import com.tcorigenes.tcorigenes.item.ModItems;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 /**
- * Dos categorias nuevas en JEI: "Ordenado por daño" y "Ordenado por armadura", con TODOS los
- * items del pack que dan ese stat, de menor a mayor. Se accede haciendo click en JEI sobre una
- * espada de netherite (para daño) o un pechera de netherite (para armadura) y viendo sus "usos".
+ * Categorias de JEI "Ordenado por daño" y "Ordenado por armadura" (esta ultima separada en
+ * cascos, pecheras, pantalones, botas y otros), de menor a mayor. Se abren con los botones del
+ * inventario (ver client.RankingButtons) o haciendo click en "usos" del Orbe / Anillo de Purificacion.
  */
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
     private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath("tcorigenes", "jei_plugin");
     public static final RecipeType<StatSortRecipe> DAMAGE_SORT = RecipeType.create("tcorigenes", "damage_sort", StatSortRecipe.class);
-    public static final RecipeType<StatSortRecipe> ARMOR_SORT = RecipeType.create("tcorigenes", "armor_sort", StatSortRecipe.class);
+    public static final Map<ArmorCategory, RecipeType<StatSortRecipe>> ARMOR_SORT = new EnumMap<>(ArmorCategory.class);
+
+    static {
+        for (ArmorCategory category : ArmorCategory.values()) {
+            ARMOR_SORT.put(category, RecipeType.create("tcorigenes", "armor_" + category.name().toLowerCase(), StatSortRecipe.class));
+        }
+    }
+
+    private static IJeiRuntime runtime;
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -32,32 +45,59 @@ public class ModJeiPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerCategories(IRecipeCategoryRegistration registration) {
-        var guiHelper = registration.getJeiHelpers().getGuiHelper();
-        registration.addRecipeCategories(
-                new StatSortCategory(DAMAGE_SORT, Component.literal("Ordenado por daño"),
-                        new ItemStack(Items.NETHERITE_SWORD), guiHelper),
-                new StatSortCategory(ARMOR_SORT, Component.literal("Ordenado por armadura"),
-                        new ItemStack(Items.NETHERITE_CHESTPLATE), guiHelper));
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        runtime = jeiRuntime;
     }
 
-    /** Catalizadores: tienen que ser items que NUNCA aparezcan en ninguna de las dos listas, si
-     *  no JEI filtra los "usos" a solo la fila de ese mismo item (por eso antes se veia "1/1"
-     *  usando la espada/pechera de netherite como catalizador, ya que ESA misma espada/pechera
-     *  es una de las entradas). Nuestros items propios no tienen atributos de daño ni armadura,
-     *  asi que sirven de catalizador puro sin ese problema. */
+    @Override
+    public void onRuntimeUnavailable() {
+        runtime = null;
+    }
+
+    public static void showDamage() {
+        if (runtime != null) {
+            runtime.getRecipesGui().showTypes(List.of(DAMAGE_SORT));
+        }
+    }
+
+    public static void showArmor() {
+        if (runtime != null) {
+            List<RecipeType<?>> types = new ArrayList<>(ARMOR_SORT.values());
+            runtime.getRecipesGui().showTypes(types);
+        }
+    }
+
+    private static Item iconOf(ArmorCategory category) {
+        return switch (category) {
+            case HELMET -> Items.NETHERITE_HELMET;
+            case CHESTPLATE -> Items.NETHERITE_CHESTPLATE;
+            case LEGGINGS -> Items.NETHERITE_LEGGINGS;
+            case BOOTS -> Items.NETHERITE_BOOTS;
+            case OTHER -> Items.SHIELD;
+        };
+    }
+
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registration) {
+        var guiHelper = registration.getJeiHelpers().getGuiHelper();
+        registration.addRecipeCategories(new StatSortCategory(DAMAGE_SORT, Component.literal("Ordenado por daño"),
+                new ItemStack(Items.NETHERITE_SWORD), guiHelper));
+        for (ArmorCategory category : ArmorCategory.values()) {
+            registration.addRecipeCategories(new StatSortCategory(ARMOR_SORT.get(category),
+                    Component.literal("Armadura: " + category.label()), new ItemStack(iconOf(category)), guiHelper));
+        }
+    }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         List<StatEntry> damageEntries = ItemStatRanking.damageRanking();
-        List<StatEntry> armorEntries = ItemStatRanking.armorRanking();
-
         org.slf4j.LoggerFactory.getLogger(ModJeiPlugin.class).info(
-                "[tcorigenes] JEI: {} items con daño, {} con armadura",
-                damageEntries.size(), armorEntries.size());
+                "[tcorigenes] JEI: {} items con daño, {} con armadura", damageEntries.size(), ItemStatRanking.armorRanking().size());
 
         registration.addRecipes(DAMAGE_SORT, chunk(damageEntries, "Daño"));
-        registration.addRecipes(ARMOR_SORT, chunk(armorEntries, "Armadura"));
+        for (ArmorCategory category : ArmorCategory.values()) {
+            registration.addRecipes(ARMOR_SORT.get(category), chunk(ItemStatRanking.armorRanking(category), "Armadura"));
+        }
     }
 
     /** Parte la lista completa en tandas de GRID_COLUMNS*GRID_ROWS para que cada pagina de JEI
@@ -71,9 +111,12 @@ public class ModJeiPlugin implements IModPlugin {
         return pages;
     }
 
+    /** Catalizadores: items que NUNCA aparecen en las listas (si no JEI filtra los "usos" a ese item). */
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalysts(DAMAGE_SORT, ModItems.ORBE_DE_ORIGENES.get());
-        registration.addRecipeCatalysts(ARMOR_SORT, ModItems.ANILLO_DE_PURIFICACION.get());
+        for (ArmorCategory category : ArmorCategory.values()) {
+            registration.addRecipeCatalysts(ARMOR_SORT.get(category), ModItems.ANILLO_DE_PURIFICACION.get());
+        }
     }
 }

@@ -2,6 +2,8 @@ package com.tcorigenes.tcorigenes.compat;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.ModList;
+import toughasnails.api.temperature.TemperatureHelper;
+import toughasnails.api.temperature.TemperatureLevel;
 import toughasnails.api.thirst.IThirst;
 import toughasnails.api.thirst.ThirstHelper;
 
@@ -12,6 +14,20 @@ public final class TanCompat {
 
     public static boolean isLoaded() {
         return ModList.get().isLoaded("toughasnails");
+    }
+
+    /** Calor extremo segun Tough As Nails (nivel HOT). */
+    public static boolean isExtremeHeat(Player player) {
+        return TemperatureHelper.isTemperatureEnabled()
+                && TemperatureHelper.getTemperatureData(player).getLevel() == TemperatureLevel.HOT;
+    }
+
+    public static float thirstExhaustion(Player player) {
+        return ThirstHelper.getThirst(player).getExhaustion();
+    }
+
+    public static void addThirstExhaustion(Player player, float amount) {
+        ThirstHelper.getThirst(player).addExhaustion(amount);
     }
 
     /** Deja la sed y la hidratacion siempre al maximo; la barra sigue existiendo pero nunca baja. */

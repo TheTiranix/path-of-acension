@@ -55,6 +55,7 @@ public class TCOrigenes {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(com.tcorigenes.tcorigenes.client.RaceRenderEvents::onAddLayers));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.RaceRenderEvents.class));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.MobLevelDisplay.class));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.RankingButtons.class));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModEvents.class);
@@ -87,7 +88,9 @@ public class TCOrigenes {
             event.accept(ModItems.BATERIA_LUNAR);
             event.accept(ModItems.VINCULO_DE_CARNE);
             event.accept(ModItems.ESCAFANDRA);
-            event.accept(ModItems.BRAZALETE_ENDER);
+            event.accept(ModItems.BRAZALETE_CUERO);
+            event.accept(ModItems.BRAZALETE_HIERRO);
+            event.accept(ModItems.BRAZALETE_DARK_METAL);
             event.accept(ModBlocks.ALTAR_PATER_ITEM);
             event.accept(ModBlocks.ALTAR_FILIS_ITEM);
             event.accept(ModBlocks.ALTAR_LUNA_ITEM);

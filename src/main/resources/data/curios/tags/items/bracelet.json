@@ -1,1 +1,7 @@
-{ "values": ["tcorigenes:brazalete_ender"] }
+{
+  "values": [
+    "tcorigenes:brazalete_cuero",
+    "tcorigenes:brazalete_hierro",
+    "tcorigenes:brazalete_dark_metal"
+  ]
+}

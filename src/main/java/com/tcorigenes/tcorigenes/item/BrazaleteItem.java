@@ -11,16 +11,20 @@ import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-/** Brazalete del Ender Warrior (slot "bracelet" de Curios): +1 armadura, -3% velocidad. */
-public class BrazaleteEnderItem extends Item implements ICurioItem {
-    public BrazaleteEnderItem(Properties properties) {
+/** Brazalete (slot "bracelet" de Curios): da protection puntos de armadura y resta 3% de velocidad.
+ *  Cuero 0.25, hierro 0.5, dark metal 1. Cualquiera sirve para el combo de nado del Ender Warrior. */
+public class BrazaleteItem extends Item implements ICurioItem {
+    private final double protection;
+
+    public BrazaleteItem(Properties properties, double protection) {
         super(properties);
+        this.protection = protection;
     }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create();
-        modifiers.put(Attributes.ARMOR, new AttributeModifier(uuid, "Brazalete armor", 1.0, AttributeModifier.Operation.ADDITION));
+        modifiers.put(Attributes.ARMOR, new AttributeModifier(uuid, "Brazalete armor", protection, AttributeModifier.Operation.ADDITION));
         modifiers.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Brazalete speed penalty", -0.03, AttributeModifier.Operation.MULTIPLY_TOTAL));
         return modifiers;
     }

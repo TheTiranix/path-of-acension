@@ -25,8 +25,14 @@ public class ModItems {
     public static final RegistryObject<Item> ESCAFANDRA = ITEMS.register(
             "escafandra", () -> new EscafandraItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
-    public static final RegistryObject<Item> BRAZALETE_ENDER = ITEMS.register(
-            "brazalete_ender", () -> new BrazaleteEnderItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> BRAZALETE_CUERO = ITEMS.register(
+            "brazalete_cuero", () -> new BrazaleteItem(new Item.Properties().stacksTo(1), 0.25));
+
+    public static final RegistryObject<Item> BRAZALETE_HIERRO = ITEMS.register(
+            "brazalete_hierro", () -> new BrazaleteItem(new Item.Properties().stacksTo(1), 0.5));
+
+    public static final RegistryObject<Item> BRAZALETE_DARK_METAL = ITEMS.register(
+            "brazalete_dark_metal", () -> new BrazaleteItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 1.0));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

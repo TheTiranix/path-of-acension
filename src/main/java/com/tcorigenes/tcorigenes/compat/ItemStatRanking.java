@@ -22,6 +22,22 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class ItemStatRanking {
     private static List<StatEntry> damageCache;
     private static List<StatEntry> armorCache;
+    private static final java.util.EnumMap<ArmorCategory, List<StatEntry>> CATEGORY_CACHE = new java.util.EnumMap<>(ArmorCategory.class);
+
+    /** Categorias en que se separa la lista de armadura (el orden es el de las pestañas de JEI). */
+    public enum ArmorCategory {
+        HELMET("Cascos"), CHESTPLATE("Pecheras"), LEGGINGS("Pantalones"), BOOTS("Botas"), OTHER("Otros");
+
+        private final String label;
+
+        ArmorCategory(String label) {
+            this.label = label;
+        }
+
+        public String label() {
+            return label;
+        }
+    }
 
     private ItemStatRanking() {
     }
@@ -36,12 +52,21 @@ public final class ItemStatRanking {
         return armorCache;
     }
 
+    public static synchronized List<StatEntry> armorRanking(ArmorCategory category) {
+        ensureComputed();
+        return CATEGORY_CACHE.get(category);
+    }
+
     private static void ensureComputed() {
         if (damageCache != null) {
             return;
         }
         List<StatEntry> damage = new ArrayList<>();
         List<StatEntry> armor = new ArrayList<>();
+        java.util.EnumMap<ArmorCategory, List<StatEntry>> byCategory = new java.util.EnumMap<>(ArmorCategory.class);
+        for (ArmorCategory category : ArmorCategory.values()) {
+            byCategory.put(category, new ArrayList<>());
+        }
         for (Item item : ForgeRegistries.ITEMS.getValues()) {
             // Con miles de items de ~180 mods, alguno raro puede tirar excepcion al calcular sus
             // modifiers; se aisla item por item para que uno roto no tire abajo toda la lista.
@@ -61,6 +86,13 @@ public final class ItemStatRanking {
                 if (arm > 0.0F) {
                     armor.add(new StatEntry(stack, arm));
                 }
+                addToCategory(byCategory, ArmorCategory.HELMET, stack, sumModifiers(stack, EquipmentSlot.HEAD, Attributes.ARMOR));
+                addToCategory(byCategory, ArmorCategory.CHESTPLATE, stack, sumModifiers(stack, EquipmentSlot.CHEST, Attributes.ARMOR));
+                addToCategory(byCategory, ArmorCategory.LEGGINGS, stack, sumModifiers(stack, EquipmentSlot.LEGS, Attributes.ARMOR));
+                addToCategory(byCategory, ArmorCategory.BOOTS, stack, sumModifiers(stack, EquipmentSlot.FEET, Attributes.ARMOR));
+                // Otros: lo que da armadura pero en la mano (escudos de mods, etc.), fuera de las 4 piezas.
+                addToCategory(byCategory, ArmorCategory.OTHER, stack,
+                        sumModifiers(stack, EquipmentSlot.MAINHAND, Attributes.ARMOR) + sumModifiers(stack, EquipmentSlot.OFFHAND, Attributes.ARMOR));
             } catch (Exception ignored) {
             }
         }
@@ -68,6 +100,16 @@ public final class ItemStatRanking {
         armor.sort(Comparator.comparingDouble(StatEntry::value));
         damageCache = Collections.unmodifiableList(damage);
         armorCache = Collections.unmodifiableList(armor);
+        for (var entry : byCategory.entrySet()) {
+            entry.getValue().sort(Comparator.comparingDouble(StatEntry::value));
+            CATEGORY_CACHE.put(entry.getKey(), Collections.unmodifiableList(entry.getValue()));
+        }
+    }
+
+    private static void addToCategory(java.util.EnumMap<ArmorCategory, List<StatEntry>> byCategory, ArmorCategory category, ItemStack stack, float value) {
+        if (value > 0.0F) {
+            byCategory.get(category).add(new StatEntry(stack, value));
+        }
     }
 
     /** Suma solo los modifiers de tipo ADDITION (el "+X" que ya se ve en el tooltip vanilla). */
