@@ -78,7 +78,7 @@ public final class AbilityRegistry {
 
             @Override
             public int cooldownTicks() {
-                return 20 * 60 * 5;
+                return BerserkerFury.COOLDOWN_TICKS;
             }
 
             @Override
@@ -88,8 +88,7 @@ public final class AbilityRegistry {
 
             @Override
             public void activate(net.minecraft.server.level.ServerPlayer player) {
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 10, 1, false, true, true));
-                player.addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * 10, 0, false, true, true));
+                BerserkerFury.start(player);
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.GOAT_SCREAMING_HORN_BREAK,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 0.7F);
             }

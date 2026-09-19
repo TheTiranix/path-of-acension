@@ -1,0 +1,28 @@
+package com.tcorigenes.tcorigenes.compat;
+
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fml.ModList;
+import toughasnails.api.thirst.IThirst;
+import toughasnails.api.thirst.ThirstHelper;
+
+/** Unico lugar que toca clases de Tough As Nails, para que el mod no crashee si no esta instalado. */
+public final class TanCompat {
+    private TanCompat() {
+    }
+
+    public static boolean isLoaded() {
+        return ModList.get().isLoaded("toughasnails");
+    }
+
+    /** Deja la sed y la hidratacion siempre al maximo; la barra sigue existiendo pero nunca baja. */
+    public static void fillThirst(Player player) {
+        IThirst thirst = ThirstHelper.getThirst(player);
+        if (thirst.getThirst() < 20) {
+            thirst.setThirst(20);
+        }
+        if (thirst.getHydration() < 20.0F) {
+            thirst.setHydration(20.0F);
+        }
+        thirst.setExhaustion(0.0F);
+    }
+}

@@ -16,6 +16,6 @@
   "key.tcorigenes.activate_ability": "Activate Ability",
   "key.tcorigenes.open_ability_tree": "Open Ability Tree",
   "key.tcorigenes.activate_racial": "Activate Racial Ability",
-  "ability.tcorigenes.furia_berserker.description": "+Damage, +Crit for 10s, 5 min cooldown. Costs blood.",
+  "ability.tcorigenes.furia_berserker.description": "+50% damage, +20% crit for 20s, 3 min cooldown. Bleeds 3% of max health 5 times.",
   "ability.tcorigenes.guardia_total.description": "Full invulnerability for 5s. 60s cooldown."
 }

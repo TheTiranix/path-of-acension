@@ -153,21 +153,6 @@ public class ModEvents {
         LAST_EXHAUSTION.put(player.getUUID(), current);
     }
 
-    /** Vaca/cerdo/caballo "neutrales": si les pegan, devuelven un golpe (no los persiguen
-     *  activamente todavia, eso necesitaria agregarles IA de ataque que no tienen de base). */
-    @SubscribeEvent
-    public static void onNeutralAnimalHurt(LivingHurtEvent event) {
-        LivingEntity victim = event.getEntity();
-        var type = victim.getType();
-        if (type != net.minecraft.world.entity.EntityType.COW
-                && type != net.minecraft.world.entity.EntityType.PIG
-                && type != net.minecraft.world.entity.EntityType.HORSE) {
-            return;
-        }
-        if (event.getSource().getEntity() instanceof LivingEntity attacker && attacker != victim) {
-            attacker.hurt(victim.damageSources().mobAttack(victim), 2.0F);
-        }
-    }
 
     private static void handleSiervoDeLaLunaTick(Player player) {
         Level world = player.level();
