@@ -28,8 +28,10 @@ public final class MobScaling {
     private static final double BLOCKS_PER_LEVEL = 500.0;
     private static final int MAX_LEVEL = 20;
     public static final double BONUS_PER_LEVEL = 0.04;
-    private static final double NETHER_BONUS = 0.30;
-    private static final double END_BONUS = 0.60;
+    /** Cada zona (500 bloques) abre una franja de 5 niveles; cada mob sortea el suyo dentro de ella. */
+    private static final int LEVEL_SPREAD = 4;
+    private static final int NETHER_LEVELS = 8;
+    private static final int END_LEVELS = 15;
     private static final UUID MP_HEALTH_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a03");
     private static final UUID MP_DAMAGE_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a04");
     private static final double EXTRA_PLAYER_BONUS = 0.35;
@@ -89,14 +91,13 @@ public final class MobScaling {
         var spawn = event.getLevel().getSharedSpawnPos();
         double dx = mob.getX() - spawn.getX();
         double dz = mob.getZ() - spawn.getZ();
-        int level = (int) Math.min(MAX_LEVEL, Math.sqrt(dx * dx + dz * dz) / BLOCKS_PER_LEVEL);
-
-        double bonus = level * BONUS_PER_LEVEL;
-        if (event.getLevel().dimension() == Level.NETHER) {
-            bonus += NETHER_BONUS;
-        } else if (event.getLevel().dimension() == Level.END) {
-            bonus += END_BONUS;
-        }
+        // Zona segun la distancia al spawn: zona 0 = niveles 1-5, zona 1 = 2-6, ... (tope zona MAX_LEVEL).
+        int zone = (int) Math.min(MAX_LEVEL, Math.sqrt(dx * dx + dz * dz) / BLOCKS_PER_LEVEL);
+        int dimensionLevels = event.getLevel().dimension() == Level.NETHER ? NETHER_LEVELS
+                : event.getLevel().dimension() == Level.END ? END_LEVELS : 0;
+        int minLevel = 1 + zone + dimensionLevels;
+        int level = minLevel + mob.getRandom().nextInt(LEVEL_SPREAD + 1);
+        double bonus = (level - 1) * BONUS_PER_LEVEL;
         if (event.getLevel().getServer() != null) {
             double multiplayer = EXTRA_PLAYER_BONUS * (PlayerPeak.get(event.getLevel().getServer()).peak - 1);
             if (multiplayer > 0.0) {
