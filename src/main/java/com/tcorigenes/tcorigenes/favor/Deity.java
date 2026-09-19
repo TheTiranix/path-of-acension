@@ -1,10 +1,15 @@
 package com.tcorigenes.tcorigenes.favor;
 
 /**
- * El panteon completo segun el lore: Pater (orden/luz/creador), Meidris (naturaleza/vida/magia
- * blanca), Luna (oculto/magia oscura, paralelo al panteon principal, no antagonista), Filis
- * (redencion/curacion), Deiros (rebeldia/fuego), Tempo (el 6to dios, secreto para el jugador
- * hasta que el lore lo revele - eso es un tema de contenido/narrativa, no de este enum).
+ * El panteon segun el lore final:
+ * - Pater: creador tirano y perfeccionista; destierra al inframundo a Deiros, el angel rebelde
+ *   de los 7 pecados capitales.
+ * - Meidris: compasiva (naturaleza, vida, magia blanca); de ella nace Filis.
+ * - Filis: redencion y curacion, hija de Meidris.
+ * - Tempo: apatico; en secreto empodera a los Herejes y controla el End (secreto para el jugador).
+ * - Luna: hija agenero de Deiros; sirve a Pater controlando la magia oscura y las criaturas de la noche.
+ * - Deiros: rebeldia y fuego, desterrado.
+ * De donde sale el favor de cada uno: ver FavorEvents y AltarBlock.
  */
 public enum Deity {
     PATER("Pater"),
