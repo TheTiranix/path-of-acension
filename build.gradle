@@ -145,6 +145,7 @@ dependencies {
     // Solo para poder registrar el plugin de JEI (listas ordenadas por daño/armadura). No se empaqueta.
     compileOnly files('libs/jei-1.20.1-forge-15.20.0.112.jar')
     compileOnly files('libs/ToughAsNails-forge-1.20.1-9.2.0.171.jar')
+    compileOnly files('libs/curios-forge-5.14.1+1.20.1.jar')
 
     // Mixin annotation processor (genera el refmap para que Forge remapee en runtime)
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'

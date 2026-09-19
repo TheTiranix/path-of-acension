@@ -85,6 +85,8 @@ public class TCOrigenes {
             event.accept(ModItems.ANILLO_DE_PURIFICACION);
             event.accept(ModItems.BATERIA_LUNAR);
             event.accept(ModItems.VINCULO_DE_CARNE);
+            event.accept(ModItems.ESCAFANDRA);
+            event.accept(ModItems.BRAZALETE_ENDER);
             event.accept(ModBlocks.ALTAR_PATER_ITEM);
             event.accept(ModBlocks.ALTAR_FILIS_ITEM);
             event.accept(ModBlocks.ALTAR_LUNA_ITEM);

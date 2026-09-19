@@ -119,11 +119,17 @@ public class ModEvents {
             if (playerRace == Race.ENDER_WARRIOR) {
                 boolean wearingEscafandra = player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ESCAFANDRA.get());
                 if (wearingEscafandra) {
-                    // TODO: cuando el brazalete (Curios) este implementado, exigir tambien que
-                    // este puesto para dar inmunidad total, como pidio el usuario originalmente.
                     player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 220, 0, true, false, false));
                 }
-                if (player.tickCount % 20 == 0 && player.isInWater() && !wearingEscafandra) {
+                // Para nadar sin daño hace falta el combo completo: escafandra + pechera + pantalon +
+                // botas + guantes (cualquier item en el slot "hands" de Curios) + brazalete.
+                boolean swimProtected = wearingEscafandra
+                        && !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty()
+                        && !player.getItemBySlot(EquipmentSlot.LEGS).isEmpty()
+                        && !player.getItemBySlot(EquipmentSlot.FEET).isEmpty()
+                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasAnyInSlot(player, "hands")
+                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.isEquipped(player, ModItems.BRAZALETE_ENDER.get());
+                if (player.tickCount % 20 == 0 && player.isInWater() && !swimProtected) {
                     // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no
                     // "drown") para que ademas se le aplique su propia debilidad de +20% (ver
                     // RaceAttributeManager).
