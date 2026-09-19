@@ -12,6 +12,7 @@ import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -29,12 +30,31 @@ public class SkillTreeScreen extends Screen {
     private static final int COLOR_LOCKED = 0xFF666666;
     private static final DecimalFormat FORMAT = new DecimalFormat("0.##");
 
+    /** Nodo elegido que espera confirmacion (null = ninguno). */
+    private SkillNode pending;
+    private Button confirmButton;
+    private Button cancelButton;
+
     public SkillTreeScreen() {
         super(Component.literal("Árbol de Habilidades"));
     }
 
     public static void open() {
         Minecraft.getInstance().setScreen(new SkillTreeScreen());
+    }
+
+    @Override
+    protected void init() {
+        int centerX = this.width / 2;
+        int y = this.height - 34;
+        confirmButton = this.addRenderableWidget(Button.builder(Component.literal("Confirmar"), button -> {
+            if (pending != null && colorOf(pending) == COLOR_AVAILABLE) {
+                Networking.sendToServer(new UnlockNodePacket(pending.id()));
+            }
+            pending = null;
+        }).bounds(centerX - 105, y, 100, 20).build());
+        cancelButton = this.addRenderableWidget(Button.builder(Component.literal("Cancelar"), button -> pending = null)
+                .bounds(centerX + 5, y, 100, 20).build());
     }
 
     @Override
@@ -79,7 +99,7 @@ public class SkillTreeScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         SkillNode node = hoveredNode(mouseX, mouseY);
         if (node != null && button == 0 && colorOf(node) == COLOR_AVAILABLE) {
-            Networking.sendToServer(new UnlockNodePacket(node.id()));
+            pending = node; // no se gasta nada hasta apretar "Confirmar"
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -95,6 +115,8 @@ public class SkillTreeScreen extends Screen {
 
         if (cls == PlayerClass.NINGUNA) {
             g.drawCenteredString(this.font, "Elegí una clase para ver tu árbol de habilidades.", this.width / 2, this.height / 2, 0xAAAAAA);
+            confirmButton.visible = false;
+            cancelButton.visible = false;
             super.render(g, mouseX, mouseY, partialTick);
             return;
         }
@@ -115,6 +137,26 @@ public class SkillTreeScreen extends Screen {
             g.fill(x - HALF - 2, y - HALF - 2, x + HALF + 2, y + HALF + 2, color);
             g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1E1E1E);
             g.renderItem(new ItemStack(node.icon().get()), x - 8, y - 8);
+        }
+
+        // Si el nodo pendiente ya se desbloqueo (o dejo de estar disponible), se descarta.
+        if (pending != null && colorOf(pending) != COLOR_AVAILABLE) {
+            pending = null;
+        }
+        boolean hasPending = pending != null;
+        confirmButton.visible = hasPending;
+        cancelButton.visible = hasPending;
+        if (hasPending) {
+            confirmButton.active = ClientSkillData.points() >= pending.cost();
+            int x = nodeX(pending);
+            int y = nodeY(pending);
+            g.fill(x - HALF - 4, y - HALF - 4, x + HALF + 4, y + HALF + 4, 0xFFFFFFFF);
+            g.fill(x - HALF - 2, y - HALF - 2, x + HALF + 2, y + HALF + 2, colorOf(pending));
+            g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1E1E1E);
+            g.renderItem(new ItemStack(pending.icon().get()), x - 8, y - 8);
+            String question = "¿Desbloquear \"" + pending.title() + "\" por " + pending.cost() + " punto(s)?"
+                    + (confirmButton.active ? "" : "  (te faltan puntos)");
+            g.drawCenteredString(this.font, question, this.width / 2, this.height - 48, confirmButton.active ? 0xFFFFFF : 0xFF7777);
         }
 
         SkillNode hovered = hoveredNode(mouseX, mouseY);
@@ -151,7 +193,7 @@ public class SkillTreeScreen extends Screen {
         if (color == COLOR_UNLOCKED) {
             lines.add(Component.literal("Desbloqueado").withStyle(ChatFormatting.GREEN));
         } else if (color == COLOR_AVAILABLE) {
-            lines.add(Component.literal("Costo: " + node.cost() + " punto(s) - click para desbloquear").withStyle(ChatFormatting.YELLOW));
+            lines.add(Component.literal("Costo: " + node.cost() + " punto(s) - click para elegirlo").withStyle(ChatFormatting.YELLOW));
         } else {
             lines.add(Component.literal("Bloqueado: desbloqueá un nodo anterior (costo " + node.cost() + ")").withStyle(ChatFormatting.GRAY));
         }
