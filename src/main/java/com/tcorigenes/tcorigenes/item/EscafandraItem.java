@@ -19,6 +19,8 @@ import net.minecraft.world.item.ItemStack;
  */
 public class EscafandraItem extends ArmorItem {
     private static final double SPEED_MULTIPLIER = -0.03;
+    // UUID FIJO: sin el, cada consulta genera uno nuevo y los modificadores se acumulan sin poder quitarse.
+    private static final java.util.UUID SPEED_MODIFIER_ID = java.util.UUID.fromString("5c0b2f4e-7a11-4d3b-9e57-3a2f1c8d6b90");
 
     public EscafandraItem(Properties properties) {
         super(ArmorMaterials.DIAMOND, Type.HELMET, properties);
@@ -29,7 +31,7 @@ public class EscafandraItem extends ArmorItem {
         Multimap<Attribute, AttributeModifier> modifiers = HashMultimap.create(super.getAttributeModifiers(slot, stack));
         if (slot == Type.HELMET.getSlot()) {
             modifiers.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(
-                    "Escafandra speed penalty", SPEED_MULTIPLIER, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                    SPEED_MODIFIER_ID, "Escafandra speed penalty", SPEED_MULTIPLIER, AttributeModifier.Operation.MULTIPLY_TOTAL));
         }
         return modifiers;
     }
