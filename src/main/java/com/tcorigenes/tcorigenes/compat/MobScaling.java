@@ -6,7 +6,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -15,7 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 /**
- * Los mobs hostiles nacen mas fuertes cuanto mas lejos del spawn del mundo y segun la
+ * Todos los mobs (no solo los hostiles vanilla: tambien los de mods, animales, etc.) nacen mas fuertes cuanto mas lejos del spawn del mundo y segun la
  * dimension (Nether/End ya vienen con un bonus base). Se aplica UNA sola vez por mob (flag en
  * persistentData) como MULTIPLY_TOTAL sobre vida y daño de ataque.
  */
@@ -73,7 +74,11 @@ public final class MobScaling {
 
     @SubscribeEvent
     public static void onJoin(EntityJoinLevelEvent event) {
-        if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Monster mob)) {
+        if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Mob mob)) {
+            return;
+        }
+        // Todos los mobs (vanilla y de mods), salvo mascotas domesticadas y los NPC propios del mod.
+        if ((mob instanceof TamableAnimal tamable && tamable.isTame()) || "tcorigenes".equals(mob.getType().builtInRegistryHolder().key().location().getNamespace())) {
             return;
         }
         if (mob.getPersistentData().getBoolean(SCALED_KEY)) {

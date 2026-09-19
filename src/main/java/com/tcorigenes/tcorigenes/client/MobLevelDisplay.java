@@ -8,7 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -44,7 +44,7 @@ public final class MobLevelDisplay {
         Vec3 end = eye.add(look.scale(RANGE));
         EntityHitResult hit = ProjectileUtil.getEntityHitResult(mc.player, eye, end,
                 mc.player.getBoundingBox().expandTowards(look.scale(RANGE)).inflate(1.0),
-                entity -> entity instanceof Monster && entity.isAlive() && !entity.isSpectator(), RANGE * RANGE);
+                entity -> entity instanceof Mob && entity.isAlive() && !entity.isSpectator(), RANGE * RANGE);
         if (hit != null) {
             targetedId = hit.getEntity().getId();
         }
@@ -53,7 +53,7 @@ public final class MobLevelDisplay {
     @SubscribeEvent
     public static void onRenderNameTag(RenderNameTagEvent event) {
         Entity entity = event.getEntity();
-        if (entity.getId() != targetedId || !(entity instanceof Monster monster)) {
+        if (entity.getId() != targetedId || !(entity instanceof Mob monster)) {
             return;
         }
         int level = 1;
