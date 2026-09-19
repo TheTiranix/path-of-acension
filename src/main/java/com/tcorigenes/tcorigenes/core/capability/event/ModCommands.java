@@ -24,6 +24,7 @@ public class ModCommands {
         new AbilityDebugCommand(event.getDispatcher());
         new FavorCommand(event.getDispatcher());
         new RankingsCommand(event.getDispatcher());
+        new com.tcorigenes.tcorigenes.command.DropsCommand(event.getDispatcher());
         FactionNpcCommand.register(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
     }
