@@ -31,7 +31,7 @@ public final class MobScaling {
     private static final double END_BONUS = 0.60;
     private static final UUID MP_HEALTH_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a03");
     private static final UUID MP_DAMAGE_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a04");
-    private static final double EXTRA_PLAYER_BONUS = 0.50;
+    private static final double EXTRA_PLAYER_BONUS = 0.35;
 
     /** Maximo de jugadores conectados a la vez que alcanzo este mundo (nunca baja). */
     public static final class PlayerPeak extends SavedData {
@@ -57,7 +57,7 @@ public final class MobScaling {
     private MobScaling() {
     }
 
-    /** Cada jugador extra suma un 50% a la fuerza de los mobs nuevos; una vez alcanzado un
+    /** Cada jugador extra suma un 35% a la fuerza de los mobs nuevos; una vez alcanzado un
      *  numero de jugadores, ese efecto queda permanente aunque despues se desconecten. */
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
