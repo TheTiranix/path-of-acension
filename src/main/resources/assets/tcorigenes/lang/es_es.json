@@ -18,5 +18,5 @@
   "key.tcorigenes.open_ability_tree": "Abrir Árbol de Habilidades",
   "key.tcorigenes.activate_racial": "Activar Habilidad Racial",
   "ability.tcorigenes.furia_berserker.description": "+50% daño, +20% crítico por 20s, cooldown 3 min. Te desangra un 3% de tu vida máxima 5 veces.",
-  "ability.tcorigenes.guardia_total.description": "Invulnerabilidad total por 5s. Cooldown 60s."
+  "ability.tcorigenes.guardia_total.description": "Invulnerabilidad total por 10s. Cooldown 3 min."
 }

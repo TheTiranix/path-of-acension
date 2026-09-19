@@ -96,8 +96,7 @@ public final class AbilityRegistry {
     }
 
     /**
-     * "Guardia Total" (Escudero). Duracion 5s exacta como pediste; el cooldown (60s) es un
-     * placeholder de balance, no lo especificaste — ajustalo cuando lo pruebes.
+     * "Guardia Total" (Escudero). Duracion 10s y cooldown de 3 minutos (documento v2).
      */
     private static void registerGuardiaTotal() {
         register(new PlayerAbility() {
@@ -108,7 +107,7 @@ public final class AbilityRegistry {
 
             @Override
             public int cooldownTicks() {
-                return 20 * 60;
+                return 20 * 60 * 3;
             }
 
             @Override
@@ -118,7 +117,7 @@ public final class AbilityRegistry {
 
             @Override
             public void activate(net.minecraft.server.level.ServerPlayer player) {
-                com.tcorigenes.tcorigenes.ability.TemporaryInvulnerability.grant(player, 20 * 5);
+                com.tcorigenes.tcorigenes.ability.TemporaryInvulnerability.grant(player, 20 * 10);
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.SHIELD_BLOCK,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
             }
@@ -128,7 +127,7 @@ public final class AbilityRegistry {
     /**
      * "Ojo de Halcón" (Arquero). Version simplificada: en vez de marcar puntos debiles reales
      * en pantalla (necesitaria overlay + raycast, pendiente), resalta (Glowing) a los enemigos
-     * en 24 bloques por 30s — mismo efecto practico (ver a traves de paredes para apuntar).
+     * en 30 bloques por 20s — mismo efecto practico (ver a traves de paredes para apuntar).
      * Cooldown 45s (no especificado, ajustable).
      */
     private static void registerOjoDeHalcon() {
@@ -150,11 +149,11 @@ public final class AbilityRegistry {
 
             @Override
             public void activate(net.minecraft.server.level.ServerPlayer player) {
-                net.minecraft.world.phys.AABB area = new net.minecraft.world.phys.AABB(player.blockPosition()).inflate(24.0);
+                net.minecraft.world.phys.AABB area = new net.minecraft.world.phys.AABB(player.blockPosition()).inflate(30.0);
                 java.util.List<net.minecraft.world.entity.LivingEntity> enemies = player.level().getEntitiesOfClass(
                         net.minecraft.world.entity.LivingEntity.class, area,
                         e -> e instanceof net.minecraft.world.entity.monster.Monster && e.isAlive());
-                enemies.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 30, 0, false, true, true)));
+                enemies.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 20, 0, false, true, true)));
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.SPYGLASS_USE,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
             }

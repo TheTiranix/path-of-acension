@@ -312,6 +312,11 @@ public class ModEvents {
 
         // --- Lado victima: inmunidades/reflejos de raza ---
         if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {
+            player.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY).ifPresent(classInfo -> {
+                if (classInfo.getPlayerClass() == PlayerClass.ESCUDERO) {
+                    event.setAmount(event.getAmount() * 0.8F);
+                }
+            });
             player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(raceInfo -> {
                 Race playerRace = raceInfo.getRace();
                 DamageSource source = event.getSource();
@@ -342,8 +347,8 @@ public class ModEvents {
                     }
                 } else if (playerRace == Race.DEVOTO && source.getEntity() instanceof LivingEntity attackerEntity
                         && attackerEntity != player) {
-                    // Refleja un 5% del daño recibido al atacante.
-                    attackerEntity.hurt(player.damageSources().thorns(player), event.getAmount() * 0.05F);
+                    // Refleja un 10% del daño recibido al atacante.
+                    attackerEntity.hurt(player.damageSources().thorns(player), event.getAmount() * 0.10F);
                 }
             });
         }

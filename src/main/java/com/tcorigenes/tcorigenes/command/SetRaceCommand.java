@@ -38,9 +38,8 @@ public class SetRaceCommand {
                                             com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(player, selectedRace);
                                             RaceSkillGrant.grant(player, selectedRace);
 
-                                            if (selectedRace == Race.DEVOTO) {
-                                                com.tcorigenes.tcorigenes.favor.FavorManager.grantDevotoStartingFavor(player);
-                                            } else if (selectedRace == Race.HEREJE) {
+                                            com.tcorigenes.tcorigenes.favor.FavorManager.grantRaceStartingFavor(player, selectedRace);
+ if (selectedRace == Race.HEREJE) {
                                                 com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);
                                             }
 

@@ -49,29 +49,29 @@ public class ClassAttributeManager {
 
         switch (playerClass) {
             case RITUALISTA_ARCANO -> {
-                // -15% daño, -15% vida, hasta que se consagre el Matrimonio de Carne (VinculoDeCarneItem).
+                // -10% daño fisico, -20% vida, hasta que se consagre el Matrimonio de Carne (VinculoDeCarneItem).
                 // El limite de fuerza de 50 (y la penalidad post-matrimonio si lo supera) necesita un
                 // sistema de "fuerza de arma" que todavia no existe: pendiente, igual que los hechizos.
                 if (!player.getPersistentData().getBoolean("matrimonio_consagrado")) {
-                    add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Ritualista Damage", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                    add(toApply, health, HEALTH_ID, "Ritualista Health", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Ritualista Damage", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(toApply, health, HEALTH_ID, "Ritualista Health", -0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 }
             }
             case BERSERKER -> {
                 // +25% daño cuerpo a cuerpo, +15% critico (el modo "Furia Berserker" activo es la habilidad).
                 add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Berserker Damage", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, critChance, CRIT_CHANCE_ID, "Berserker Crit Chance", 0.15, AttributeModifier.Operation.ADDITION);
+                add(toApply, critChance, CRIT_CHANCE_ID, "Berserker Crit Chance", 0.10, AttributeModifier.Operation.ADDITION);
+                add(toApply, critDamage, CRIT_DAMAGE_ID, "Berserker Crit Damage", 0.15, AttributeModifier.Operation.ADDITION);
             }
             case GUERRERO_ANIMA -> {
                 // +5% velocidad de ataque, +15% critico, +5% daño, +10% vida. (Espada unica/evolucion: pendiente.)
-                add(toApply, attackSpeed, ATTACK_SPEED_ID, "Guerrero Anima Attack Speed", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, critChance, CRIT_CHANCE_ID, "Guerrero Anima Crit Chance", 0.15, AttributeModifier.Operation.ADDITION);
-                add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Guerrero Anima Damage", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, attackSpeed, ATTACK_SPEED_ID, "Guerrero Anima Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, critChance, CRIT_CHANCE_ID, "Guerrero Anima Crit Chance", 0.10, AttributeModifier.Operation.ADDITION);
+                add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Guerrero Anima Damage", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 add(toApply, health, HEALTH_ID, "Guerrero Anima Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             case ESCUDERO -> {
-                // +20% resistencia (armadura plana), +20% vida. (Invulnerabilidad activa = Guardia Total.)
-                add(toApply, armor, ARMOR_ID, "Escudero Armor", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                // +20% vida. El 20% de resistencia absoluta (recibe 20% menos de todo daño) se aplica en ModEvents (LivingHurtEvent). (Invulnerabilidad activa = Guardia Total.)
                 add(toApply, health, HEALTH_ID, "Escudero Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             case ARQUERO -> {

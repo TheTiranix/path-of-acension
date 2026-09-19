@@ -35,9 +35,8 @@ public class ChooseRacePacket {
                     RaceAttributeManager.updateAttributes(player, this.race);
                     com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(player, this.race);
                     RaceSkillGrant.grant(player, this.race);
-                    if (this.race == Race.DEVOTO) {
-                        com.tcorigenes.tcorigenes.favor.FavorManager.grantDevotoStartingFavor(player);
-                    } else if (this.race == Race.HEREJE) {
+                    com.tcorigenes.tcorigenes.favor.FavorManager.grantRaceStartingFavor(player, this.race);
+ if (this.race == Race.HEREJE) {
                         com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);
                     }
                     player.displayClientMessage(Component.literal("Has elegido el origen: " + this.race.getDisplayName()), false);

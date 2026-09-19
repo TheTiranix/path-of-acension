@@ -37,6 +37,9 @@ public class RaceAttributeManager {
     private static final UUID RESIST_LUNAR_MODIFIER_ID = UUID.fromString("66666666-6666-4666-8666-666666666666");
     private static final UUID RESIST_WATER_WEAKNESS_MODIFIER_ID = UUID.fromString("77777777-7777-4777-8777-777777777777");
     private static final UUID RESIST_ENDER_MODIFIER_ID = UUID.fromString("88888888-8888-4888-8888-888888888888");
+    private static final UUID LUCK_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1");
+    private static final UUID KNOCKBACK_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2");
+    private static final UUID REACH_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3");
     private static final UUID CRIT_CHANCE_MODIFIER_ID = UUID.fromString("99999999-9999-4999-8999-999999999999");
 
     public static void updateAttributes(Player player, Race race) {
@@ -52,6 +55,9 @@ public class RaceAttributeManager {
         AttributeInstance resistLunar = player.getAttribute(ModAttributes.RESIST_LUNAR.get());
         AttributeInstance resistEnder = player.getAttribute(ModAttributes.RESIST_ENDER.get());
         AttributeInstance critChance = player.getAttribute(ModAttributes.CRIT_CHANCE.get());
+        AttributeInstance luck = player.getAttribute(Attributes.LUCK);
+        AttributeInstance knockbackResistance = player.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
+        AttributeInstance reach = player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_REACH.get());
 
         // Limpieza: sacamos todos los modifiers de raza antes de aplicar los de la nueva.
         removeIfPresent(health, HEALTH_MODIFIER_ID);
@@ -67,18 +73,23 @@ public class RaceAttributeManager {
         removeIfPresent(resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID);
         removeIfPresent(resistEnder, RESIST_ENDER_MODIFIER_ID);
         removeIfPresent(critChance, CRIT_CHANCE_MODIFIER_ID);
+        removeIfPresent(luck, LUCK_MODIFIER_ID);
+        removeIfPresent(knockbackResistance, KNOCKBACK_MODIFIER_ID);
+        removeIfPresent(reach, REACH_MODIFIER_ID);
 
         List<Runnable> toApply = new ArrayList<>();
 
         switch (race) {
             case HEREJE -> {
-                // +3% esquive, +5% velocidad, +5% velocidad de ataque. El 45%+5% real por golpear
+                // +5% esquive, +10% velocidad, +10% velocidad de ataque (draw speed: sin atributo todavia). El 45%+5% real por golpear
                 // puntos debiles y el tope de favor en 0 se manejan en ModEvents.
-                add(toApply, dodge, DODGE_MODIFIER_ID, "Hereje Dodge", 0.03, AttributeModifier.Operation.ADDITION);
-                add(toApply, speed, SPEED_MODIFIER_ID, "Hereje Speed", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Hereje Attack Speed", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, dodge, DODGE_MODIFIER_ID, "Hereje Dodge", 0.05, AttributeModifier.Operation.ADDITION);
+                add(toApply, speed, SPEED_MODIFIER_ID, "Hereje Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Hereje Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             case DEVOTO -> {
+                // +100% suerte: la suerte base es 0, asi que se traduce como +1 de Suerte (equivale a Suerte I).
+                add(toApply, luck, LUCK_MODIFIER_ID, "Devoto Luck", 1.0, AttributeModifier.Operation.ADDITION);
                 // 10% mas regen/curacion (aplicado en ModEvents#onLivingHeal sobre TODA curacion,
                 // incluye robo de vida/pociones porque ese evento intercepta cualquier heal) y
                 // 3% de reflejo de daño (fase 2: necesita un LivingHurtEvent que devuelva daño al atacante).
@@ -88,7 +99,7 @@ public class RaceAttributeManager {
                 // -40% resistencia a luz: no esta en el documento, es un agregado de balance a proposito
                 // (confirmado explicitamente, mantener). El +10% extra al PEGAR con fuego elemental
                 // esta en ModEvents (necesita leer el tipo de daño del golpe, no es un atributo plano).
-                add(toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Demonio Damage", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Demonio Damage", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 add(toApply, resistLight, RESIST_LIGHT_WEAKNESS_MODIFIER_ID, "Demonio Light Weakness", -0.40, AttributeModifier.Operation.ADDITION);
                 add(toApply, resistFire, RESIST_FIRE_MODIFIER_ID, "Demonio Fire Resistance", 0.15, AttributeModifier.Operation.ADDITION);
             }
@@ -103,7 +114,7 @@ public class RaceAttributeManager {
                 // -20% resistencia a luz: agregado de balance a proposito (confirmado, mantener),
                 // no esta en el documento. La bateria de energia lunar es un item nuevo: fase 2.
                 add(toApply, resistLight, RESIST_LIGHT_WEAKNESS_MODIFIER_ID, "Siervo Luna Light Weakness", -0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistLunar, RESIST_LUNAR_MODIFIER_ID, "Siervo Luna Lunar Resistance", 0.15, AttributeModifier.Operation.ADDITION);
+                add(toApply, resistLunar, RESIST_LUNAR_MODIFIER_ID, "Siervo Luna Lunar Resistance", 0.10, AttributeModifier.Operation.ADDITION);
             }
             case ENDER_WARRIOR -> {
                 // +15% vida, 10% esquive de flechas, +15% resistencia ender. -20% resistencia a agua
@@ -111,10 +122,12 @@ public class RaceAttributeManager {
                 // documento. El daño por tocar agua (como Enderman) esta en ModEvents#onPlayerTick.
                 // 0.5 bloques mas alto: no implementado, requeriria overridear el hitbox del jugador
                 // (mixin de riesgo/beneficio dudoso dado lo visto con relics_in_chaos).
-                add(toApply, health, HEALTH_MODIFIER_ID, "Ender Warrior Health", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, arrowDodge, ARROW_DODGE_MODIFIER_ID, "Ender Warrior Arrow Dodge", 0.10, AttributeModifier.Operation.ADDITION);
+                add(toApply, health, HEALTH_MODIFIER_ID, "Ender Warrior Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, arrowDodge, ARROW_DODGE_MODIFIER_ID, "Ender Warrior Arrow Dodge", 0.30, AttributeModifier.Operation.ADDITION);
                 add(toApply, resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID, "Ender Warrior Water Weakness", -0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistEnder, RESIST_ENDER_MODIFIER_ID, "Ender Warrior Ender Resistance", 0.15, AttributeModifier.Operation.ADDITION);
+                add(toApply, resistEnder, RESIST_ENDER_MODIFIER_ID, "Ender Warrior Ender Resistance", 0.20, AttributeModifier.Operation.ADDITION);
+                add(toApply, knockbackResistance, KNOCKBACK_MODIFIER_ID, "Ender Warrior Knockback Resistance", 0.30, AttributeModifier.Operation.ADDITION);
+                add(toApply, reach, REACH_MODIFIER_ID, "Ender Warrior Attack Reach", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             case MALNACIDO -> {
                 if (player.getPersistentData().getBoolean("malnacido_purificado")) {

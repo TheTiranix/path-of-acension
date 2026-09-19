@@ -1,12 +1,16 @@
 package com.tcorigenes.tcorigenes.compat;
 
 import java.util.UUID;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -25,8 +29,46 @@ public final class MobScaling {
     public static final double BONUS_PER_LEVEL = 0.04;
     private static final double NETHER_BONUS = 0.30;
     private static final double END_BONUS = 0.60;
+    private static final UUID MP_HEALTH_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a03");
+    private static final UUID MP_DAMAGE_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a04");
+    private static final double EXTRA_PLAYER_BONUS = 0.50;
+
+    /** Maximo de jugadores conectados a la vez que alcanzo este mundo (nunca baja). */
+    public static final class PlayerPeak extends SavedData {
+        private int peak = 1;
+
+        static PlayerPeak load(CompoundTag tag) {
+            PlayerPeak data = new PlayerPeak();
+            data.peak = Math.max(1, tag.getInt("peak"));
+            return data;
+        }
+
+        @Override
+        public CompoundTag save(CompoundTag tag) {
+            tag.putInt("peak", peak);
+            return tag;
+        }
+
+        static PlayerPeak get(net.minecraft.server.MinecraftServer server) {
+            return server.overworld().getDataStorage().computeIfAbsent(PlayerPeak::load, PlayerPeak::new, "tcorigenes_player_peak");
+        }
+    }
 
     private MobScaling() {
+    }
+
+    /** Cada jugador extra suma un 50% a la fuerza de los mobs nuevos; una vez alcanzado un
+     *  numero de jugadores, ese efecto queda permanente aunque despues se desconecten. */
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player && player.getServer() != null) {
+            PlayerPeak data = PlayerPeak.get(player.getServer());
+            int online = player.getServer().getPlayerCount();
+            if (online > data.peak) {
+                data.peak = online;
+                data.setDirty();
+            }
+        }
     }
 
     @SubscribeEvent
@@ -49,6 +91,14 @@ public final class MobScaling {
             bonus += NETHER_BONUS;
         } else if (event.getLevel().dimension() == Level.END) {
             bonus += END_BONUS;
+        }
+        if (event.getLevel().getServer() != null) {
+            double multiplayer = EXTRA_PLAYER_BONUS * (PlayerPeak.get(event.getLevel().getServer()).peak - 1);
+            if (multiplayer > 0.0) {
+                apply(mob.getAttribute(Attributes.MAX_HEALTH), MP_HEALTH_ID, "TC multiplayer health", multiplayer);
+                apply(mob.getAttribute(Attributes.ATTACK_DAMAGE), MP_DAMAGE_ID, "TC multiplayer damage", multiplayer);
+                mob.setHealth(mob.getMaxHealth());
+            }
         }
         if (bonus <= 0.0) {
             return;
