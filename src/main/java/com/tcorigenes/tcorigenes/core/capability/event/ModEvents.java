@@ -120,12 +120,14 @@ public class ModEvents {
                     player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 220, 0, true, false, false));
                 }
                 // Para nadar sin daño hace falta el combo completo: escafandra + pechera + pantalon +
-                // botas + guantes (cualquier item en el slot "hands" de Curios) + brazalete.
+                // botas + guantes (guante izquierdo Y derecho en "hands" de Curios, o el slot de guantes
+                // del Aether) + brazalete.
                 boolean swimProtected = wearingEscafandra
                         && !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty()
                         && !player.getItemBySlot(EquipmentSlot.LEGS).isEmpty()
                         && !player.getItemBySlot(EquipmentSlot.FEET).isEmpty()
-                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasAnyInSlot(player, "hands")
+                        && (com.tcorigenes.tcorigenes.compat.CuriosCompat.allSlotsOccupied(player, "hands")
+                                || com.tcorigenes.tcorigenes.compat.CuriosCompat.hasAnyInSlot(player, "aether_gloves"))
                         && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasBracelet(player);
                 if (player.tickCount % 20 == 0 && player.isInWater() && !swimProtected) {
                     // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no

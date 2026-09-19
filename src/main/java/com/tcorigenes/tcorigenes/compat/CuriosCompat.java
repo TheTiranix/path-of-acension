@@ -24,6 +24,24 @@ public final class CuriosCompat {
                         .orElse(false);
     }
 
+    /** Todos los lugares del slot con ese id estan ocupados (ej. guante izquierdo Y derecho en "hands"). */
+    public static boolean allSlotsOccupied(LivingEntity entity, String slotId) {
+        return ModList.get().isLoaded("curios")
+                && CuriosApi.getCuriosInventory(entity).map(handler -> handler.getStacksHandler(slotId)
+                        .map(stacks -> {
+                            int slots = stacks.getStacks().getSlots();
+                            if (slots == 0) {
+                                return false;
+                            }
+                            for (int i = 0; i < slots; i++) {
+                                if (stacks.getStacks().getStackInSlot(i).isEmpty()) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        }).orElse(false)).orElse(false);
+    }
+
     /** Hay algo (cualquier item) puesto en el slot de Curios con ese id. */
     public static boolean hasAnyInSlot(LivingEntity entity, String slotId) {
         return ModList.get().isLoaded("curios")

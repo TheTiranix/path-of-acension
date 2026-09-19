@@ -22,7 +22,7 @@ public final class EnderWarriorSize {
     private EnderWarriorSize() {
     }
 
-    private static boolean isEnderWarrior(Player player) {
+    public static boolean isEnderWarrior(Player player) {
         if (player.level().isClientSide()) {
             return ClientRaceData.get(player.getUUID()) == Race.ENDER_WARRIOR;
         }
