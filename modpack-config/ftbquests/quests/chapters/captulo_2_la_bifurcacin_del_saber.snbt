@@ -89,6 +89,11 @@
 					type: "xp_levels"
 					xp_levels: 10
 				}
+				{
+					command: "/grantabilitypoints {p} 1"
+					id: "56AC493DC42D28CB"
+					type: "command"
+				}
 			]
 			tasks: [
 				{

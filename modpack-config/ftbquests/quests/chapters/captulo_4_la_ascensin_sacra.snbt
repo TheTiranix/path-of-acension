@@ -65,6 +65,11 @@
 				xp_levels: 35
 			}
 			{
+				command: "/grantabilitypoints {p} 1"
+				id: "A894F50FAC949E35"
+				type: "command"
+			}
+			{
 				id: "1B5D1BA80076EFF2"
 				item: "aether:blue_moa_egg"
 				type: "item"

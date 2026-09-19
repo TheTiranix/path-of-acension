@@ -98,6 +98,11 @@
 					type: "xp_levels"
 					xp_levels: 20
 				}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "192DF8FBA22C6164"
+			type: "command"
+		}
 				{
 					command: "/playsound minecraft:entity.warden.listening player @p"
 					id: "16417631728A60BA"
@@ -170,6 +175,11 @@
 					type: "xp_levels"
 					xp_levels: 15
 				}
+				{
+					command: "/grantabilitypoints {p} 1"
+					id: "59D80FF6CE6F2A67"
+					type: "command"
+				}
 			]
 			tasks: [{
 				id: "7F6D3CDB46E038A2"
@@ -232,6 +242,11 @@
 			title: "El Corazón Palpitante"
 			x: 3.5d
 			y: 1.5d
+		}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "C9CE82D223B09586"
+			type: "command"
 		}
 		{
 			dependencies: ["080DC894E762EB0C"]
@@ -325,6 +340,11 @@
 					type: "xp_levels"
 					xp_levels: 5
 				}
+				{
+					command: "/grantabilitypoints {p} 1"
+					id: "BF9B906BA7A57CD4"
+					type: "command"
+				}
 			]
 			size: 2.5d
 			subtitle: "Piel y Hueso"
@@ -353,6 +373,11 @@
 					id: "51E05E1B603AA6FE"
 					type: "xp_levels"
 					xp_levels: 5
+				}
+				{
+					command: "/grantabilitypoints {p} 1"
+					id: "D0B5AA3EFD192565"
+					type: "command"
 				}
 			]
 			tasks: [

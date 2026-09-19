@@ -54,6 +54,7 @@ public class TCOrigenes {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(com.tcorigenes.tcorigenes.client.ModModelLayers::registerLayerDefinitions));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(com.tcorigenes.tcorigenes.client.RaceRenderEvents::onAddLayers));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.RaceRenderEvents.class));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.MobLevelDisplay.class));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModEvents.class);

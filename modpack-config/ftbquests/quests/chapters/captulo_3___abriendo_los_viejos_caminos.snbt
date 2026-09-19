@@ -302,6 +302,11 @@
 					type: "xp_levels"
 					xp_levels: 20
 				}
+				{
+					command: "/grantabilitypoints {p} 1"
+					id: "B860301666F851BA"
+					type: "command"
+				}
 			]
 			tasks: [
 				{
@@ -372,6 +377,11 @@
 			y: -1.5d
 		}
 		{
+			command: "/grantabilitypoints {p} 1"
+			id: "47BC09578F758EF6"
+			type: "command"
+		}
+		{
 			dependencies: ["4BAB67D2BEAF3BFB"]
 			id: "6B5C184FCD531C52"
 			rewards: [{
@@ -386,6 +396,11 @@
 			}]
 			x: -5.0d
 			y: 0.0d
+		}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "E01DEF980E3168DB"
+			type: "command"
 		}
 		{
 			dependencies: ["6B5C184FCD531C52"]
@@ -404,6 +419,11 @@
 			y: -1.5d
 		}
 		{
+			command: "/grantabilitypoints {p} 1"
+			id: "6D92AB221004DAF0"
+			type: "command"
+		}
+		{
 			dependencies: ["104505F6DF61F112"]
 			id: "78251DA9F47E6A23"
 			rewards: [{
@@ -418,6 +438,11 @@
 			}]
 			x: -5.0d
 			y: 2.5d
+		}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "89B61E7317CC3535"
+			type: "command"
 		}
 		{
 			dependencies: ["0ACF92C8DABB6D69"]
@@ -436,6 +461,11 @@
 			y: 1.0d
 		}
 		{
+			command: "/grantabilitypoints {p} 1"
+			id: "F0A6389905C0D84A"
+			type: "command"
+		}
+		{
 			dependencies: ["78251DA9F47E6A23"]
 			id: "6A11FE788F2606D3"
 			rewards: [{
@@ -450,6 +480,11 @@
 			}]
 			x: -3.0d
 			y: 1.5d
+		}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "96C590DA516A3007"
+			type: "command"
 		}
 		{
 			icon: "aether:aether_portal_frame"
@@ -661,6 +696,11 @@
 							affix_data: {
 								sockets: 1
 							}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "AFB8A1BFF42B1A9A"
+			type: "command"
+		}
 						}
 					}
 					type: "item"
@@ -694,6 +734,11 @@
 			y: -4.5d
 		}
 		{
+			command: "/grantabilitypoints {p} 1"
+			id: "622394AE0602E46E"
+			type: "command"
+		}
+		{
 			dependencies: [
 				"367579D5FE6BF723"
 				"321A432C6BDC45A3"
@@ -712,6 +757,11 @@
 			}]
 			x: 11.5d
 			y: -1.5d
+		}
+		{
+			command: "/grantabilitypoints {p} 1"
+			id: "094B26CF00F8AE03"
+			type: "command"
 		}
 	]
 	title: " Capítulo 3 : \"Abriendo los Viejos Caminos\""

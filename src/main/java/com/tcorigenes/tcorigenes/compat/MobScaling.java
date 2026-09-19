@@ -18,11 +18,11 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(modid = "tcorigenes")
 public final class MobScaling {
     private static final String SCALED_KEY = "tc_mob_scaled";
-    private static final UUID HEALTH_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a01");
+    public static final UUID HEALTH_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a01");
     private static final UUID DAMAGE_ID = UUID.fromString("6d1c0f52-3b0a-4a55-9c1e-2f7a8b1d0a02");
     private static final double BLOCKS_PER_LEVEL = 500.0;
     private static final int MAX_LEVEL = 20;
-    private static final double BONUS_PER_LEVEL = 0.04;
+    public static final double BONUS_PER_LEVEL = 0.04;
     private static final double NETHER_BONUS = 0.30;
     private static final double END_BONUS = 0.60;
 
