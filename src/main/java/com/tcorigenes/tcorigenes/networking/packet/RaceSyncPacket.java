@@ -40,7 +40,13 @@ public class RaceSyncPacket {
     public boolean handle(Supplier<Context> supplier) {
         Context context = supplier.get();
         context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () ->
-                com.tcorigenes.tcorigenes.client.ClientRaceData.set(playerId, race, purified)));
+                {
+                    com.tcorigenes.tcorigenes.client.ClientRaceData.set(playerId, race, purified);
+                    var level = net.minecraft.client.Minecraft.getInstance().level;
+                    if (level != null && level.getPlayerByUUID(playerId) != null) {
+                        level.getPlayerByUUID(playerId).refreshDimensions();
+                    }
+                }));
         return true;
     }
 }

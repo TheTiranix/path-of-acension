@@ -125,9 +125,9 @@ public final class AbilityRegistry {
     }
 
     /**
-     * "Ojo de Halcón" (Arquero). Version simplificada: en vez de marcar puntos debiles reales
-     * en pantalla (necesitaria overlay + raycast, pendiente), resalta (Glowing) a los enemigos
-     * en 30 bloques por 20s — mismo efecto practico (ver a traves de paredes para apuntar).
+     * "Ojo de Halcón" (Arquero): marca un punto debil (particula roja grande) en todos los
+     * enemigos en 30 bloques por 20s; los proyectiles que lo aciertan hacen +40% de daño y +15%
+     * de daño real (ver WeakPointManager).
      * Cooldown 45s (no especificado, ajustable).
      */
     private static void registerOjoDeHalcon() {
@@ -149,11 +149,7 @@ public final class AbilityRegistry {
 
             @Override
             public void activate(net.minecraft.server.level.ServerPlayer player) {
-                net.minecraft.world.phys.AABB area = new net.minecraft.world.phys.AABB(player.blockPosition()).inflate(30.0);
-                java.util.List<net.minecraft.world.entity.LivingEntity> enemies = player.level().getEntitiesOfClass(
-                        net.minecraft.world.entity.LivingEntity.class, area,
-                        e -> e instanceof net.minecraft.world.entity.monster.Monster && e.isAlive());
-                enemies.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 20, 0, false, true, true)));
+                com.tcorigenes.tcorigenes.core.WeakPointManager.markForArcher(player);
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.SPYGLASS_USE,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
             }

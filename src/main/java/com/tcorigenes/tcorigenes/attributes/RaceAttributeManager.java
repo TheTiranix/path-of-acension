@@ -37,6 +37,7 @@ public class RaceAttributeManager {
     private static final UUID RESIST_LUNAR_MODIFIER_ID = UUID.fromString("66666666-6666-4666-8666-666666666666");
     private static final UUID RESIST_WATER_WEAKNESS_MODIFIER_ID = UUID.fromString("77777777-7777-4777-8777-777777777777");
     private static final UUID RESIST_ENDER_MODIFIER_ID = UUID.fromString("88888888-8888-4888-8888-888888888888");
+    private static final UUID DRAW_SPEED_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4");
     private static final UUID LUCK_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1");
     private static final UUID KNOCKBACK_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2");
     private static final UUID REACH_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3");
@@ -56,6 +57,7 @@ public class RaceAttributeManager {
         AttributeInstance resistEnder = player.getAttribute(ModAttributes.RESIST_ENDER.get());
         AttributeInstance critChance = player.getAttribute(ModAttributes.CRIT_CHANCE.get());
         AttributeInstance luck = player.getAttribute(Attributes.LUCK);
+        AttributeInstance drawSpeed = player.getAttribute(ModAttributes.DRAW_SPEED.get());
         AttributeInstance knockbackResistance = player.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
         AttributeInstance reach = player.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_REACH.get());
 
@@ -74,6 +76,7 @@ public class RaceAttributeManager {
         removeIfPresent(resistEnder, RESIST_ENDER_MODIFIER_ID);
         removeIfPresent(critChance, CRIT_CHANCE_MODIFIER_ID);
         removeIfPresent(luck, LUCK_MODIFIER_ID);
+        removeIfPresent(drawSpeed, DRAW_SPEED_MODIFIER_ID);
         removeIfPresent(knockbackResistance, KNOCKBACK_MODIFIER_ID);
         removeIfPresent(reach, REACH_MODIFIER_ID);
 
@@ -86,6 +89,7 @@ public class RaceAttributeManager {
                 add(toApply, dodge, DODGE_MODIFIER_ID, "Hereje Dodge", 0.05, AttributeModifier.Operation.ADDITION);
                 add(toApply, speed, SPEED_MODIFIER_ID, "Hereje Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Hereje Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Hereje Draw Speed", 0.10, AttributeModifier.Operation.ADDITION);
             }
             case DEVOTO -> {
                 // +100% suerte: la suerte base es 0, asi que se traduce como +1 de Suerte (equivale a Suerte I).
@@ -142,6 +146,7 @@ public class RaceAttributeManager {
                     // (ModEvents). Odio de facciones y tope de favor en 0: requieren sistemas que no existen
                     // todavia (reputacion, favor).
                     add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Malnacido Attack Speed", -0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Malnacido Draw Speed", -0.20, AttributeModifier.Operation.ADDITION);
                     add(toApply, speed, SPEED_MODIFIER_ID, "Malnacido Slowness", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
                     add(toApply, health, HEALTH_MODIFIER_ID, "Malnacido Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 }
@@ -156,6 +161,7 @@ public class RaceAttributeManager {
         if (player.getHealth() > player.getMaxHealth()) {
             player.setHealth(player.getMaxHealth());
         }
+        player.refreshDimensions();
         if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
             com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(serverPlayer);
         }

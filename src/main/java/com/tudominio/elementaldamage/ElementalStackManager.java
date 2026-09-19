@@ -25,6 +25,7 @@ public final class ElementalStackManager {
     private static final long DECAY_WINDOW_MS = 5000L;
     private static final UUID ICE_SPEED_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550001");
     private static final UUID ICE_ATTACK_SPEED_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550002");
+    private static final UUID ICE_DRAW_SPEED_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550004");
     private static final UUID ENDER_ARMOR_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550003");
 
     private record Stack(double accumulatedDamage, long lastHitMillis) {
@@ -84,6 +85,14 @@ public final class ElementalStackManager {
     private static void setIceModifier(LivingEntity victim, double percent) {
         applyModifier(victim.getAttribute(Attributes.MOVEMENT_SPEED), ICE_SPEED_MODIFIER_ID, "Elemental Ice Slow", -percent);
         applyModifier(victim.getAttribute(Attributes.ATTACK_SPEED), ICE_ATTACK_SPEED_MODIFIER_ID, "Elemental Ice Attack Slow", -percent);
+        // La velocidad de carga de arco tambien baja (solo existe en jugadores); es aditiva, no MULTIPLY_TOTAL.
+        var draw = victim.getAttribute(ModAttributes.DRAW_SPEED.get());
+        if (draw != null) {
+            draw.removeModifier(ICE_DRAW_SPEED_MODIFIER_ID);
+            if (percent != 0.0) {
+                draw.addTransientModifier(new AttributeModifier(ICE_DRAW_SPEED_MODIFIER_ID, "Elemental Ice Draw Slow", -percent, AttributeModifier.Operation.ADDITION));
+            }
+        }
     }
 
     private static double enderArmorPercent(double accumulatedDamage, boolean isPlayerTarget) {

@@ -45,6 +45,10 @@ public class ModAttributes {
     public static final RegistryObject<Attribute> BOW_DAMAGE_MULT = ATTRIBUTES.register(
             "bow_damage_mult", () -> new RangedAttribute("attribute.name.elementaldamage.bow_damage_mult", 1.0, 0.0, 10.0).setSyncable(true));
 
+    /** Velocidad de carga de arcos y ballestas: aditiva, 0.10 = carga un 10% mas rapido, -0.20 = un 20% mas lento. */
+    public static final RegistryObject<Attribute> DRAW_SPEED = ATTRIBUTES.register(
+            "draw_speed", () -> new RangedAttribute("attribute.name.elementaldamage.draw_speed", 0.0, -0.9, 5.0).setSyncable(true));
+
     /** Hay que asignarle estos atributos nuevos a Player, si no Forge los ignora en esa entidad. */
     public static void addToPlayer(EntityAttributeModificationEvent event) {
         if (!event.getTypes().contains(net.minecraft.world.entity.EntityType.PLAYER)) {
@@ -60,5 +64,6 @@ public class ModAttributes {
         event.add(net.minecraft.world.entity.EntityType.PLAYER, CRIT_CHANCE.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, CRIT_DAMAGE.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, BOW_DAMAGE_MULT.get());
+        event.add(net.minecraft.world.entity.EntityType.PLAYER, DRAW_SPEED.get());
     }
 }

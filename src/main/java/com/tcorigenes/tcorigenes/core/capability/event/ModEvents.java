@@ -68,10 +68,6 @@ public class ModEvents {
     /** Jugador -> ultimo nivel de exhaustion de hambre visto (para el 50% extra del Ender Warrior). */
     private static final Map<UUID, Float> LAST_EXHAUSTION = new HashMap<>();
 
-    /** Jugador -> id de entidad marcada como "punto debil" (Hereje). */
-    private static final Map<UUID, Integer> WEAK_POINT_TARGET = new HashMap<>();
-    /** Jugador -> tick de juego en que se marco el punto debil: desaparece a los 3s (60 ticks) si no lo golpea. */
-    private static final Map<UUID, Long> WEAK_POINT_MARKED_AT = new HashMap<>();
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -113,7 +109,9 @@ public class ModEvents {
             }
 
             if (playerRace == Race.HEREJE && player.tickCount % 200 == 0) {
-                markWeakPoint(player);
+                if (player instanceof net.minecraft.server.level.ServerPlayer weakPointPlayer) {
+                    com.tcorigenes.tcorigenes.core.WeakPointManager.markForHereje(weakPointPlayer);
+                }
             }
 
             if (playerRace == Race.ENDER_WARRIOR) {
@@ -163,6 +161,7 @@ public class ModEvents {
     }
 
 
+    private static final UUID LUNAR_DRAW_SPEED_ID = UUID.fromString("e8a2d7a8-8a2c-4b8a-9a2d-7a8a2d7a8a31");
     private static final UUID LUNAR_ATTACK_SPEED_ID = UUID.fromString("e8a2d7a8-8a2c-4b8a-9a2d-7a8a2d7a8a30");
 
     /** "Expuesto a la luna": de noche y a cielo abierto. */
@@ -174,6 +173,7 @@ public class ModEvents {
     private static void handleSiervoDeLaLunaTick(Player player) {
         AttributeInstance damageInstance = player.getAttribute(Attributes.ATTACK_DAMAGE);
         AttributeInstance attackSpeedInstance = player.getAttribute(Attributes.ATTACK_SPEED);
+        AttributeInstance drawSpeedInstance = player.getAttribute(com.tudominio.elementaldamage.ModAttributes.DRAW_SPEED.get());
         AttributeInstance protectionInstance = player.getAttribute(Attributes.ARMOR);
         if (protectionInstance != null) {
             protectionInstance.removeModifier(RaceAttributeManager.LUNAR_PROTECTION_MODIFIER_ID);
@@ -189,6 +189,11 @@ public class ModEvents {
             if (attackSpeedInstance != null && attackSpeedInstance.getModifier(LUNAR_ATTACK_SPEED_ID) == null) {
                 attackSpeedInstance.addTransientModifier(new AttributeModifier(
                         LUNAR_ATTACK_SPEED_ID, "Lunar Attack Speed Buff", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            }
+
+            if (drawSpeedInstance != null && drawSpeedInstance.getModifier(LUNAR_DRAW_SPEED_ID) == null) {
+                drawSpeedInstance.addTransientModifier(new AttributeModifier(
+                        LUNAR_DRAW_SPEED_ID, "Lunar Draw Speed Buff", 0.05, AttributeModifier.Operation.ADDITION));
             }
 
             if (player.tickCount % 20 == 0) {
@@ -215,22 +220,10 @@ public class ModEvents {
             if (attackSpeedInstance != null) {
                 attackSpeedInstance.removeModifier(LUNAR_ATTACK_SPEED_ID);
             }
+            if (drawSpeedInstance != null) {
+                drawSpeedInstance.removeModifier(LUNAR_DRAW_SPEED_ID);
+            }
         }
-    }
-
-    /** Marca al monstruo mas cercano en 16 bloques con Brillo por 3s: es el "punto debil", que
-     *  desaparece si no lo golpeas a tiempo (chequeado en onLivingHurt via WEAK_POINT_MARKED_AT). */
-    private static void markWeakPoint(Player player) {
-        AABB area = new AABB(player.blockPosition()).inflate(16.0);
-        List<LivingEntity> monsters = player.level().getEntitiesOfClass(LivingEntity.class, area,
-                e -> e instanceof Monster && e.isAlive());
-        monsters.stream()
-                .min((a, b) -> Double.compare(a.distanceTo(player), b.distanceTo(player)))
-                .ifPresent(target -> {
-                    target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60, 0, false, true, true));
-                    WEAK_POINT_TARGET.put(player.getUUID(), target.getId());
-                    WEAK_POINT_MARKED_AT.put(player.getUUID(), player.level().getGameTime());
-                });
     }
 
     @SubscribeEvent
@@ -295,24 +288,6 @@ public class ModEvents {
     public static void onLivingHurt(LivingHurtEvent event) {
         // --- Lado atacante: Hereje/Arquero contra puntos marcados, Demonio/Angel con su elemento ---
         if (event.getSource().getEntity() instanceof Player attacker && !attacker.level().isClientSide()) {
-            Integer weakPointId = WEAK_POINT_TARGET.get(attacker.getUUID());
-            Long markedAt = WEAK_POINT_MARKED_AT.get(attacker.getUUID());
-            boolean isWeakPointHit = weakPointId != null && weakPointId == event.getEntity().getId()
-                    && markedAt != null && (attacker.level().getGameTime() - markedAt) <= 60;
-
-            attacker.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(raceInfo -> {
-                if (raceInfo.getRace() == Race.HEREJE && isWeakPointHit) {
-                    // 45% mas daño + 5% de daño real aproximado como +50% total (ver limitaciones documentadas).
-                    event.setAmount(event.getAmount() * 1.50F);
-                }
-            });
-            attacker.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY).ifPresent(classInfo -> {
-                if (classInfo.getPlayerClass() == PlayerClass.ARQUERO && event.getEntity().hasEffect(MobEffects.GLOWING)) {
-                    // 30% mas daño + 10% real aproximado como +40% total.
-                    event.setAmount(event.getAmount() * 1.40F);
-                }
-            });
-
             // +10% extra al pegar con su propio elemento (Demonio-fuego, Angel-luz). No es un
             // atributo plano: depende del tipo de daño de ESTE golpe, hay que leerlo aca.
             var elementKey = event.getSource().typeHolder().unwrapKey().orElse(null);
