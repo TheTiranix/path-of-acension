@@ -27,17 +27,7 @@ public class SetClassCommand {
 
                                     try {
                                         PlayerClass selectedClass = PlayerClass.valueOf(className);
-                                        player.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY)
-                                                .ifPresent(data -> data.setPlayerClass(selectedClass));
-                                        ClassAttributeManager.updateAttributes(player, selectedClass);
-                                        if (selectedClass == PlayerClass.GUERRERO_ANIMA) {
-                                            // Espada ligada al alma desde el principio (solo si todavia no la tiene).
-                                            var sword = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
-                                                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "espada_anima_1"));
-                                            if (sword != null && !player.getInventory().contains(new net.minecraft.world.item.ItemStack(sword))) {
-                                                player.getInventory().add(new net.minecraft.world.item.ItemStack(sword));
-                                            }
-                                        }
+                                        com.tcorigenes.tcorigenes.playerclass.ClassSelection.apply(player, selectedClass);
                                         context.getSource().sendSuccess(
                                                 () -> Component.literal("Tu clase ha sido establecida a: " + selectedClass.getDisplayName()), true);
                                         return 1;

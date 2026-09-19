@@ -4,7 +4,9 @@ import com.tcorigenes.tcorigenes.ability.network.AbilityCooldownSyncPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateAbilityPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateRacialAbilityPacket;
 import com.tcorigenes.tcorigenes.favor.network.FavorSyncPacket;
+import com.tcorigenes.tcorigenes.networking.packet.ChooseClassPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
+import com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.RaceSyncPacket;
 import com.tcorigenes.tcorigenes.progression.network.SkillSyncPacket;
@@ -80,6 +82,18 @@ public class Networking {
                 .decoder(RaceSyncPacket::new)
                 .encoder(RaceSyncPacket::toBytes)
                 .consumerMainThread(RaceSyncPacket::handle)
+                .add();
+
+        net.messageBuilder(ChooseClassPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ChooseClassPacket::new)
+                .encoder(ChooseClassPacket::toBytes)
+                .consumerMainThread(ChooseClassPacket::handle)
+                .add();
+
+        net.messageBuilder(OpenClassScreenPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(OpenClassScreenPacket::new)
+                .encoder(OpenClassScreenPacket::toBytes)
+                .consumerMainThread(OpenClassScreenPacket::handle)
                 .add();
 
         net.messageBuilder(DropsResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)

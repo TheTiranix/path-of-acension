@@ -38,10 +38,6 @@ public class RaceSelectionScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(Component.literal("Seleccionar"), button -> {
             Networking.sendToServer(new ChooseRacePacket(this.availableRaces.get(this.currentIndex)));
-            if (Minecraft.getInstance().player != null) {
-                ItemStack orbStack = Minecraft.getInstance().player.getItemInHand(this.hand);
-                orbStack.shrink(1);
-            }
             this.onClose();
         }).bounds(centerX - 50, centerY + 50, 100, 20).build());
     }
