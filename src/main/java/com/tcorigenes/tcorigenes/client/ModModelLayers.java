@@ -14,6 +14,8 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 public final class ModModelLayers {
     public static final ModelLayerLocation DEMON_HORNS =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "demon_horns"), "main");
+    public static final ModelLayerLocation SIERVO_ANTENNAS =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "siervo_antennas"), "main");
     public static final ModelLayerLocation ANGEL_WINGS =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "angel_wings"), "main");
 
@@ -23,6 +25,7 @@ public final class ModModelLayers {
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(DEMON_HORNS, ModModelLayers::createHornsLayer);
         event.registerLayerDefinition(ANGEL_WINGS, ModModelLayers::createWingsLayer);
+        event.registerLayerDefinition(SIERVO_ANTENNAS, ModModelLayers::createAntennasLayer);
     }
 
     private static LayerDefinition createHornsLayer() {
@@ -36,6 +39,24 @@ public final class ModModelLayers {
                 CubeListBuilder.create().texOffs(6, 0).addBox(-0.75F, -6.0F, -0.75F, 1.5F, 6.0F, 1.5F),
                 PartPose.offsetAndRotation(3.0F, -7.0F, 0.5F, -0.2F, 0.0F, 0.45F));
         return LayerDefinition.create(mesh, 16, 16);
+    }
+
+    private static LayerDefinition createAntennasLayer() {
+        // Dos antenas finas (tallo + bulbo en la punta), levemente abiertas hacia afuera.
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        addAntenna(root, "left", -2.0F, -0.25F);
+        addAntenna(root, "right", 2.0F, 0.25F);
+        return LayerDefinition.create(mesh, 16, 16);
+    }
+
+    private static void addAntenna(PartDefinition root, String side, float x, float tilt) {
+        PartDefinition antenna = root.addOrReplaceChild(side + "_antenna",
+                CubeListBuilder.create().texOffs(0, 0).addBox(-0.25F, -5.0F, -0.25F, 0.5F, 5.0F, 0.5F),
+                PartPose.offsetAndRotation(x, -8.0F, -1.0F, -0.1F, 0.0F, tilt));
+        antenna.addOrReplaceChild(side + "_bulb",
+                CubeListBuilder.create().texOffs(0, 8).addBox(-0.75F, -6.5F, -0.75F, 1.5F, 1.5F, 1.5F),
+                PartPose.ZERO);
     }
 
     private static final int FEATHERS_PER_WING = 5;

@@ -24,16 +24,20 @@ import net.minecraft.resources.ResourceLocation;
 public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     private static final ResourceLocation HORNS_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/demon_horns.png");
+    private static final ResourceLocation ANTENNAS_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/siervo_antennas.png");
     private static final ResourceLocation WINGS_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/angel_wings.png");
 
     private final ModelPart horns;
     private final ModelPart wings;
+    private final ModelPart antennas;
 
     public RaceFeaturesLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, EntityModelSet modelSet) {
         super(parent);
         this.horns = modelSet.bakeLayer(ModModelLayers.DEMON_HORNS);
         this.wings = modelSet.bakeLayer(ModModelLayers.ANGEL_WINGS);
+        this.antennas = modelSet.bakeLayer(ModModelLayers.SIERVO_ANTENNAS);
     }
 
     @Override
@@ -48,6 +52,12 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             this.getParentModel().head.translateAndRotate(poseStack);
             VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(HORNS_TEXTURE));
             horns.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
+            poseStack.popPose();
+        } else if (race == Race.SIERVO_DE_LA_LUNA) {
+            poseStack.pushPose();
+            this.getParentModel().head.translateAndRotate(poseStack);
+            VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(ANTENNAS_TEXTURE));
+            antennas.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
         } else if (race == Race.ANGEL) {
             poseStack.pushPose();

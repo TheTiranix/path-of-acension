@@ -160,24 +160,41 @@ public class ModEvents {
     }
 
 
-    private static void handleSiervoDeLaLunaTick(Player player) {
-        Level world = player.level();
-        AttributeInstance damageInstance = player.getAttribute(Attributes.ATTACK_DAMAGE);
-        AttributeInstance protectionInstance = player.getAttribute(Attributes.ARMOR);
+    private static final UUID LUNAR_ATTACK_SPEED_ID = UUID.fromString("e8a2d7a8-8a2c-4b8a-9a2d-7a8a2d7a8a30");
 
-        boolean esDeNoche = world.isNight() && world.canSeeSky(player.blockPosition());
-        if (esDeNoche) {
+    /** "Expuesto a la luna": de noche y a cielo abierto. */
+    private static boolean isMoonExposed(Player player) {
+        Level world = player.level();
+        return world.isNight() && world.canSeeSky(player.blockPosition());
+    }
+
+    private static void handleSiervoDeLaLunaTick(Player player) {
+        AttributeInstance damageInstance = player.getAttribute(Attributes.ATTACK_DAMAGE);
+        AttributeInstance attackSpeedInstance = player.getAttribute(Attributes.ATTACK_SPEED);
+        AttributeInstance protectionInstance = player.getAttribute(Attributes.ARMOR);
+        if (protectionInstance != null) {
+            protectionInstance.removeModifier(RaceAttributeManager.LUNAR_PROTECTION_MODIFIER_ID);
+        }
+
+        if (isMoonExposed(player)) {
+            // +10% daño general y +5% velocidad de ataque (draw speed: sin atributo todavia), de
+            // jerarquia "absoluta" (MULTIPLY_TOTAL) como cualquier bono de raza.
             if (damageInstance != null && damageInstance.getModifier(RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID) == null) {
                 damageInstance.addTransientModifier(new AttributeModifier(
-                        RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID, "Lunar Damage Buff", 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
+                        RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID, "Lunar Damage Buff", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL));
             }
-            if (protectionInstance != null && protectionInstance.getModifier(RaceAttributeManager.LUNAR_PROTECTION_MODIFIER_ID) == null) {
-                protectionInstance.addTransientModifier(new AttributeModifier(
-                        RaceAttributeManager.LUNAR_PROTECTION_MODIFIER_ID, "Lunar Protection Buff", 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
+            if (attackSpeedInstance != null && attackSpeedInstance.getModifier(LUNAR_ATTACK_SPEED_ID) == null) {
+                attackSpeedInstance.addTransientModifier(new AttributeModifier(
+                        LUNAR_ATTACK_SPEED_ID, "Lunar Attack Speed Buff", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL));
             }
 
-            // Carga la Bateria Lunar si la tiene en el inventario (throttled cada 20 ticks).
             if (player.tickCount % 20 == 0) {
+                // Vision nocturna y regeneracion lunar 1: 3% de la vida maxima por segundo.
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 0, true, false, false));
+                if (player.getHealth() < player.getMaxHealth()) {
+                    player.heal(player.getMaxHealth() * 0.03F);
+                }
+                // Carga la Bateria Lunar si la tiene en el inventario.
                 for (ItemStack stack : player.getInventory().items) {
                     if (stack.getItem() == ModItems.BATERIA_LUNAR.get()) {
                         int charge = BateriaLunarItem.getCharge(stack);
@@ -190,12 +207,10 @@ public class ModEvents {
             }
         } else {
             if (damageInstance != null) {
-                AttributeModifier modifier = damageInstance.getModifier(RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID);
-                if (modifier != null) damageInstance.removeModifier(modifier);
+                damageInstance.removeModifier(RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID);
             }
-            if (protectionInstance != null) {
-                AttributeModifier modifier = protectionInstance.getModifier(RaceAttributeManager.LUNAR_PROTECTION_MODIFIER_ID);
-                if (modifier != null) protectionInstance.removeModifier(modifier);
+            if (attackSpeedInstance != null) {
+                attackSpeedInstance.removeModifier(LUNAR_ATTACK_SPEED_ID);
             }
         }
     }
@@ -304,6 +319,8 @@ public class ModEvents {
                     if (race == Race.DEMONIO && elementKey.equals(ModDamageTypes.FIRE_ELEMENTAL)) {
                         event.setAmount(event.getAmount() * 1.10F);
                     } else if (race == Race.ANGEL && elementKey.equals(ModDamageTypes.LIGHT)) {
+                        event.setAmount(event.getAmount() * 1.10F);
+                    } else if (race == Race.SIERVO_DE_LA_LUNA && elementKey.equals(ModDamageTypes.LUNAR) && isMoonExposed(attacker)) {
                         event.setAmount(event.getAmount() * 1.10F);
                     }
                 });
