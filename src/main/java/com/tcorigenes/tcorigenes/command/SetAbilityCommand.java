@@ -13,7 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 /**
  * Comando de admin (nivel de permiso 2): fuerza equipar cualquier habilidad, IGNORANDO si
  * el jugador la desbloqueo o no en el arbol. Los jugadores normales desbloquean y equipan
- * habilidades organicamente al gastar puntos en los nodos "habilidad_*" del skilltree
+ * habilidades organicamente al gastar puntos en los nodos "clave" de su rama del arbol de habilidades
  * (ver SkillTreeAbilityBridge). Esto es solo para testear.
  */
 public class SetAbilityCommand {

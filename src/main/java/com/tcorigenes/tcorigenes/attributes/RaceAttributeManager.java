@@ -143,6 +143,9 @@ public class RaceAttributeManager {
         if (player.getHealth() > player.getMaxHealth()) {
             player.setHealth(player.getMaxHealth());
         }
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(serverPlayer);
+        }
     }
 
     /** Regeneracion II permanente para el Malnacido purificado. Se re-llama en login/respawn

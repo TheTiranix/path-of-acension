@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.tcorigenes.tcorigenes.ability.network.ActivateAbilityPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateRacialAbilityPacket;
 import com.tcorigenes.tcorigenes.networking.Networking;
-import com.tcorigenes.tcorigenes.progression.client.AbilityTreeScreen;
+import com.tcorigenes.tcorigenes.progression.client.SkillTreeScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -39,7 +39,7 @@ public class AbilityKeyBindings {
             Networking.sendToServer(new ActivateAbilityPacket());
         }
         while (OPEN_ABILITY_TREE.consumeClick()) {
-            AbilityTreeScreen.open();
+            SkillTreeScreen.open();
         }
         while (ACTIVATE_RACIAL.consumeClick()) {
             Networking.sendToServer(new ActivateRacialAbilityPacket());

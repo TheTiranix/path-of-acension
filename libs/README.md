@@ -4,7 +4,6 @@ Estos jars son mods de terceros que el codigo usa como referencia de API (compil
 empaquetan en nuestro jar ni se distribuyen desde aca: bajalos de CurseForge o Modrinth y
 copialos en esta carpeta con estos nombres exactos si queres compilar el mod:
 
-- PassiveSkillTree-1.20.1-BETA-0.6.14a-all.jar
 - PlayerRevive_FORGE_v2.0.31_mc1.20.1.jar
 - ToughAsNails-forge-1.20.1-9.2.0.171.jar
 - curios-forge-5.14.1+1.20.1.jar

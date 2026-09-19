@@ -9,10 +9,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-/**
- * Matar un jefe da puntos para el arbol de habilidades de PassiveSkillTree (se otorgan con su
- * propio comando "skilltree points add", que ademas los sincroniza con el cliente).
- */
+/** Matar un jefe da puntos para el arbol de habilidades propio (ver SkillTreeManager). */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class BossSkillPoints {
     private static final Set<EntityType<?>> BOSSES = Set.of(
@@ -31,9 +28,7 @@ public final class BossSkillPoints {
             return;
         }
         int points = type == EntityType.ENDER_DRAGON || type == EntityType.WITHER ? 3 : 2;
-        killer.getServer().getCommands().performPrefixedCommand(
-                killer.getServer().createCommandSourceStack().withPermission(4).withSuppressedOutput(),
-                "skilltree points add " + killer.getGameProfile().getName() + " " + points);
+        SkillTreeManager.addPoints(killer, points);
         killer.displayClientMessage(Component.literal("Jefe derrotado: +" + points + " puntos de habilidad."), false);
     }
 }

@@ -7,7 +7,8 @@ import com.tcorigenes.tcorigenes.favor.network.FavorSyncPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
 import com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.RaceSyncPacket;
-import com.tcorigenes.tcorigenes.progression.network.UnlockAbilityPacket;
+import com.tcorigenes.tcorigenes.progression.network.SkillSyncPacket;
+import com.tcorigenes.tcorigenes.progression.network.UnlockNodePacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -51,10 +52,16 @@ public class Networking {
                 .consumerMainThread(AbilityCooldownSyncPacket::handle)
                 .add();
 
-        net.messageBuilder(UnlockAbilityPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(UnlockAbilityPacket::new)
-                .encoder(UnlockAbilityPacket::toBytes)
-                .consumerMainThread(UnlockAbilityPacket::handle)
+        net.messageBuilder(UnlockNodePacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(UnlockNodePacket::new)
+                .encoder(UnlockNodePacket::toBytes)
+                .consumerMainThread(UnlockNodePacket::handle)
+                .add();
+
+        net.messageBuilder(SkillSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SkillSyncPacket::new)
+                .encoder(SkillSyncPacket::toBytes)
+                .consumerMainThread(SkillSyncPacket::handle)
                 .add();
 
         net.messageBuilder(ActivateRacialAbilityPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)

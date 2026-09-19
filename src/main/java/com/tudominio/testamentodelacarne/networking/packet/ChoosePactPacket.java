@@ -47,6 +47,8 @@ public class ChoosePactPacket {
                             "advancement grant " + playerName + " only testamentodelacarne:otorgar_pacto_sangre");
                     player.displayClientMessage(Component.literal("§cHas sellado el pacto de sangre. Un nuevo poder fluye a través de ti."), false);
                     player.getPersistentData().putBoolean("pacto_elegido", true);
+                    player.getPersistentData().putString(com.tcorigenes.tcorigenes.progression.SkillTreeManager.PACT_KEY, "sangre");
+                    com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(player);
                 } else {
                     player.displayClientMessage(Component.literal("§4No tienes suficiente vitalidad para soportar este pacto."), false);
                 }
@@ -57,6 +59,8 @@ public class ChoosePactPacket {
                             "advancement grant " + playerName + " only testamentodelacarne:otorgar_pacto_acero");
                     player.displayClientMessage(Component.literal("§bHas aceptado el dogma de acero. Has alcanzado una nueva fuerza."), false);
                     player.getPersistentData().putBoolean("pacto_elegido", true);
+                    player.getPersistentData().putString(com.tcorigenes.tcorigenes.progression.SkillTreeManager.PACT_KEY, "acero");
+                    com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(player);
                 } else {
                     player.displayClientMessage(Component.literal("§3No tienes suficiente experiencia para comprender este dogma."), false);
                 }

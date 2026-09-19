@@ -93,6 +93,9 @@ public class ClassAttributeManager {
         if (player.getHealth() > player.getMaxHealth()) {
             player.setHealth(player.getMaxHealth());
         }
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(serverPlayer);
+        }
     }
 
     private static void removeIfPresent(AttributeInstance instance, UUID id) {

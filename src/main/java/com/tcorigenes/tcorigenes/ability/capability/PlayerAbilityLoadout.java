@@ -62,7 +62,7 @@ public class PlayerAbilityLoadout {
         @Override
         public boolean unlockAbility(String id) {
             boolean wasNew = this.unlockedAbilityIds.add(id);
-            if (wasNew && this.equippedAbilityId == null) {
+            if (wasNew && this.equippedAbilityId == null && !id.startsWith("node:")) {
                 this.equippedAbilityId = id;
             }
             return wasNew;

@@ -134,9 +134,6 @@ dependencies {
     // (arreglo de rendimiento de TimeStopEntityTickProcedure). No se empaqueta en nuestro jar.
     compileOnly files('libs/relics_in_chaos-0.2.4-forge-1.20.1.jar')
 
-    // Solo para poder leer que skills aprendio un jugador (desbloqueo de habilidades via
-    // arbol de PassiveSkillTree). No se empaqueta en nuestro jar.
-    compileOnly files('libs/PassiveSkillTree-1.20.1-BETA-0.6.14a-all.jar')
 
     // Solo para poder escuchar PlayerRevivedEvent (reaplicar raza/clase cuando PlayerRevive
     // revive a un jugador sin pasar por el respawn normal de Minecraft). No se empaqueta.
