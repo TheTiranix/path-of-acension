@@ -2,6 +2,7 @@
 package com.tcorigenes.tcorigenes.progression;
 
 import com.tcorigenes.tcorigenes.ability.capability.PlayerAbilityLoadout;
+import com.tcorigenes.tcorigenes.attributes.OriginBonuses;
 import com.tcorigenes.tcorigenes.ability.capability.PlayerAbilityLoadoutProvider;
 import com.tcorigenes.tcorigenes.core.Race;
 import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
@@ -93,9 +94,15 @@ public final class SkillTreeManager {
 
         Race race = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace()).orElse(null);
         Fixed raceFixed = race == null ? null : raceBonus(race);
+        OriginBonuses.clear(player, "racepassive");
         if (raceFixed != null) {
-            add(player, raceFixed.attribute().get(), raceFixed.id(), "Origen", raceFixed.amount(), raceFixed.op());
+            if (raceFixed.op() == Operation.MULTIPLY_TOTAL) {
+                OriginBonuses.add(player, "racepassive", raceFixed.attribute().get(), raceFixed.amount());
+            } else {
+                add(player, raceFixed.attribute().get(), raceFixed.id(), "Origen", raceFixed.amount(), raceFixed.op());
+            }
         }
+        OriginBonuses.apply(player);
         String pact = player.getPersistentData().getString(PACT_KEY);
         if (pact.equals("sangre")) {
             add(player, PACT_BLOOD.attribute().get(), PACT_BLOOD.id(), "Pacto de sangre", PACT_BLOOD.amount(), PACT_BLOOD.op());

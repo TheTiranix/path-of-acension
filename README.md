@@ -67,7 +67,7 @@ Cada mob tiene un **nivel** que ves como `[Nv. X]` al apuntarle. Cerca del spawn
 El Hereje y el Arquero ven una **carga ígnea roja** pegada al cuerpo del enemigo, siempre en un punto lógico de su hitbox. Acertarla suena a carne, hace daño extra y una parte ignora la armadura.
 
 ### Árbol de habilidades propio
-Una rama por clase, con confirmación antes de gastar puntos (tecla **H**). Los puntos salen de **matar jefes** y de **las quests**.
+Una rama larga por clase (20 nodos: raíz, dos caminos de 9 y una piedra clave): los bonos empiezan pequeños y los últimos nodos suman mucho. Confirmación antes de gastar puntos (tecla **H**). Los puntos salen de **matar jefes** y de **las quests**.
 
 ### El panteón te observa
 Cada dios recompensa algo distinto: Pater premia crear y construir (y rezar en su altar), Meidris cultivar y criar animales, Deiros matar y hacer explotar cosas, Filis explorar y saquear cofres. Los altares aceptan ofrendas de todos.

@@ -82,19 +82,20 @@ public class RaceAttributeManager {
         removeIfPresent(reach, REACH_MODIFIER_ID);
 
         List<Runnable> toApply = new ArrayList<>();
+        OriginBonuses.clear(player, "race");
 
         switch (race) {
             case HEREJE -> {
                 // +5% esquive, +10% velocidad, +10% velocidad de ataque (draw speed: sin atributo todavia). El 45%+5% real por golpear
                 // puntos debiles y el tope de favor en 0 se manejan en ModEvents.
-                add(toApply, dodge, DODGE_MODIFIER_ID, "Hereje Dodge", 0.05, AttributeModifier.Operation.ADDITION);
-                add(toApply, speed, SPEED_MODIFIER_ID, "Hereje Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Hereje Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Hereje Draw Speed", 0.10, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, dodge, DODGE_MODIFIER_ID, "Hereje Dodge", 0.05, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, speed, SPEED_MODIFIER_ID, "Hereje Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Hereje Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Hereje Draw Speed", 0.10, AttributeModifier.Operation.ADDITION);
             }
             case DEVOTO -> {
                 // +100% suerte: la suerte base es 0, asi que se traduce como +1 de Suerte (equivale a Suerte I).
-                add(toApply, luck, LUCK_MODIFIER_ID, "Devoto Luck", 1.0, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, luck, LUCK_MODIFIER_ID, "Devoto Luck", 1.0, AttributeModifier.Operation.ADDITION);
                 // 10% mas regen/curacion (aplicado en ModEvents#onLivingHeal sobre TODA curacion,
                 // incluye robo de vida/pociones porque ese evento intercepta cualquier heal) y
                 // 3% de reflejo de daño (fase 2: necesita un LivingHurtEvent que devuelva daño al atacante).
@@ -104,13 +105,13 @@ public class RaceAttributeManager {
                 // -40% resistencia a luz: no esta en el documento, es un agregado de balance a proposito
                 // (confirmado explicitamente, mantener). El +10% extra al PEGAR con fuego elemental
                 // esta en ModEvents (necesita leer el tipo de daño del golpe, no es un atributo plano).
-                add(toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Demonio Damage", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, resistLight, RESIST_LIGHT_WEAKNESS_MODIFIER_ID, "Demonio Light Weakness", -0.40, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistFire, RESIST_FIRE_MODIFIER_ID, "Demonio Fire Resistance", 0.15, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Demonio Damage", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, resistLight, RESIST_LIGHT_WEAKNESS_MODIFIER_ID, "Demonio Light Weakness", -0.40, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistFire, RESIST_FIRE_MODIFIER_ID, "Demonio Fire Resistance", 0.15, AttributeModifier.Operation.ADDITION);
             }
             case ANGEL -> {
                 // Inmune a caida + planeo (ModEvents/fase 2 para el planeo), +10% daño de luz, +10% resistencia a luz.
-                add(toApply, resistLight, RESIST_LIGHT_MODIFIER_ID, "Angel Light Resistance", 0.10, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistLight, RESIST_LIGHT_MODIFIER_ID, "Angel Light Resistance", 0.10, AttributeModifier.Operation.ADDITION);
                 // El "+10% daño elemental de luz infligido" no es un atributo de defensa: se aplica
                 // multiplicando el daño cuando EL ANGEL es quien ataca con luz (fase 2, en el item/hechizo de luz).
             }
@@ -118,8 +119,8 @@ public class RaceAttributeManager {
                 // +10% proteccion y +10% daño de noche (dinamico, ModEvents), 15% resistencia lunar.
                 // -20% resistencia a luz: agregado de balance a proposito (confirmado, mantener),
                 // no esta en el documento. La bateria de energia lunar es un item nuevo: fase 2.
-                add(toApply, resistLight, RESIST_LIGHT_WEAKNESS_MODIFIER_ID, "Siervo Luna Light Weakness", -0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistLunar, RESIST_LUNAR_MODIFIER_ID, "Siervo Luna Lunar Resistance", 0.10, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistLight, RESIST_LIGHT_WEAKNESS_MODIFIER_ID, "Siervo Luna Light Weakness", -0.20, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistLunar, RESIST_LUNAR_MODIFIER_ID, "Siervo Luna Lunar Resistance", 0.10, AttributeModifier.Operation.ADDITION);
             }
             case ENDER_WARRIOR -> {
                 // +15% vida, 10% esquive de flechas, +15% resistencia ender. -20% resistencia a agua
@@ -127,41 +128,41 @@ public class RaceAttributeManager {
                 // documento. El daño por tocar agua (como Enderman) esta en ModEvents#onPlayerTick.
                 // 0.5 bloques mas alto: no implementado, requeriria overridear el hitbox del jugador
                 // (mixin de riesgo/beneficio dudoso dado lo visto con relics_in_chaos).
-                add(toApply, health, HEALTH_MODIFIER_ID, "Ender Warrior Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, arrowDodge, ARROW_DODGE_MODIFIER_ID, "Ender Warrior Arrow Dodge", 0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID, "Ender Warrior Water Weakness", -0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistEnder, RESIST_ENDER_MODIFIER_ID, "Ender Warrior Ender Resistance", 0.10, AttributeModifier.Operation.ADDITION);
-                add(toApply, knockbackResistance, KNOCKBACK_MODIFIER_ID, "Ender Warrior Knockback Resistance", 0.15, AttributeModifier.Operation.ADDITION);
-                add(toApply, reach, REACH_MODIFIER_ID, "Ender Warrior Attack Reach", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, health, HEALTH_MODIFIER_ID, "Ender Warrior Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, arrowDodge, ARROW_DODGE_MODIFIER_ID, "Ender Warrior Arrow Dodge", 0.20, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID, "Ender Warrior Water Weakness", -0.20, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistEnder, RESIST_ENDER_MODIFIER_ID, "Ender Warrior Ender Resistance", 0.10, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, knockbackResistance, KNOCKBACK_MODIFIER_ID, "Ender Warrior Knockback Resistance", 0.15, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, reach, REACH_MODIFIER_ID, "Ender Warrior Attack Reach", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 // -10% velocidad de golpeo y de carga (draw speed). El 5% de daño convertido a ender esta en RacialElemental.
-                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Ender Warrior Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Ender Warrior Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Ender Warrior Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Ender Warrior Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
             }
             case STONE_GIANT -> {
                 // +20% vida, -10% velocidad, -10% velocidad de golpeo y de carga. 5% de resistencia absoluta
                 // (ModEvents), 25% mas alto y ancho (EnderWarriorSize + RaceRenderEvents) y 10% de daño
                 // convertido a elemental de tierra (RacialElemental).
-                add(toApply, health, HEALTH_MODIFIER_ID, "Gigante Rocoso Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, speed, SPEED_MODIFIER_ID, "Gigante Rocoso Slowness", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Gigante Rocoso Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Gigante Rocoso Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, health, HEALTH_MODIFIER_ID, "Gigante Rocoso Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, speed, SPEED_MODIFIER_ID, "Gigante Rocoso Slowness", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Gigante Rocoso Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Gigante Rocoso Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
             }
             case MALNACIDO -> {
                 if (player.getPersistentData().getBoolean("malnacido_purificado")) {
                     // Anillo de Purificacion usado: se van los debuffs, +15% daño, +50% chance de
                     // critico, Regen II permanente (la Regen se re-aplica como MobEffectInstance en
                     // login/respawn, ver ModEvents).
-                    add(toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Malnacido Purificado Damage", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(player, toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Malnacido Purificado Damage", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
                     // "50% menos de chance de no hacer critico": ver ElementalDamageEvents#critFailFactor.
                 } else {
                     // -20% velocidad de ataque (manos deformes), -15% velocidad, -35% chance de acertar
                     // (ver ModEvents#onAttackEntity), +10% vida, inmune a veneno/daño instantaneo/wither
                     // (ModEvents). Odio de facciones y tope de favor en 0: requieren sistemas que no existen
                     // todavia (reputacion, favor).
-                    add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Malnacido Attack Speed", -0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                    add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Malnacido Draw Speed", -0.20, AttributeModifier.Operation.ADDITION);
-                    add(toApply, speed, SPEED_MODIFIER_ID, "Malnacido Slowness", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                    add(toApply, health, HEALTH_MODIFIER_ID, "Malnacido Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(player, toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Malnacido Attack Speed", -0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(player, toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Malnacido Draw Speed", -0.20, AttributeModifier.Operation.ADDITION);
+                    add(player, toApply, speed, SPEED_MODIFIER_ID, "Malnacido Slowness", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(player, toApply, health, HEALTH_MODIFIER_ID, "Malnacido Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 }
             }
             default -> {
@@ -170,6 +171,7 @@ public class RaceAttributeManager {
         }
 
         toApply.forEach(Runnable::run);
+        OriginBonuses.apply(player);
 
         if (player.getHealth() > player.getMaxHealth()) {
             player.setHealth(player.getMaxHealth());
@@ -193,8 +195,14 @@ public class RaceAttributeManager {
         }
     }
 
-    private static void add(List<Runnable> queue, AttributeInstance instance, UUID id, String name, double amount, AttributeModifier.Operation operation) {
-        if (instance != null) {
+    private static void add(Player player, List<Runnable> queue, AttributeInstance instance, UUID id, String name, double amount, AttributeModifier.Operation operation) {
+        if (instance == null) {
+            return;
+        }
+        if (operation == AttributeModifier.Operation.MULTIPLY_TOTAL) {
+            // Los % de raza y clase se suman entre si (ver OriginBonuses), no se multiplican.
+            queue.add(() -> OriginBonuses.add(player, "race", instance.getAttribute(), amount));
+        } else {
             queue.add(() -> instance.addTransientModifier(new AttributeModifier(id, name, amount, operation)));
         }
     }

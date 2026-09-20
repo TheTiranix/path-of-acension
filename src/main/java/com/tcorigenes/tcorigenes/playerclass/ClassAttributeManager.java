@@ -1,6 +1,7 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.playerclass;
 
+import com.tcorigenes.tcorigenes.attributes.OriginBonuses;
 import com.tudominio.elementaldamage.ModAttributes;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class ClassAttributeManager {
         removeIfPresent(bowDamage, BOW_DAMAGE_ID);
 
         List<Runnable> toApply = new ArrayList<>();
+        OriginBonuses.clear(player, "class");
 
         switch (playerClass) {
             case RITUALISTA_ARCANO -> {
@@ -54,26 +56,26 @@ public class ClassAttributeManager {
                 // El limite de fuerza de 50 (y la penalidad post-matrimonio si lo supera) necesita un
                 // sistema de "fuerza de arma" que todavia no existe: pendiente, igual que los hechizos.
                 if (!player.getPersistentData().getBoolean("matrimonio_consagrado")) {
-                    add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Ritualista Damage", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                    add(toApply, health, HEALTH_ID, "Ritualista Health", -0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(player, toApply, attackDamage, ATTACK_DAMAGE_ID, "Ritualista Damage", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                    add(player, toApply, health, HEALTH_ID, "Ritualista Health", -0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 }
             }
             case BERSERKER -> {
                 // +25% daño cuerpo a cuerpo, +15% critico (el modo "Furia Berserker" activo es la habilidad).
-                add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Berserker Damage", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, attackDamage, ATTACK_DAMAGE_ID, "Berserker Damage", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 // "10% menos de chance de no hacer critico" (solo melee): ver ElementalDamageEvents#critFailFactor.
-                add(toApply, critDamage, CRIT_DAMAGE_ID, "Berserker Crit Damage", 0.15, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, critDamage, CRIT_DAMAGE_ID, "Berserker Crit Damage", 0.15, AttributeModifier.Operation.ADDITION);
             }
             case GUERRERO_ANIMA -> {
                 // +5% velocidad de ataque, +15% critico, +5% daño, +10% vida. (Espada unica/evolucion: pendiente.)
-                add(toApply, attackSpeed, ATTACK_SPEED_ID, "Guerrero Anima Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, attackSpeed, ATTACK_SPEED_ID, "Guerrero Anima Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 // "10% menos de chance de no hacer critico": ver ElementalDamageEvents#critFailFactor.
-                add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Guerrero Anima Damage", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, health, HEALTH_ID, "Guerrero Anima Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, attackDamage, ATTACK_DAMAGE_ID, "Guerrero Anima Damage", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, health, HEALTH_ID, "Guerrero Anima Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             case ESCUDERO -> {
                 // +20% vida. El 20% de resistencia absoluta (recibe 20% menos de todo daño) se aplica en ModEvents (LivingHurtEvent). (Invulnerabilidad activa = Guardia Total.)
-                add(toApply, health, HEALTH_ID, "Escudero Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, health, HEALTH_ID, "Escudero Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             case ARQUERO -> {
                 // Arco/ballesta: +100% daño (el +50% critico y +50% daño critico, al ser SOLO con
@@ -81,8 +83,8 @@ public class ClassAttributeManager {
                 // no como atributo plano que afectaria tambien al cuerpo a cuerpo). +10% velocidad.
                 // La fuerza ilimitada (y penalidad si excede 50): pendiente, mismo sistema que Ritualista.
                 // BOW_DAMAGE_MULT es un multiplicador propio (no un % sobre un stat vanilla), se deja ADDITION.
-                add(toApply, bowDamage, BOW_DAMAGE_ID, "Arquero Bow Damage", 1.0, AttributeModifier.Operation.ADDITION);
-                add(toApply, speed, SPEED_ID, "Arquero Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, bowDamage, BOW_DAMAGE_ID, "Arquero Bow Damage", 1.0, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, speed, SPEED_ID, "Arquero Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }
             default -> {
                 // NINGUNA: sin bonus ni malus.
@@ -90,6 +92,7 @@ public class ClassAttributeManager {
         }
 
         toApply.forEach(Runnable::run);
+        OriginBonuses.apply(player);
 
         if (player.getHealth() > player.getMaxHealth()) {
             player.setHealth(player.getMaxHealth());
@@ -105,8 +108,14 @@ public class ClassAttributeManager {
         }
     }
 
-    private static void add(List<Runnable> queue, AttributeInstance instance, UUID id, String name, double amount, AttributeModifier.Operation operation) {
-        if (instance != null) {
+    private static void add(Player player, List<Runnable> queue, AttributeInstance instance, UUID id, String name, double amount, AttributeModifier.Operation operation) {
+        if (instance == null) {
+            return;
+        }
+        if (operation == AttributeModifier.Operation.MULTIPLY_TOTAL) {
+            // Los % de raza y clase se suman entre si (ver OriginBonuses), no se multiplican.
+            queue.add(() -> OriginBonuses.add(player, "class", instance.getAttribute(), amount));
+        } else {
             queue.add(() -> instance.addTransientModifier(new AttributeModifier(id, name, amount, operation)));
         }
     }

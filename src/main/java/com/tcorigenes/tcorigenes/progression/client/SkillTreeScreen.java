@@ -24,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
  * disponible (click para gastar puntos), gris = bloqueado (falta desbloquear un nodo anterior).
  */
 public class SkillTreeScreen extends Screen {
-    private static final int CELL = 46;
+    private static final int CELL = 44;
     private static final int HALF = 13;
     private static final int COLOR_UNLOCKED = 0xFF55FF55;
     private static final int COLOR_AVAILABLE = 0xFFFFD700;
@@ -63,8 +63,30 @@ public class SkillTreeScreen extends Screen {
         return false;
     }
 
+    /** Desplazamiento horizontal del arbol (arrastrar con el mouse o rueda): las ramas miden 11 columnas. */
+    private int panX = 0;
+
+    private int minPan() {
+        return Math.min(0, this.width - 40 - (30 + (SkillTree.NODES_PER_PATH + 1) * CELL + 30));
+    }
+
     private int cx() {
-        return this.width / 2 - CELL * 2 + 10;
+        return 40 + panX;
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (button == 0) {
+            panX = Math.max(minPan(), Math.min(0, panX + (int) dragX));
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        panX = Math.max(minPan(), Math.min(0, panX + (int) (delta * 30)));
+        return true;
     }
 
     private int cy() {
@@ -113,6 +135,9 @@ public class SkillTreeScreen extends Screen {
         g.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
         g.drawCenteredString(this.font, Component.literal(
                 "Clase: " + cls.getDisplayName() + "   |   Puntos: " + ClientSkillData.points()), this.width / 2, 26, 0xFFD700);
+        if (minPan() < 0) {
+            g.drawCenteredString(this.font, "Arrastrá con el mouse o usá la rueda para recorrer la rama", this.width / 2, 38, 0x888888);
+        }
 
         if (cls == PlayerClass.NINGUNA) {
             g.drawCenteredString(this.font, "Elegí una clase para ver tu árbol de habilidades.", this.width / 2, this.height / 2, 0xAAAAAA);
