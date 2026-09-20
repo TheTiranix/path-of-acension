@@ -52,6 +52,22 @@ public final class OriginBonuses {
                 .merge(attribute, amount, Double::sum);
     }
 
+    /** Aporte de un buff/debuff temporal (Furia, luna, peso): amount 0 lo quita. Reaplica solo si cambio. */
+    public static void set(Player player, String source, Attribute attribute, double amount) {
+        Map<Attribute, Double> contribution = DATA.computeIfAbsent(player.getUUID(), k -> new HashMap<>())
+                .computeIfAbsent(source, k -> new HashMap<>());
+        double old = contribution.getOrDefault(attribute, 0.0);
+        if (Math.abs(old - amount) < 1e-9) {
+            return;
+        }
+        if (Math.abs(amount) < 1e-9) {
+            contribution.remove(attribute);
+        } else {
+            contribution.put(attribute, amount);
+        }
+        apply(player);
+    }
+
     /** Junta los aportes de todas las fuentes en un unico modificador por atributo. */
     public static void apply(Player player) {
         Map<String, Map<Attribute, Double>> sources = DATA.getOrDefault(player.getUUID(), Map.of());

@@ -40,7 +40,8 @@ public final class BerserkerFury {
     public static void start(ServerPlayer player) {
         end(player);
         ELAPSED.put(player.getUUID(), 0);
-        addModifier(player.getAttribute(Attributes.ATTACK_DAMAGE), DAMAGE_ID, "Furia Berserker damage", 0.5, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        // +50% de daño: se suma con el % de raza y clase (ver OriginBonuses), no se multiplica.
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "fury", Attributes.ATTACK_DAMAGE, 0.5);
         addModifier(player.getAttribute(ModAttributes.CRIT_CHANCE.get()), CRIT_ID, "Furia Berserker crit", 0.2, AttributeModifier.Operation.ADDITION);
     }
 
@@ -52,7 +53,7 @@ public final class BerserkerFury {
 
     private static void end(ServerPlayer player) {
         ELAPSED.remove(player.getUUID());
-        remove(player.getAttribute(Attributes.ATTACK_DAMAGE), DAMAGE_ID);
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "fury", Attributes.ATTACK_DAMAGE, 0.0);
         remove(player.getAttribute(ModAttributes.CRIT_CHANCE.get()), CRIT_ID);
     }
 

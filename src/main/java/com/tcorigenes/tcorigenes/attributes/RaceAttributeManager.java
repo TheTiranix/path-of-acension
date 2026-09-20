@@ -83,6 +83,7 @@ public class RaceAttributeManager {
 
         List<Runnable> toApply = new ArrayList<>();
         OriginBonuses.clear(player, "race");
+        OriginBonuses.clear(player, "moon");
 
         switch (race) {
             case HEREJE -> {

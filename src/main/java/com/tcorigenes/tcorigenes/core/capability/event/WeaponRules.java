@@ -103,8 +103,9 @@ public final class WeaponRules {
         boolean canExceed = cls == PlayerClass.ARQUERO || (cls == PlayerClass.RITUALISTA_ARCANO && isMarried(player));
         boolean penalized = canExceed && WeaponWeights.totalWeight(player) > WeaponWeights.THRESHOLD;
 
-        setModifier(player.getAttribute(Attributes.ATTACK_DAMAGE), DAMAGE_ID, "Peso excesivo (daño)", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL, penalized);
-        setModifier(player.getAttribute(Attributes.ATTACK_SPEED), ATTACK_SPEED_ID, "Peso excesivo (velocidad)", -0.15, AttributeModifier.Operation.MULTIPLY_TOTAL, penalized);
+        // Se suman con el % de raza y clase (ver OriginBonuses).
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "weight", Attributes.ATTACK_DAMAGE, penalized ? -0.10 : 0.0);
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "weight", Attributes.ATTACK_SPEED, penalized ? -0.15 : 0.0);
         setModifier(player.getAttribute(ModAttributes.DRAW_SPEED.get()), DRAW_SPEED_ID, "Peso excesivo (carga)", -0.15, AttributeModifier.Operation.ADDITION, penalized);
     }
 

@@ -92,7 +92,7 @@ public final class OriginInfo {
                 l.add(minus("Los dioses lo ignoran: su favor nunca supera 0."));
             }
             case DEVOTO -> {
-                l.add(plus("+10% de curación recibida (de toda fuente)."));
+                l.add(plus("+50% de curación recibida (de toda fuente)."));
                 l.add(plus("+1 de Suerte."));
                 l.add(plus("Refleja 10% del daño recibido a quien lo ataca."));
                 l.add(plus("Empieza con el favor de los dioses creadores."));

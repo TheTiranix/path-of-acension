@@ -187,14 +187,9 @@ public class ModEvents {
         if (isMoonExposed(player)) {
             // +10% daño general y +5% velocidad de ataque (draw speed: sin atributo todavia), de
             // jerarquia "absoluta" (MULTIPLY_TOTAL) como cualquier bono de raza.
-            if (damageInstance != null && damageInstance.getModifier(RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID) == null) {
-                damageInstance.addTransientModifier(new AttributeModifier(
-                        RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID, "Lunar Damage Buff", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL));
-            }
-            if (attackSpeedInstance != null && attackSpeedInstance.getModifier(LUNAR_ATTACK_SPEED_ID) == null) {
-                attackSpeedInstance.addTransientModifier(new AttributeModifier(
-                        LUNAR_ATTACK_SPEED_ID, "Lunar Attack Speed Buff", 0.05, AttributeModifier.Operation.MULTIPLY_TOTAL));
-            }
+            // Se suman con el % de raza y clase (ver OriginBonuses).
+            com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "moon", Attributes.ATTACK_DAMAGE, 0.10);
+            com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "moon", Attributes.ATTACK_SPEED, 0.05);
 
             if (drawSpeedInstance != null && drawSpeedInstance.getModifier(LUNAR_DRAW_SPEED_ID) == null) {
                 drawSpeedInstance.addTransientModifier(new AttributeModifier(
@@ -219,12 +214,8 @@ public class ModEvents {
                 }
             }
         } else {
-            if (damageInstance != null) {
-                damageInstance.removeModifier(RaceAttributeManager.LUNAR_DAMAGE_MODIFIER_ID);
-            }
-            if (attackSpeedInstance != null) {
-                attackSpeedInstance.removeModifier(LUNAR_ATTACK_SPEED_ID);
-            }
+            com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "moon", Attributes.ATTACK_DAMAGE, 0.0);
+            com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "moon", Attributes.ATTACK_SPEED, 0.0);
             if (drawSpeedInstance != null) {
                 drawSpeedInstance.removeModifier(LUNAR_DRAW_SPEED_ID);
             }
@@ -295,14 +286,19 @@ public class ModEvents {
 
         // --- Lado victima: inmunidades/reflejos de raza ---
         if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {
-            player.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY).ifPresent(classInfo -> {
-                if (classInfo.getPlayerClass() == PlayerClass.ESCUDERO) {
-                    event.setAmount(event.getAmount() * 0.8F);
-                }
-            });
-            // Gigante Rocoso: 5% de resistencia absoluta (recibe 5% menos de todo el daño).
-            if (player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace() == Race.STONE_GIANT).orElse(false)) {
-                event.setAmount(event.getAmount() * 0.95F);
+            // Reducciones de origen: se SUMAN entre si (Escudero 20% + Gigante Rocoso 5% = 25% menos),
+            // no se multiplican (x0.8 * x0.95 = 24%).
+            float reduction = 0.0F;
+            if (player.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY)
+                    .map(info -> info.getPlayerClass() == PlayerClass.ESCUDERO).orElse(false)) {
+                reduction += 0.20F;
+            }
+            if (player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
+                    .map(info -> info.getRace() == Race.STONE_GIANT).orElse(false)) {
+                reduction += 0.05F;
+            }
+            if (reduction > 0.0F) {
+                event.setAmount(event.getAmount() * (1.0F - reduction));
             }
             player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(raceInfo -> {
                 Race playerRace = raceInfo.getRace();
