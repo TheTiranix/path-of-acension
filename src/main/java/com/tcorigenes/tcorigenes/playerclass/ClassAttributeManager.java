@@ -60,13 +60,13 @@ public class ClassAttributeManager {
             case BERSERKER -> {
                 // +25% daño cuerpo a cuerpo, +15% critico (el modo "Furia Berserker" activo es la habilidad).
                 add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Berserker Damage", 0.25, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, critChance, CRIT_CHANCE_ID, "Berserker Crit Chance", 0.10, AttributeModifier.Operation.ADDITION);
+                // "10% menos de chance de no hacer critico" (solo melee): ver ElementalDamageEvents#critFailFactor.
                 add(toApply, critDamage, CRIT_DAMAGE_ID, "Berserker Crit Damage", 0.15, AttributeModifier.Operation.ADDITION);
             }
             case GUERRERO_ANIMA -> {
                 // +5% velocidad de ataque, +15% critico, +5% daño, +10% vida. (Espada unica/evolucion: pendiente.)
                 add(toApply, attackSpeed, ATTACK_SPEED_ID, "Guerrero Anima Attack Speed", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, critChance, CRIT_CHANCE_ID, "Guerrero Anima Crit Chance", 0.10, AttributeModifier.Operation.ADDITION);
+                // "10% menos de chance de no hacer critico": ver ElementalDamageEvents#critFailFactor.
                 add(toApply, attackDamage, ATTACK_DAMAGE_ID, "Guerrero Anima Damage", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 add(toApply, health, HEALTH_ID, "Guerrero Anima Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
             }

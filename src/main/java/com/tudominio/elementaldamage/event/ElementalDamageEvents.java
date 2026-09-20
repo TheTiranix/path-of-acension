@@ -82,7 +82,13 @@ public class ElementalDamageEvents {
             double archerCritChanceBonus = archerBowBonus ? 0.50 : 0.0;
             double archerCritDamageBonus = archerBowBonus ? 0.50 : 0.0;
 
-            if (playerAttacker.getRandom().nextDouble() < baseCritChance + archerCritChanceBonus) {
+            boolean meleeHit = event.getSource().is(net.minecraft.world.damagesource.DamageTypes.PLAYER_ATTACK);
+            // Chance aditiva (atributo + bono del Arquero con arco) y luego "menos chance de NO critico":
+            // cada fuente multiplica la chance de fallar, asi 10% menos de fallo con 0% base da 10%, y con
+            // 40% base da 46%. Berserker (solo melee), Guerrero Anima y Malnacido purificado (ver critFailFactor).
+            double critChance = Math.min(1.0, Math.max(0.0, baseCritChance + archerCritChanceBonus));
+            critChance = 1.0 - (1.0 - critChance) * critFailFactor(playerAttacker, meleeHit);
+            if (playerAttacker.getRandom().nextDouble() < critChance) {
                 var critDamageInstance = playerAttacker.getAttribute(ModAttributes.CRIT_DAMAGE.get());
                 double multiplier = (critDamageInstance != null ? critDamageInstance.getValue() : 1.5) + archerCritDamageBonus;
                 event.setAmount((float) (event.getAmount() * multiplier));
@@ -136,6 +142,23 @@ public class ElementalDamageEvents {
             }
             MobElementalAttackHandler.applyExtraElementalDamage(target, event.getSource(), baseDamage);
         }
+    }
+
+    /** Multiplicador de la chance de NO hacer critico segun raza/clase (1.0 = sin cambio, 0.5 = la mitad de fallos). */
+    private static double critFailFactor(Player player, boolean meleeHit) {
+        double factor = 1.0;
+        PlayerClass cls = player.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY)
+                .map(data -> data.getPlayerClass()).orElse(PlayerClass.NINGUNA);
+        if ((cls == PlayerClass.BERSERKER && meleeHit) || cls == PlayerClass.GUERRERO_ANIMA) {
+            factor *= 0.90;
+        }
+        boolean purifiedMalnacido = player.getPersistentData().getBoolean("malnacido_purificado")
+                && player.getCapability(com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
+                        .map(info -> info.getRace() == com.tcorigenes.tcorigenes.core.Race.MALNACIDO).orElse(false);
+        if (purifiedMalnacido) {
+            factor *= 0.50;
+        }
+        return factor;
     }
 
     /** Efecto propio de cada elemento, en escala CONTINUA sobre el daño BASE (antes de

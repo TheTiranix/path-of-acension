@@ -151,7 +151,7 @@ public class RaceAttributeManager {
                     // critico, Regen II permanente (la Regen se re-aplica como MobEffectInstance en
                     // login/respawn, ver ModEvents).
                     add(toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Malnacido Purificado Damage", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                    add(toApply, critChance, CRIT_CHANCE_MODIFIER_ID, "Malnacido Purificado Crit Chance", 0.50, AttributeModifier.Operation.ADDITION);
+                    // "50% menos de chance de no hacer critico": ver ElementalDamageEvents#critFailFactor.
                 } else {
                     // -20% velocidad de ataque (manos deformes), -15% velocidad, -35% chance de acertar
                     // (ver ModEvents#onAttackEntity), +10% vida, inmune a veneno/daño instantaneo/wither
