@@ -20,6 +20,7 @@ los mismos cambios. Los mods de terceros NO estan en este repo (ver `MODS.txt`).
 | `config/toughasnails/` | `config/toughasnails/` | Sed al 10%, regeneracion sin depender de la sed, dano por temperatura extrema tras 1 dia |
 | `config/apotheosis/` | `config/apotheosis/` | Bosses invasores tambien en Twilight Forest y The Aether |
 | `ftbquests/` | `config/ftbquests/` | Quests, con 1 punto de habilidad en las que dan XP |
+| `fancymenu/` | `config/fancymenu/` | Menu principal tetrico (FancyMenu): fondo, logo, botones oscuros y ambiente sonoro en bucle. Recursos originales generados con `tools/gen_menu_assets.py` |
 | `legacy-kubejs/` | `kubejs/` | Scripts de KubeJS |
 
 ## Para quien mantiene el repo
