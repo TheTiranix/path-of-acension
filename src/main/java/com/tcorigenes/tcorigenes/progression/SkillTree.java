@@ -44,6 +44,16 @@ public final class SkillTree {
         return result;
     }
 
+    /** Id de la habilidad activa de la clase (la que da su piedra clave), o null si no tiene. */
+    public static String abilityOf(PlayerClass playerClass) {
+        for (SkillNode node : NODES.values()) {
+            if (node.playerClass() == playerClass && node.abilityId() != null) {
+                return node.abilityId();
+            }
+        }
+        return null;
+    }
+
     public static Iterable<SkillNode> all() {
         return NODES.values();
     }

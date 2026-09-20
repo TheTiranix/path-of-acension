@@ -66,6 +66,10 @@ public class ChooseRacePacket {
                     }
                     player.displayClientMessage(Component.literal("Has elegido el origen: " + this.race.getDisplayName()), false);
                     markRaceChosen(player);
+                    // Cambiar de origen reinicia la clase: se vuelve a elegir en la pantalla que se abre
+                    // ahora (antes la eleccion se rechazaba en silencio si ya habia una clase y quedaba la vieja).
+                    com.tcorigenes.tcorigenes.playerclass.ClassSelection.apply(player,
+                            com.tcorigenes.tcorigenes.playerclass.PlayerClass.NINGUNA);
                     com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
                             new com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket());
                 });
