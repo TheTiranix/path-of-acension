@@ -26,3 +26,7 @@ los mismos cambios. Los mods de terceros NO estan en este repo (ver `MODS.txt`).
 
 Si cambias una config (o cualquier cosa fuera del jar) en tu instancia, **copiala aqui y subela en
 el mismo push**. Para generar el zip de una release: `python tools/make_release.py v0.2.0`.
+
+## Licencia
+
+El mod y los materiales de este repositorio son © 2026 Agustin (TheTiranix), todos los derechos reservados. Ver `LICENSE.txt` en la raiz. Las configs de mods ajenos que se incluyen aqui son solo los valores que elegimos; los mods en si pertenecen a sus autores (ver `MODS.txt`).

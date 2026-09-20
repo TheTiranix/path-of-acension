@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.ability.client;
 
 import com.tcorigenes.tcorigenes.ability.AbilityRegistry;

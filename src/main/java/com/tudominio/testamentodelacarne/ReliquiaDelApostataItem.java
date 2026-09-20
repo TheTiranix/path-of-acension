@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tudominio.testamentodelacarne;
 
 import com.tudominio.testamentodelacarne.client.gui.PactSelectionScreen;

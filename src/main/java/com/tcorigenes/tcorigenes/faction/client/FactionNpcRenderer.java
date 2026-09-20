@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.faction.client;
 
 import com.tcorigenes.tcorigenes.TCOrigenes;

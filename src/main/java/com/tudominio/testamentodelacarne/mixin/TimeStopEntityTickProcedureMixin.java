@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tudominio.testamentodelacarne.mixin;
 
 import net.mcreator.relicsinchaos.network.RelicsInChaosModVariables;

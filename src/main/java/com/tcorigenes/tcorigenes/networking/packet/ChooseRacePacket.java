@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.networking.packet;
 
 import com.tcorigenes.tcorigenes.attributes.RaceAttributeManager;
