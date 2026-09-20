@@ -1,0 +1,7 @@
+{
+  "menu.ambient": {
+    "sounds": [
+      { "name": "tcorigenes:menu_ambient", "stream": true }
+    ]
+  }
+}

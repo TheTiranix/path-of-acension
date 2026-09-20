@@ -1,5 +1,7 @@
 """Genera los recursos originales del menu principal tetrico (fondo, logo, botones y ambiente sonoro).
 
+El sonido va como OGG dentro del mod (lo reproduce MenuAmbience); requiere `pip install soundfile`.
+
 Todo se dibuja/sintetiza por codigo: no se usa arte ni musica de ningun juego existente.
 Uso:  python tools/gen_menu_assets.py
 Salida: modpack-config/fancymenu/assets/
@@ -145,32 +147,35 @@ def make_background():
 
 # ----------------------------------------------------------------------- logo
 def make_logo():
-    w, h = 1200, 300
-    title = "La Caída de los Dioses"
+    w, h = 1200, 210
+    title = "PATH OF ASCENSION"
+    spacing = 10
     size = 150
     while size > 40:
         f = font(size)
-        if f.getlength(title) < w - 80:
+        total = sum(f.getlength(c) for c in title) + spacing * (len(title) - 1)
+        if total < w - 90:
             break
         size -= 4
     f = font(size)
+    total = sum(f.getlength(c) for c in title) + spacing * (len(title) - 1)
     mask = Image.new("L", (w, h), 0)
     md = ImageDraw.Draw(mask)
-    tw = f.getlength(title)
-    ty = 30
-    md.text(((w - tw) / 2, ty), title, font=f, fill=255)
+    ty = 24
+    x = (w - total) / 2
+    for c in title:
+        md.text((x, ty), c, font=f, fill=255)
+        x += f.getlength(c) + spacing
+    tw = total
 
     out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    # resplandor oscuro detras
     glow = mask.filter(ImageFilter.GaussianBlur(14))
     glow_layer = Image.new("RGBA", (w, h), (90, 0, 0, 0))
     glow_layer.putalpha(glow.point(lambda p: int(p * 0.9)))
     out.alpha_composite(glow_layer)
-    # sombra dura
     shadow = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     shadow.putalpha(mask.point(lambda p: int(p * 0.95)))
     out.alpha_composite(shadow, (4, 5))
-    # relleno con degradado vertical rojo sangre -> casi negro
     grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     gp = grad.load()
     y0, y1 = ty + 10, ty + size + 20
@@ -181,19 +186,16 @@ def make_logo():
             gp[x, y] = col + (255,)
     grad.putalpha(mask)
     out.alpha_composite(grad)
-    # borde oscuro fino
     edge = mask.filter(ImageFilter.MaxFilter(3))
     edge_layer = Image.new("RGBA", (w, h), (12, 0, 2, 0))
-    edge_layer.putalpha(Image.eval(ImageChops_subtract(edge, mask), lambda p: p))
+    edge_layer.putalpha(ImageChops_subtract(edge, mask))
     out.alpha_composite(edge_layer)
 
-    # goteras que cuelgan de las letras
     d = ImageDraw.Draw(out)
     marr = np.asarray(mask)
     for _ in range(26):
         x = random.randint(int((w - tw) / 2) + 10, int((w + tw) / 2) - 10)
-        col = marr[:, x]
-        ys = np.where(col > 200)[0]
+        ys = np.where(marr[:, x] > 200)[0]
         if len(ys) == 0:
             continue
         yb = int(ys.max())
@@ -201,15 +203,6 @@ def make_logo():
         wd = random.choice((2, 3, 4))
         d.rectangle((x, yb - 2, x + wd, yb + ln), fill=(120, 6, 8, 255))
         d.ellipse((x - 1, yb + ln - wd, x + wd + 1, yb + ln + wd), fill=(120, 6, 8, 255))
-
-    # subtitulo
-    sub = "P A T H   O F   A S C E N S I O N"
-    sf = font(30, bold=False)
-    sw = sf.getlength(sub)
-    d.text(((w - sw) / 2 + 2, h - 58 + 2), sub, font=sf, fill=(0, 0, 0, 220))
-    d.text(((w - sw) / 2, h - 58), sub, font=sf, fill=(150, 138, 138, 255))
-    d.line(((w - sw) / 2 - 60, h - 43, (w - sw) / 2 - 16, h - 43), fill=(110, 20, 20, 255), width=2)
-    d.line(((w + sw) / 2 + 16, h - 43, (w + sw) / 2 + 60, h - 43), fill=(110, 20, 20, 255), width=2)
     out.save(os.path.join(ROOT, "menu_logo.png"))
 
 
@@ -335,13 +328,14 @@ def make_ambience(seconds=60, fs=22050):
     stereo = np.stack([left, right], axis=1)
     stereo /= np.abs(stereo).max()
     stereo *= 0.8
-    pcm = (stereo * 32767).astype("<i2")
-    path = os.path.join(ROOT, "menu_ambient.wav")
-    with wave.open(path, "wb") as wf:
-        wf.setnchannels(2)
-        wf.setsampwidth(2)
-        wf.setframerate(fs)
-        wf.writeframes(pcm.tobytes())
+    import soundfile as sf
+    sounds = os.path.join(os.path.dirname(__file__), "..", "src", "main", "resources", "assets", "tcorigenes", "sounds")
+    os.makedirs(sounds, exist_ok=True)
+    path = os.path.join(sounds, "menu_ambient.ogg")
+    data = stereo.astype("float32")
+    with sf.SoundFile(path, "w", samplerate=fs, channels=2, format="OGG", subtype="VORBIS") as out:
+        for i in range(0, len(data), fs):  # por bloques: escribir todo de una vez cuelga libsndfile
+            out.write(data[i:i + fs])
     print("audio", path, os.path.getsize(path) // 1024, "KB", "peak", float(np.abs(stereo).max()),
           "rms", float(np.sqrt((stereo ** 2).mean())))
 

@@ -1,4 +1,4 @@
-# La Caída de los Dioses · *Path of Ascension*
+# Path of Ascension
 
 > Forge 1.20.1 · ~185 mods · un mod propio que le da al pack su identidad: razas, clases, daño elemental, un panteón que juzga tus actos y un mundo que se vuelve más peligroso cuanto más lejos vas.
 

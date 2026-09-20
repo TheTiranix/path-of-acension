@@ -50,24 +50,7 @@ element {
   x = 0
   y = 18
   width = 380
-  height = 95
+  height = 67
   stay_on_screen = false
   source = [source:local]/config/fancymenu/assets/menu_logo.png
-}
-
-element {
-  element_type = audio
-  instance_identifier = poa_ambiente_titulo
-  anchor_point = top-left
-  x = 0
-  y = 0
-  width = 20
-  height = 20
-  stay_on_screen = false
-  audio_instance_0 = [source:local]/config/fancymenu/assets/menu_ambient.wav
-  audio_instance_weight_0 = 1.0
-  play_mode = normal
-  looping = true
-  sound_source = master
-  volume = 0.8
 }
