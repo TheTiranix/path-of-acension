@@ -108,7 +108,3 @@ Todo lo que hay que instalar está explicado en [`modpack-config/README.md`](mod
 **© 2026 Agustin (TheTiranix). Todos los derechos reservados.**
 
 Path of Ascension / La Caída de los Dioses (código, mod, texturas, quests, lore, nombres y diseño) es obra de su autor y **no es de código abierto**. Podés jugarlo, verlo y mostrarlo (capturas, videos, streams, citando la autoría), pero **no** copiarlo, modificarlo, redistribuirlo, subirlo a otros sitios, incluirlo en otros modpacks ni usar su lore o sus sistemas en otros proyectos sin permiso escrito. Los términos completos están en [`LICENSE.txt`](LICENSE.txt) y los avisos de terceros en [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
-
-## Para desarrolladores
-
-Código en `src/main/java` (© todos los derechos reservados, ver la licencia) (paquetes `tcorigenes`, `elementaldamage` y `testamentodelacarne`, compilados en un único jar). Notas del kit de Forge en [`MDK-README.txt`](MDK-README.txt); diseño y progresión en [`LORE_AND_PROGRESSION.md`](LORE_AND_PROGRESSION.md).
