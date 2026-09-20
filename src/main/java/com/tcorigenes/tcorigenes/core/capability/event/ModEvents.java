@@ -128,7 +128,9 @@ public class ModEvents {
                         && !player.getItemBySlot(EquipmentSlot.FEET).isEmpty()
                         && (com.tcorigenes.tcorigenes.compat.CuriosCompat.allSlotsOccupied(player, "hands")
                                 || com.tcorigenes.tcorigenes.compat.CuriosCompat.hasAnyInSlot(player, "aether_gloves"))
-                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasBracelet(player);
+                        && com.tcorigenes.tcorigenes.compat.CuriosCompat.hasAnyInSlot(player, "bracelet");
+                // La Enzima Acuatica da inmunidad total al agua sin necesitar nada de lo anterior.
+                swimProtected = swimProtected || player.hasEffect(com.tcorigenes.tcorigenes.effect.ModEffects.AQUATIC_ENZYME.get());
                 if (player.tickCount % 20 == 0 && player.isInWater() && !swimProtected) {
                     // Como el Enderman: el agua le hace daño. Usa el tipo elemental de agua (no
                     // "drown") para que ademas se le aplique su propia debilidad de +20% (ver
@@ -325,7 +327,10 @@ public class ModEvents {
                         event.setCanceled(true);
                     }
                 } else if (playerRace == Race.ENDER_WARRIOR) {
-                    if (source.is(DamageTypes.DROWN)) {
+                    if (player.hasEffect(com.tcorigenes.tcorigenes.effect.ModEffects.AQUATIC_ENZYME.get())
+                            && (source.is(DamageTypes.DROWN) || source.is(ModDamageTypes.WATER_ELEMENTAL))) {
+                        event.setCanceled(true);
+                    } else if (source.is(DamageTypes.DROWN)) {
                         event.setAmount(event.getAmount() * 1.2F);
                     } else if (source.is(TOUGH_AS_NAILS_THIRST)) {
                         // "No debe tomar agua": inmune a morir de sed. La barra en si sigue

@@ -25,8 +25,9 @@ public class AbilityHudOverlay implements IGuiOverlay {
         }
 
         int remainingMillis = ClientAbilityCooldowns.getRemainingMillis(abilityId);
-        int x = screenWidth / 2 - 8;
-        int y = screenHeight - 50;
+        // A la derecha de la hotbar (el indicador de temperatura de Tough As Nails ocupa el centro, encima de ella).
+        int x = screenWidth / 2 + 122;
+        int y = screenHeight - 20;
 
         guiGraphics.blit(ability.icon(), x, y, 0, 0, 16, 16, 16, 16);
 

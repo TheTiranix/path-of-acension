@@ -45,7 +45,8 @@ public final class EnderWarriorRules {
         if (TanCompat.isLoaded()) {
             TanCompat.fillThirst(player);
         }
-        if (player.tickCount % 20 == 0 && player.level().isRainingAt(player.blockPosition().above()) && !wearingFullArmor(player)) {
+        if (player.tickCount % 20 == 0 && player.level().isRainingAt(player.blockPosition().above()) && !wearingFullArmor(player)
+                && !player.hasEffect(com.tcorigenes.tcorigenes.effect.ModEffects.AQUATIC_ENZYME.get())) {
             com.tudominio.elementaldamage.ElementalDamageSource.hurt(player, ModDamageTypes.WATER_ELEMENTAL, player, RAIN_DAMAGE);
             enderSmoke(player);
         }
@@ -69,7 +70,8 @@ public final class EnderWarriorRules {
         if (id != null && id.getNamespace().equals("toughasnails") && id.getPath().contains("water")) {
             isWater = true;
         }
-        if (isWater) {
+        if (isWater && PotionUtils.getPotion(stack) != com.tcorigenes.tcorigenes.effect.ModEffects.AQUATIC_ENZYME_POTION.get()
+                && !player.hasEffect(com.tcorigenes.tcorigenes.effect.ModEffects.AQUATIC_ENZYME.get())) {
             // magic() ignora armadura, como se pidio.
             player.hurt(player.damageSources().magic(), DRINK_DAMAGE);
             enderSmoke(player);

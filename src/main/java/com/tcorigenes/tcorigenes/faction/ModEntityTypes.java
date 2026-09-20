@@ -19,6 +19,15 @@ public final class ModEntityTypes {
                     .clientTrackingRange(10)
                     .build("faction_npc"));
 
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.core.WeakPointEntity>> WEAK_POINT = ENTITY_TYPES.register("weak_point",
+            () -> EntityType.Builder.<com.tcorigenes.tcorigenes.core.WeakPointEntity>of(com.tcorigenes.tcorigenes.core.WeakPointEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
+                    .noSave()
+                    .fireImmune()
+                    .build("weak_point"));
+
     private ModEntityTypes() {
     }
 

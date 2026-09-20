@@ -48,7 +48,7 @@ public final class SkillTreeManager {
             case HEREJE -> new Fixed("raza_hereje", () -> Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.05);
             case MALNACIDO -> new Fixed("raza_malnacido", () -> Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, 0.05);
             case SIERVO_DE_LA_LUNA -> new Fixed("raza_siervo", () -> Attributes.ARMOR, Operation.ADDITION, 1.0);
-            case HUMANO -> null;
+            case HUMANO, STONE_GIANT -> null;
         };
     }
 

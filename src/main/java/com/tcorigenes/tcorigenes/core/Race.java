@@ -8,7 +8,8 @@ public enum Race {
     ANGEL("Ángel"),
     SIERVO_DE_LA_LUNA("Siervo de la Luna"),
     ENDER_WARRIOR("Ender Warrior"),
-    MALNACIDO("Malnacido");
+    MALNACIDO("Malnacido"),
+    STONE_GIANT("Gigante Rocoso");
 
     private final String displayName;
 

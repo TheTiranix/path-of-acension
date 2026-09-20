@@ -149,7 +149,10 @@ public final class AbilityRegistry {
 
             @Override
             public void activate(net.minecraft.server.level.ServerPlayer player) {
-                com.tcorigenes.tcorigenes.core.WeakPointManager.markForArcher(player);
+                int marked = com.tcorigenes.tcorigenes.core.WeakPointManager.markForArcher(player);
+                player.displayClientMessage(net.minecraft.network.chat.Component.literal(marked > 0
+                        ? "Ojo de Halcón: " + marked + " punto(s) débil(es) marcado(s) por 20 s."
+                        : "Ojo de Halcón: no hay enemigos en 30 bloques."), true);
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.SPYGLASS_USE,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
             }

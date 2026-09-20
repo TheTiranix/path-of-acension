@@ -41,6 +41,7 @@ public class TCOrigenes {
     public TCOrigenes() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);
+        com.tcorigenes.tcorigenes.effect.ModEffects.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModEntityTypes.register(modEventBus);
         ModStructurePieceTypes.register(modEventBus);
@@ -76,10 +77,19 @@ public class TCOrigenes {
 
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.FACTION_NPC.get(), com.tcorigenes.tcorigenes.faction.client.FactionNpcRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.WEAK_POINT.get(), com.tcorigenes.tcorigenes.client.WeakPointRenderer::new);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(Networking::register);
+        // Pocion de Enzima Acuatica: pocion rara (awkward) + cristales de prismarina.
+        event.enqueueWork(() -> net.minecraftforge.common.brewing.BrewingRecipeRegistry.addRecipe(
+                net.minecraftforge.common.crafting.StrictNBTIngredient.of(net.minecraft.world.item.alchemy.PotionUtils.setPotion(
+                        new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.POTION), net.minecraft.world.item.alchemy.Potions.AWKWARD)),
+                net.minecraft.world.item.crafting.Ingredient.of(net.minecraft.world.item.Items.PRISMARINE_CRYSTALS),
+                net.minecraft.world.item.alchemy.PotionUtils.setPotion(
+                        new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.POTION),
+                        com.tcorigenes.tcorigenes.effect.ModEffects.AQUATIC_ENZYME_POTION.get())));
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
