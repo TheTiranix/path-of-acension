@@ -34,8 +34,9 @@ public final class RaceRenderEvents {
     // No uniforme a proposito: "mas alto, mas alargado que ancho" (no solo "mas grande en general").
     private static final float ENDER_WARRIOR_HEIGHT_SCALE = 1.28F;
     private static final float ENDER_WARRIOR_WIDTH_SCALE = 1.05F;
-    private static final float MALNACIDO_HEAD_SCALE = 1.35F;
-    private static final float MALNACIDO_ARM_SCALE = 1.45F;
+    // Cabeza "un poco" mas grande; brazo derecho claramente mas grande que el izquierdo (que queda normal).
+    private static final float MALNACIDO_HEAD_SCALE = 1.15F;
+    private static final float MALNACIDO_ARM_SCALE = 1.5F;
 
     private RaceRenderEvents() {
     }
