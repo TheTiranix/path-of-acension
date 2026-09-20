@@ -2,12 +2,16 @@
 package com.tcorigenes.tcorigenes.client;
 
 import com.tcorigenes.tcorigenes.core.Race;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 /**
@@ -55,13 +59,45 @@ public final class RaceRenderEvents {
         } else if (race == Race.STONE_GIANT) {
             event.getPoseStack().pushPose();
             event.getPoseStack().scale(1.25F, 1.25F, 1.25F);
-        } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
-            PlayerModel<AbstractClientPlayer> model = event.getRenderer().getModel();
-            setScale(model.head, MALNACIDO_HEAD_SCALE);
-            setScale(model.hat, MALNACIDO_HEAD_SCALE);
+        }
+        // El Malnacido se dibuja en RaceFeaturesLayer (ver renderMalnacido).
+    }
+
+    /** Vista en primera persona: el brazo derecho del Malnacido tambien se ve deforme. */
+    @SubscribeEvent
+    public static void onRenderArm(RenderArmEvent event) {
+        AbstractClientPlayer player = event.getPlayer();
+        if (event.getArm() == HumanoidArm.RIGHT && ClientRaceData.get(player.getUUID()) == Race.MALNACIDO
+                && !ClientRaceData.isPurified(player.getUUID())) {
+            PlayerModel<AbstractClientPlayer> model = ((PlayerRenderer) Minecraft.getInstance()
+                    .getEntityRenderDispatcher().getRenderer(player)).getModel();
             setScale(model.rightArm, MALNACIDO_ARM_SCALE);
             setScale(model.rightSleeve, MALNACIDO_ARM_SCALE);
+            armScaled = true;
         }
+    }
+
+    /** El renderer de jugador es compartido con los demas jugadores: hay que devolver la escala al terminar el frame. */
+    @SubscribeEvent
+    public static void onRenderTick(TickEvent.RenderTickEvent event) {
+        if (event.phase == TickEvent.Phase.END && armScaled) {
+            armScaled = false;
+            var dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+            for (String skin : new String[] {"default", "slim"}) {
+                if (dispatcher.getSkinMap().get(skin) instanceof PlayerRenderer renderer) {
+                    setScale(renderer.getModel().rightArm, 1.0F);
+                    setScale(renderer.getModel().rightSleeve, 1.0F);
+                }
+            }
+        }
+    }
+
+    /** Escala (o restaura) cabeza y brazo derecho del Malnacido. Ver RaceFeaturesLayer#renderMalnacido. */
+    public static void setMalnacidoScale(PlayerModel<AbstractClientPlayer> model, boolean deformed) {
+        setScale(model.head, deformed ? MALNACIDO_HEAD_SCALE : 1.0F);
+        setScale(model.hat, deformed ? MALNACIDO_HEAD_SCALE : 1.0F);
+        setScale(model.rightArm, deformed ? MALNACIDO_ARM_SCALE : 1.0F);
+        setScale(model.rightSleeve, deformed ? MALNACIDO_ARM_SCALE : 1.0F);
     }
 
     @SubscribeEvent
@@ -70,14 +106,10 @@ public final class RaceRenderEvents {
         Race race = ClientRaceData.get(player.getUUID());
         if (race == Race.ENDER_WARRIOR || race == Race.STONE_GIANT) {
             event.getPoseStack().popPose();
-        } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
-            PlayerModel<AbstractClientPlayer> model = event.getRenderer().getModel();
-            setScale(model.head, 1.0F);
-            setScale(model.hat, 1.0F);
-            setScale(model.rightArm, 1.0F);
-            setScale(model.rightSleeve, 1.0F);
         }
     }
+
+    private static boolean armScaled = false;
 
     private static void setScale(net.minecraft.client.model.geom.ModelPart part, float scale) {
         part.xScale = scale;

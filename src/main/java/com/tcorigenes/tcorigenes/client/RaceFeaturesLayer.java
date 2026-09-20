@@ -18,9 +18,9 @@ import net.minecraft.resources.ResourceLocation;
 
 /**
  * Geometria extra segun la raza del jugador (ver ClientRaceData, sincronizada por
- * RaceSyncPacket): cuernos de Demonio, alas de Angel. La altura del Ender Warrior y la
- * deformidad del Malnacido se manejan aparte via RenderPlayerEvent.Pre/Post (ver
- * RaceRenderEvents), pura escala de partes del modelo, no hace falta nada aca.
+ * RaceSyncPacket): cuernos de Demonio, antenas del Siervo, alas de Angel y deformidad del
+ * Malnacido. La altura del Ender Warrior se maneja aparte via RenderPlayerEvent.Pre/Post
+ * (ver RaceRenderEvents).
  */
 public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     private static final ResourceLocation HORNS_TEXTURE =
@@ -68,6 +68,32 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(WINGS_TEXTURE));
             wings.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
+        } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
+            renderMalnacido(poseStack, buffer, packedLight, player);
         }
+    }
+
+    /**
+     * Deformidad del Malnacido, dibujada como CAPA (igual que cuernos/alas, que sabemos que se ven):
+     * cabeza y brazo derecho agrandados, mas un tinte enfermizo sobre toda la piel. Antes se escalaban
+     * las partes del modelo en RenderPlayerEvent.Pre, pero otros mods (animaciones, Better Combat)
+     * pisan la pose despues de eso y la deformidad no se veia. Aca se aplica ya con el modelo posado,
+     * y el cuerpo original queda tapado por la copia mas grande.
+     */
+    private void renderMalnacido(PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player) {
+        PlayerModel<AbstractClientPlayer> model = this.getParentModel();
+        ResourceLocation skin = player.getSkinTextureLocation();
+
+        RaceRenderEvents.setMalnacidoScale(model, true);
+        VertexConsumer solid = buffer.getBuffer(RenderType.entityCutoutNoCull(skin));
+        model.head.render(poseStack, solid, packedLight, OverlayTexture.NO_OVERLAY);
+        model.hat.render(poseStack, solid, packedLight, OverlayTexture.NO_OVERLAY);
+        model.rightArm.render(poseStack, solid, packedLight, OverlayTexture.NO_OVERLAY);
+        model.rightSleeve.render(poseStack, solid, packedLight, OverlayTexture.NO_OVERLAY);
+
+        // Tinte verdoso enfermizo sobre toda la piel.
+        VertexConsumer tint = buffer.getBuffer(RenderType.entityTranslucent(skin));
+        model.renderToBuffer(poseStack, tint, packedLight, OverlayTexture.NO_OVERLAY, 0.45F, 0.85F, 0.4F, 0.5F);
+        RaceRenderEvents.setMalnacidoScale(model, false);
     }
 }
