@@ -169,7 +169,7 @@ public class ModEvents {
     private static final UUID LUNAR_ATTACK_SPEED_ID = UUID.fromString("e8a2d7a8-8a2c-4b8a-9a2d-7a8a2d7a8a30");
 
     /** "Expuesto a la luna": de noche y a cielo abierto. */
-    private static boolean isMoonExposed(Player player) {
+    public static boolean isMoonExposed(Player player) {
         Level world = player.level();
         return world.isNight() && world.canSeeSky(player.blockPosition());
     }
@@ -290,24 +290,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
-        // --- Lado atacante: Hereje/Arquero contra puntos marcados, Demonio/Angel con su elemento ---
-        if (event.getSource().getEntity() instanceof Player attacker && !attacker.level().isClientSide()) {
-            // +10% extra al pegar con su propio elemento (Demonio-fuego, Angel-luz). No es un
-            // atributo plano: depende del tipo de daño de ESTE golpe, hay que leerlo aca.
-            var elementKey = event.getSource().typeHolder().unwrapKey().orElse(null);
-            if (elementKey != null) {
-                attacker.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(raceInfo -> {
-                    Race race = raceInfo.getRace();
-                    if (race == Race.DEMONIO && elementKey.equals(ModDamageTypes.FIRE_ELEMENTAL)) {
-                        event.setAmount(event.getAmount() * 1.10F);
-                    } else if (race == Race.ANGEL && elementKey.equals(ModDamageTypes.LIGHT)) {
-                        event.setAmount(event.getAmount() * 1.10F);
-                    } else if (race == Race.SIERVO_DE_LA_LUNA && elementKey.equals(ModDamageTypes.LUNAR) && isMoonExposed(attacker)) {
-                        event.setAmount(event.getAmount() * 1.10F);
-                    }
-                });
-            }
-        }
+        // Los bonos del lado atacante viven en WeakPointManager, GeneralDamageRules y RacialElemental.
 
         // --- Lado victima: inmunidades/reflejos de raza ---
         if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {
@@ -316,6 +299,10 @@ public class ModEvents {
                     event.setAmount(event.getAmount() * 0.8F);
                 }
             });
+            // Gigante Rocoso: 5% de resistencia absoluta (recibe 5% menos de todo el daño).
+            if (player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace() == Race.STONE_GIANT).orElse(false)) {
+                event.setAmount(event.getAmount() * 0.95F);
+            }
             player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(raceInfo -> {
                 Race playerRace = raceInfo.getRace();
                 DamageSource source = event.getSource();

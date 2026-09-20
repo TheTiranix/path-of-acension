@@ -1,21 +1,21 @@
 package com.tcorigenes.tcorigenes.core;
 
 import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
+import com.tcorigenes.tcorigenes.faction.ModEntityTypes;
+import com.tudominio.elementaldamage.ModDamageTypes;
+import com.tudominio.elementaldamage.PendingElementalHits;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.server.level.ServerPlayer;
-import com.tcorigenes.tcorigenes.faction.ModEntityTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.Tags;
@@ -29,7 +29,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
  * Puntos debiles marcados sobre enemigos, visibles solo para quien los puede golpear (un
  * marcador WeakPointEntity: carga ignea roja pegada al cuerpo).
  * - Hereje (Expertiz anatomica): un punto cada 10s en el enemigo cercano (con prioridad a un jefe);
- *   dura 4s; cualquier golpe (cuerpo a cuerpo, proyectil o magia) hace +45% de daño y +5% de daño real.
+ *   dura 4s; cualquier golpe (cuerpo a cuerpo, proyectil, magia) hace +45% de daño y +5% de daño real,
+ *   y tambien el daño ELEMENTAL de ese mismo golpe (llega diferido, ver PendingElementalHits).
  * - Arquero (habilidad Ojo de Halcon): marca a todos los enemigos en 30 bloques por 20s; solo los
  *   proyectiles que los golpean hacen +40% de daño y +15% de daño real (un Hereje suma +15% / +5%).
  * El "daño real" ignora armadura: se resta directo de la vida (nunca mata solo, deja minimo 0.5).
@@ -41,8 +42,27 @@ public final class WeakPointManager {
     private static final double HEREJE_RANGE = 16.0;
     private static final double BOSS_RANGE = 32.0;
     private static final double ARCHER_RANGE = 30.0;
+    /** El daño elemental de un golpe llega SAFE_DELAY_TICKS despues: se le da un margen extra. */
+    private static final int ELEMENTAL_WINDOW = PendingElementalHits.SAFE_DELAY_TICKS + 3;
 
-    private record Mark(UUID owner, LivingEntity target, long expiresAt, boolean archer, WeakPointEntity marker) {
+    private static final class Mark {
+        final UUID owner;
+        final LivingEntity target;
+        final boolean archer;
+        final WeakPointEntity marker;
+        long expiresAt;
+        /** Hereje: tick en que el golpe acerto (-1 = todavia no). Sigue valiendo para su elemental diferido. */
+        long consumedAt = -1;
+        /** Arquero: ultimo tick en que un proyectil acerto el punto. */
+        long lastProjectileHit = -1000;
+
+        Mark(UUID owner, LivingEntity target, boolean archer, WeakPointEntity marker, long expiresAt) {
+            this.owner = owner;
+            this.target = target;
+            this.archer = archer;
+            this.marker = marker;
+            this.expiresAt = expiresAt;
+        }
     }
 
     private static final Map<Integer, List<Mark>> MARKS = new ConcurrentHashMap<>();
@@ -59,7 +79,7 @@ public final class WeakPointManager {
         long expires = owner.level().getGameTime() + ticks;
         List<Mark> list = MARKS.computeIfAbsent(target.getId(), id -> new ArrayList<>());
         list.removeIf(mark -> {
-            boolean same = mark.owner().equals(owner.getUUID()) && mark.archer() == archer;
+            boolean same = mark.owner.equals(owner.getUUID()) && mark.archer == archer;
             if (same) {
                 discard(mark);
             }
@@ -70,12 +90,12 @@ public final class WeakPointManager {
             marker.bind(owner.getUUID(), target, ticks);
             owner.level().addFreshEntity(marker);
         }
-        list.add(new Mark(owner.getUUID(), target, expires, archer, marker));
+        list.add(new Mark(owner.getUUID(), target, archer, marker, expires));
     }
 
     private static void discard(Mark mark) {
-        if (mark.marker() != null && !mark.marker().isRemoved()) {
-            mark.marker().discard();
+        if (mark.marker != null && !mark.marker.isRemoved()) {
+            mark.marker.discard();
         }
     }
 
@@ -106,7 +126,7 @@ public final class WeakPointManager {
     private static void clearOwner(UUID owner, boolean archer) {
         for (List<Mark> list : MARKS.values()) {
             list.removeIf(mark -> {
-                boolean same = mark.owner().equals(owner) && mark.archer() == archer;
+                boolean same = mark.owner.equals(owner) && mark.archer == archer;
                 if (same) {
                     discard(mark);
                 }
@@ -124,8 +144,8 @@ public final class WeakPointManager {
         while (it.hasNext()) {
             var entry = it.next();
             entry.getValue().removeIf(mark -> {
-                boolean expired = !mark.target().isAlive() || mark.target().isRemoved()
-                        || mark.target().level().getGameTime() > mark.expiresAt();
+                boolean expired = !mark.target.isAlive() || mark.target.isRemoved()
+                        || mark.target.level().getGameTime() > mark.expiresAt;
                 if (expired) {
                     discard(mark);
                 }
@@ -150,27 +170,40 @@ public final class WeakPointManager {
         boolean isHereje = attacker.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
                 .map(info -> info.getRace() == Race.HEREJE).orElse(false);
         boolean projectile = event.getSource().getDirectEntity() instanceof Projectile;
+        var key = event.getSource().typeHolder().unwrapKey().orElse(null);
+        boolean elemental = key != null && ModDamageTypes.ALL.contains(key);
         long now = attacker.level().getGameTime();
         float base = event.getAmount();
         float multiplier = 1.0F;
         float trueFraction = 0.0F;
         boolean landed = false;
 
-        for (Iterator<Mark> it = list.iterator(); it.hasNext(); ) {
-            Mark mark = it.next();
-            if (!mark.owner().equals(attacker.getUUID()) || now > mark.expiresAt()) {
+        for (Mark mark : list) {
+            if (!mark.owner.equals(attacker.getUUID()) || now > mark.expiresAt) {
                 continue;
             }
-            if (!mark.archer()) {
-                multiplier += 0.45F;
-                trueFraction += 0.05F;
-                discard(mark);
-                it.remove();
-                landed = true;
-            } else if (projectile) {
+            if (!mark.archer) {
+                if (mark.consumedAt < 0 && !elemental) {
+                    // Primer golpe: acierta el punto, desaparece el marcador, la ventana queda abierta
+                    // para el daño elemental de este mismo golpe (llega diferido).
+                    multiplier += 0.45F;
+                    trueFraction += 0.05F;
+                    discard(mark);
+                    mark.consumedAt = now;
+                    mark.expiresAt = now + ELEMENTAL_WINDOW;
+                    landed = true;
+                } else if (mark.consumedAt >= 0 && elemental && now - mark.consumedAt <= ELEMENTAL_WINDOW) {
+                    multiplier += 0.45F;
+                    trueFraction += 0.05F;
+                }
+            } else if (projectile && !elemental) {
+                mark.lastProjectileHit = now;
                 multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);
                 trueFraction += 0.15F + (isHereje ? 0.05F : 0.0F);
                 landed = true;
+            } else if (elemental && now - mark.lastProjectileHit <= ELEMENTAL_WINDOW) {
+                multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);
+                trueFraction += 0.15F + (isHereje ? 0.05F : 0.0F);
             }
         }
         if (landed) {

@@ -129,7 +129,11 @@ public class ElementalDamageEvents {
             ElementalDamageIndicator.show(target, elementKey, event.getAmount());
         } else {
             // No es uno de nuestros 9 tipos (golpe normal de jugador o de mob): si quien pega es
-            // un mob con afinidad, le agrega un daño elemental APARTE (ver MobElementalAttackHandler).
+            // un mob con afinidad, le agrega un daño elemental APARTE (ver MobElementalAttackHandler);
+            // si es un jugador, su raza puede sumar/convertir daño elemental (ver RacialElemental).
+            if (attacker instanceof Player racialAttacker) {
+                com.tcorigenes.tcorigenes.core.RacialElemental.apply(event, racialAttacker);
+            }
             MobElementalAttackHandler.applyExtraElementalDamage(target, event.getSource(), baseDamage);
         }
     }

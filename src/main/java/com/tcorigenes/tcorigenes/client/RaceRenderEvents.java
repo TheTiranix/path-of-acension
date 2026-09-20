@@ -51,6 +51,9 @@ public final class RaceRenderEvents {
         if (race == Race.ENDER_WARRIOR) {
             event.getPoseStack().pushPose();
             event.getPoseStack().scale(ENDER_WARRIOR_WIDTH_SCALE, ENDER_WARRIOR_HEIGHT_SCALE, ENDER_WARRIOR_WIDTH_SCALE);
+        } else if (race == Race.STONE_GIANT) {
+            event.getPoseStack().pushPose();
+            event.getPoseStack().scale(1.25F, 1.25F, 1.25F);
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             PlayerModel<AbstractClientPlayer> model = event.getRenderer().getModel();
             setScale(model.head, MALNACIDO_HEAD_SCALE);
@@ -64,7 +67,7 @@ public final class RaceRenderEvents {
     public static void onRenderPlayerPost(RenderPlayerEvent.Post event) {
         Player player = event.getEntity();
         Race race = ClientRaceData.get(player.getUUID());
-        if (race == Race.ENDER_WARRIOR) {
+        if (race == Race.ENDER_WARRIOR || race == Race.STONE_GIANT) {
             event.getPoseStack().popPose();
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             PlayerModel<AbstractClientPlayer> model = event.getRenderer().getModel();

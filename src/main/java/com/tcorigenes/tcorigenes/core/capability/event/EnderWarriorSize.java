@@ -18,21 +18,36 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(modid = "tcorigenes")
 public final class EnderWarriorSize {
     private static final float EXTRA_HEIGHT = 0.5F;
+    private static final float STONE_GIANT_SCALE = 1.25F;
 
     private EnderWarriorSize() {
     }
 
-    public static boolean isEnderWarrior(Player player) {
+    public static Race raceOf(Player player) {
         if (player.level().isClientSide()) {
-            return ClientRaceData.get(player.getUUID()) == Race.ENDER_WARRIOR;
+            return ClientRaceData.get(player.getUUID());
         }
-        return player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
-                .map(info -> info.getRace() == Race.ENDER_WARRIOR).orElse(false);
+        return player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace()).orElse(Race.HUMANO);
+    }
+
+    public static boolean isEnderWarrior(Player player) {
+        return raceOf(player) == Race.ENDER_WARRIOR;
     }
 
     @SubscribeEvent
     public static void onSize(EntityEvent.Size event) {
-        if (!(event.getEntity() instanceof Player player) || !isEnderWarrior(player)) {
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
+        }
+        Race race = raceOf(player);
+        EntityDimensions old = event.getNewSize();
+        if (race == Race.STONE_GIANT) {
+            // 25% mas alto y ancho en cualquier pose.
+            event.setNewSize(EntityDimensions.scalable(old.width * STONE_GIANT_SCALE, old.height * STONE_GIANT_SCALE));
+            event.setNewEyeHeight(event.getNewEyeHeight() * STONE_GIANT_SCALE);
+            return;
+        }
+        if (race != Race.ENDER_WARRIOR) {
             return;
         }
         float extra = 0.0F;
@@ -44,7 +59,6 @@ public final class EnderWarriorSize {
         if (extra <= 0.0F) {
             return;
         }
-        EntityDimensions old = event.getNewSize();
         event.setNewSize(EntityDimensions.scalable(old.width, old.height + extra));
         event.setNewEyeHeight(event.getNewEyeHeight() + extra * 0.9F);
     }

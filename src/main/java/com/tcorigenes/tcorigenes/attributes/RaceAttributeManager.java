@@ -126,12 +126,24 @@ public class RaceAttributeManager {
                 // documento. El daño por tocar agua (como Enderman) esta en ModEvents#onPlayerTick.
                 // 0.5 bloques mas alto: no implementado, requeriria overridear el hitbox del jugador
                 // (mixin de riesgo/beneficio dudoso dado lo visto con relics_in_chaos).
-                add(toApply, health, HEALTH_MODIFIER_ID, "Ender Warrior Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
-                add(toApply, arrowDodge, ARROW_DODGE_MODIFIER_ID, "Ender Warrior Arrow Dodge", 0.30, AttributeModifier.Operation.ADDITION);
+                add(toApply, health, HEALTH_MODIFIER_ID, "Ender Warrior Health", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, arrowDodge, ARROW_DODGE_MODIFIER_ID, "Ender Warrior Arrow Dodge", 0.20, AttributeModifier.Operation.ADDITION);
                 add(toApply, resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID, "Ender Warrior Water Weakness", -0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, resistEnder, RESIST_ENDER_MODIFIER_ID, "Ender Warrior Ender Resistance", 0.20, AttributeModifier.Operation.ADDITION);
-                add(toApply, knockbackResistance, KNOCKBACK_MODIFIER_ID, "Ender Warrior Knockback Resistance", 0.30, AttributeModifier.Operation.ADDITION);
+                add(toApply, resistEnder, RESIST_ENDER_MODIFIER_ID, "Ender Warrior Ender Resistance", 0.10, AttributeModifier.Operation.ADDITION);
+                add(toApply, knockbackResistance, KNOCKBACK_MODIFIER_ID, "Ender Warrior Knockback Resistance", 0.15, AttributeModifier.Operation.ADDITION);
                 add(toApply, reach, REACH_MODIFIER_ID, "Ender Warrior Attack Reach", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                // -10% velocidad de golpeo y de carga (draw speed). El 5% de daño convertido a ender esta en RacialElemental.
+                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Ender Warrior Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Ender Warrior Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
+            }
+            case STONE_GIANT -> {
+                // +20% vida, -10% velocidad, -10% velocidad de golpeo y de carga. 5% de resistencia absoluta
+                // (ModEvents), 25% mas alto y ancho (EnderWarriorSize + RaceRenderEvents) y 10% de daño
+                // convertido a elemental de tierra (RacialElemental).
+                add(toApply, health, HEALTH_MODIFIER_ID, "Gigante Rocoso Health", 0.20, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, speed, SPEED_MODIFIER_ID, "Gigante Rocoso Slowness", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Gigante Rocoso Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Gigante Rocoso Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
             }
             case MALNACIDO -> {
                 if (player.getPersistentData().getBoolean("malnacido_purificado")) {
