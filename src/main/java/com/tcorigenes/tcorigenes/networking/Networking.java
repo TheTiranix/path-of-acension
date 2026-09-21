@@ -6,6 +6,9 @@ import com.tcorigenes.tcorigenes.ability.network.ActivateAbilityPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateRacialAbilityPacket;
 import com.tcorigenes.tcorigenes.favor.network.FavorSyncPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseClassPacket;
+import com.tcorigenes.tcorigenes.networking.packet.ChooseCoinflipPacket;
+import com.tcorigenes.tcorigenes.networking.packet.CoinflipResultPacket;
+import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket;
@@ -95,6 +98,24 @@ public class Networking {
                 .decoder(OpenClassScreenPacket::new)
                 .encoder(OpenClassScreenPacket::toBytes)
                 .consumerMainThread(OpenClassScreenPacket::handle)
+                .add();
+
+        net.messageBuilder(OpenCoinflipPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(OpenCoinflipPacket::new)
+                .encoder(OpenCoinflipPacket::toBytes)
+                .consumerMainThread(OpenCoinflipPacket::handle)
+                .add();
+
+        net.messageBuilder(ChooseCoinflipPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ChooseCoinflipPacket::new)
+                .encoder(ChooseCoinflipPacket::toBytes)
+                .consumerMainThread(ChooseCoinflipPacket::handle)
+                .add();
+
+        net.messageBuilder(CoinflipResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CoinflipResultPacket::new)
+                .encoder(CoinflipResultPacket::toBytes)
+                .consumerMainThread(CoinflipResultPacket::handle)
                 .add();
 
         net.messageBuilder(DropsResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)

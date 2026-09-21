@@ -222,3 +222,43 @@ if __name__ == "__main__":
                ritualista, berserker, anima, escudero, arquero):
         fn()
     print("ok ->", os.path.abspath(OUT))
+
+
+# ------------------------------------------------------------- moneda (cara o cruz)
+def coin(name, emblem):
+    img, d = canvas()
+    d.ellipse((2, 2, 29, 29), fill=(120, 80, 14, 255))
+    d.ellipse((3, 3, 28, 28), fill=(214, 168, 46, 255))
+    d.ellipse((5, 5, 26, 26), fill=(238, 196, 70, 255))
+    d.ellipse((6, 6, 25, 25), outline=(170, 120, 24, 255), width=1)
+    d.arc((5, 5, 26, 26), start=200, end=290, fill=(255, 236, 150, 255), width=1)
+    emblem(d)
+    save(img, name)
+
+
+def emblem_heads(d):
+    dark = (110, 70, 10, 255)
+    d.polygon([(9, 20), (9, 11), (13, 15), (16, 9), (19, 15), (23, 11), (23, 20)], fill=dark)
+    d.rectangle((9, 21, 23, 22), fill=dark)
+    for x in (9, 16, 23):
+        d.point((x, 9 if x == 16 else 10), fill=(255, 236, 150, 255))
+
+
+def emblem_tails(d):
+    dark = (110, 70, 10, 255)
+    d.rectangle((14, 8, 17, 23), fill=dark)
+    d.rectangle((9, 12, 22, 15), fill=dark)
+
+
+def make_coins():
+    global OUT
+    saved = OUT
+    OUT = os.path.join(os.path.dirname(__file__), "..", "src", "main", "resources", "assets",
+                       "tcorigenes", "textures", "gui", "coinflip")
+    coin("coin_heads", emblem_heads)
+    coin("coin_tails", emblem_tails)
+    OUT = saved
+
+
+if __name__ == "__main__":
+    make_coins()

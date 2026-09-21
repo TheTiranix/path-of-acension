@@ -63,6 +63,9 @@ Nueve elementos: **fuego, hielo, agua, luz, ender, lunar, tierra, aire y natural
 ### Un mundo con niveles
 Cada mob tiene un **nivel** que ves como `[Nv. X]` al apuntarle. Cerca del spawn son de nivel 1 a 5; cada 500 bloques la franja sube, y el Nether y el End son mucho peores. Además, **cada jugador extra suma un 35% de vida y daño** a los mobs, y ese efecto queda para siempre una vez alcanzado.
 
+### Cara o cruz
+La primera vez que abrís un cofre de botín (los de las estructuras), hay un 35% de que el cofre te exija una apuesta: elegís **cara o cruz**. Si acertás, el cofre trae la mejor versión de su botín (varias tiradas con mucha suerte, quedándose con la mejor, y a veces una bendición extra: doble ración, objetos encantados u una ofrenda). Si fallás, se abre vacío. Los cofres que ponés vos nunca entran.
+
 ### Puntos débiles
 El Hereje y el Arquero ven una **carga ígnea roja** pegada al cuerpo del enemigo, siempre en un punto lógico de su hitbox. Acertarla suena a carne, hace daño extra y una parte ignora la armadura.
 
