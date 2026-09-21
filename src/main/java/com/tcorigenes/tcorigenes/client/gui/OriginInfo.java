@@ -5,9 +5,9 @@ import com.tcorigenes.tcorigenes.core.Race;
 import com.tcorigenes.tcorigenes.playerclass.PlayerClass;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 
 /** Textos e iconos de las pantallas de eleccion de raza y clase. Solo cliente: los numeros de aca
@@ -46,20 +46,20 @@ public final class OriginInfo {
 
     // ------------------------------------------------------------------ lineas
     private static Component plus(String text) {
-        return line("+ ", ChatFormatting.GREEN, text, ChatFormatting.WHITE);
+        return line("+ ", 0x6FA35A, text, 0xDDD0C8);
     }
 
     private static Component minus(String text) {
-        return line("- ", ChatFormatting.RED, text, ChatFormatting.WHITE);
+        return line("- ", 0xC0392B, text, 0xDDD0C8);
     }
 
     private static Component note(String text) {
-        return line("* ", ChatFormatting.GOLD, text, ChatFormatting.YELLOW);
+        return line("* ", 0xC9A24A, text, 0xD9C58A);
     }
 
-    private static Component line(String mark, ChatFormatting markColor, String text, ChatFormatting textColor) {
-        MutableComponent c = Component.literal(mark).withStyle(markColor);
-        return c.append(Component.literal(text).withStyle(textColor));
+    private static Component line(String mark, int markColor, String text, int textColor) {
+        MutableComponent c = Component.literal(mark).withStyle(Style.EMPTY.withColor(markColor).withBold(true));
+        return c.append(Component.literal(text).withStyle(Style.EMPTY.withColor(textColor)));
     }
 
     // ------------------------------------------------------------------ razas
