@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
@@ -56,6 +58,8 @@ public final class WeakPointManager {
         long consumedAt = -1;
         /** Arquero: ultimo tick en que un proyectil acerto el punto. */
         long lastProjectileHit = -1000;
+        /** Ultimo tick en que se avisó que se erró el punto (para no repetir el aviso en cada golpe). */
+        long lastMissHint = -1000;
 
         Mark(UUID owner, LivingEntity target, boolean archer, WeakPointEntity marker, long expiresAt) {
             this.owner = owner;
@@ -158,6 +162,40 @@ public final class WeakPointManager {
         }
     }
 
+    /** Radio de acierto alrededor del punto: crece un poco con el tamaño del mob (entre 0.5 y 1.4 bloques). */
+    private static double aimRadius(LivingEntity target) {
+        return Math.min(1.4, 0.45 + 0.1 * target.getBbHeight());
+    }
+
+    /**
+     * El bono solo vale si se APUNTA al punto debil (el marcador sobre el modelo): en cuerpo a cuerpo, si la
+     * mira pasa a menos del radio del punto; con proyectiles, si su trayectoria en el impacto pasa por el punto.
+     * Sin marcador vivo se usa el punto de la hitbox.
+     */
+    private static boolean aimedAtPoint(ServerPlayer attacker, Mark mark, DamageSource source) {
+        LivingEntity target = mark.target;
+        Vec3 point = (mark.marker != null && !mark.marker.isRemoved()) ? mark.marker.getAimPoint(target) : WeakPointAnchor.of(target);
+        double radius = aimRadius(target);
+        var direct = source.getDirectEntity();
+        if (direct instanceof Projectile projectile) {
+            Vec3 motion = projectile.getDeltaMovement();
+            Vec3 from = projectile.position().subtract(motion);
+            Vec3 to = projectile.position().add(motion.scale(0.3));
+            return distanceToSegment(point, from, to) <= radius;
+        }
+        Vec3 eye = attacker.getEyePosition();
+        Vec3 look = attacker.getViewVector(1.0F);
+        double t = Math.max(0.0, point.subtract(eye).dot(look));
+        return point.distanceTo(eye.add(look.scale(t))) <= radius;
+    }
+
+    private static double distanceToSegment(Vec3 p, Vec3 a, Vec3 b) {
+        Vec3 ab = b.subtract(a);
+        double len2 = ab.lengthSqr();
+        double t = len2 < 1.0E-7 ? 0.0 : Math.max(0.0, Math.min(1.0, p.subtract(a).dot(ab) / len2));
+        return p.distanceTo(a.add(ab.scale(t)));
+    }
+
     /** Se llama en HIGH para que el multiplicador se aplique antes que el resto de los modificadores de daño. */
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onHurt(LivingHurtEvent event) {
@@ -184,7 +222,13 @@ public final class WeakPointManager {
                 continue;
             }
             if (!mark.archer) {
-                if (mark.consumedAt < 0 && !elemental) {
+                if (mark.consumedAt < 0 && !elemental && !aimedAtPoint(attacker, mark, event.getSource())) {
+                    if (now - mark.lastMissHint > 15) {
+                        mark.lastMissHint = now;
+                        attacker.displayClientMessage(net.minecraft.network.chat.Component.literal(
+                                "Fallaste el punto débil: apuntá a la marca roja.").withStyle(net.minecraft.ChatFormatting.DARK_RED), true);
+                    }
+                } else if (mark.consumedAt < 0 && !elemental) {
                     // Primer golpe: acierta el punto, desaparece el marcador, la ventana queda abierta
                     // para el daño elemental de este mismo golpe (llega diferido).
                     multiplier += 0.45F;
@@ -198,10 +242,12 @@ public final class WeakPointManager {
                     trueFraction += 0.05F;
                 }
             } else if (projectile && !elemental) {
-                mark.lastProjectileHit = now;
-                multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);
-                trueFraction += 0.15F + (isHereje ? 0.05F : 0.0F);
-                landed = true;
+                if (aimedAtPoint(attacker, mark, event.getSource())) {
+                    mark.lastProjectileHit = now;
+                    multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);
+                    trueFraction += 0.15F + (isHereje ? 0.05F : 0.0F);
+                    landed = true;
+                }
             } else if (elemental && now - mark.lastProjectileHit <= ELEMENTAL_WINDOW) {
                 multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);
                 trueFraction += 0.15F + (isHereje ? 0.05F : 0.0F);

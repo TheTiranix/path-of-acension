@@ -28,6 +28,9 @@ public class WeakPointEntity extends Entity {
             SynchedEntityData.defineId(WeakPointEntity.class, EntityDataSerializers.INT);
 
     private int maxAge = 80;
+    /** Punto sobre el MODELO del mob que calcula el cliente del dueño (el servidor no tiene modelos). */
+    private Vec3 modelAim;
+    private long modelAimAt = -1000;
 
     public WeakPointEntity(EntityType<? extends WeakPointEntity> type, Level level) {
         super(type, level);
@@ -40,6 +43,20 @@ public class WeakPointEntity extends Entity {
         this.entityData.set(TARGET, target.getId());
         this.maxAge = lifetimeTicks;
         this.setPos(WeakPointAnchor.of(target));
+    }
+
+    /** Lo manda el cliente del dueño (ver WeakPointAimPacket); ya viene validado. */
+    public void setModelAim(Vec3 aim, long gameTime) {
+        this.modelAim = aim;
+        this.modelAimAt = gameTime;
+    }
+
+    /** Donde hay que acertar: el punto del modelo si el cliente lo reporto hace poco, si no el de la hitbox. */
+    public Vec3 getAimPoint(LivingEntity target) {
+        if (this.modelAim != null && this.level().getGameTime() - this.modelAimAt <= 30) {
+            return this.modelAim;
+        }
+        return WeakPointAnchor.of(target);
     }
 
     public int getTargetId() {

@@ -67,7 +67,7 @@ Cada mob tiene un **nivel** que ves como `[Nv. X]` al apuntarle. Cerca del spawn
 La primera vez que abrís un cofre de botín (los de las estructuras), hay un 35% de que el cofre te exija una apuesta: elegís **cara o cruz**. Si acertás, el cofre trae la mejor versión de su botín (varias tiradas con mucha suerte, quedándose con la mejor, y a veces una bendición extra: doble ración, objetos encantados u una ofrenda). Si fallás, se abre vacío. Los cofres que ponés vos nunca entran.
 
 ### Puntos débiles
-El Hereje y el Arquero ven una **carga ígnea roja** pegada al cuerpo del enemigo, siempre en un punto lógico de su hitbox. Acertarla suena a carne, hace daño extra y una parte ignora la armadura.
+El Hereje y el Arquero ven una **carga ígnea roja** pegada al cuerpo del enemigo, siempre en un punto lógico de su hitbox. Hay que **apuntar bien**: el bono solo vale si el golpe o la flecha pasa por la marca (sobre el modelo del mob, no sobre su hitbox). Acertarla suena a carne, hace daño extra y una parte ignora la armadura.
 
 ### Árbol de habilidades propio
 Una rama larga por clase (20 nodos: raíz, dos caminos de 9 y una piedra clave): los bonos empiezan pequeños y los últimos nodos suman mucho. Confirmación antes de gastar puntos (tecla **H**). Los puntos salen de **matar jefes** y de **las quests**.

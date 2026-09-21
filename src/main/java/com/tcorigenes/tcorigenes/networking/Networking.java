@@ -10,6 +10,7 @@ import com.tcorigenes.tcorigenes.networking.packet.ChooseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CloseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CoinflipResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
+import com.tcorigenes.tcorigenes.networking.packet.WeakPointAimPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket;
@@ -123,6 +124,12 @@ public class Networking {
                 .decoder(CloseCoinflipPacket::new)
                 .encoder(CloseCoinflipPacket::toBytes)
                 .consumerMainThread(CloseCoinflipPacket::handle)
+                .add();
+
+        net.messageBuilder(WeakPointAimPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(WeakPointAimPacket::new)
+                .encoder(WeakPointAimPacket::toBytes)
+                .consumerMainThread(WeakPointAimPacket::handle)
                 .add();
 
         net.messageBuilder(DropsResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
