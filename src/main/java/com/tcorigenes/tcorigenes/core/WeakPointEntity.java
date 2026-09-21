@@ -42,6 +42,10 @@ public class WeakPointEntity extends Entity {
         this.setPos(WeakPointAnchor.of(target));
     }
 
+    public int getTargetId() {
+        return this.entityData.get(TARGET);
+    }
+
     public UUID getOwnerId() {
         return this.entityData.get(OWNER).orElse(null);
     }

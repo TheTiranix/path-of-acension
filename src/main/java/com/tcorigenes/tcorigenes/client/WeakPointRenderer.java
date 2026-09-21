@@ -37,6 +37,14 @@ public class WeakPointRenderer extends EntityRenderer<WeakPointEntity> {
             return;
         }
         poseStack.pushPose();
+        // Sobre el MODELO del mob (cabeza/cara), no sobre su hitbox; si no se puede leer, queda la posicion por hitbox.
+        if (entity.level().getEntity(entity.getTargetId()) instanceof net.minecraft.world.entity.LivingEntity target) {
+            net.minecraft.world.phys.Vec3 offset = WeakPointModelAnchor.offset(target, entity.getPosition(partialTick),
+                    partialTick, this.entityRenderDispatcher);
+            if (offset != null) {
+                poseStack.translate(offset.x, offset.y, offset.z);
+            }
+        }
         poseStack.scale(SIZE, SIZE, SIZE);
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
