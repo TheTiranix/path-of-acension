@@ -2,6 +2,7 @@
 package com.tcorigenes.tcorigenes.coinflip;
 
 import com.tcorigenes.tcorigenes.networking.Networking;
+import com.tcorigenes.tcorigenes.networking.packet.CloseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CoinflipResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public final class CoinflipManager {
     public static final double CHANCE = 0.35;
     private static final String DONE_KEY = "tc_coinflip_done";
     private static final int FLIP_TICKS = 62; // lo que dura la animacion en el cliente
-    private static final int MAX_WAIT_TICKS = 20 * 60 * 3;
+    private static final int MAX_WAIT_TICKS = 20 * 45;
 
     private static final class Pending {
         ResourceKey<Level> dimension;
@@ -190,10 +191,12 @@ public final class CoinflipManager {
                 it.remove();
                 continue;
             }
+            // Toda salida sin abrir el cofre cierra la pantalla del cliente (antes podia quedar trabada).
             long now = level.getGameTime();
             if (pending.win == null) {
                 if (now - pending.createdAt > MAX_WAIT_TICKS) {
                     it.remove();
+                    Networking.sendToPlayer(player, new CloseCoinflipPacket());
                 }
             } else if (!pending.opening) {
                 if (now >= pending.openAt) {
@@ -203,10 +206,12 @@ public final class CoinflipManager {
                     InteractionResult result = state.use(level, player, InteractionHand.MAIN_HAND, pending.hit);
                     if (!result.consumesAction()) {
                         it.remove();
+                        Networking.sendToPlayer(player, new CloseCoinflipPacket());
                     }
                 }
             } else if (now - pending.openedAt > 40) {
                 it.remove(); // el cofre no llego a abrirse (tapado, etc.)
+                Networking.sendToPlayer(player, new CloseCoinflipPacket());
             }
         }
     }

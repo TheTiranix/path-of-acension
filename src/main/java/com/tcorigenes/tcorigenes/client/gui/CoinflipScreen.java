@@ -31,6 +31,8 @@ public class CoinflipScreen extends Screen {
     private boolean won;
     private int flipAge = 0;
     private int idleAge = 0;
+    private int resultAge = 0;
+    private Button closeButton;
     private Button headsButton;
     private Button tailsButton;
 
@@ -48,6 +50,18 @@ public class CoinflipScreen extends Screen {
         }
     }
 
+    /** Cierra la pantalla si sigue abierta (el servidor avisa cuando el cofre no llego a abrirse). */
+    public static void closeIfOpen() {
+        if (Minecraft.getInstance().screen instanceof CoinflipScreen screen) {
+            screen.onClose();
+        }
+    }
+
+    /** Salida de emergencia: solo si el servidor no abrio el cofre a tiempo (antes la pantalla podia quedar colgada). */
+    private boolean canLeave() {
+        return (this.phase == Phase.RESULT && this.resultAge >= 60) || this.idleAge >= 400;
+    }
+
     @Override
     protected void init() {
         int cx = this.width / 2;
@@ -56,6 +70,9 @@ public class CoinflipScreen extends Screen {
                 .bounds(cx - 105, y, 100, 20).build());
         this.tailsButton = this.addRenderableWidget(Button.builder(Component.literal("Cruz"), b -> choose(false))
                 .bounds(cx + 5, y, 100, 20).build());
+        this.closeButton = this.addRenderableWidget(Button.builder(Component.literal("Cerrar"), b -> this.onClose())
+                .bounds(cx - 50, y, 100, 20).build());
+        this.closeButton.visible = false;
     }
 
     private void choose(boolean heads) {
@@ -74,6 +91,13 @@ public class CoinflipScreen extends Screen {
         boolean choosing = this.phase == Phase.CHOOSE;
         this.headsButton.visible = choosing;
         this.tailsButton.visible = choosing;
+        if (this.phase == Phase.RESULT) {
+            this.resultAge++;
+        }
+        this.closeButton.visible = canLeave();
+        if (this.phase == Phase.RESULT && this.resultAge >= 200) {
+            this.onClose(); // el cofre no se abrio: no dejar la pantalla colgada
+        }
         if (this.phase == Phase.FLIPPING) {
             this.flipAge++;
             if (this.flipAge % 5 == 0 && this.flipAge < FLIP_TICKS) {
@@ -153,7 +177,7 @@ public class CoinflipScreen extends Screen {
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return false;
+        return canLeave();
     }
 
     @Override

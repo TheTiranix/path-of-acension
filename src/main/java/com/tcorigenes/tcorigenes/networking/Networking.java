@@ -7,6 +7,7 @@ import com.tcorigenes.tcorigenes.ability.network.ActivateRacialAbilityPacket;
 import com.tcorigenes.tcorigenes.favor.network.FavorSyncPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseClassPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseCoinflipPacket;
+import com.tcorigenes.tcorigenes.networking.packet.CloseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CoinflipResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
@@ -116,6 +117,12 @@ public class Networking {
                 .decoder(CoinflipResultPacket::new)
                 .encoder(CoinflipResultPacket::toBytes)
                 .consumerMainThread(CoinflipResultPacket::handle)
+                .add();
+
+        net.messageBuilder(CloseCoinflipPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CloseCoinflipPacket::new)
+                .encoder(CloseCoinflipPacket::toBytes)
+                .consumerMainThread(CloseCoinflipPacket::handle)
                 .add();
 
         net.messageBuilder(DropsResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
