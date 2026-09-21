@@ -158,6 +158,36 @@ public final class SkillTreeManager {
         Networking.sendToPlayer(player, new SkillSyncPacket(points, currentClass(player).name(), unlockedNodes(player)));
     }
 
+    /**
+     * Borra todos los nodos desbloqueados (y las habilidades que daban las piedras clave) y devuelve los puntos
+     * gastados. Devuelve cuantos puntos se recuperaron.
+     */
+    public static int resetAll(ServerPlayer player) {
+        int[] refunded = {0};
+        player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
+            Set<String> unlocked = loadout.getUnlockedAbilityIds();
+            for (String id : new HashSet<>(unlocked)) {
+                if (!id.startsWith(SkillTree.NODE_PREFIX)) {
+                    continue;
+                }
+                SkillNode node = SkillTree.get(id.substring(SkillTree.NODE_PREFIX.length()));
+                if (node != null) {
+                    refunded[0] += node.cost();
+                    if (node.abilityId() != null) {
+                        unlocked.remove(node.abilityId());
+                        if (node.abilityId().equals(loadout.getEquippedAbilityId())) {
+                            loadout.setEquippedAbilityId(null);
+                        }
+                    }
+                }
+                unlocked.remove(id);
+            }
+            loadout.setSkillPoints(loadout.getSkillPoints() + refunded[0]);
+        });
+        refresh(player);
+        return refunded[0];
+    }
+
     public static void addPoints(ServerPlayer player, int amount) {
         player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY)
                 .ifPresent(loadout -> loadout.setSkillPoints(Math.max(0, loadout.getSkillPoints() + amount)));
