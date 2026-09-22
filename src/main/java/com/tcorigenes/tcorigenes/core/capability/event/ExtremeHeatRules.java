@@ -13,13 +13,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 /**
- * Calor extremo: multiplica por 3 el consumo de agua (la sed base ya baja a un 10%, ver config
- * de Tough As Nails). Ender Warrior no tiene sed (su regla de hambre x2 esta en ModEvents) y el
- * Demonio ignora por completo este estado.
+ * Calor extremo: duplica el consumo de agua (la sed base ya es lenta, ver exhaustion_threshold en el
+ * config de Tough As Nails). Antes multiplicaba x3 sobre una base MUY lenta (threshold 70): el desierto
+ * (casi siempre "HOT" en Tough As Nails) se sentia vaciar rapidisimo mientras que en biomas normales la
+ * sed no bajaba nunca de forma perceptible. Bajamos el threshold base (mas presente en todos lados) y
+ * este extra a x2, asi el desierto sigue siendo claramente mas duro sin ser una vaciada instantanea.
+ * Ender Warrior no tiene sed (su regla de hambre x2 esta en ModEvents) y el Demonio ignora por completo
+ * este estado.
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class ExtremeHeatRules {
-    private static final float EXTRA_FACTOR = 2.0F;
+    private static final float EXTRA_FACTOR = 1.0F;
     private static final Map<UUID, Float> LAST_EXHAUSTION = new HashMap<>();
 
     private ExtremeHeatRules() {

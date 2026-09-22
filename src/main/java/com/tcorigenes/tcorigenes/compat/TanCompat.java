@@ -27,6 +27,11 @@ public final class TanCompat {
         return ThirstHelper.getThirst(player).getExhaustion();
     }
 
+    /** Gotas de sed actuales (0 a 20), la misma escala que la barra de hambre. */
+    public static int thirstDrops(Player player) {
+        return ThirstHelper.getThirst(player).getThirst();
+    }
+
     public static void addThirstExhaustion(Player player, float amount) {
         ThirstHelper.getThirst(player).addExhaustion(amount);
     }

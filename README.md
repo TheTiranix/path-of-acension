@@ -79,7 +79,7 @@ Cada dios recompensa algo distinto: Pater premia crear y construir (y rezar en s
 Cada arma y escudo tiene una **destreza requerida**. Algunas clases no pueden superar cierto límite; otras pueden, pero con penalización. Lo ves en el tooltip.
 
 ### Supervivencia
-Sed y temperatura (Tough As Nails) ajustadas para que sean parte del juego y no una tortura: la sed baja lento, regenerar no depende del agua, y el calor o el frío extremos tardan un día entero en castigarte.
+Sed y temperatura (Tough As Nails) ajustadas para que sean parte del juego y no una tortura: la sed baja lento (el doble de rápido en calor extremo, como el desierto), necesitás al menos 5 gotas de sed para regenerar vida naturalmente, y el calor o el frío extremos tardan un día entero en castigarte.
 
 ### Herramientas dentro del juego
 - Botones **Daño** y **Armadura** junto al inventario: abren en JEI la lista de todos los ítems del pack ordenados de menor a mayor (la armadura, separada por pieza). También con `/rankings`.
