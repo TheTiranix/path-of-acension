@@ -97,7 +97,8 @@ public final class AbilityRegistry {
     }
 
     /**
-     * "Guardia Total" (Escudero). Duracion 10s y cooldown de 3 minutos (documento v2).
+     * "Guardia Total" (Escudero): invulnerable 10s y taunt a todo enemigo en un cubo de 20x20x20 a su
+     * alrededor (los fuerza a atacarlo a el). Cooldown de 3 minutos (documento v2-1).
      */
     private static void registerGuardiaTotal() {
         register(new PlayerAbility() {
@@ -121,6 +122,13 @@ public final class AbilityRegistry {
                 com.tcorigenes.tcorigenes.ability.TemporaryInvulnerability.grant(player, 20 * 10);
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.SHIELD_BLOCK,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
+                // Taunt: todos los enemigos en un cubo de 20x20x20 (10 de radio) pasan a atacarte a vos.
+                var box = player.getBoundingBox().inflate(10.0);
+                for (net.minecraft.world.entity.Mob mob : player.level().getEntitiesOfClass(
+                        net.minecraft.world.entity.Mob.class, box,
+                        m -> m instanceof net.minecraft.world.entity.monster.Enemy && m.isAlive())) {
+                    mob.setTarget(player);
+                }
             }
         });
     }
@@ -128,8 +136,7 @@ public final class AbilityRegistry {
     /**
      * "Ojo de Halcón" (Arquero): marca un punto debil (particula roja grande) en todos los
      * enemigos en 30 bloques por 20s; los proyectiles que lo aciertan hacen +40% de daño y +15%
-     * de daño real (ver WeakPointManager).
-     * Cooldown 45s (no especificado, ajustable).
+     * de daño real (ver WeakPointManager). Cooldown 3 minutos (documento v2-1).
      */
     private static void registerOjoDeHalcon() {
         register(new PlayerAbility() {
@@ -140,7 +147,7 @@ public final class AbilityRegistry {
 
             @Override
             public int cooldownTicks() {
-                return 20 * 45;
+                return 20 * 60 * 3;
             }
 
             @Override

@@ -22,8 +22,8 @@ public final class FavorManager {
     private static Set<Deity> affinity(Race race) {
         return switch (race) {
             case DEVOTO, ANGEL -> CREATOR_PANTHEON;
-            case DEMONIO -> Set.of(Deity.DEIROS);
-            case SIERVO_DE_LA_LUNA -> Set.of(Deity.LUNA);
+            case DEMONIO -> Set.of(Deity.DEIROS, Deity.LUNA);
+            case SIERVO_DE_LA_LUNA -> Set.of(Deity.LUNA, Deity.DEIROS);
             default -> Set.of();
         };
     }

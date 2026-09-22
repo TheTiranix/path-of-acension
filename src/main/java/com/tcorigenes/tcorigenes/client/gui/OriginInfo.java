@@ -87,7 +87,7 @@ public final class OriginInfo {
             case HEREJE -> {
                 l.add(plus("+5% de esquive."));
                 l.add(plus("+10% de velocidad de movimiento, de ataque y de carga de arcos."));
-                l.add(plus("Expertiz anatómica: ve una marca roja en los puntos débiles de los enemigos (4 s). Golpearla hace +45% de daño y 5% del daño ignora la armadura."));
+                l.add(plus("Expertiz anatómica: cada 10 s ve una marca roja en un punto débil (3 s para acertarla). Golpearla hace +45% de daño y 5% del daño ignora la armadura."));
                 l.add(plus("Encantar cuesta 50% menos experiencia."));
                 l.add(minus("Los dioses lo ignoran: su favor nunca supera 0."));
             }
@@ -164,12 +164,12 @@ public final class OriginInfo {
             case RITUALISTA_ARCANO -> {
                 l.add(plus("Es la única clase con acceso pleno a la magia."));
                 l.add(minus("-10% de daño físico y -20% de vida, hasta consagrar el Matrimonio de Carne."));
-                l.add(minus("Límite de destreza de armas: 50 entre ambas manos (sin armas de dos manos ni escudos grandes). Tras el matrimonio puede superarlo con -10% de daño y -15% de velocidad de ataque."));
+                l.add(minus("Límite de destreza de armas: 75 entre ambas manos (sin armas de dos manos ni dos piezas de 50). Tras el matrimonio puede superarlo, con -10% de daño y -15% de velocidad de ataque a partir de 50."));
             }
             case BERSERKER -> {
                 l.add(plus("+25% de daño cuerpo a cuerpo."));
                 l.add(plus("+15% de daño crítico y 10% menos de probabilidad de no hacer crítico."));
-                l.add(note("Habilidad (G): Furia. Durante 20 s pierdes 3% de tu vida máxima cada segundo (5 veces) a cambio de +50% de daño y +20% de crítico. Recarga: 3 min."));
+                l.add(note("Habilidad (G): Furia. Durante 20 s pierdes 3% de tu vida máxima cada segundo (5 veces) a cambio de +50% de daño y +20% de daño crítico. Recarga: 3 min."));
             }
             case GUERRERO_ANIMA -> {
                 l.add(plus("+10% de velocidad de ataque, +10% de daño y +10% de vida."));
@@ -181,14 +181,14 @@ public final class OriginInfo {
             case ESCUDERO -> {
                 l.add(plus("+20% de vida."));
                 l.add(plus("Recibe 20% menos de todo el daño."));
-                l.add(note("Habilidad (G): Guardia Total. Eres invulnerable durante 10 s. Recarga: 3 min."));
+                l.add(note("Habilidad (G): Guardia Total. Eres invulnerable durante 10 s y todos los enemigos a 10 bloques pasan a atacarte a vos. Recarga: 3 min."));
             }
             case ARQUERO -> {
                 l.add(plus("+100% de daño con arco y ballesta."));
                 l.add(plus("+50% de probabilidad y de daño crítico, solo con proyectiles."));
                 l.add(plus("+10% de velocidad de movimiento."));
                 l.add(minus("Pasar 50 de destreza en armas es posible, pero con -10% de daño y -15% de velocidad de ataque y de carga."));
-                l.add(note("Habilidad (G): Ojo de Halcón. Marca los puntos débiles de todos los enemigos a 30 bloques durante 20 s: los proyectiles que los aciertan hacen +40% de daño y 15% ignora la armadura. Recarga: 45 s."));
+                l.add(note("Habilidad (G): Ojo de Halcón. Marca los puntos débiles de todos los enemigos a 30 bloques durante 20 s: los proyectiles que los aciertan hacen +40% de daño y 15% ignora la armadura. Fallar 3 flechazos la cancela antes. Recarga: 3 min."));
             }
             default -> {
             }

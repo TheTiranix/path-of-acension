@@ -56,7 +56,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
  * Bonos condicionales que no viven en RaceAttributeManager/ClassAttributeManager porque
  * dependen del tick/contexto: DEVOTO (regen+curacion), SIERVO_DE_LA_LUNA (buff nocturno +
  * carga de bateria), ANGEL (inmune a caida + planeo), DEMONIO (inmune a fuego/lava),
- * ENDER_WARRIOR (debil al ahogo), MALNACIDO (veneno cura, inmune a inanicion, 20% de errar),
+ * ENDER_WARRIOR (debil al ahogo), MALNACIDO (veneno cura, inmune a inanicion, 35% de errar),
  * HEREJE (marca de punto debil automatica cada 10s), ARQUERO (bono vs marcados),
  * Guerrero Anima/Ritualista (restriccion de armas).
  */

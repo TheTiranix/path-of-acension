@@ -15,15 +15,17 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Trackea, por victima y por elemento, cuanto daño de ese tipo recibio recientemente
- * (decae linealmente a 0 en DECAY_WINDOW_MS si no la vuelven a golpear con ese elemento).
- * Sirve para los elementos cuyo efecto no es instantaneo (fuego/lunar/natural se resuelven
- * solos con mecanicas vanilla) sino que se lee en otro momento: agua (al curar), ender y
- * tierra (al calcular critico), aire (al tirar esquive), hielo (que ademas necesita un
- * modifier de velocidad que hay que ir re-bajando con el tiempo).
+ * Trackea, por victima y por elemento, cuanto daño de ese tipo recibio recientemente (decae
+ * linealmente a 0 en su propia ventana si no la vuelven a golpear con ese elemento: 8s para
+ * hielo y agua, 5s para ender, segun el documento de diseño v2-1). Sirve para los elementos cuyo
+ * efecto no es instantaneo (fuego/lunar/natural se resuelven solos con mecanicas vanilla) sino
+ * que se lee en otro momento: agua (al curar), ender y tierra (al calcular critico), aire (al
+ * tirar esquive), hielo (que ademas necesita un modifier de velocidad que hay que ir re-bajando
+ * con el tiempo).
  */
 public final class ElementalStackManager {
-    private static final long DECAY_WINDOW_MS = 5000L;
+    private static final long ICE_WATER_DECAY_WINDOW_MS = 8000L;
+    private static final long DEFAULT_DECAY_WINDOW_MS = 5000L;
     private static final UUID ICE_SPEED_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550001");
     private static final UUID ICE_ATTACK_SPEED_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550002");
     private static final UUID ICE_DRAW_SPEED_MODIFIER_ID = UUID.fromString("11111111-2222-4333-8444-555555550004");
@@ -39,22 +41,28 @@ public final class ElementalStackManager {
     private ElementalStackManager() {
     }
 
-    private static double decayedValue(Stack stack, long now) {
+    /** Ventana de decaimiento de cada elemento (ver documento v2-1): hielo y agua 8s, el resto 5s. */
+    private static long decayWindowFor(ResourceKey<DamageType> element) {
+        return (element.equals(ModDamageTypes.ICE) || element.equals(ModDamageTypes.WATER_ELEMENTAL))
+                ? ICE_WATER_DECAY_WINDOW_MS : DEFAULT_DECAY_WINDOW_MS;
+    }
+
+    private static double decayedValue(Stack stack, long now, long window) {
         if (stack == null) {
             return 0.0;
         }
         long elapsed = now - stack.lastHitMillis();
-        if (elapsed >= DECAY_WINDOW_MS) {
+        if (elapsed >= window) {
             return 0.0;
         }
-        return stack.accumulatedDamage() * (1.0 - (double) elapsed / DECAY_WINDOW_MS);
+        return stack.accumulatedDamage() * (1.0 - (double) elapsed / window);
     }
 
     /** Registra un golpe de "element" por "damage" puntos (ya decayendo lo anterior) y devuelve el acumulado resultante. */
     public static double registerHit(LivingEntity victim, ResourceKey<DamageType> element, float damage) {
         long now = System.currentTimeMillis();
         Map<ResourceKey<DamageType>, Stack> perEntity = STACKS.computeIfAbsent(victim.getUUID(), k -> new HashMap<>());
-        double decayed = decayedValue(perEntity.get(element), now);
+        double decayed = decayedValue(perEntity.get(element), now, decayWindowFor(element));
         double updated = decayed + damage;
         perEntity.put(element, new Stack(updated, now));
         return updated;
@@ -66,7 +74,7 @@ public final class ElementalStackManager {
         if (perEntity == null) {
             return 0.0;
         }
-        return decayedValue(perEntity.get(element), System.currentTimeMillis());
+        return decayedValue(perEntity.get(element), System.currentTimeMillis(), decayWindowFor(element));
     }
 
     private static double icePercent(double accumulatedDamage, boolean isPlayerTarget) {
@@ -141,7 +149,7 @@ public final class ElementalStackManager {
                 continue;
             }
             Map<ResourceKey<DamageType>, Stack> perEntity = STACKS.get(entry.getKey());
-            double accumulated = perEntity == null ? 0.0 : decayedValue(perEntity.get(ModDamageTypes.ICE), now);
+            double accumulated = perEntity == null ? 0.0 : decayedValue(perEntity.get(ModDamageTypes.ICE), now, decayWindowFor(ModDamageTypes.ICE));
             double percent = icePercent(accumulated, victim instanceof Player);
             setIceModifier(victim, percent);
             if (percent <= 0.0) {
@@ -165,7 +173,7 @@ public final class ElementalStackManager {
                 continue;
             }
             Map<ResourceKey<DamageType>, Stack> perEntity = STACKS.get(entry.getKey());
-            double accumulated = perEntity == null ? 0.0 : decayedValue(perEntity.get(ModDamageTypes.ENDER_ELEMENTAL), now);
+            double accumulated = perEntity == null ? 0.0 : decayedValue(perEntity.get(ModDamageTypes.ENDER_ELEMENTAL), now, decayWindowFor(ModDamageTypes.ENDER_ELEMENTAL));
             double percent = enderArmorPercent(accumulated, victim instanceof Player);
             setEnderArmorModifier(victim, percent);
             if (percent <= 0.0) {

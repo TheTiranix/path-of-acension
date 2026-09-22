@@ -23,15 +23,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 /**
- * Restricciones de armas por clase (documento de diseno v2):
- * - Ritualista sin Matrimonio de Carne: maximo 50 de destreza requerida entre ambas manos (no
- *   puede usar armas de dos manos ni escudos grandes); no puede superarlo.
- * - Ritualista con el matrimonio consagrado y Arquero: pueden superar 50, pero con -10% de daño
- *   y -15% de velocidad de ataque/carga.
+ * Restricciones de armas por clase (documento de diseno v2-1):
+ * - Ritualista sin Matrimonio de Carne: maximo 75 de destreza requerida ENTRE AMBAS MANOS (25+25,
+ *   50+25, un escudo+25, etc.; nunca 50+50 ni un arma de dos manos, que pide 100); no puede superarlo.
+ * - Ritualista con el matrimonio consagrado y Arquero: una vez que pueden superar el limite anterior,
+ *   la penalizacion (-10% daño, -15% velocidad de ataque/carga) empieza a los 50 de destreza.
  * - Guerrero Anima: solo puede usar su espada anima (ni arcos, ni hachas, ni ballestas, ni otras armas).
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class WeaponRules {
+    /** Tope duro del Ritualista sin matrimonio (v2-1): mas alto que el umbral de penalizacion
+     *  (WeaponWeights.THRESHOLD, 50) que usan el Arquero y el Ritualista ya casado. */
+    private static final int RITUALISTA_HARD_CAP = 75;
     private static final UUID DAMAGE_ID = UUID.fromString("77aa0000-0001-4001-8001-000000000001");
     private static final UUID ATTACK_SPEED_ID = UUID.fromString("77aa0000-0002-4002-8002-000000000002");
     private static final UUID DRAW_SPEED_ID = UUID.fromString("77aa0000-0003-4003-8003-000000000003");
@@ -48,10 +51,10 @@ public final class WeaponRules {
         return player.getPersistentData().getBoolean("matrimonio_consagrado");
     }
 
-    /** Ritualista sin matrimonio y con mas de 50 de requerimiento: no puede usar lo que lleva. */
+    /** Ritualista sin matrimonio y con mas de 75 de requerimiento: no puede usar lo que lleva. */
     private static boolean blockedByWeight(Player player) {
         return classOf(player) == PlayerClass.RITUALISTA_ARCANO && !isMarried(player)
-                && WeaponWeights.totalWeight(player) > WeaponWeights.THRESHOLD;
+                && WeaponWeights.totalWeight(player) > RITUALISTA_HARD_CAP;
     }
 
     /** Guerrero Anima con algo que no es su espada anima en la mano principal. */
@@ -68,7 +71,7 @@ public final class WeaponRules {
             return;
         }
         if (blockedByWeight(player)) {
-            player.displayClientMessage(Component.literal("Tu equipo pide más de " + WeaponWeights.THRESHOLD
+            player.displayClientMessage(Component.literal("Tu equipo pide más de " + RITUALISTA_HARD_CAP
                     + " de destreza (" + WeaponWeights.totalWeight(player) + "). Consagrá el Matrimonio de Carne."), true);
             event.setCanceled(true);
         } else if (blockedByAnimaRule(player)) {
@@ -88,7 +91,7 @@ public final class WeaponRules {
             player.displayClientMessage(Component.literal("El Guerrero Ánima no puede usar arcos ni ballestas."), true);
             event.setCanceled(true);
         } else if ((ranged || item instanceof ShieldItem) && blockedByWeight(player)) {
-            player.displayClientMessage(Component.literal("Tu equipo pide más de " + WeaponWeights.THRESHOLD + " de destreza."), true);
+            player.displayClientMessage(Component.literal("Tu equipo pide más de " + RITUALISTA_HARD_CAP + " de destreza."), true);
             event.setCanceled(true);
         }
     }

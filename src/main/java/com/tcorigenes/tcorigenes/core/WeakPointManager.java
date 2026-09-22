@@ -32,19 +32,22 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
  * Puntos debiles marcados sobre enemigos, visibles solo para quien los puede golpear (un
  * marcador WeakPointEntity: carga ignea roja pegada al cuerpo).
  * - Hereje (Expertiz anatomica): un punto cada 10s en el enemigo cercano (con prioridad a un jefe);
- *   dura 4s; cualquier golpe (cuerpo a cuerpo, proyectil, magia) hace +45% de daño y +5% de daño real,
+ *   dura 3s; cualquier golpe (cuerpo a cuerpo, proyectil, magia) hace +45% de daño y +5% de daño real,
  *   y tambien el daño ELEMENTAL de ese mismo golpe (llega diferido, ver PendingElementalHits).
  * - Arquero (habilidad Ojo de Halcon): marca a todos los enemigos en 30 bloques por 20s; solo los
  *   proyectiles que los golpean hacen +40% de daño y +15% de daño real (un Hereje suma +15% / +5%).
+ *   Fallar 3 flechazos (pegarle a un enemigo marcado sin acertar el punto) durante esos 20s cancela
+ *   la habilidad de una (ver ARCHER_MISS_LIMIT).
  * El "daño real" ignora armadura: se resta directo de la vida (nunca mata solo, deja minimo 0.5).
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class WeakPointManager {
-    private static final int HEREJE_TICKS = 80;
+    private static final int HEREJE_TICKS = 60;
     private static final int ARCHER_TICKS = 400;
     private static final double HEREJE_RANGE = 16.0;
     private static final double BOSS_RANGE = 32.0;
     private static final double ARCHER_RANGE = 30.0;
+    private static final int ARCHER_MISS_LIMIT = 3;
     /** El daño elemental de un golpe llega SAFE_DELAY_TICKS despues: se le da un margen extra. */
     private static final int ELEMENTAL_WINDOW = PendingElementalHits.SAFE_DELAY_TICKS + 3;
 
@@ -71,6 +74,8 @@ public final class WeakPointManager {
     }
 
     private static final Map<Integer, List<Mark>> MARKS = new ConcurrentHashMap<>();
+    /** Flechazos errados durante la habilidad de Arquero activa (se reinicia en cada activacion). */
+    private static final Map<UUID, Integer> ARCHER_MISSES = new ConcurrentHashMap<>();
 
     private WeakPointManager() {
     }
@@ -120,12 +125,28 @@ public final class WeakPointManager {
                 .ifPresent(target -> add(player, target, HEREJE_TICKS, false));
     }
 
-    /** Arquero: marca a todos los enemigos cercanos por 20 segundos. */
+    /** Arquero: marca a todos los enemigos cercanos por 20 segundos y reinicia el contador de fallos. */
     public static int markForArcher(ServerPlayer player) {
+        ARCHER_MISSES.put(player.getUUID(), 0);
         List<LivingEntity> targets = player.level().getEntitiesOfClass(LivingEntity.class,
                 new AABB(player.blockPosition()).inflate(ARCHER_RANGE), WeakPointManager::isEnemy);
         targets.forEach(target -> add(player, target, ARCHER_TICKS, true));
         return targets.size();
+    }
+
+    /** Un flechazo del Arquero que no acerto el punto: al tercero, se cancela la habilidad entera. */
+    private static void registerArcherMiss(ServerPlayer attacker) {
+        if (!ARCHER_MISSES.containsKey(attacker.getUUID())) {
+            return; // la habilidad no esta activa (nunca se llamo markForArcher): no cuenta nada
+        }
+        int misses = ARCHER_MISSES.merge(attacker.getUUID(), 1, Integer::sum);
+        if (misses >= ARCHER_MISS_LIMIT) {
+            ARCHER_MISSES.remove(attacker.getUUID());
+            clearOwner(attacker.getUUID(), true);
+            attacker.displayClientMessage(net.minecraft.network.chat.Component.literal(
+                    "Fallaste " + ARCHER_MISS_LIMIT + " flechazos: Ojo de Halcón se cancela.")
+                    .withStyle(net.minecraft.ChatFormatting.DARK_RED), true);
+        }
     }
 
     private static void clearOwner(UUID owner, boolean archer) {
@@ -248,6 +269,8 @@ public final class WeakPointManager {
                     multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);
                     trueFraction += 0.15F + (isHereje ? 0.05F : 0.0F);
                     landed = true;
+                } else {
+                    registerArcherMiss(attacker);
                 }
             } else if (elemental && now - mark.lastProjectileHit <= ELEMENTAL_WINDOW) {
                 multiplier += 0.40F + (isHereje ? 0.15F : 0.0F);

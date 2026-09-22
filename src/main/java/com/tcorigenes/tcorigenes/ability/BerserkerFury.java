@@ -18,10 +18,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 /**
- * Furia del Berserker: 20s de +50% daño y +20% critico. Durante ese tiempo se desangra en
- * BLEED_TICKS pulsos repartidos parejo, cada uno el 3% de la vida maxima, restados con
- * setHealth directo: NO usa hurt(), asi no dispara la ventana de invulnerabilidad y el jugador
- * sigue siendo vulnerable a los monstruos mientras dura. Nunca lo mata (deja minimo 1 de vida).
+ * Furia del Berserker: 20s de +50% daño y +20% de daño CRITICO (no chance de critico: v2-1 lo aclara
+ * como "daño crítico"). Durante ese tiempo se desangra en BLEED_TICKS pulsos repartidos parejo, cada
+ * uno el 3% de la vida maxima, restados con setHealth directo: NO usa hurt(), asi no dispara la
+ * ventana de invulnerabilidad y el jugador sigue siendo vulnerable a los monstruos mientras dura.
+ * Nunca lo mata (deja minimo 1 de vida).
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class BerserkerFury {
@@ -42,7 +43,7 @@ public final class BerserkerFury {
         ELAPSED.put(player.getUUID(), 0);
         // +50% de daño: se suma con el % de raza y clase (ver OriginBonuses), no se multiplica.
         com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "fury", Attributes.ATTACK_DAMAGE, 0.5);
-        addModifier(player.getAttribute(ModAttributes.CRIT_CHANCE.get()), CRIT_ID, "Furia Berserker crit", 0.2, AttributeModifier.Operation.ADDITION);
+        addModifier(player.getAttribute(ModAttributes.CRIT_DAMAGE.get()), CRIT_ID, "Furia Berserker crit damage", 0.2, AttributeModifier.Operation.ADDITION);
     }
 
     private static void addModifier(AttributeInstance attribute, UUID id, String name, double amount, AttributeModifier.Operation op) {
@@ -54,7 +55,7 @@ public final class BerserkerFury {
     private static void end(ServerPlayer player) {
         ELAPSED.remove(player.getUUID());
         com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "fury", Attributes.ATTACK_DAMAGE, 0.0);
-        remove(player.getAttribute(ModAttributes.CRIT_CHANCE.get()), CRIT_ID);
+        remove(player.getAttribute(ModAttributes.CRIT_DAMAGE.get()), CRIT_ID);
     }
 
     private static void remove(AttributeInstance attribute, UUID id) {
