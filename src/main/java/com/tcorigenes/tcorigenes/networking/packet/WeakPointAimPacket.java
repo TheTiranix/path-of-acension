@@ -11,21 +11,25 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent.Context;
 
 /**
- * Cliente -> servidor: el punto del MODELO del mob donde esta el marcador de punto debil (solo el cliente tiene
- * los modelos). El servidor lo valida: tiene que ser del dueño y caer dentro del cuerpo del mob marcado; si no,
- * se ignora y se usa el punto por hitbox.
+ * Cliente -> servidor: el punto del MODELO del mob donde esta el marcador de punto debil, y el radio de
+ * acierto que le corresponde por su tamaño (solo el cliente tiene los modelos). El servidor lo valida: tiene
+ * que ser del dueño y caer cerca del mob marcado; si no, se ignora y se usa el punto/radio por hitbox.
  */
 public class WeakPointAimPacket {
+    private static final double MAX_RADIUS = 3.0;
+
     private final int markerId;
     private final double x;
     private final double y;
     private final double z;
+    private final double radius;
 
-    public WeakPointAimPacket(int markerId, Vec3 point) {
+    public WeakPointAimPacket(int markerId, Vec3 point, double radius) {
         this.markerId = markerId;
         this.x = point.x;
         this.y = point.y;
         this.z = point.z;
+        this.radius = radius;
     }
 
     public WeakPointAimPacket(FriendlyByteBuf buf) {
@@ -33,6 +37,7 @@ public class WeakPointAimPacket {
         this.x = buf.readDouble();
         this.y = buf.readDouble();
         this.z = buf.readDouble();
+        this.radius = buf.readDouble();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -40,6 +45,7 @@ public class WeakPointAimPacket {
         buf.writeDouble(this.x);
         buf.writeDouble(this.y);
         buf.writeDouble(this.z);
+        buf.writeDouble(this.radius);
     }
 
     public boolean handle(Supplier<Context> supplier) {
@@ -57,8 +63,9 @@ public class WeakPointAimPacket {
                 return;
             }
             Vec3 point = new Vec3(this.x, this.y, this.z);
-            if (target.getBoundingBox().inflate(1.0).contains(point)) {
-                marker.setModelAim(point, player.level().getGameTime());
+            double radius = Math.max(0.1, Math.min(MAX_RADIUS, this.radius));
+            if (target.getBoundingBox().inflate(3.0).contains(point)) {
+                marker.setModelAim(point, radius, player.level().getGameTime());
             }
         });
         return true;

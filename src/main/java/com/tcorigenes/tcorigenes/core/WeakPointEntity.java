@@ -26,10 +26,15 @@ public class WeakPointEntity extends Entity {
             SynchedEntityData.defineId(WeakPointEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> TARGET =
             SynchedEntityData.defineId(WeakPointEntity.class, EntityDataSerializers.INT);
+    /** Si esta marca prioriza "lo mas arriba posible" o "lo mas adelante posible" (ver WeakPointModelAnchor).
+     *  Se decide una sola vez al crear la marca (aca, sincronizado) para que no cambie de un frame a otro. */
+    private static final EntityDataAccessor<Boolean> PRIORITIZE_HEIGHT =
+            SynchedEntityData.defineId(WeakPointEntity.class, EntityDataSerializers.BOOLEAN);
 
     private int maxAge = 80;
-    /** Punto sobre el MODELO del mob que calcula el cliente del dueño (el servidor no tiene modelos). */
+    /** Punto y radio sobre el MODELO del mob que calcula el cliente del dueño (el servidor no tiene modelos). */
     private Vec3 modelAim;
+    private double modelRadius = -1;
     private long modelAimAt = -1000;
 
     public WeakPointEntity(EntityType<? extends WeakPointEntity> type, Level level) {
@@ -41,22 +46,40 @@ public class WeakPointEntity extends Entity {
     public void bind(UUID owner, LivingEntity target, int lifetimeTicks) {
         this.entityData.set(OWNER, Optional.of(owner));
         this.entityData.set(TARGET, target.getId());
+        this.entityData.set(PRIORITIZE_HEIGHT, target.getRandom().nextBoolean());
         this.maxAge = lifetimeTicks;
         this.setPos(WeakPointAnchor.of(target));
     }
 
+    public boolean isPriorityHeight() {
+        return this.entityData.get(PRIORITIZE_HEIGHT);
+    }
+
     /** Lo manda el cliente del dueño (ver WeakPointAimPacket); ya viene validado. */
-    public void setModelAim(Vec3 aim, long gameTime) {
+    public void setModelAim(Vec3 aim, double radius, long gameTime) {
         this.modelAim = aim;
+        this.modelRadius = radius;
         this.modelAimAt = gameTime;
+    }
+
+    private boolean hasFreshModelAim() {
+        return this.modelAim != null && this.level().getGameTime() - this.modelAimAt <= 30;
     }
 
     /** Donde hay que acertar: el punto del modelo si el cliente lo reporto hace poco, si no el de la hitbox. */
     public Vec3 getAimPoint(LivingEntity target) {
-        if (this.modelAim != null && this.level().getGameTime() - this.modelAimAt <= 30) {
+        if (hasFreshModelAim()) {
             return this.modelAim;
         }
         return WeakPointAnchor.of(target);
+    }
+
+    /** Radio de acierto: el que calculo el modelo (proporcional a su tamaño) si esta fresco, si no el de respaldo. */
+    public double getAimRadius(LivingEntity target) {
+        if (hasFreshModelAim() && this.modelRadius > 0) {
+            return this.modelRadius;
+        }
+        return WeakPointManager.fallbackAimRadius(target);
     }
 
     public int getTargetId() {
@@ -71,6 +94,7 @@ public class WeakPointEntity extends Entity {
     protected void defineSynchedData() {
         this.entityData.define(OWNER, Optional.empty());
         this.entityData.define(TARGET, -1);
+        this.entityData.define(PRIORITIZE_HEIGHT, false);
     }
 
     @Override

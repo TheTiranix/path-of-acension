@@ -17,13 +17,15 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 /**
  * Le avisa al servidor donde esta el punto debil sobre el MODELO de cada mob marcado por este jugador (ver
- * WeakPointModelAnchor), porque el servidor no tiene modelos y necesita ese punto para saber si el golpe acerto.
- * Solo manda cuando el punto se movio o cada segundo, para no saturar la red.
+ * WeakPointModelAnchor), porque el servidor no tiene modelos y necesita ese punto (y su radio) para saber si
+ * el golpe acerto. Solo manda cuando el punto se movio, el radio cambio, o cada segundo, para no saturar la red.
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class WeakPointAimSync {
-    private static final Map<Integer, Vec3> LAST_SENT = new HashMap<>();
-    private static final Map<Integer, Long> LAST_TIME = new HashMap<>();
+    private record Sent(Vec3 point, double radius, long time) {
+    }
+
+    private static final Map<Integer, Sent> LAST_SENT = new HashMap<>();
 
     private WeakPointAimSync() {
     }
@@ -36,7 +38,6 @@ public final class WeakPointAimSync {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null || mc.player == null) {
             LAST_SENT.clear();
-            LAST_TIME.clear();
             return;
         }
         if (mc.player.tickCount % 3 != 0) {
@@ -50,17 +51,18 @@ public final class WeakPointAimSync {
             if (!(mc.level.getEntity(marker.getTargetId()) instanceof LivingEntity target)) {
                 continue;
             }
-            Vec3 offset = WeakPointModelAnchor.offset(target, marker.position(), 1.0F, mc.getEntityRenderDispatcher());
-            if (offset == null) {
-                continue; // modelo ilegible: el servidor usa el punto por hitbox
+            WeakPointModelAnchor.Result result = WeakPointModelAnchor.compute(target, marker.position(), 1.0F,
+                    mc.getEntityRenderDispatcher(), marker.isPriorityHeight());
+            if (result == null) {
+                continue; // modelo ilegible: el servidor usa el punto/radio por hitbox
             }
-            Vec3 point = marker.position().add(offset);
-            Vec3 last = LAST_SENT.get(marker.getId());
-            long lastTime = LAST_TIME.getOrDefault(marker.getId(), -1000L);
-            if (last == null || last.distanceToSqr(point) > 0.0064 || now - lastTime >= 20) {
-                Networking.sendToServer(new WeakPointAimPacket(marker.getId(), point));
-                LAST_SENT.put(marker.getId(), point);
-                LAST_TIME.put(marker.getId(), now);
+            Vec3 point = marker.position().add(result.offset());
+            Sent last = LAST_SENT.get(marker.getId());
+            boolean stale = last == null || last.point().distanceToSqr(point) > 0.0064
+                    || Math.abs(last.radius() - result.radius()) > 0.03 || now - last.time() >= 20;
+            if (stale) {
+                Networking.sendToServer(new WeakPointAimPacket(marker.getId(), point, result.radius()));
+                LAST_SENT.put(marker.getId(), new Sent(point, result.radius(), now));
             }
         }
     }

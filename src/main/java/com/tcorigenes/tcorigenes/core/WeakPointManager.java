@@ -162,20 +162,21 @@ public final class WeakPointManager {
         }
     }
 
-    /** Radio de acierto alrededor del punto: crece un poco con el tamaño del mob (entre 0.5 y 1.4 bloques). */
-    private static double aimRadius(LivingEntity target) {
+    /** Radio de acierto por hitbox (respaldo cuando el modelo no se pudo leer): crece con el tamaño del mob. */
+    static double fallbackAimRadius(LivingEntity target) {
         return Math.min(1.4, 0.45 + 0.1 * target.getBbHeight());
     }
 
     /**
      * El bono solo vale si se APUNTA al punto debil (el marcador sobre el modelo): en cuerpo a cuerpo, si la
      * mira pasa a menos del radio del punto; con proyectiles, si su trayectoria en el impacto pasa por el punto.
-     * Sin marcador vivo se usa el punto de la hitbox.
+     * Sin marcador vivo se usa el punto/radio de la hitbox.
      */
     private static boolean aimedAtPoint(ServerPlayer attacker, Mark mark, DamageSource source) {
         LivingEntity target = mark.target;
-        Vec3 point = (mark.marker != null && !mark.marker.isRemoved()) ? mark.marker.getAimPoint(target) : WeakPointAnchor.of(target);
-        double radius = aimRadius(target);
+        boolean hasMarker = mark.marker != null && !mark.marker.isRemoved();
+        Vec3 point = hasMarker ? mark.marker.getAimPoint(target) : WeakPointAnchor.of(target);
+        double radius = hasMarker ? mark.marker.getAimRadius(target) : fallbackAimRadius(target);
         var direct = source.getDirectEntity();
         if (direct instanceof Projectile projectile) {
             Vec3 motion = projectile.getDeltaMovement();

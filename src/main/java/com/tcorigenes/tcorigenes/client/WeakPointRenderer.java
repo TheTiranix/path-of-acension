@@ -22,7 +22,9 @@ import org.joml.Matrix4f;
  */
 public class WeakPointRenderer extends EntityRenderer<WeakPointEntity> {
     private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace("textures/item/fire_charge.png");
-    private static final float SIZE = 0.9F;
+    /** Radio "normal" (por hitbox) al que corresponde el tamaño visual de siempre; el resto escala desde aca. */
+    private static final float DEFAULT_RADIUS = 0.5F;
+    private static final float DEFAULT_SIZE = 0.9F;
     private static final int FULL_BRIGHT = 15728880;
 
     public WeakPointRenderer(EntityRendererProvider.Context context) {
@@ -37,15 +39,18 @@ public class WeakPointRenderer extends EntityRenderer<WeakPointEntity> {
             return;
         }
         poseStack.pushPose();
-        // Sobre el MODELO del mob (cabeza/cara), no sobre su hitbox; si no se puede leer, queda la posicion por hitbox.
+        // Sobre el MODELO del mob (arriba/adelante segun la marca), no sobre su hitbox; si no se puede leer,
+        // queda la posicion por hitbox con el tamaño de siempre.
+        float size = DEFAULT_SIZE;
         if (entity.level().getEntity(entity.getTargetId()) instanceof net.minecraft.world.entity.LivingEntity target) {
-            net.minecraft.world.phys.Vec3 offset = WeakPointModelAnchor.offset(target, entity.getPosition(partialTick),
-                    partialTick, this.entityRenderDispatcher);
-            if (offset != null) {
-                poseStack.translate(offset.x, offset.y, offset.z);
+            WeakPointModelAnchor.Result result = WeakPointModelAnchor.compute(target, entity.getPosition(partialTick),
+                    partialTick, this.entityRenderDispatcher, entity.isPriorityHeight());
+            if (result != null) {
+                poseStack.translate(result.offset().x, result.offset().y, result.offset().z);
+                size = DEFAULT_SIZE * (float) (result.radius() / DEFAULT_RADIUS);
             }
         }
-        poseStack.scale(SIZE, SIZE, SIZE);
+        poseStack.scale(size, size, size);
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
         PoseStack.Pose pose = poseStack.last();

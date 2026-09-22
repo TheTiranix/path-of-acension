@@ -51,6 +51,12 @@ public class ElementalDamageEvents {
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
+        // LivingEntity.hurt() corre tambien del lado cliente (para la animacion/knockback local): sin este
+        // corte, el esquive y el critico tiraban SU PROPIO random ahi (client y server por separado), y podian
+        // no coincidir con el resultado real del servidor. Todo esto tiene que ser autoridad del servidor.
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
         boolean isArrow = event.getSource().getDirectEntity() instanceof AbstractArrow;
         LivingEntity target = event.getEntity();
         LivingEntity attacker = event.getSource().getEntity() instanceof LivingEntity le ? le : null;
