@@ -24,6 +24,12 @@ MAPPING = [
     ('legacy-kubejs', 'kubejs'),
 ]
 
+# archivo del repo -> ruta dentro de la instancia (para lo que va suelto en la raiz, no en config/)
+ROOT_FILES = [
+    (os.path.join(ROOT, 'tools', 'restore_after_wipe.py'), 'restore_after_wipe.py'),
+    (os.path.join(SRC, 'root', 'restaurar_ultimo_punto.bat'), 'restaurar_ultimo_punto.bat'),
+]
+
 
 def main():
     version = sys.argv[1] if len(sys.argv) > 1 else 'dev'
@@ -44,6 +50,10 @@ def main():
                     count += 1
         zf.write(os.path.join(SRC, 'README.md'), 'LEEME-modpack-config.md')
         zf.write(os.path.join(SRC, 'MODS.txt'), 'MODS.txt')
+        for full, dest in ROOT_FILES:
+            if os.path.isfile(full):
+                zf.write(full, dest)
+                count += 1
     print('%s (%d archivos)' % (out, count))
 
 

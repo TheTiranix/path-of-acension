@@ -87,13 +87,11 @@ Sed y temperatura (Tough As Nails) ajustadas para que sean parte del juego y no 
 - Animales grandes (vacas, cerdos, caballos) que **dejan de ser pacíficos**: si les pegás, la manada responde.
 
 ### Puntos de guardado y cara a cara con la muerte
-No hay un único respawn: cada **cama que coloques** es un punto de guardado y entra en una lista compartida por todo el servidor (`/respawnpoint list`, `/respawnpoint choose <número>`). Poner una cama nueva no borra las tuyas anteriores al instante: siguen valiendo un día entero más.
+No hay un único respawn: cada **cama que coloques** es un punto de guardado y entra en una lista compartida por todo el servidor (`/respawnpoint list`, `/respawnpoint choose <número>`). Poner una cama nueva no borra las tuyas anteriores al instante: siguen valiendo un día entero más. Cada punto de guardado nuevo guarda además una **copia entera del mundo tal como está en ese momento**.
 
-Si morís y hay otro jugador vivo, quedás en espera (fantasma en modo espectador) hasta que alguien te reviva en un **Punto de Reanimación** (bloque nuevo, no se puede plantar a más de 30 bloques de un punto de guardado activo) o hasta que el último jugador vivo también caiga: ahí todo el grupo reaparece de una en el punto de guardado. Si jugás solo, morir te manda directo ahí, sin espera.
+Al caer (con **PlayerRevive**), quedás tirado en el piso con tu cuerpo y tu inventario intactos, esperando que alguien te reviva en el **Punto de Reanimación** (bloque nuevo; no se puede plantar a más de 30 bloques de un punto de guardado activo): un solo click ahí revive a todo el grupo caído de una, cada uno donde cayó, y seguís la pelea desde ahí mismo, sin perder nada.
 
-Al morir tu cuerpo queda tirado con todo lo que llevabas: alguien tiene que **rematarlo** para que suelte tus cosas.
-
-*(Esto reubica jugadores, no rebobina el mundo: los bloques rotos, mobs muertos o cofres saqueados no vuelven atrás.)*
+Si **nadie** en el servidor queda consciente (todo el grupo caído o muerto de verdad), el mundo vuelve al último punto de guardado **de verdad**: el juego avisa, cuenta 5 segundos y se cierra solo. Hay que correr `restaurar_ultimo_punto.bat` (en la carpeta de la instancia) antes de volver a abrirlo: reemplaza el mundo por la copia de ese punto de guardado, deshaciendo todo lo que pasó después (bloques rotos, mobs muertos, cofres saqueados incluidos). *(Un mod no puede revertir el mundo mientras el servidor sigue corriendo: por eso el juego se cierra del todo para poder tocar los archivos con seguridad.)*
 
 ### Las quests
 Cinco capítulos de FTB Quests que te llevan desde el primer refugio hasta el Aether:

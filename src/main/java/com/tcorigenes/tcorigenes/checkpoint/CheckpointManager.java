@@ -14,6 +14,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -52,11 +54,14 @@ public final class CheckpointManager {
                 checkpoint.supersededAtTick = now + GRACE_PERIOD_TICKS;
             }
         }
-        data.checkpoints.add(new Checkpoint(UUID.randomUUID(), player.getUUID(), player.level().dimension(),
-                event.getPos().immutable(), now));
+        Checkpoint created = new Checkpoint(UUID.randomUUID(), player.getUUID(), player.level().dimension(),
+                event.getPos().immutable(), now);
+        data.checkpoints.add(created);
         data.setDirty();
+        CheckpointSnapshotter.takeSnapshotAsync(server, created.id);
         player.displayClientMessage(Component.literal(
-                "Nuevo punto de guardado. Tus camas anteriores dejan de servir en 1 día.").withStyle(ChatFormatting.GOLD), false);
+                "Nuevo punto de guardado. Guardando una copia del mundo... Tus camas anteriores dejan de servir en 1 día.")
+                .withStyle(ChatFormatting.GOLD), false);
     }
 
     @SubscribeEvent
@@ -82,11 +87,52 @@ public final class CheckpointManager {
         if (!(event.getLevel() instanceof ServerLevel level) || !event.getState().is(BlockTags.BEDS)) {
             return;
         }
-        CheckpointSavedData data = CheckpointSavedData.get(level.getServer());
-        boolean removed = data.checkpoints.removeIf(checkpoint ->
-                checkpoint.dimension.equals(level.dimension()) && checkpoint.pos.equals(event.getPos()));
-        if (removed) {
+        MinecraftServer server = level.getServer();
+        CheckpointSavedData data = CheckpointSavedData.get(server);
+        List<Checkpoint> removed = new ArrayList<>();
+        data.checkpoints.removeIf(checkpoint -> {
+            boolean match = checkpoint.dimension.equals(level.dimension()) && checkpoint.pos.equals(event.getPos());
+            if (match) {
+                removed.add(checkpoint);
+            }
+            return match;
+        });
+        if (!removed.isEmpty()) {
             data.setDirty();
+            removed.forEach(checkpoint -> CheckpointSnapshotter.deleteSnapshot(server, checkpoint.id));
+        }
+    }
+
+    /** Cada 5 minutos: saca de la lista (y borra su copia del mundo) los puntos que ya vencieron del
+     *  todo, para no acumular snapshots viejos para siempre. */
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        MinecraftServer server = event.getServer();
+        if (event.phase != TickEvent.Phase.END || server.getTickCount() % (20 * 60 * 5) != 0) {
+            return;
+        }
+        CheckpointSavedData data = CheckpointSavedData.get(server);
+        long now = server.overworld().getGameTime();
+        List<Checkpoint> expired = new ArrayList<>();
+        data.checkpoints.removeIf(checkpoint -> {
+            boolean expiredNow = !checkpoint.isActive(now);
+            if (expiredNow) {
+                expired.add(checkpoint);
+            }
+            return expiredNow;
+        });
+        if (!expired.isEmpty()) {
+            data.setDirty();
+            expired.forEach(checkpoint -> CheckpointSnapshotter.deleteSnapshot(server, checkpoint.id));
+        }
+    }
+
+    /** Sin espera ni fantasma: cualquier respawn "de verdad" (desangrado del todo, te rendiste, o
+     *  PlayerRevive no esta instalado) va al punto de guardado, no al spawn del mundo. */
+    @SubscribeEvent
+    public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            teleportToCheckpoint(player, pickFor(player));
         }
     }
 

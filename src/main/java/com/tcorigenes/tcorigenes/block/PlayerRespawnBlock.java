@@ -1,10 +1,7 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.block;
 
-import com.tcorigenes.tcorigenes.checkpoint.Checkpoint;
-import com.tcorigenes.tcorigenes.checkpoint.CheckpointManager;
-import com.tcorigenes.tcorigenes.checkpoint.WaitingManager;
-import java.util.Comparator;
+import com.tcorigenes.tcorigenes.checkpoint.PlayerReviveBridge;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -18,9 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
- * Punto de reanimacion: click derecho revive al primer jugador que este esperando (ver WaitingManager) en el
- * punto de guardado activo mas cercano a ESTE bloque. Solo se puede colocar a 30 bloques o menos de un punto
- * de guardado activo (ver CheckpointManager, que rechaza la colocacion si no hay ninguno cerca).
+ * Punto de reanimacion: click derecho revive de una a TODOS los jugadores caidos del servidor (los que
+ * PlayerRevive tiene tirados esperando, ver PlayerReviveBridge) alli donde cayeron, no en el bloque. Solo
+ * se puede colocar a 30 bloques o menos de un punto de guardado activo (ver CheckpointManager, que rechaza
+ * la colocacion si no hay ninguno cerca).
  */
 public class PlayerRespawnBlock extends Block {
     public static final double MAX_RANGE_TO_CHECKPOINT = 30.0;
@@ -35,23 +33,15 @@ public class PlayerRespawnBlock extends Block {
         if (level.isClientSide() || !(player instanceof ServerPlayer reviver)) {
             return InteractionResult.SUCCESS;
         }
-        var server = reviver.getServer();
-        if (server == null) {
+        if (!PlayerReviveBridge.isLoaded()) {
+            reviver.displayClientMessage(Component.literal("Falta el mod PlayerRevive para que esto funcione.")
+                    .withStyle(ChatFormatting.RED), true);
             return InteractionResult.FAIL;
         }
-        var awaiting = server.getPlayerList().getPlayers().stream()
-                .filter(sp -> sp != reviver && WaitingManager.isAwaiting(sp))
-                .min(Comparator.comparingDouble(sp -> sp.distanceToSqr(reviver)));
-        if (awaiting.isEmpty()) {
-            reviver.displayClientMessage(Component.literal("No hay nadie esperando ser revivido.")
-                    .withStyle(ChatFormatting.GRAY), true);
-            return InteractionResult.CONSUME;
-        }
-        Checkpoint nearest = CheckpointManager.active(server).stream()
-                .filter(c -> c.dimension.equals(reviver.level().dimension()))
-                .min(Comparator.comparingDouble(c -> c.pos.distSqr(pos)))
-                .orElse(null);
-        WaitingManager.revive(reviver, awaiting.get().getUUID(), nearest);
+        int revived = PlayerReviveBridge.reviveAllDown(reviver.getServer());
+        reviver.displayClientMessage(Component.literal(revived > 0
+                ? "Revivís a " + revived + " compañero(s) caído(s)." : "No hay nadie caído ahora mismo.")
+                .withStyle(revived > 0 ? ChatFormatting.GREEN : ChatFormatting.GRAY), true);
         return InteractionResult.CONSUME;
     }
 }
