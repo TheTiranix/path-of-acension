@@ -43,6 +43,11 @@ public class ModBlocks {
     public static final RegistryObject<Item> ALTAR_TEMPO_ITEM = ITEMS.register(
             "altar_tempo", () -> new BlockItem(ALTAR_TEMPO.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> PLAYER_RESPAWN_BLOCK = BLOCKS.register(
+            "player_respawn_block", () -> new PlayerRespawnBlock(altarProperties()));
+    public static final RegistryObject<Item> PLAYER_RESPAWN_BLOCK_ITEM = ITEMS.register(
+            "player_respawn_block", () -> new BlockItem(PLAYER_RESPAWN_BLOCK.get(), new Item.Properties()));
+
     private static BlockBehaviour.Properties altarProperties() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(4.0F, 12.0F).sound(SoundType.STONE);
     }

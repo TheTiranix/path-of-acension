@@ -6,6 +6,7 @@ import com.tcorigenes.tcorigenes.command.FavorCommand;
 import com.tcorigenes.tcorigenes.command.GrantSkillPointsCommand;
 import com.tcorigenes.tcorigenes.command.RankingsCommand;
 import com.tcorigenes.tcorigenes.command.ResetSkillTreeCommand;
+import com.tcorigenes.tcorigenes.command.RespawnPointCommand;
 import com.tcorigenes.tcorigenes.command.UnpurifyCommand;
 import com.tcorigenes.tcorigenes.command.SetAbilityCommand;
 import com.tcorigenes.tcorigenes.command.SetClassCommand;
@@ -26,6 +27,7 @@ public class ModCommands {
         new GrantSkillPointsCommand(event.getDispatcher());
         new ResetSkillTreeCommand(event.getDispatcher());
         new UnpurifyCommand(event.getDispatcher());
+        new RespawnPointCommand(event.getDispatcher());
         new AbilityDebugCommand(event.getDispatcher());
         new FavorCommand(event.getDispatcher());
         new RankingsCommand(event.getDispatcher());

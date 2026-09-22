@@ -109,6 +109,7 @@ public class TCOrigenes {
             event.accept(ModBlocks.ALTAR_MEIDRIS_ITEM);
             event.accept(ModBlocks.ALTAR_DEIROS_ITEM);
             event.accept(ModBlocks.ALTAR_TEMPO_ITEM);
+            event.accept(ModBlocks.PLAYER_RESPAWN_BLOCK_ITEM);
         }
     }
 }

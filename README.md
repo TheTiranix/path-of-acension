@@ -86,6 +86,15 @@ Sed y temperatura (Tough As Nails) ajustadas para que sean parte del juego y no 
 - **Just Enough Resources** para ver de qué mob cae cada cosa (o `/drops <ítem>`).
 - Animales grandes (vacas, cerdos, caballos) que **dejan de ser pacíficos**: si les pegás, la manada responde.
 
+### Puntos de guardado y cara a cara con la muerte
+No hay un único respawn: cada **cama que coloques** es un punto de guardado y entra en una lista compartida por todo el servidor (`/respawnpoint list`, `/respawnpoint choose <número>`). Poner una cama nueva no borra las tuyas anteriores al instante: siguen valiendo un día entero más.
+
+Si morís y hay otro jugador vivo, quedás en espera (fantasma en modo espectador) hasta que alguien te reviva en un **Punto de Reanimación** (bloque nuevo, no se puede plantar a más de 30 bloques de un punto de guardado activo) o hasta que el último jugador vivo también caiga: ahí todo el grupo reaparece de una en el punto de guardado. Si jugás solo, morir te manda directo ahí, sin espera.
+
+Al morir tu cuerpo queda tirado con todo lo que llevabas: alguien tiene que **rematarlo** para que suelte tus cosas.
+
+*(Esto reubica jugadores, no rebobina el mundo: los bloques rotos, mobs muertos o cofres saqueados no vuelven atrás.)*
+
 ### Las quests
 Cinco capítulos de FTB Quests que te llevan desde el primer refugio hasta el Aether:
 1. **El Despertar sin Fe**: sobrevivir, y encontrar los fragmentos de memoria.
