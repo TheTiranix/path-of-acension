@@ -5,10 +5,12 @@ import com.tcorigenes.tcorigenes.ability.network.AbilityCooldownSyncPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateAbilityPacket;
 import com.tcorigenes.tcorigenes.ability.network.ActivateRacialAbilityPacket;
 import com.tcorigenes.tcorigenes.favor.network.FavorSyncPacket;
+import com.tcorigenes.tcorigenes.networking.packet.ChooseCheckpointPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseClassPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CloseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CoinflipResultPacket;
+import com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.WeakPointAimPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
@@ -136,6 +138,18 @@ public class Networking {
                 .decoder(DropsResultPacket::new)
                 .encoder(DropsResultPacket::toBytes)
                 .consumerMainThread(DropsResultPacket::handle)
+                .add();
+
+        net.messageBuilder(OpenCheckpointScreenPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(OpenCheckpointScreenPacket::new)
+                .encoder(OpenCheckpointScreenPacket::toBytes)
+                .consumerMainThread(OpenCheckpointScreenPacket::handle)
+                .add();
+
+        net.messageBuilder(ChooseCheckpointPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ChooseCheckpointPacket::new)
+                .encoder(ChooseCheckpointPacket::toBytes)
+                .consumerMainThread(ChooseCheckpointPacket::handle)
                 .add();
     }
 

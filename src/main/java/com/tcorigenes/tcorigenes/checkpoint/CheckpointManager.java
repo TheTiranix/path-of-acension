@@ -65,13 +65,41 @@ public final class CheckpointManager {
         boolean wasSleeping = SLEEPING_NOW.contains(player.getUUID());
         if (sleepingNow && !wasSleeping) {
             SLEEPING_NOW.add(player.getUUID());
-            player.getSleepingPos().ifPresent(pos -> createCheckpoint(player, pos));
+            openCheckpointScreen(player);
         } else if (!sleepingNow && wasSleeping) {
             SLEEPING_NOW.remove(player.getUUID());
         }
     }
 
-    private static void createCheckpoint(ServerPlayer player, BlockPos bedPos) {
+    /** Abre la pantalla ANTES de crear nada (ver README/pedido): recien si el jugador elige
+     *  "guardar aca" se crea el punto y arranca la copia del mundo (ChooseCheckpointPacket). */
+    private static void openCheckpointScreen(ServerPlayer player) {
+        MinecraftServer server = player.getServer();
+        if (server == null) {
+            return;
+        }
+        UUID preferred = preferredIdFor(player);
+        List<com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket.CheckpointEntry> entries = new ArrayList<>();
+        for (Checkpoint checkpoint : active(server)) {
+            String ownerName = server.getPlayerList().getPlayers().stream()
+                    .filter(p -> p.getUUID().equals(checkpoint.owner)).findFirst()
+                    .map(p -> p.getName().getString())
+                    .orElseGet(() -> checkpoint.owner.toString().substring(0, 8));
+            entries.add(new com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket.CheckpointEntry(
+                    checkpoint.id, ownerName, checkpoint.dimension.location().toString(), checkpoint.pos,
+                    checkpoint.id.equals(preferred)));
+        }
+        com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
+                new com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket(entries));
+    }
+
+    /** El id preferido guardado del jugador (aunque ya no este activo); null si nunca eligio ninguno. */
+    private static UUID preferredIdFor(ServerPlayer player) {
+        CompoundTag persisted = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
+        return persisted.hasUUID(PREFERRED_KEY) ? persisted.getUUID(PREFERRED_KEY) : null;
+    }
+
+    public static void createCheckpoint(ServerPlayer player, BlockPos bedPos) {
         MinecraftServer server = player.getServer();
         if (server == null) {
             return;
@@ -88,6 +116,7 @@ public final class CheckpointManager {
         data.checkpoints.add(created);
         data.setDirty();
         CheckpointSnapshotter.takeSnapshotAsync(server, created.id);
+        setPreferred(player, created.id); // el que acabas de crear pasa a ser tu preferido
         player.displayClientMessage(Component.literal(
                 "Nuevo punto de guardado. Guardando una copia del mundo... Tus camas anteriores dejan de servir en 1 día.")
                 .withStyle(ChatFormatting.GOLD), false);
