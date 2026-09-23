@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "testamentodelacarne:item/espada_anima_demonio_2"
+  }
+}

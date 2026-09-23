@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Item.Properties;
@@ -47,6 +48,12 @@ public class AnimaSwordItem extends SwordItem {
     @Override
     public boolean isRepairable(ItemStack stack) {
         return false;
+    }
+
+    /** La copia racial del Ender Warrior (ver SoulboundItems) no se puede ni tirar a mano. */
+    @Override
+    public boolean onDroppedByPlayer(ItemStack item, Player player) {
+        return !com.tcorigenes.tcorigenes.core.SoulboundItems.isSoulbound(item);
     }
 
     @Override

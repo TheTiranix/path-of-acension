@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.playerclass;
 
+import com.tcorigenes.tcorigenes.core.Race;
+import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
 import com.tcorigenes.tcorigenes.playerclass.capability.PlayerClassProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,8 +30,12 @@ public final class ClassSelection {
                 .ifPresent(loadout -> loadout.setEquippedAbilityId(
                         classAbility != null && loadout.isUnlocked(classAbility) ? classAbility : null));
         if (selectedClass == PlayerClass.GUERRERO_ANIMA) {
-            // Espada ligada al alma desde el principio (solo si todavia no la tiene).
-            var sword = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "espada_anima_1"));
+            // Espada ligada al alma desde el principio (solo si todavia no la tiene). Demonio tiene
+            // su propia version (Espada Ánima Demonio, mismas estadisticas, otro aspecto).
+            boolean isDemonio = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
+                    .map(info -> info.getRace() == Race.DEMONIO).orElse(false);
+            String swordId = isDemonio ? "espada_anima_demonio_1" : "espada_anima_1";
+            var sword = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("testamentodelacarne", swordId));
             if (sword != null && !player.getInventory().contains(new ItemStack(sword))) {
                 player.getInventory().add(new ItemStack(sword));
             }

@@ -106,6 +106,17 @@ public class ModItems {
     public static final RegistryObject<Item> ESPADA_ANIMA_3 = ITEMS.register(
             "espada_anima_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
 
+    /** Variante exclusiva de Demonio + Guerrero Ánima (ver ClassSelection): mismas estadisticas por
+     *  fase que la Espada Ánima normal, solo cambia el aspecto (alma corrompida por sangre demoniaca). */
+    public static final RegistryObject<Item> ESPADA_ANIMA_DEMONIO_1 = ITEMS.register(
+            "espada_anima_demonio_1", () -> new AnimaSwordItem(5.0F, -2.4F, 2.6F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_DEMONIO_2 = ITEMS.register(
+            "espada_anima_demonio_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_DEMONIO_3 = ITEMS.register(
+            "espada_anima_demonio_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

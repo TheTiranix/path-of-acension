@@ -60,6 +60,7 @@ public class ChooseRacePacket {
                     RaceAttributeManager.updateAttributes(player, this.race);
                     com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(player, this.race);
                     RaceSkillGrant.grant(player, this.race);
+                    com.tcorigenes.tcorigenes.core.RaceItemGrant.grant(player, this.race);
                     com.tcorigenes.tcorigenes.favor.FavorManager.grantRaceStartingFavor(player, this.race);
  if (this.race == Race.HEREJE) {
                         com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "ASA",
+    " N "
+  ],
+  "key": {
+    "S": {
+      "item": "testamentodelacarne:espada_anima_demonio_1"
+    },
+    "E": {
+      "item": "minecraft:blaze_rod"
+    },
+    "A": {
+      "item": "testamentodelacarne:alma_corrupta"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:espada_anima_demonio_2"
+  }
+}

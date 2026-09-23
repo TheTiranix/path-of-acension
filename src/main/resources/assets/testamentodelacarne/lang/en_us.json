@@ -10,6 +10,9 @@
   "item.testamentodelacarne.espada_anima_1": "Espada Ánima",
   "item.testamentodelacarne.espada_anima_2": "Espada Ánima T2",
   "item.testamentodelacarne.espada_anima_3": "Espada Ánima T3",
+  "item.testamentodelacarne.espada_anima_demonio_1": "Espada Ánima Demonio",
+  "item.testamentodelacarne.espada_anima_demonio_2": "Espada Ánima Demonio T2",
+  "item.testamentodelacarne.espada_anima_demonio_3": "Espada Ánima Demonio T3",
   "item.testamentodelacarne.chasis_engranaje": "Chasis de Engranaje de Precisión",
   "item.testamentodelacarne.gema_sangre_imbuida": "Gema de Sangre Imbuida",
   "item.testamentodelacarne.reliquia_del_apostata": "Tiza bañada en sangre",
@@ -28,6 +31,9 @@
   "tooltip.testamentodelacarne.espada_anima_1": "Sientes como la espada esta ligada a tu alma.",
   "tooltip.testamentodelacarne.espada_anima_2": "Sientes como la espada esta ligada a tu alma.",
   "tooltip.testamentodelacarne.espada_anima_3": "Sientes como la espada esta ligada a tu alma.",
+  "tooltip.testamentodelacarne.espada_anima_demonio_1": "El alma que arde en esta hoja es la tuya, corrompida por sangre demoníaca.",
+  "tooltip.testamentodelacarne.espada_anima_demonio_2": "El alma que arde en esta hoja es la tuya, corrompida por sangre demoníaca.",
+  "tooltip.testamentodelacarne.espada_anima_demonio_3": "El alma que arde en esta hoja es la tuya, corrompida por sangre demoníaca.",
 
   "creativetab.testamento_tab": "Testamento de la Carne"
 }

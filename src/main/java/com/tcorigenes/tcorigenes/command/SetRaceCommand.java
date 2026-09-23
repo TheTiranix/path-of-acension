@@ -39,15 +39,10 @@ public class SetRaceCommand {
                                             com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(player, selectedRace);
                                             RaceSkillGrant.grant(player, selectedRace);
 
+                                            com.tcorigenes.tcorigenes.core.RaceItemGrant.grant(player, selectedRace);
                                             com.tcorigenes.tcorigenes.favor.FavorManager.grantRaceStartingFavor(player, selectedRace);
  if (selectedRace == Race.HEREJE) {
                                                 com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);
-                                            }
-
-                                            if (selectedRace == Race.ENDER_WARRIOR) {
-                                                String giveSwordCommand = "give @s testamentodelacarne:espada_anima_1{Enchantments:[{id:\"minecraft:vanishing_curse\",lvl:1s}]}";
-                                                String fullCommand = "execute unless entity @s[nbt={Inventory:[{id:\"testamentodelacarne:espada_anima_1\"}]}] run " + giveSwordCommand;
-                                                context.getSource().getServer().getCommands().performPrefixedCommand(context.getSource(), fullCommand);
                                             }
                                         } else {
                                             System.out.println("[TCOrigenes Command] ¡FALLO! La capacidad de raza NO está presente en el jugador: " + player.getName().getString());
