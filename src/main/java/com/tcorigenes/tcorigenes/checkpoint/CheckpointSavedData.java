@@ -19,6 +19,8 @@ public final class CheckpointSavedData extends SavedData {
     /** Tick (overworld) del ultimo save de cama creado: cooldown de 1 dia entre saves. Long.MIN_VALUE = ninguno. */
     long lastSaveTick = Long.MIN_VALUE;
     /** Camas recien colocadas ("dim|pos" -> tick): hay que esperar 1 dia para poder guardar en ellas. */
+    /** Cama que es el punto de guardado vigente de cada jugador (la ultima que coloco): "dim|pos". */
+    final java.util.Map<java.util.UUID, String> saveBed = new java.util.HashMap<>();
     final java.util.Map<String, Long> bedPlacedAt = new java.util.HashMap<>();
 
     public static CheckpointSavedData get(MinecraftServer server) {
@@ -34,6 +36,10 @@ public final class CheckpointSavedData extends SavedData {
         data.initialSnapshotTaken = tag.getBoolean("initial_snapshot");
         if (tag.contains("last_save")) {
             data.lastSaveTick = tag.getLong("last_save");
+        }
+        ListTag saveBeds = tag.getList("save_beds", Tag.TAG_COMPOUND);
+        for (int i = 0; i < saveBeds.size(); i++) {
+            data.saveBed.put(saveBeds.getCompound(i).getUUID("o"), saveBeds.getCompound(i).getString("k"));
         }
         ListTag beds = tag.getList("beds", Tag.TAG_COMPOUND);
         for (int i = 0; i < beds.size(); i++) {
@@ -61,6 +67,14 @@ public final class CheckpointSavedData extends SavedData {
             beds.add(entry);
         });
         tag.put("beds", beds);
+        ListTag saveBeds = new ListTag();
+        this.saveBed.forEach((owner, key) -> {
+            CompoundTag entry = new CompoundTag();
+            entry.putUUID("o", owner);
+            entry.putString("k", key);
+            saveBeds.add(entry);
+        });
+        tag.put("save_beds", saveBeds);
         return tag;
     }
 }

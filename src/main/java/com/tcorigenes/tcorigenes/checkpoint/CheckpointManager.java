@@ -83,6 +83,13 @@ public final class CheckpointManager {
     /** Abre la pantalla ANTES de crear nada (ver README/pedido): recien si el jugador elige
      *  "guardar aca" se crea el punto y arranca la copia del mundo (ChooseCheckpointPacket). */
     private static void openCheckpointScreen(ServerPlayer player) {
+        if (player.getServer() != null && player.getSleepingPos().isPresent()
+                && !isSaveBed(player, player.getSleepingPos().get())) {
+            player.displayClientMessage(Component.literal(
+                    "Esta cama ya no es tu punto de guardado (solo sirve la última que colocaste).")
+                    .withStyle(ChatFormatting.RED), true);
+            return;
+        }
         sendCheckpointScreen(player, false);
     }
 
@@ -153,24 +160,26 @@ public final class CheckpointManager {
         MinecraftServer server = player.getServer();
         CheckpointSavedData data = CheckpointSavedData.get(server);
         data.bedPlacedAt.put(bedKey(player.level().dimension(), event.getPos()), player.level().getGameTime());
-        boolean hadPrevious = false;
-        for (Checkpoint c : data.checkpoints) {
-            if (c.owner.equals(player.getUUID()) && c.respawnEnabled) {
-                c.respawnEnabled = false; // la cama vieja deja de ser punto de reaparicion; su save queda intacto
-                hadPrevious = true;
-            }
-        }
+        String previous = data.saveBed.put(player.getUUID(), bedKey(player.level().dimension(), event.getPos()));
         data.setDirty();
-        if (hadPrevious) {
-            player.displayClientMessage(Component.literal(
-                    "Colocaste una cama nueva: la anterior deja de ser tu punto de reaparición (tus saves siguen intactos). "
-                            + "Tenés que esperar 1 día de Minecraft para poder guardar en esta.")
-                    .withStyle(ChatFormatting.GOLD), false);
-        } else {
-            player.displayClientMessage(Component.literal(
-                    "Cama nueva: tenés que esperar 1 día de Minecraft para poder guardar en ella.")
-                    .withStyle(ChatFormatting.GOLD), false);
+        player.displayClientMessage(Component.literal(previous != null
+                ? "Cama nueva: pasa a ser tu punto de guardado y la anterior deja de serlo (tus saves se conservan). "
+                        + "Tenés que esperar 1 día de Minecraft para poder guardar en esta."
+                : "Cama nueva: es tu punto de guardado, pero tenés que esperar 1 día de Minecraft para poder guardar en ella.")
+                .withStyle(ChatFormatting.GOLD), false);
+    }
+
+    /** Solo la ultima cama que colocaste sirve para guardar; sin ninguna registrada (camas de antes del cambio), cualquiera. */
+    private static boolean isSaveBed(ServerPlayer player, BlockPos bedPos) {
+        String key = CheckpointSavedData.get(player.getServer()).saveBed.get(player.getUUID());
+        if (key == null) {
+            return true;
         }
+        String prefix = player.level().dimension().location() + "|";
+        if (!key.startsWith(prefix)) {
+            return false;
+        }
+        return BlockPos.of(Long.parseLong(key.substring(prefix.length()))).distManhattan(bedPos) <= 1;
     }
 
     /** Crea un save de cama nuevo, o si replaceId != null SOBRESCRIBE ese. Respeta el cooldown de 1 dia
@@ -207,11 +216,6 @@ public final class CheckpointManager {
         }
         Checkpoint created = new Checkpoint(UUID.randomUUID(), player.getUUID(), player.level().dimension(),
                 bedPos.immutable(), now);
-        for (Checkpoint c : data.checkpoints) {
-            if (c.owner.equals(player.getUUID())) {
-                c.respawnEnabled = false;
-            }
-        }
         data.checkpoints.add(created);
         data.lastSaveTick = now;
         data.setDirty();
@@ -316,7 +320,7 @@ public final class CheckpointManager {
     public static boolean hasActiveNear(MinecraftServer server, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension,
                                         BlockPos pos, double range) {
         for (Checkpoint checkpoint : active(server)) {
-            if (checkpoint.respawnEnabled && checkpoint.dimension.equals(dimension) && Math.sqrt(checkpoint.pos.distSqr(pos)) <= range) {
+            if (checkpoint.dimension.equals(dimension) && Math.sqrt(checkpoint.pos.distSqr(pos)) <= range) {
                 return true;
             }
         }
@@ -339,10 +343,7 @@ public final class CheckpointManager {
         if (activeList.isEmpty()) {
             return null;
         }
-        List<Checkpoint> usable = activeList.stream().filter(c -> c.respawnEnabled).toList();
-        if (!usable.isEmpty()) {
-            activeList = usable; // solo camas vigentes; si ninguna lo es, cualquier save sirve de ultimo recurso
-        }
+
         CompoundTag persisted = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
         if (persisted.hasUUID(PREFERRED_KEY)) {
             UUID preferred = persisted.getUUID(PREFERRED_KEY);
