@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 public final class ClientWorldRestore {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String MARKER_FILE = "pending_restore.txt";
-    private static final int MAX_ATTEMPTS = 20;
+    private static final int MAX_ATTEMPTS = 60;
     private static final long RETRY_DELAY_MS = 500;
 
     private static volatile boolean restoring = false;
@@ -43,8 +43,8 @@ public final class ClientWorldRestore {
             return;
         }
         Minecraft mc = Minecraft.getInstance();
-        if (mc.level != null) {
-            return; // solo restauramos con el mundo ya cerrado del todo
+        if (mc.level != null || mc.getSingleplayerServer() != null) {
+            return; // solo restauramos con el mundo ya cerrado del todo (server integrado terminado de guardar)
         }
         Path marker = mc.gameDirectory.toPath().resolve(MARKER_FILE);
         if (!Files.isRegularFile(marker)) {

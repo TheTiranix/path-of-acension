@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +49,31 @@ public final class WorldRestoreManager {
     public static void onServerStarting(ServerStartingEvent event) {
         restoring = false;
         countdown = -1;
+    }
+
+    /** Singleplayer: "Guardar y salir" NO conserva el progreso, solo dormir en una cama guarda. Al
+     *  cerrarse el mundo se deja el marcador de restauracion apuntando a la copia de tu punto de
+     *  guardado; ClientWorldRestore la pone apenas el mundo termino de cerrarse. Sin ningun punto
+     *  de guardado todavia (nunca dormiste) o sin copia lista, se guarda normal para no perder todo. */
+    @SubscribeEvent
+    public static void onServerStopping(ServerStoppingEvent event) {
+        MinecraftServer server = event.getServer();
+        if (!server.isSingleplayer() || server.getServerDirectory().toPath().resolve(MARKER_FILE).toFile().exists()) {
+            return; // solo singleplayer; si ya hay marcador (caida de grupo) no se pisa
+        }
+        Checkpoint target = null;
+        var players = server.getPlayerList().getPlayers();
+        if (!players.isEmpty()) {
+            target = CheckpointManager.pickFor(players.get(0));
+        }
+        if (target == null) {
+            return;
+        }
+        Path snapshot = CheckpointSnapshotter.snapshotPathFor(server, target.id);
+        if (!Files.isDirectory(snapshot)) {
+            return;
+        }
+        writeMarker(server, server.getWorldPath(LevelResource.ROOT), snapshot);
     }
 
     @SubscribeEvent
