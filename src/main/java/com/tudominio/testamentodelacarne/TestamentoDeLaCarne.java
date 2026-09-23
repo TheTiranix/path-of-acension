@@ -56,6 +56,9 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_1.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_2.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_3.get());
+                        output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_1.get());
+                        output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_2.get());
+                        output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_3.get());
                     })
                     .build()
     );
