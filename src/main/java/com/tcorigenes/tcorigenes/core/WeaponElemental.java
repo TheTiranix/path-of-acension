@@ -4,6 +4,7 @@ package com.tcorigenes.tcorigenes.core;
 import com.tudominio.elementaldamage.ModDamageTypes;
 import com.tudominio.elementaldamage.PendingElementalHits;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.resources.ResourceKey;
@@ -33,13 +34,29 @@ public final class WeaponElemental {
     private record Conversion(ResourceKey<DamageType> element, int everyNth) {
     }
 
-    private static final Map<ResourceLocation, FlatExtra> FLAT_EXTRA = Map.of(
-            rl("aether", "gravitite_sword"), new FlatExtra(ModDamageTypes.LIGHT, 2.0F),
-            rl("aether", "lightning_sword"), new FlatExtra(ModDamageTypes.LIGHT, 2.0F),
-            rl("aether", "holy_sword"), new FlatExtra(ModDamageTypes.LIGHT, 2.0F),
-            rl("aether", "valkyrie_lance"), new FlatExtra(ModDamageTypes.LIGHT, 3.0F),
-            rl("celestisynth", "breezebreaker"), new FlatExtra(ModDamageTypes.EARTH, 300.0F)
+    private static final Map<ResourceLocation, List<FlatExtra>> FLAT_EXTRA = Map.ofEntries(
+            Map.entry(rl("aether", "gravitite_sword"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 2.0F))),
+            Map.entry(rl("aether", "lightning_sword"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 2.0F))),
+            Map.entry(rl("aether", "holy_sword"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 2.0F))),
+            Map.entry(rl("aether", "valkyrie_lance"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 3.0F))),
+            Map.entry(rl("celestisynth", "breezebreaker"), List.of(new FlatExtra(ModDamageTypes.EARTH, 300.0F))),
+            Map.entry(rl("aether", "hammer_of_kingbdogz"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 3.0F))),
+            Map.entry(rl("aether", "pig_slayer"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 2.0F), new FlatExtra(ModDamageTypes.EARTH, 2.0F))),
+            Map.entry(rl("aether", "flaming_sword"), List.of(new FlatExtra(ModDamageTypes.LIGHT, 3.0F))),
+            Map.entry(rl("scary_mobs", "lunar_axe"), List.of(new FlatExtra(ModDamageTypes.LUNAR, 10.0F))),
+            Map.entry(rl("cataclysm", "coral_spear"), List.of(new FlatExtra(ModDamageTypes.WATER_ELEMENTAL, 2.5F))),
+            Map.entry(rl("iceandfire", "hippogryph_sword"), List.of(new FlatExtra(ModDamageTypes.AIR, 3.0F))),
+            Map.entry(rl("seadwellers", "depth_sword"), List.of(new FlatExtra(ModDamageTypes.WATER_ELEMENTAL, 3.0F)))
     );
+
+    /** Suma del daño elemental fijo por golpe de un arma (para el ranking de daño total). */
+    public static float flatExtraTotal(ResourceLocation itemId) {
+        float total = 0.0F;
+        for (FlatExtra extra : FLAT_EXTRA.getOrDefault(itemId, List.of())) {
+            total += extra.amount();
+        }
+        return total;
+    }
 
     private static final Map<ResourceLocation, Conversion> CONVERSION = Map.of(
             rl("celestisynth", "aquaflora"), new Conversion(ModDamageTypes.WATER_ELEMENTAL, 4)
@@ -70,8 +87,7 @@ public final class WeaponElemental {
             return;
         }
 
-        FlatExtra extra = FLAT_EXTRA.get(id);
-        if (extra != null) {
+        for (FlatExtra extra : FLAT_EXTRA.getOrDefault(id, List.of())) {
             extra(target, attacker, extra.element(), extra.amount());
         }
     }

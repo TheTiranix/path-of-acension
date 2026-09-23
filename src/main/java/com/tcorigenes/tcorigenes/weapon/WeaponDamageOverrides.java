@@ -36,14 +36,47 @@ public final class WeaponDamageOverrides {
     private static final UUID SPEED_UUID = UUID.fromString("c15a5a00-0002-4a55-8a00-000000000002");
     private static final UUID REACH_UUID = UUID.fromString("c15a5a00-0003-4a55-8a00-000000000003");
 
-    private static final Map<ResourceLocation, Override> OVERRIDES = Map.of(
-            rl("aether", "gravitite_sword"), new Override(12.0, null, null, false),
-            rl("aether", "lightning_sword"), new Override(12.0, null, null, false),
-            rl("aether", "holy_sword"), new Override(12.0, null, null, false),
-            rl("aether", "valkyrie_lance"), new Override(9.0, 1.5, 3.5, true),
-            rl("celestisynth", "aquaflora"), new Override(1800.0, null, null, false),
-            rl("celestisynth", "breezebreaker"), new Override(1700.0, null, null, false)
-    );
+    private static final Map<ResourceLocation, Override> OVERRIDES = new java.util.HashMap<>();
+
+    /** Items cuyo daño de fabrica se MULTIPLICA (en vez de fijarse), para escalar en bloque un set. */
+    private static final Map<ResourceLocation, Double> SCALES = new java.util.HashMap<>();
+
+    private static void put(String ns, String path, double damage, boolean twoHanded) {
+        OVERRIDES.put(rl(ns, path), new Override(damage, null, null, twoHanded));
+    }
+
+    static {
+        put("aether", "gravitite_sword", 12.0, false);
+        put("aether", "lightning_sword", 12.0, false);
+        put("aether", "holy_sword", 12.0, false);
+        OVERRIDES.put(rl("aether", "valkyrie_lance"), new Override(9.0, 1.5, 3.5, true));
+        put("celestisynth", "aquaflora", 1800.0, false);
+        put("celestisynth", "breezebreaker", 1700.0, false);
+        put("born_in_chaos_v1", "spiritual_sword", 6.0, false);
+        put("iceandfire", "silver_sword", 6.0, false);
+        put("cataclysm", "khopesh", 6.5, false);
+        put("iceandfire", "myrmex_desert_sword", 6.0, false);
+        put("iceandfire", "myrmex_jungle_sword", 6.0, false);
+        put("iceandfire", "myrmex_desert_sword_venom", 6.0, false);
+        put("iceandfire", "myrmex_jungle_sword_venom", 6.0, false);
+        put("iceandfire", "dread_sword", 6.5, false);
+        put("iceandfire", "amphithere_macuahuitl", 7.0, false);
+        put("mekanismtools", "lapis_lazuli_sword", 5.5, false);
+        put("aether", "hammer_of_kingbdogz", 9.0, false);
+        put("aether", "pig_slayer", 10.0, false);
+        put("aether", "zanite_sword", 13.0, false);
+        put("born_in_chaos_v1", "frostbitten_blade", 12.0, true);
+        put("eeeabsmobs", "immortal_sword", 8.0, false);
+        put("scary_mobs", "lunar_axe", 9.0, true);
+        put("cataclysm", "coral_spear", 4.0, false);
+        put("iceandfire", "hippogryph_sword", 6.0, false);
+        put("seadwellers", "depth_sword", 6.0, false);
+        put("aether", "flaming_sword", 9.0, false);
+        // Resto del set Zanite: mismo factor que la espada (13 sobre los 6 de hierro de la que parte).
+        for (String tool : new String[] {"zanite_axe", "zanite_pickaxe", "zanite_shovel", "zanite_hoe"}) {
+            SCALES.put(rl("aether", tool), 13.0 / 6.0);
+        }
+    }
 
     private WeaponDamageOverrides() {
     }
@@ -60,6 +93,18 @@ public final class WeaponDamageOverrides {
             return;
         }
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem());
+        Double scale = id == null ? null : SCALES.get(id);
+        if (scale != null) {
+            java.util.List<AttributeModifier> originals = new java.util.ArrayList<>(event.getOriginalModifiers().get(Attributes.ATTACK_DAMAGE));
+            event.removeAttribute(Attributes.ATTACK_DAMAGE);
+            for (AttributeModifier original : originals) {
+                double amount = original.getOperation() == AttributeModifier.Operation.ADDITION
+                        ? original.getAmount() * scale : original.getAmount();
+                event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(
+                        original.getId(), original.getName(), amount, original.getOperation()));
+            }
+            return;
+        }
         Override override = id == null ? null : OVERRIDES.get(id);
         if (override == null) {
             return;

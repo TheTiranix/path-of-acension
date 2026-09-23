@@ -77,6 +77,11 @@ public final class ItemStatRanking {
                     continue;
                 }
                 float dmg = sumModifiers(stack, EquipmentSlot.MAINHAND, Attributes.ATTACK_DAMAGE);
+                var itemId = ForgeRegistries.ITEMS.getKey(item);
+                if (dmg > 0.0F && itemId != null) {
+                    // Ranking por daño TOTAL: normal + el elemental fijo que le suma el pack al arma.
+                    dmg += com.tcorigenes.tcorigenes.core.WeaponElemental.flatExtraTotal(itemId);
+                }
                 if (dmg > 0.0F) {
                     damage.add(new StatEntry(stack, dmg));
                 }
