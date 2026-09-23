@@ -18,10 +18,11 @@ import org.apache.logging.log4j.Logger;
 /**
  * "Cargar un save" DE VERDAD: cuando cae el grupo entero (ver PlayerReviveBridge#isFullWipe), no alcanza
  * con reubicar jugadores, porque el mundo (bloques rotos, mobs muertos, cofres saqueados) seguiria como
- * estaba. Un mod no puede revertir el mundo mientras el server sigue corriendo, asi que la unica forma
- * segura es: avisar, escribir que snapshot hay que restaurar (ver CheckpointSnapshotter), y CERRAR EL
- * JUEGO DEL TODO. El restablecimiento real de los archivos lo hace un script aparte, afuera del juego
- * (ver tools/restore_after_wipe.py), que hay que correr antes de volver a abrir el mundo.
+ * estaba. Un mod no puede revertir el mundo mientras el server lo sigue usando, asi que la unica forma
+ * segura es frenar el server (esto es un integrated server: single o LAN, asi que el cliente vuelve solo
+ * al menu en segundos, SIN cerrar el juego) y restaurar los archivos recien ahi, con el mundo ya cerrado.
+ * Este server-tick solo avisa, cuenta y escribe el marcador; quien hace la copia real es
+ * ClientWorldRestore, del lado cliente, apenas detecta que no hay mundo cargado.
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class WorldRestoreManager {
@@ -47,9 +48,8 @@ public final class WorldRestoreManager {
                 countdown--;
             } else if (countdown == 0) {
                 countdown = -1;
-                LOGGER.warn("[tcorigenes] Grupo caído entero: cerrando el juego para restaurar el punto de guardado.");
-                server.halt(true);
-                System.exit(0); // fuerza el cierre completo (integrado o dedicado) para poder tocar los archivos despues
+                LOGGER.warn("[tcorigenes] Grupo caído entero: frenando el server para restaurar el punto de guardado.");
+                server.halt(true); // integrated server: el cliente vuelve solo al menu, sin cerrar el juego
             }
             return;
         }
@@ -81,8 +81,8 @@ public final class WorldRestoreManager {
         restoring = true;
         countdown = COUNTDOWN_TICKS;
         server.getPlayerList().broadcastSystemMessage(Component.literal(
-                "El grupo cayó entero. El mundo va a volver al último punto de guardado: el juego se cierra en 5 segundos. "
-                        + "Corré restaurar_ultimo_punto.bat antes de volver a abrirlo.").withStyle(ChatFormatting.DARK_RED), false);
+                "El grupo cayó entero. El mundo va a volver al último punto de guardado en 5 segundos: "
+                        + "se corta la partida solo, se restaura y podés volver a entrar.").withStyle(ChatFormatting.DARK_RED), false);
     }
 
     private static void writeMarker(MinecraftServer server, Path worldRoot, Path snapshot) {

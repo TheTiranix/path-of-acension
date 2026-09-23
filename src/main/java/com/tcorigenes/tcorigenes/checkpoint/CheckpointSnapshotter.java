@@ -57,6 +57,13 @@ public final class CheckpointSnapshotter {
         deleteTree(snapshotPathFor(server, checkpointId));
     }
 
+    /** Reemplaza worldRoot por la copia del snapshot. Sincronico: se llama con el mundo ya cerrado
+     *  (ver ClientWorldRestore), nunca mientras el server sigue corriendo. */
+    public static void restoreFromSnapshot(Path worldRoot, Path snapshot) throws IOException {
+        deleteTree(worldRoot);
+        copyTree(snapshot, worldRoot);
+    }
+
     private static void copyTree(Path source, Path dest) throws IOException {
         Files.createDirectories(dest);
         Files.walkFileTree(source, new SimpleFileVisitor<>() {
