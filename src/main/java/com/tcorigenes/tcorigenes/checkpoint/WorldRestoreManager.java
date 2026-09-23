@@ -81,6 +81,13 @@ public final class WorldRestoreManager {
 
     private static void triggerWipe(MinecraftServer server) {
         Checkpoint target = CheckpointManager.active(server).stream().findFirst().orElse(null);
+        if (target == null && !server.isDedicatedServer()) {
+            // Sin ningun save de cama no hay a donde volver: el mundo se regenera de cero con la misma
+            // seed y se pierde todo el progreso (ver ClientWorldRestore#regenerate).
+            beginRestore(server, null, "El grupo cayó entero y no había ningún punto de guardado en una cama: "
+                    + "el mundo se regenera desde cero con la misma seed en 5 segundos. Se pierde todo el progreso.");
+            return;
+        }
         if (target == null) {
             server.getPlayerList().broadcastSystemMessage(Component.literal(
                     "El grupo cayó entero, pero todavía no hay ningún punto de guardado (coloca una cama). "
@@ -105,8 +112,8 @@ public final class WorldRestoreManager {
         if (restoring) {
             return false;
         }
-        Path snapshot = CheckpointSnapshotter.snapshotPathFor(server, target.id);
-        if (!Files.isDirectory(snapshot)) {
+        Path snapshot = target == null ? null : CheckpointSnapshotter.snapshotPathFor(server, target.id);
+        if (snapshot != null && !Files.isDirectory(snapshot)) {
             return false;
         }
         writeMarker(server, server.getWorldPath(LevelResource.ROOT), snapshot);
@@ -118,8 +125,9 @@ public final class WorldRestoreManager {
 
     private static void writeMarker(MinecraftServer server, Path worldRoot, Path snapshot) {
         Path marker = server.getServerDirectory().toPath().resolve(MARKER_FILE);
+        // snapshot == null: regenerar el mundo desde cero con la misma seed (sin ningun save de cama).
         String content = "world_root=" + worldRoot.toAbsolutePath() + System.lineSeparator()
-                + "snapshot=" + snapshot.toAbsolutePath() + System.lineSeparator();
+                + (snapshot == null ? "regenerate=true" : "snapshot=" + snapshot.toAbsolutePath()) + System.lineSeparator();
         try {
             Files.writeString(marker, content, StandardCharsets.UTF_8);
         } catch (IOException e) {

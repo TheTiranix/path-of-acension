@@ -90,7 +90,7 @@ public final class CheckpointSnapshotter {
         });
     }
 
-    private static void deleteTree(Path dir) {
+    public static void deleteTree(Path dir) {
         if (!Files.exists(dir)) {
             return;
         }

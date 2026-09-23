@@ -61,6 +61,13 @@ public final class ClientWorldRestore {
             Map<String, String> values = readMarker(marker);
             String worldRootStr = values.get("world_root");
             String snapshotStr = values.get("snapshot");
+            if (worldRootStr != null && "true".equals(values.get("regenerate"))) {
+                boolean ok = regenerate(Path.of(worldRootStr));
+                Files.deleteIfExists(marker);
+                notify(ok ? "Mundo regenerado desde cero con la misma seed. Ya podés volver a entrar."
+                        : "No se pudo regenerar el mundo del todo (ver log).");
+                return;
+            }
             if (worldRootStr == null || snapshotStr == null) {
                 LOGGER.error("[tcorigenes] Marcador de restauración incompleto, lo borro sin tocar el mundo: {}", marker);
                 Files.deleteIfExists(marker);
@@ -88,6 +95,45 @@ public final class ClientWorldRestore {
         } finally {
             restoring = false;
         }
+    }
+
+    /** Deja del mundo solo level.dat (la seed y los ajustes) y le saca el jugador guardado: al entrar,
+     *  Minecraft vuelve a generar todo desde cero con esa misma seed. Reintenta por si Windows tarda en
+     *  soltar los archivos del mundo recien cerrado. */
+    private static boolean regenerate(Path worldRoot) {
+        String[] keep = {"level.dat", "level.dat_old", "session.lock", "icon.png"};
+        for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            try (var children = Files.list(worldRoot)) {
+                for (Path child : (Iterable<Path>) children::iterator) {
+                    String name = child.getFileName().toString();
+                    if (java.util.Arrays.asList(keep).contains(name)) {
+                        continue;
+                    }
+                    CheckpointSnapshotter.deleteTree(child);
+                    Files.deleteIfExists(child);
+                }
+                stripPlayerFromLevelDat(worldRoot.resolve("level.dat"));
+                return true;
+            } catch (IOException e) {
+                LOGGER.warn("[tcorigenes] Regenerar mundo, reintento {}: {}", attempt, e.toString());
+                try {
+                    Thread.sleep(RETRY_DELAY_MS);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static void stripPlayerFromLevelDat(Path levelDat) throws IOException {
+        java.io.File file = levelDat.toFile();
+        net.minecraft.nbt.CompoundTag root = net.minecraft.nbt.NbtIo.readCompressed(file);
+        if (root.contains("Data", 10)) {
+            root.getCompound("Data").remove("Player");
+        }
+        net.minecraft.nbt.NbtIo.writeCompressed(root, file);
     }
 
     private static IOException tryRestore(Path worldRoot, Path snapshot) {
