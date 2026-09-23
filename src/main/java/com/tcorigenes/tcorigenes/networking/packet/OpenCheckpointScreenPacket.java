@@ -21,9 +21,12 @@ public class OpenCheckpointScreenPacket {
     }
 
     private final List<CheckpointEntry> entries;
+    /** true = se abre al entrar al mundo para CARGAR un save de cama; false = al dormir. */
+    private final boolean loadMode;
 
-    public OpenCheckpointScreenPacket(List<CheckpointEntry> entries) {
+    public OpenCheckpointScreenPacket(List<CheckpointEntry> entries, boolean loadMode) {
         this.entries = entries;
+        this.loadMode = loadMode;
     }
 
     public OpenCheckpointScreenPacket(FriendlyByteBuf buf) {
@@ -33,6 +36,7 @@ public class OpenCheckpointScreenPacket {
             list.add(new CheckpointEntry(buf.readUUID(), buf.readUtf(), buf.readUtf(), buf.readBlockPos(), buf.readBoolean()));
         }
         this.entries = list;
+        this.loadMode = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -44,13 +48,14 @@ public class OpenCheckpointScreenPacket {
             buf.writeBlockPos(entry.pos());
             buf.writeBoolean(entry.preferred());
         }
+        buf.writeBoolean(this.loadMode);
     }
 
     public boolean handle(Supplier<Context> supplier) {
         Context context = supplier.get();
         context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () ->
                 net.minecraft.client.Minecraft.getInstance().setScreen(
-                        new com.tcorigenes.tcorigenes.client.gui.CheckpointScreen(this.entries))));
+                        new com.tcorigenes.tcorigenes.client.gui.CheckpointScreen(this.entries, this.loadMode))));
         return true;
     }
 }

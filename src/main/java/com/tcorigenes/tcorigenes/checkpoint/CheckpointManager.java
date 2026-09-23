@@ -74,6 +74,20 @@ public final class CheckpointManager {
     /** Abre la pantalla ANTES de crear nada (ver README/pedido): recien si el jugador elige
      *  "guardar aca" se crea el punto y arranca la copia del mundo (ChooseCheckpointPacket). */
     private static void openCheckpointScreen(ServerPlayer player) {
+        sendCheckpointScreen(player, false);
+    }
+
+    /** Al entrar al mundo (singleplayer), si hay saves de cama se ofrece cargarlos; sin saves de
+     *  cama no aparece nada y el mundo entra y se guarda normal. */
+    @SubscribeEvent
+    public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player && player.getServer() != null
+                && player.getServer().isSingleplayer() && !active(player.getServer()).isEmpty()) {
+            sendCheckpointScreen(player, true);
+        }
+    }
+
+    private static void sendCheckpointScreen(ServerPlayer player, boolean loadMode) {
         MinecraftServer server = player.getServer();
         if (server == null) {
             return;
@@ -90,7 +104,7 @@ public final class CheckpointManager {
                     checkpoint.id.equals(preferred)));
         }
         com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
-                new com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket(entries));
+                new com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket(entries, loadMode));
     }
 
     /** El id preferido guardado del jugador (aunque ya no este activo); null si nunca eligio ninguno. */

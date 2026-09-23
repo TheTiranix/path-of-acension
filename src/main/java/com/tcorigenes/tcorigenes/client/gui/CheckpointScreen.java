@@ -21,8 +21,11 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
     record Option(CheckpointEntry entry) {
     }
 
-    public CheckpointScreen(List<CheckpointEntry> entries) {
-        super(Component.literal("Punto de Guardado"), buildOptions(entries));
+    private final boolean loadMode;
+
+    public CheckpointScreen(List<CheckpointEntry> entries, boolean loadMode) {
+        super(Component.literal(loadMode ? "Cargar Punto de Guardado" : "Punto de Guardado"), buildOptions(entries));
+        this.loadMode = loadMode;
     }
 
     private static List<Option> buildOptions(List<CheckpointEntry> entries) {
@@ -36,7 +39,7 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
 
     @Override
     protected Component nameOf(Option option) {
-        return option.entry() == null ? Component.literal("Guardar acá")
+        return option.entry() == null ? Component.literal(this.loadMode ? "Continuar" : "Guardar acá")
                 : Component.literal((option.entry().preferred() ? "★ " : "") + option.entry().ownerName());
     }
 
@@ -47,12 +50,16 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
 
     @Override
     protected String taglineOf(Option option) {
-        return option.entry() == null ? "Nuevo punto de guardado, acá"
+        return option.entry() == null ? (this.loadMode ? "Seguir donde saliste" : "Nuevo punto de guardado, acá")
                 : (option.entry().preferred() ? "Tu punto preferido ahora mismo" : "Punto de guardado compartido");
     }
 
     @Override
     protected List<Component> linesOf(Option option) {
+        if (option.entry() == null && this.loadMode) {
+            return List.of(Component.literal("Seguís en el mundo tal como lo dejaste al salir (tu último Guardar y salir)."),
+                    Component.literal("Elegí cualquier punto de cama de la lista para volver a ese momento: el mundo se restaura y volvés a entrar."));
+        }
         if (option.entry() == null) {
             return List.of(
                     Component.literal("Crea un punto de guardado nuevo en esta cama."),
@@ -64,7 +71,8 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
         return List.of(
                 Component.literal("Colocado por " + entry.ownerName() + "."),
                 Component.literal("Ubicación: " + entry.pos().toShortString() + " en " + entry.dimensionLabel() + "."),
-                Component.literal(entry.preferred()
+                Component.literal(this.loadMode ? "Elegilo para cargar el mundo tal como estaba cuando lo guardaste. Lo hecho después se pierde."
+                        : entry.preferred()
                         ? "Ya es tu punto preferido: ahí reaparecés o te reviven."
                         : "Elegilo para que sea tu punto preferido: ahí vas a reaparecer o te van a poder revivir.")
         );
@@ -72,7 +80,10 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
 
     @Override
     protected void choose(Option option) {
-        Networking.sendToServer(new ChooseCheckpointPacket(option.entry() == null ? null : option.entry().id()));
+        if (this.loadMode && option.entry() == null) {
+            return; // "Continuar": no hay nada que mandar
+        }
+        Networking.sendToServer(new ChooseCheckpointPacket(option.entry() == null ? null : option.entry().id(), this.loadMode));
     }
 
     @Override
