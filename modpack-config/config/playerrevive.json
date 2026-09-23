@@ -1,7 +1,7 @@
 {
   "banPlayerAfterDeath": false,
   "bleeding": {
-    "bleedTime": 999999,
+    "bleedTime": 2400,
     "triggerForCreative": true,
     "bleedingMessage": true,
     "bleedingMessageTrackingOnly": true,

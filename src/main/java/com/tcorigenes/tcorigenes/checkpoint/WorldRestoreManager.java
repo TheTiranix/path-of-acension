@@ -49,7 +49,12 @@ public final class WorldRestoreManager {
             } else if (countdown == 0) {
                 countdown = -1;
                 LOGGER.warn("[tcorigenes] Grupo caído entero: frenando el server para restaurar el punto de guardado.");
-                server.halt(true); // integrated server: el cliente vuelve solo al menu, sin cerrar el juego
+                // OJO: esto corre en el hilo del propio server (server tick). halt(true) espera a
+                // que ESE hilo termine, asi que llamado desde el mismo hilo se auto-bloquea (el
+                // server queda colgado del todo, ni ticks ni "Saving world" nunca terminan). Con
+                // false el pedido de parada queda seteado y el propio bucle del server lo nota y
+                // se apaga solo apenas termina este tick, sin esperar a si mismo.
+                server.halt(false);
             }
             return;
         }
