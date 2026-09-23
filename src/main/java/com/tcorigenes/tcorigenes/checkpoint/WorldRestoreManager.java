@@ -61,10 +61,18 @@ public final class WorldRestoreManager {
         if (!server.isSingleplayer() || server.getServerDirectory().toPath().resolve(MARKER_FILE).toFile().exists()) {
             return; // solo singleplayer; si ya hay marcador (caida de grupo) no se pisa
         }
+        // Al "Guardar y salir" el cliente se desconecta ANTES de que el server se frene: ya no queda
+        // ningun jugador en la lista. Se usa el punto mas nuevo del dueño del mundo (o el mas nuevo de todos).
         Checkpoint target = null;
         var players = server.getPlayerList().getPlayers();
         if (!players.isEmpty()) {
             target = CheckpointManager.pickFor(players.get(0));
+        }
+        if (target == null) {
+            java.util.UUID owner = server.getSingleplayerProfile() != null ? server.getSingleplayerProfile().getId() : null;
+            var active = CheckpointManager.active(server);
+            target = active.stream().filter(c -> c.owner.equals(owner)).findFirst()
+                    .orElse(active.isEmpty() ? null : active.get(0));
         }
         if (target == null) {
             return;
