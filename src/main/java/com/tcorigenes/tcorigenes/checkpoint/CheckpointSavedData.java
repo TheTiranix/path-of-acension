@@ -14,6 +14,8 @@ public final class CheckpointSavedData extends SavedData {
     private static final String KEY = "tcorigenes_checkpoints";
 
     final List<Checkpoint> checkpoints = new ArrayList<>();
+    /** Ya se tomo el save inicial automatico de este mundo (ver CheckpointManager#onLogin). */
+    boolean initialSnapshotTaken = false;
 
     public static CheckpointSavedData get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(CheckpointSavedData::load, CheckpointSavedData::new, KEY);
@@ -25,6 +27,7 @@ public final class CheckpointSavedData extends SavedData {
         for (int i = 0; i < list.size(); i++) {
             data.checkpoints.add(Checkpoint.load(list.getCompound(i)));
         }
+        data.initialSnapshotTaken = tag.getBoolean("initial_snapshot");
         return data;
     }
 
@@ -35,6 +38,7 @@ public final class CheckpointSavedData extends SavedData {
             list.add(checkpoint.save(new CompoundTag()));
         }
         tag.put("checkpoints", list);
+        tag.putBoolean("initial_snapshot", this.initialSnapshotTaken);
         return tag;
     }
 }

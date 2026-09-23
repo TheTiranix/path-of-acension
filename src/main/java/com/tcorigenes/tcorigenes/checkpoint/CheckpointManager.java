@@ -81,8 +81,20 @@ public final class CheckpointManager {
      *  cama no aparece nada y el mundo entra y se guarda normal. */
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player && player.getServer() != null
-                && player.getServer().isSingleplayer() && !active(player.getServer()).isEmpty()) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || player.getServer() == null
+                || !player.getServer().isSingleplayer()) {
+            return;
+        }
+        MinecraftServer server = player.getServer();
+        CheckpointSavedData data = CheckpointSavedData.get(server);
+        if (!data.initialSnapshotTaken) {
+            // Primera vez que se entra al mundo con el mod: save inicial automatico, al que se vuelve
+            // si el grupo cae antes de guardar en ninguna cama.
+            data.initialSnapshotTaken = true;
+            data.setDirty();
+            CheckpointSnapshotter.takeSnapshotAsync(server, CheckpointSnapshotter.INITIAL_ID);
+        }
+        if (!active(server).isEmpty()) {
             sendCheckpointScreen(player, true);
         }
     }

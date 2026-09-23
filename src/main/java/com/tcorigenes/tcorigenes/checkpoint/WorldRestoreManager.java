@@ -81,10 +81,18 @@ public final class WorldRestoreManager {
 
     private static void triggerWipe(MinecraftServer server) {
         Checkpoint target = CheckpointManager.active(server).stream().findFirst().orElse(null);
+        if (target == null && !server.isDedicatedServer()
+                && Files.isDirectory(CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID))) {
+            // Sin ningun save de cama se vuelve al save inicial automatico (la primera vez que se entro al mundo).
+            beginRestore(server, CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID),
+                    "El grupo cayó entero sin haber guardado en ninguna cama: el mundo vuelve al principio en 5 segundos. "
+                            + "Se pierde todo el progreso.");
+            return;
+        }
         if (target == null && !server.isDedicatedServer()) {
             // Sin ningun save de cama no hay a donde volver: el mundo se regenera de cero con la misma
             // seed y se pierde todo el progreso (ver ClientWorldRestore#regenerate).
-            beginRestore(server, null, "El grupo cayó entero y no había ningún punto de guardado en una cama: "
+            beginRestore(server, (Path) null, "El grupo cayó entero y no había ningún punto de guardado en una cama: "
                     + "el mundo se regenera desde cero con la misma seed en 5 segundos. Se pierde todo el progreso.");
             return;
         }
@@ -109,10 +117,14 @@ public final class WorldRestoreManager {
     /** Pedido de cargar un punto de guardado (caida de grupo, o elegido a mano al entrar al mundo):
      *  escribe el marcador, avisa y en 5 segundos frena el server; ClientWorldRestore hace la copia. */
     public static boolean beginRestore(MinecraftServer server, Checkpoint target, String message) {
+        return beginRestore(server, target == null ? null : CheckpointSnapshotter.snapshotPathFor(server, target.id), message);
+    }
+
+    /** snapshot == null: regenerar el mundo de cero con la misma seed (ultimo recurso si no hay save inicial). */
+    public static boolean beginRestore(MinecraftServer server, Path snapshot, String message) {
         if (restoring) {
             return false;
         }
-        Path snapshot = target == null ? null : CheckpointSnapshotter.snapshotPathFor(server, target.id);
         if (snapshot != null && !Files.isDirectory(snapshot)) {
             return false;
         }

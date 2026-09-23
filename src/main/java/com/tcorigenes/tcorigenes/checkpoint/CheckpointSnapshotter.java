@@ -24,6 +24,9 @@ public final class CheckpointSnapshotter {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String SNAPSHOTS_DIR_NAME = "checkpoint_snapshots";
 
+    /** Id fijo del save inicial automatico (no es un punto de cama: no aparece en la lista). */
+    public static final UUID INITIAL_ID = new UUID(0L, 1L);
+
     private CheckpointSnapshotter() {
     }
 
