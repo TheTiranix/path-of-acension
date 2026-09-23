@@ -61,6 +61,20 @@ public final class ClientWorldRestore {
             Map<String, String> values = readMarker(marker);
             String worldRootStr = values.get("world_root");
             String snapshotStr = values.get("snapshot");
+            String backupStr = values.get("backup");
+            if (worldRootStr != null && backupStr != null) {
+                // Copia oculta del mundo tal como quedo al salir (fuera de la lista de saves del juego).
+                try {
+                    CheckpointSnapshotter.deleteTree(Path.of(backupStr));
+                    CheckpointSnapshotter.copyTree(Path.of(worldRootStr), Path.of(backupStr));
+                } catch (IOException e) {
+                    LOGGER.warn("[tcorigenes] No se pudo copiar el guardado de salida", e);
+                }
+                if (snapshotStr == null && !"true".equals(values.get("regenerate"))) {
+                    Files.deleteIfExists(marker);
+                    return;
+                }
+            }
             if (worldRootStr != null && "true".equals(values.get("regenerate"))) {
                 boolean ok = regenerate(Path.of(worldRootStr));
                 Files.deleteIfExists(marker);

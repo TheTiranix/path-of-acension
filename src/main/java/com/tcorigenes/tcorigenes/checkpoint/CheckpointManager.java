@@ -37,6 +37,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public final class CheckpointManager {
     /** 1 dia de Minecraft. */
     private static final long GRACE_PERIOD_TICKS = 24000;
+    /** Cooldown entre saves de cama y espera de una cama recien colocada: 1 dia de Minecraft. */
+    private static final long SAVE_COOLDOWN_TICKS = 24000;
     private static final String PREFERRED_KEY = "tc_preferred_checkpoint";
 
     /** Quien esta durmiendo AHORA MISMO (segun el ultimo tick chequeado), para detectar el momento
@@ -54,6 +56,13 @@ public final class CheckpointManager {
     @SubscribeEvent
     public static void onServerStarting(net.minecraftforge.event.server.ServerStartingEvent event) {
         SLEEPING_NOW.clear();
+    }
+
+    /** Cooperativo: alcanza con UN jugador durmiendo para pasar la noche (y guardar). */
+    @SubscribeEvent
+    public static void onServerStarted(net.minecraftforge.event.server.ServerStartedEvent event) {
+        event.getServer().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_PLAYERS_SLEEPING_PERCENTAGE)
+                .set(0, event.getServer());
     }
 
     @SubscribeEvent
@@ -96,6 +105,10 @@ public final class CheckpointManager {
         }
         if (!active(server).isEmpty()) {
             sendCheckpointScreen(player, true);
+        } else {
+            player.sendSystemMessage(Component.literal(
+                    "No hay ningún save de cama: empezás de cero (el save inicial de este mundo). "
+                            + "Dormí en una cama para crear tu primer punto de guardado.").withStyle(ChatFormatting.GOLD));
         }
     }
 
@@ -125,27 +138,89 @@ public final class CheckpointManager {
         return persisted.hasUUID(PREFERRED_KEY) ? persisted.getUUID(PREFERRED_KEY) : null;
     }
 
-    public static void createCheckpoint(ServerPlayer player, BlockPos bedPos) {
+    private static String bedKey(net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension, BlockPos pos) {
+        return dimension.location() + "|" + pos.asLong();
+    }
+
+    /** Al COLOCAR una cama: se anota (hay que esperar 1 dia para guardar en ella) y la cama anterior
+     *  del jugador deja de ser punto de guardado (se borra su save). */
+    @SubscribeEvent
+    public static void onBedPlaced(BlockEvent.EntityPlaceEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || !event.getPlacedBlock().is(BlockTags.BEDS)
+                || player.getServer() == null) {
+            return;
+        }
+        MinecraftServer server = player.getServer();
+        CheckpointSavedData data = CheckpointSavedData.get(server);
+        data.bedPlacedAt.put(bedKey(player.level().dimension(), event.getPos()), player.level().getGameTime());
+        List<Checkpoint> removed = new ArrayList<>();
+        data.checkpoints.removeIf(c -> {
+            boolean mine = c.owner.equals(player.getUUID());
+            if (mine) {
+                removed.add(c);
+            }
+            return mine;
+        });
+        data.setDirty();
+        if (!removed.isEmpty()) {
+            removed.forEach(c -> CheckpointSnapshotter.deleteSnapshot(server, c.id));
+            player.displayClientMessage(Component.literal(
+                    "Colocaste una cama nueva: tu punto de guardado anterior se eliminó. Tenés que esperar 1 día de Minecraft para poder guardar en esta.")
+                    .withStyle(ChatFormatting.GOLD), false);
+        } else {
+            player.displayClientMessage(Component.literal(
+                    "Cama nueva: tenés que esperar 1 día de Minecraft para poder guardar en ella.")
+                    .withStyle(ChatFormatting.GOLD), false);
+        }
+    }
+
+    /** Crea un save de cama nuevo, o si replaceId != null SOBRESCRIBE ese. Respeta el cooldown de 1 dia
+     *  entre saves y la espera de 1 dia de una cama recien colocada. */
+    public static void createCheckpoint(ServerPlayer player, BlockPos bedPos, UUID replaceId) {
         MinecraftServer server = player.getServer();
         if (server == null) {
             return;
         }
         CheckpointSavedData data = CheckpointSavedData.get(server);
-        long now = player.level().getGameTime();
-        for (Checkpoint checkpoint : data.checkpoints) {
-            if (checkpoint.owner.equals(player.getUUID()) && checkpoint.isActive(now)) {
-                checkpoint.supersededAtTick = now + GRACE_PERIOD_TICKS;
+        long now = server.overworld().getGameTime();
+        if (data.lastSaveTick != Long.MIN_VALUE && now - data.lastSaveTick < SAVE_COOLDOWN_TICKS) {
+            player.displayClientMessage(Component.literal("Todavía no podés guardar: falta esperar "
+                    + describeTicks(SAVE_COOLDOWN_TICKS - (now - data.lastSaveTick)) + " (1 día de Minecraft entre saves).")
+                    .withStyle(ChatFormatting.RED), false);
+            return;
+        }
+        for (var entry : data.bedPlacedAt.entrySet()) {
+            String prefix = player.level().dimension().location() + "|";
+            if (!entry.getKey().startsWith(prefix)) {
+                continue;
             }
+            BlockPos placed = BlockPos.of(Long.parseLong(entry.getKey().substring(prefix.length())));
+            if (placed.distManhattan(bedPos) <= 1 && now - entry.getValue() < SAVE_COOLDOWN_TICKS) {
+                player.displayClientMessage(Component.literal("Esta cama es nueva: falta esperar "
+                        + describeTicks(SAVE_COOLDOWN_TICKS - (now - entry.getValue())) + " para poder guardar en ella.")
+                        .withStyle(ChatFormatting.RED), false);
+                return;
+            }
+        }
+        if (replaceId != null) {
+            data.checkpoints.removeIf(c -> c.id.equals(replaceId));
+            CheckpointSnapshotter.deleteSnapshot(server, replaceId);
         }
         Checkpoint created = new Checkpoint(UUID.randomUUID(), player.getUUID(), player.level().dimension(),
                 bedPos.immutable(), now);
         data.checkpoints.add(created);
+        data.lastSaveTick = now;
         data.setDirty();
         CheckpointSnapshotter.takeSnapshotAsync(server, created.id);
         setPreferred(player, created.id); // el que acabas de crear pasa a ser tu preferido
         player.displayClientMessage(Component.literal(
-                "Nuevo punto de guardado. Guardando una copia del mundo... Tus camas anteriores dejan de servir en 1 día.")
-                .withStyle(ChatFormatting.GOLD), false);
+                (replaceId != null ? "Punto de guardado sobrescrito." : "Nuevo punto de guardado.")
+                        + " Guardando una copia del mundo...").withStyle(ChatFormatting.GOLD), false);
+    }
+
+    private static String describeTicks(long ticks) {
+        long seconds = ticks / 20;
+        return (seconds / 60) + " min " + (seconds % 60) + " s";
     }
 
     @SubscribeEvent

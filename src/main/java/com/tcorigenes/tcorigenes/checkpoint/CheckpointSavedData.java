@@ -16,6 +16,10 @@ public final class CheckpointSavedData extends SavedData {
     final List<Checkpoint> checkpoints = new ArrayList<>();
     /** Ya se tomo el save inicial automatico de este mundo (ver CheckpointManager#onLogin). */
     boolean initialSnapshotTaken = false;
+    /** Tick (overworld) del ultimo save de cama creado: cooldown de 1 dia entre saves. Long.MIN_VALUE = ninguno. */
+    long lastSaveTick = Long.MIN_VALUE;
+    /** Camas recien colocadas ("dim|pos" -> tick): hay que esperar 1 dia para poder guardar en ellas. */
+    final java.util.Map<String, Long> bedPlacedAt = new java.util.HashMap<>();
 
     public static CheckpointSavedData get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(CheckpointSavedData::load, CheckpointSavedData::new, KEY);
@@ -28,6 +32,13 @@ public final class CheckpointSavedData extends SavedData {
             data.checkpoints.add(Checkpoint.load(list.getCompound(i)));
         }
         data.initialSnapshotTaken = tag.getBoolean("initial_snapshot");
+        if (tag.contains("last_save")) {
+            data.lastSaveTick = tag.getLong("last_save");
+        }
+        ListTag beds = tag.getList("beds", Tag.TAG_COMPOUND);
+        for (int i = 0; i < beds.size(); i++) {
+            data.bedPlacedAt.put(beds.getCompound(i).getString("k"), beds.getCompound(i).getLong("t"));
+        }
         return data;
     }
 
@@ -39,6 +50,17 @@ public final class CheckpointSavedData extends SavedData {
         }
         tag.put("checkpoints", list);
         tag.putBoolean("initial_snapshot", this.initialSnapshotTaken);
+        if (this.lastSaveTick != Long.MIN_VALUE) {
+            tag.putLong("last_save", this.lastSaveTick);
+        }
+        ListTag beds = new ListTag();
+        this.bedPlacedAt.forEach((k, t) -> {
+            CompoundTag entry = new CompoundTag();
+            entry.putString("k", k);
+            entry.putLong("t", t);
+            beds.add(entry);
+        });
+        tag.put("beds", beds);
         return tag;
     }
 }

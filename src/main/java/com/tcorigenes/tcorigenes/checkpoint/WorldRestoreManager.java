@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import org.apache.logging.log4j.LogManager;
@@ -50,6 +51,22 @@ public final class WorldRestoreManager {
         countdown = -1;
     }
 
+    /** Singleplayer, al "Guardar y salir": el guardado del mundo va ademas a una carpeta oculta
+     *  (autosave_salida, fuera de la lista de saves del juego) y, si no hay ningun save de cama, el
+     *  mundo vuelve al save inicial para que la proxima entrada sea desde ahi. Con saves de cama no se
+     *  toca nada mas: al entrar se elige uno (ver CheckpointManager#onLogin). */
+    @SubscribeEvent
+    public static void onServerStopping(ServerStoppingEvent event) {
+        MinecraftServer server = event.getServer();
+        if (!server.isSingleplayer() || server.getServerDirectory().toPath().resolve(MARKER_FILE).toFile().exists()) {
+            return;
+        }
+        Path initial = CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID);
+        boolean noBeds = CheckpointManager.active(server).isEmpty();
+        writeMarker(server, server.getWorldPath(LevelResource.ROOT),
+                noBeds && Files.isDirectory(initial) ? initial : null, CheckpointSnapshotter.autosavePath(server), false);
+    }
+
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) {
@@ -80,38 +97,28 @@ public final class WorldRestoreManager {
     }
 
     private static void triggerWipe(MinecraftServer server) {
-        Checkpoint target = CheckpointManager.active(server).stream().findFirst().orElse(null);
-        if (target == null && !server.isDedicatedServer()
-                && Files.isDirectory(CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID))) {
-            // Sin ningun save de cama se vuelve al save inicial automatico (la primera vez que se entro al mundo).
-            beginRestore(server, CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID),
-                    "El grupo cayó entero sin haber guardado en ninguna cama: el mundo vuelve al principio en 5 segundos. "
-                            + "Se pierde todo el progreso.");
-            return;
-        }
-        if (target == null && !server.isDedicatedServer()) {
-            // Sin ningun save de cama no hay a donde volver: el mundo se regenera de cero con la misma
-            // seed y se pierde todo el progreso (ver ClientWorldRestore#regenerate).
-            beginRestore(server, (Path) null, "El grupo cayó entero y no había ningún punto de guardado en una cama: "
-                    + "el mundo se regenera desde cero con la misma seed en 5 segundos. Se pierde todo el progreso.");
-            return;
-        }
-        if (target == null) {
+        if (server.isDedicatedServer()) {
             server.getPlayerList().broadcastSystemMessage(Component.literal(
-                    "El grupo cayó entero, pero todavía no hay ningún punto de guardado (coloca una cama). "
-                            + "Alguien va a tener que reviviros a mano.").withStyle(ChatFormatting.DARK_RED), false);
+                    "El grupo cayó entero. Alguien va a tener que reviviros a mano.").withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
-        Path worldRoot = server.getWorldPath(LevelResource.ROOT);
-        Path snapshot = CheckpointSnapshotter.snapshotPathFor(server, target.id);
-        if (!Files.isDirectory(snapshot)) {
+        if (!CheckpointManager.active(server).isEmpty()) {
+            // Con saves de cama solo se los saca al menu: al volver a entrar se elige uno de la lista.
+            restoring = true;
+            countdown = COUNTDOWN_TICKS;
             server.getPlayerList().broadcastSystemMessage(Component.literal(
-                    "El grupo cayó entero, pero la copia de ese punto de guardado todavía no está lista. "
-                            + "Alguien va a tener que reviviros a mano.").withStyle(ChatFormatting.DARK_RED), false);
+                    "El grupo cayó entero: en 5 segundos volvés al menú. Al entrar de nuevo elegí uno de tus saves de cama.")
+                    .withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
-        beginRestore(server, target, "El grupo cayó entero. El mundo va a volver al último punto de guardado en 5 segundos: "
-                + "se corta la partida solo, se restaura y podés volver a entrar.");
+        Path initial = CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID);
+        if (Files.isDirectory(initial)) {
+            beginRestore(server, initial, "El grupo cayó entero sin haber guardado en ninguna cama: "
+                    + "en 5 segundos volvés al menú y el mundo vuelve al principio. Se pierde todo el progreso.");
+            return;
+        }
+        beginRestore(server, (Path) null, "El grupo cayó entero y no había ningún save: "
+                + "el mundo se regenera desde cero con la misma seed en 5 segundos.");
     }
 
     /** Pedido de cargar un punto de guardado (caida de grupo, o elegido a mano al entrar al mundo):
@@ -128,20 +135,26 @@ public final class WorldRestoreManager {
         if (snapshot != null && !Files.isDirectory(snapshot)) {
             return false;
         }
-        writeMarker(server, server.getWorldPath(LevelResource.ROOT), snapshot);
+        writeMarker(server, server.getWorldPath(LevelResource.ROOT), snapshot, null, snapshot == null);
         restoring = true;
         countdown = COUNTDOWN_TICKS;
         server.getPlayerList().broadcastSystemMessage(Component.literal(message).withStyle(ChatFormatting.DARK_RED), false);
         return true;
     }
 
-    private static void writeMarker(MinecraftServer server, Path worldRoot, Path snapshot) {
+    private static void writeMarker(MinecraftServer server, Path worldRoot, Path snapshot, Path backup, boolean regenerate) {
         Path marker = server.getServerDirectory().toPath().resolve(MARKER_FILE);
-        // snapshot == null: regenerar el mundo desde cero con la misma seed (sin ningun save de cama).
-        String content = "world_root=" + worldRoot.toAbsolutePath() + System.lineSeparator()
-                + (snapshot == null ? "regenerate=true" : "snapshot=" + snapshot.toAbsolutePath()) + System.lineSeparator();
+        StringBuilder content = new StringBuilder("world_root=" + worldRoot.toAbsolutePath() + System.lineSeparator());
+        if (backup != null) {
+            content.append("backup=").append(backup.toAbsolutePath()).append(System.lineSeparator());
+        }
+        if (snapshot != null) {
+            content.append("snapshot=").append(snapshot.toAbsolutePath()).append(System.lineSeparator());
+        } else if (regenerate) {
+            content.append("regenerate=true").append(System.lineSeparator());
+        }
         try {
-            Files.writeString(marker, content, StandardCharsets.UTF_8);
+            Files.writeString(marker, content.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             LOGGER.error("[tcorigenes] No se pudo escribir el marcador de restauración", e);
         }

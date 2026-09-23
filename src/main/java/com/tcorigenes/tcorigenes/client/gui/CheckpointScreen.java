@@ -24,13 +24,15 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
     private final boolean loadMode;
 
     public CheckpointScreen(List<CheckpointEntry> entries, boolean loadMode) {
-        super(Component.literal(loadMode ? "Cargar Punto de Guardado" : "Punto de Guardado"), buildOptions(entries));
+        super(Component.literal(loadMode ? "Cargar Punto de Guardado" : "Punto de Guardado"), buildOptions(entries, loadMode));
         this.loadMode = loadMode;
     }
 
-    private static List<Option> buildOptions(List<CheckpointEntry> entries) {
+    private static List<Option> buildOptions(List<CheckpointEntry> entries, boolean loadMode) {
         List<Option> options = new ArrayList<>();
-        options.add(new Option(null));
+        if (!loadMode) {
+            options.add(new Option(null)); // "Guardar acá"; al cargar solo se ofrecen los saves de cama
+        }
         for (CheckpointEntry entry : entries) {
             options.add(new Option(entry));
         }
@@ -72,9 +74,7 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
                 Component.literal("Colocado por " + entry.ownerName() + "."),
                 Component.literal("Ubicación: " + entry.pos().toShortString() + " en " + entry.dimensionLabel() + "."),
                 Component.literal(this.loadMode ? "Elegilo para cargar el mundo tal como estaba cuando lo guardaste. Lo hecho después se pierde."
-                        : entry.preferred()
-                        ? "Ya es tu punto preferido: ahí reaparecés o te reviven."
-                        : "Elegilo para que sea tu punto preferido: ahí vas a reaparecer o te van a poder revivir.")
+                        : "Elegilo para SOBRESCRIBIRLO con esta cama y el mundo de ahora (reemplaza ese save).")
         );
     }
 
@@ -88,6 +88,6 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return true;
+        return !this.loadMode; // al entrar al mundo hay que elegir un save
     }
 }

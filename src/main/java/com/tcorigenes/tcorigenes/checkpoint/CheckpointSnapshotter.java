@@ -34,6 +34,11 @@ public final class CheckpointSnapshotter {
         return server.getServerDirectory().toPath().resolve(SNAPSHOTS_DIR_NAME);
     }
 
+    /** Copia oculta del mundo al "Guardar y salir" (no aparece en el juego ni en la lista de saves). */
+    public static Path autosavePath(MinecraftServer server) {
+        return snapshotsDir(server).resolve("autosave_salida");
+    }
+
     public static Path snapshotPathFor(MinecraftServer server, UUID checkpointId) {
         return snapshotsDir(server).resolve(checkpointId.toString());
     }
@@ -67,7 +72,7 @@ public final class CheckpointSnapshotter {
         copyTree(snapshot, worldRoot);
     }
 
-    private static void copyTree(Path source, Path dest) throws IOException {
+    public static void copyTree(Path source, Path dest) throws IOException {
         Files.createDirectories(dest);
         Files.walkFileTree(source, new SimpleFileVisitor<>() {
             @Override
