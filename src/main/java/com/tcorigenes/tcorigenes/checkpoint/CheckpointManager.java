@@ -3,7 +3,9 @@ package com.tcorigenes.tcorigenes.checkpoint;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -24,10 +26,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
  * Sistema de "puntos de guardado": el respawn ya no depende de la ultima cama en la que dormiste (eso se
  * ignora a proposito, ver README), sino de una lista COMPARTIDA de camas que los jugadores colocaron.
  * <p>
- * Colocar una cama la agrega a la lista como punto activo. Las camas anteriores DEL MISMO JUGADOR siguen
- * siendo validas durante 1 dia entero (24000 ticks) mas: recien despues de eso dejan de estar en la lista.
- * Romper la cama de un punto de guardado lo invalida al toque. Todo el mundo puede reaparecer/ser revivido
- * en CUALQUIER punto activo de la lista (no solo el propio), eligiendolo con {@code /respawnpoint}.
+ * El punto se crea cuando el jugador SE DUERME DE VERDAD en la cama (no al colocarla): asi no se puede
+ * generar puntos de guardado a lo loco solo llevando camas encima, hace falta que sea de noche/tormenta
+ * y sin monstruos cerca, como cualquier cama vanilla. Las camas anteriores DEL MISMO JUGADOR siguen siendo
+ * validas durante 1 dia entero (24000 ticks) mas: recien despues de eso dejan de estar en la lista. Romper
+ * la cama de un punto de guardado lo invalida al toque. Todo el mundo puede reaparecer/ser revivido en
+ * CUALQUIER punto activo de la lista (no solo el propio), eligiendolo con {@code /respawnpoint}.
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class CheckpointManager {
@@ -35,14 +39,39 @@ public final class CheckpointManager {
     private static final long GRACE_PERIOD_TICKS = 24000;
     private static final String PREFERRED_KEY = "tc_preferred_checkpoint";
 
+    /** Quien esta durmiendo AHORA MISMO (segun el ultimo tick chequeado), para detectar el momento
+     *  exacto en que empieza a dormir (isSleeping() pasa de false a true) sin duplicar el punto de
+     *  guardado en cada tick mientras sigue dormido. */
+    private static final Set<UUID> SLEEPING_NOW = new HashSet<>();
+
     private CheckpointManager() {
     }
 
+    /** Mismo motivo que WorldRestoreManager#onServerStarting: SLEEPING_NOW es estatico y sobrevive
+     *  a que el server se frene (el juego sigue vivo). Sin este reset, un jugador que quedara
+     *  marcado "durmiendo" justo cuando el mundo anterior se cerro podria no generar su primer
+     *  punto de guardado nuevo hasta despertarse y volver a dormir una segunda vez. */
     @SubscribeEvent
-    public static void onBedPlaced(BlockEvent.EntityPlaceEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player) || !event.getPlacedBlock().is(BlockTags.BEDS)) {
+    public static void onServerStarting(net.minecraftforge.event.server.ServerStartingEvent event) {
+        SLEEPING_NOW.clear();
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)) {
             return;
         }
+        boolean sleepingNow = player.isSleeping();
+        boolean wasSleeping = SLEEPING_NOW.contains(player.getUUID());
+        if (sleepingNow && !wasSleeping) {
+            SLEEPING_NOW.add(player.getUUID());
+            player.getSleepingPos().ifPresent(pos -> createCheckpoint(player, pos));
+        } else if (!sleepingNow && wasSleeping) {
+            SLEEPING_NOW.remove(player.getUUID());
+        }
+    }
+
+    private static void createCheckpoint(ServerPlayer player, BlockPos bedPos) {
         MinecraftServer server = player.getServer();
         if (server == null) {
             return;
@@ -55,7 +84,7 @@ public final class CheckpointManager {
             }
         }
         Checkpoint created = new Checkpoint(UUID.randomUUID(), player.getUUID(), player.level().dimension(),
-                event.getPos().immutable(), now);
+                bedPos.immutable(), now);
         data.checkpoints.add(created);
         data.setDirty();
         CheckpointSnapshotter.takeSnapshotAsync(server, created.id);

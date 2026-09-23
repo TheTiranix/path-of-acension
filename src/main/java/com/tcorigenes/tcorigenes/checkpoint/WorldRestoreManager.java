@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +36,18 @@ public final class WorldRestoreManager {
     private static int countdown = -1;
 
     private WorldRestoreManager() {
+    }
+
+    /** "restoring"/"countdown" son estaticos: sobreviven a que el server se frene, porque el juego
+     *  (y el classloader) sigue vivo hasta que cierran del todo el proceso. Sin este reset, apenas
+     *  se restauraba un wipe UNA vez quedaba "restoring=true" para siempre y el sistema dejaba de
+     *  detectar cualquier caida de grupo siguiente, en ese mismo mundo o en cualquier otro que se
+     *  abriera despues. Arrancar un server nuevo (entrar a CUALQUIER mundo) es el momento correcto
+     *  para garantizar que arranca limpio. */
+    @SubscribeEvent
+    public static void onServerStarting(ServerStartingEvent event) {
+        restoring = false;
+        countdown = -1;
     }
 
     @SubscribeEvent
