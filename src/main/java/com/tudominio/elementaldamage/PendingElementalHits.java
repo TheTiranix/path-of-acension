@@ -40,19 +40,33 @@ public final class PendingElementalHits {
         QUEUE.add(new PendingHit(target, attacker, element, amount, fireAtTick));
     }
 
-    /** Llamar todos los ticks: la cola normalmente esta vacia o tiene un par de items nomas. */
+    /** Llamar todos los ticks: la cola normalmente esta vacia o tiene un par de items nomas.
+     *  Primero saca de la cola los que ya vencieron y RECIEN DESPUES les aplica el daño: si se
+     *  aplicara adentro del while de arriba, un ElementalDamageSource.hurt que encadenara otro
+     *  queue() (por ejemplo un mob que responde el golpe con otro ataque elemental) modificaria
+     *  QUEUE en medio de la misma iteracion y tiraba ConcurrentModificationException. */
     public static void tick(long currentGameTime) {
         if (QUEUE.isEmpty()) {
             return;
         }
+        List<PendingHit> due = null;
         Iterator<PendingHit> it = QUEUE.iterator();
         while (it.hasNext()) {
             PendingHit hit = it.next();
             if (currentGameTime >= hit.fireAtTick()) {
                 it.remove();
-                if (hit.target().isAlive() && hit.attacker().isAlive()) {
-                    ElementalDamageSource.hurt(hit.target(), hit.element(), hit.attacker(), hit.amount());
+                if (due == null) {
+                    due = new ArrayList<>();
                 }
+                due.add(hit);
+            }
+        }
+        if (due == null) {
+            return;
+        }
+        for (PendingHit hit : due) {
+            if (hit.target().isAlive() && hit.attacker().isAlive()) {
+                ElementalDamageSource.hurt(hit.target(), hit.element(), hit.attacker(), hit.amount());
             }
         }
     }

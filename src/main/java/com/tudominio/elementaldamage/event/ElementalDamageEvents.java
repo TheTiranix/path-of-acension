@@ -146,6 +146,7 @@ public class ElementalDamageEvents {
             // si es un jugador, su raza puede sumar/convertir daño elemental (ver RacialElemental).
             if (attacker instanceof Player racialAttacker) {
                 com.tcorigenes.tcorigenes.core.RacialElemental.apply(event, racialAttacker);
+                com.tcorigenes.tcorigenes.core.WeaponElemental.apply(event, racialAttacker);
             }
             MobElementalAttackHandler.applyExtraElementalDamage(target, event.getSource(), baseDamage);
         }
