@@ -21,6 +21,8 @@ public final class Checkpoint {
     public final long placedAtTick;
     /** Tick en el que deja de ser valido (lo reemplazo una cama nueva del mismo dueño hace 1 dia); -1 = nunca. */
     long supersededAtTick = -1;
+    /** false = la cama de este save ya no sirve como punto de reaparicion (el jugador puso otra), pero el save sigue en la lista y se puede cargar. */
+    boolean respawnEnabled = true;
 
     Checkpoint(UUID id, UUID owner, ResourceKey<Level> dimension, BlockPos pos, long placedAtTick) {
         this.id = id;
@@ -41,6 +43,7 @@ public final class Checkpoint {
         tag.putLong("pos", this.pos.asLong());
         tag.putLong("placedAt", this.placedAtTick);
         tag.putLong("supersededAt", this.supersededAtTick);
+        tag.putBoolean("respawn", this.respawnEnabled);
         return tag;
     }
 
@@ -51,6 +54,7 @@ public final class Checkpoint {
         Checkpoint checkpoint = new Checkpoint(tag.getUUID("id"), tag.getUUID("owner"), dimension,
                 BlockPos.of(tag.getLong("pos")), tag.getLong("placedAt"));
         checkpoint.supersededAtTick = tag.contains("supersededAt") ? tag.getLong("supersededAt") : -1;
+        checkpoint.respawnEnabled = !tag.contains("respawn") || tag.getBoolean("respawn");
         return checkpoint;
     }
 }
