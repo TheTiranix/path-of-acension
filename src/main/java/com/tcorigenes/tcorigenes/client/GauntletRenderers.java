@@ -1,0 +1,67 @@
+// Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
+package com.tcorigenes.tcorigenes.client;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+import top.theillusivec4.curios.api.client.ICurioRenderer;
+
+/**
+ * Dibuja los guanteletes equipados en las manos del personaje, proporcionados al brazo (el item a escala chica
+ * pegado a la mano; el slot 0 es la mano derecha y el 1 la izquierda).
+ */
+@EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+public final class GauntletRenderers {
+    public static final String[] ITEMS = {"cataclysm:gauntlet_of_guard", "cataclysm:gauntlet_of_bulwark",
+            "cataclysm:gauntlet_of_maelstrom", "mutantmonsters:endersoul_hand", "mowziesmobs:earthrend_gauntlet",
+            "cataclysm:tidal_claws"};
+
+    private GauntletRenderers() {
+    }
+
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        for (String id : ITEMS) {
+            var item = ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(id));
+            if (item != null) {
+                CuriosRendererRegistry.register(item, HandRenderer::new);
+            }
+        }
+    }
+
+    private static final class HandRenderer implements ICurioRenderer {
+        @Override
+        public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext,
+                PoseStack poseStack, RenderLayerParent<T, M> parent, MultiBufferSource buffer, int light,
+                float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+            if (!(parent.getModel() instanceof HumanoidModel<?> model)) {
+                return;
+            }
+            boolean right = slotContext.index() % 2 == 0;
+            poseStack.pushPose();
+            (right ? model.rightArm : model.leftArm).translateAndRotate(poseStack);
+            poseStack.translate(right ? -0.06 : 0.06, 0.6, 0.0); // punta del brazo (mano)
+            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
+            poseStack.scale(0.55F, 0.55F, 0.55F);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light,
+                    OverlayTexture.NO_OVERLAY, poseStack, buffer, slotContext.entity().level(), 0);
+            poseStack.popPose();
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "vtaw_mw:item/halberd",
+  "textures": {
+    "layer0": "testamentodelacarne:item/black_steel_halberd"
+  }
+}

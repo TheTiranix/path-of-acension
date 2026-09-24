@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "testamentodelacarne:item/gravitite_spear_held"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "testamentodelacarne:item/gravitite_spear_gui"
+    },
+    "ground": {
+      "parent": "testamentodelacarne:item/gravitite_spear_gui"
+    },
+    "fixed": {
+      "parent": "testamentodelacarne:item/gravitite_spear_gui"
+    }
+  }
+}

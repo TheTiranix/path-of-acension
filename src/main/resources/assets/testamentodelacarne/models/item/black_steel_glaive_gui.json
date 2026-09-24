@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "testamentodelacarne:item/black_steel_glaive"
+  }
+}

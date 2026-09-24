@@ -68,6 +68,33 @@ public final class WeaponDamageOverrides {
         return total;
     }
 
+    /** Daño normal total final (ya rebalanceado) de un item de mano principal, sin necesitar el evento. */
+    public static double finalDamage(ResourceLocation id) {
+        WeaponBalance.Spec spec = WeaponBalance.spec(id);
+        if (spec != null && spec.damage != null) {
+            return spec.damage;
+        }
+        if (spec != null && spec.damageLike != null) {
+            return originalTotal(spec.damageLike, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);
+        }
+        double original = originalTotal(id, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);
+        WeaponBalance.Family family = familyOf(id);
+        if (Double.isNaN(original)) {
+            return 6.0;
+        }
+        return family != null ? original * familyFactor(family) : original;
+    }
+
+    /** Velocidad de ataque total final de un item de mano principal. */
+    public static double finalSpeed(ResourceLocation id) {
+        WeaponBalance.Spec spec = WeaponBalance.spec(id);
+        if (spec != null && spec.speed != null) {
+            return spec.speed;
+        }
+        double original = originalTotal(id, Attributes.ATTACK_SPEED, BASE_SPEED, EquipmentSlot.MAINHAND);
+        return Double.isNaN(original) ? 1.6 : original;
+    }
+
     private static Double familyFactor(WeaponBalance.Family family) {
         return FACTOR_CACHE.computeIfAbsent(family.ref(), ref -> {
             double original = originalTotal(ref, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);

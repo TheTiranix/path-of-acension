@@ -125,6 +125,7 @@ public class ModItems {
             "prisma_convertidor", () -> new ElementalConverterItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static void register(IEventBus eventBus) {
+        MaterialWeapons.registerAll(ITEMS);
         ITEMS.register(eventBus);
     }
 }

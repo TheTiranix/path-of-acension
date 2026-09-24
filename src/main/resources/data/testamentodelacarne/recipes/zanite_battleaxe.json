@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM ",
+    "MSM",
+    " S "
+  ],
+  "key": {
+    "M": {
+      "item": "aether:zanite_gemstone"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:zanite_battleaxe"
+  }
+}

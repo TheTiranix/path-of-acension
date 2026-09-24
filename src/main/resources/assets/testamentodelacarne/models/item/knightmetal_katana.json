@@ -1,0 +1,6 @@
+{
+  "parent": "vtaw_mw:item/katana",
+  "textures": {
+    "layer0": "testamentodelacarne:item/knightmetal_katana"
+  }
+}
