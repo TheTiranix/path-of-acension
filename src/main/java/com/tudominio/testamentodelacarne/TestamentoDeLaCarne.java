@@ -60,6 +60,7 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_2.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_3.get());
                         output.accept((ItemLike) ModItems.DARK_METAL_PICKAXE.get());
+                        output.accept((ItemLike) ModItems.PRISMA_CONVERTIDOR.get());
                         // Armas de otros mods que no aparecian en el creativo.
                         for (String extra : new String[] {"cataclysm:zweiender", "cataclysm:final_fractal"}) {
                             var item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(

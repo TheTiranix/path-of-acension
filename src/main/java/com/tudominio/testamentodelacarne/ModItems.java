@@ -121,6 +121,9 @@ public class ModItems {
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));
 
+    public static final RegistryObject<Item> PRISMA_CONVERTIDOR = ITEMS.register(
+            "prisma_convertidor", () -> new ElementalConverterItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

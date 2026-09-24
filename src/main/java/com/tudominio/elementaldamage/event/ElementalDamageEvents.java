@@ -129,6 +129,7 @@ public class ElementalDamageEvents {
         // --- Set completo de armadura (Neptune/Phoenix/Valkyrie): +20% al daño de su elemento ---
         if (elementKey != null && attacker instanceof Player setWearer) {
             double setMultiplier = com.tcorigenes.tcorigenes.weapon.ArmorSetBonus.multiplier(setWearer, elementKey);
+            // (el elemento del set solo se amplifica si es el que le funciona al jugador, ver ElementalRestriction)
             if (setMultiplier != 1.0) {
                 event.setAmount((float) (event.getAmount() * setMultiplier));
             }

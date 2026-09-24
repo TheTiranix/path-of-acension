@@ -186,8 +186,7 @@ public class RaceAttributeManager {
     /** Regeneracion II permanente para el Malnacido purificado. Se re-llama en login/respawn
      *  porque los MobEffectInstance (a diferencia de los atributos) no persisten solos. */
     public static void applyPurifiedEffects(Player player) {
-        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                net.minecraft.world.effect.MobEffects.REGENERATION, Integer.MAX_VALUE, 1, true, false, false));
+        // La regeneracion ya no es un MobEffect (ver ModEvents, tick del Malnacido purificado).
     }
 
     private static void removeIfPresent(AttributeInstance instance, UUID id) {

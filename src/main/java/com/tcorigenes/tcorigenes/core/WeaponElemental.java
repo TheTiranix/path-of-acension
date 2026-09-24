@@ -49,9 +49,18 @@ public final class WeaponElemental {
             return;
         }
         LivingEntity target = event.getEntity();
+        ResourceKey<DamageType> converted = ElementalRestriction.converterElement(attacker);
+        ResourceKey<DamageType> active = ElementalRestriction.activeElement(attacker, spec);
 
         if (spec.cycle != null && !spec.cycle.isEmpty()) {
             ResourceKey<DamageType> slot = nextSlot(attacker, id, spec.cycle);
+            if (slot != null) {
+                if (converted != null) {
+                    slot = converted; // el Prisma Convertidor manda
+                } else if (!slot.equals(active)) {
+                    slot = null; // elemento que no le funciona a este jugador: el golpe queda normal
+                }
+            }
             if (slot != null) {
                 float total = event.getAmount();
                 event.setCanceled(true); // este golpe entero pasa a ser el elemental, no se suma aparte
@@ -60,7 +69,11 @@ public final class WeaponElemental {
             }
         }
         for (WeaponBalance.Extra extra : spec.extras) {
-            extra(target, attacker, extra.element(), extra.amount());
+            if (converted != null) {
+                extra(target, attacker, converted, extra.amount());
+            } else if (extra.element().equals(active)) {
+                extra(target, attacker, extra.element(), extra.amount());
+            } // cualquier otro elemento del equipo directamente no funciona (ver ElementalRestriction)
         }
     }
 

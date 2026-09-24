@@ -144,6 +144,10 @@ public class SkillTreeScreen extends Screen {
             confirmButton.visible = false;
             cancelButton.visible = false;
             super.render(g, mouseX, mouseY, partialTick);
+            java.util.List<Component> emptyStatTip = PlayerStatsPanel.render(g, this.font, mouseX, mouseY, 8, 50);
+            if (emptyStatTip != null) {
+                g.renderComponentTooltip(this.font, emptyStatTip, mouseX, mouseY);
+            }
             return;
         }
 
@@ -187,8 +191,11 @@ public class SkillTreeScreen extends Screen {
 
         SkillNode hovered = hoveredNode(mouseX, mouseY);
         super.render(g, mouseX, mouseY, partialTick);
+        java.util.List<Component> statTip = PlayerStatsPanel.render(g, this.font, mouseX, mouseY, 8, 50);
         if (hovered != null) {
             g.renderComponentTooltip(this.font, tooltipFor(hovered), mouseX, mouseY);
+        } else if (statTip != null) {
+            g.renderComponentTooltip(this.font, statTip, mouseX, mouseY);
         }
     }
 

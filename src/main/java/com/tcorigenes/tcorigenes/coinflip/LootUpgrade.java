@@ -41,7 +41,7 @@ public final class LootUpgrade {
                         .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
                         .withLuck(LUCK + player.getLuck())
                         .create(LootContextParamSets.CHEST);
-                int candidates = 4 + random.nextInt(5);
+                int candidates = 6 + random.nextInt(5); // mas tiradas = algo mejor calidad
                 double bestScore = -1;
                 for (int i = 0; i < candidates; i++) {
                     List<ItemStack> roll = new ArrayList<>(lootTable.getRandomItems(params));
@@ -61,7 +61,21 @@ public final class LootUpgrade {
             }
         }
         bless(best, random, !fromTable);
+        boostQuantities(best, random);
         return best;
+    }
+
+    /** Cantidades +50% en promedio pero irregular: cada pila apilable se multiplica x0 (15%), x1 (35%), x2 (35%) o x3 (15%). */
+    private static void boostQuantities(List<ItemStack> items, RandomSource random) {
+        for (ItemStack stack : items) {
+            if (stack.isEmpty() || stack.getMaxStackSize() <= 1) {
+                continue; // equipo y objetos unicos no se tocan
+            }
+            double roll = random.nextDouble();
+            int multiplier = roll < 0.15 ? 0 : roll < 0.50 ? 1 : roll < 0.85 ? 2 : 3;
+            stack.setCount(Math.min(stack.getMaxStackSize(), stack.getCount() * multiplier));
+        }
+        items.removeIf(ItemStack::isEmpty);
     }
 
     private static double score(List<ItemStack> items) {

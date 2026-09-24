@@ -102,10 +102,23 @@ public class ModEvents {
                 handleSiervoDeLaLunaTick(player);
             }
 
+            // Malnacido purificado: regeneracion II permanente, sin MobEffect (1 de vida cada 25 ticks).
+            if (playerRace == Race.MALNACIDO && player.getPersistentData().getBoolean("malnacido_purificado")) {
+                MobEffectInstance oldRegen = player.getEffect(MobEffects.REGENERATION);
+                if (oldRegen != null && oldRegen.getDuration() > 100000) {
+                    player.removeEffect(MobEffects.REGENERATION); // el efecto infinito de versiones anteriores
+                }
+                if (player.tickCount % 25 == 0 && player.getHealth() < player.getMaxHealth()) {
+                    player.heal(1.0F);
+                }
+            }
+
             if (playerRace == Race.ANGEL) {
                 // Planeo simplificado: si esta cayendo y no esta en el suelo, aplica Caida Lenta.
+                // (sin MobEffect: los efectos raciales ya no aparecen como efectos de pocion; la desaceleracion
+                // real corre en el cliente, ver client.RacialPassivesClient, y aca se anula el daño por caida)
                 if (!player.onGround() && player.getDeltaMovement().y < -0.05 && !player.getAbilities().flying) {
-                    player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 0, true, false, false));
+                    player.fallDistance = 0.0F;
                 }
             }
 
@@ -118,7 +131,8 @@ public class ModEvents {
             if (playerRace == Race.ENDER_WARRIOR) {
                 boolean wearingEscafandra = player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ESCAFANDRA.get());
                 if (wearingEscafandra) {
-                    player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 220, 0, true, false, false));
+                    // Respirar bajo el agua sin MobEffect (no aparece como efecto de pocion).
+                    player.setAirSupply(player.getMaxAirSupply());
                 }
                 // Para nadar sin daño hace falta el combo completo: escafandra + pechera + pantalon +
                 // botas + guantes (guante izquierdo Y derecho en "hands" de Curios, o el slot de guantes

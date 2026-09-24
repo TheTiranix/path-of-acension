@@ -176,8 +176,39 @@ public final class CoinflipManager {
     }
 
     // ------------------------------------------------------------ apertura
+    /** Mientras hay una moneda en el aire el mundo queda "en pausa" para todos: nadie (jugadores ni mobs) hace tick,
+     *  y se frenan el ciclo de dia y el clima. (El tiempo del server sigue corriendo porque la moneda lo usa.) */
+    private static boolean worldPaused = false;
+    private static boolean savedDaylight;
+    private static boolean savedWeather;
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onLivingTick(net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent event) {
+        if (!PENDING.isEmpty() && !event.getEntity().level().isClientSide()) {
+            event.setCanceled(true);
+        }
+    }
+
+    private static void updatePause(net.minecraft.server.MinecraftServer server) {
+        boolean shouldPause = !PENDING.isEmpty();
+        if (shouldPause && !worldPaused) {
+            worldPaused = true;
+            savedDaylight = server.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_DAYLIGHT);
+            savedWeather = server.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_WEATHER_CYCLE);
+            server.getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_DAYLIGHT).set(false, server);
+            server.getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_WEATHER_CYCLE).set(false, server);
+        } else if (!shouldPause && worldPaused) {
+            worldPaused = false;
+            server.getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_DAYLIGHT).set(savedDaylight, server);
+            server.getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_WEATHER_CYCLE).set(savedWeather, server);
+        }
+    }
+
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            updatePause(event.getServer());
+        }
         if (event.phase != TickEvent.Phase.END || PENDING.isEmpty()) {
             return;
         }
