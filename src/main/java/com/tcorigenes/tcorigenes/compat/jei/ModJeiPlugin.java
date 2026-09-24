@@ -54,6 +54,17 @@ public class ModJeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         runtime = jeiRuntime;
+        // Armas eliminadas del pack (ver RemovedItems): fuera de JEI.
+        List<ItemStack> hidden = new ArrayList<>();
+        for (ResourceLocation id : com.tcorigenes.tcorigenes.weapon.RemovedItems.IDS) {
+            Item item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(id);
+            if (item != null && item != Items.AIR) {
+                hidden.add(new ItemStack(item));
+            }
+        }
+        if (!hidden.isEmpty()) {
+            jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(mezz.jei.api.constants.VanillaTypes.ITEM_STACK, hidden);
+        }
     }
 
     @Override

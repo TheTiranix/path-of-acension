@@ -35,6 +35,8 @@ public final class WeaponRules {
     /** Tope duro del Ritualista sin matrimonio (v2-1): mas alto que el umbral de penalizacion
      *  (WeaponWeights.THRESHOLD, 50) que usan el Arquero y el Ritualista ya casado. */
     private static final int RITUALISTA_HARD_CAP = 75;
+    /** Tope de destreza de todas las clases: si lo que llevas entre ambas manos lo supera, es inusable. */
+    private static final int GENERAL_HARD_CAP = 100;
     private static final UUID DAMAGE_ID = UUID.fromString("77aa0000-0001-4001-8001-000000000001");
     private static final UUID ATTACK_SPEED_ID = UUID.fromString("77aa0000-0002-4002-8002-000000000002");
     private static final UUID DRAW_SPEED_ID = UUID.fromString("77aa0000-0003-4003-8003-000000000003");
@@ -52,9 +54,12 @@ public final class WeaponRules {
     }
 
     /** Ritualista sin matrimonio y con mas de 75 de requerimiento: no puede usar lo que lleva. */
+    private static int hardCap(Player player) {
+        return classOf(player) == PlayerClass.RITUALISTA_ARCANO && !isMarried(player) ? RITUALISTA_HARD_CAP : GENERAL_HARD_CAP;
+    }
+
     private static boolean blockedByWeight(Player player) {
-        return classOf(player) == PlayerClass.RITUALISTA_ARCANO && !isMarried(player)
-                && WeaponWeights.totalWeight(player) > RITUALISTA_HARD_CAP;
+        return WeaponWeights.totalWeight(player) > hardCap(player);
     }
 
     /** Guerrero Anima con algo que no es su espada anima en la mano principal. */
@@ -71,8 +76,8 @@ public final class WeaponRules {
             return;
         }
         if (blockedByWeight(player)) {
-            player.displayClientMessage(Component.literal("Tu equipo pide más de " + RITUALISTA_HARD_CAP
-                    + " de destreza (" + WeaponWeights.totalWeight(player) + "). Consagrá el Matrimonio de Carne."), true);
+            player.displayClientMessage(Component.literal("Tu equipo pide más de " + hardCap(player)
+                    + " de destreza (" + WeaponWeights.totalWeight(player) + "): es inusable."), true);
             event.setCanceled(true);
         } else if (blockedByAnimaRule(player)) {
             player.displayClientMessage(Component.literal("El Guerrero Ánima solo puede usar su espada ánima."), true);
@@ -91,7 +96,7 @@ public final class WeaponRules {
             player.displayClientMessage(Component.literal("El Guerrero Ánima no puede usar arcos ni ballestas."), true);
             event.setCanceled(true);
         } else if ((ranged || item instanceof ShieldItem) && blockedByWeight(player)) {
-            player.displayClientMessage(Component.literal("Tu equipo pide más de " + RITUALISTA_HARD_CAP + " de destreza."), true);
+            player.displayClientMessage(Component.literal("Tu equipo pide más de " + hardCap(player) + " de destreza."), true);
             event.setCanceled(true);
         }
     }

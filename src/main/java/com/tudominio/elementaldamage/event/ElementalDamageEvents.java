@@ -126,6 +126,14 @@ public class ElementalDamageEvents {
             }
         }
 
+        // --- Set completo de armadura (Neptune/Phoenix/Valkyrie): +20% al daño de su elemento ---
+        if (elementKey != null && attacker instanceof Player setWearer) {
+            double setMultiplier = com.tcorigenes.tcorigenes.weapon.ArmorSetBonus.multiplier(setWearer, elementKey);
+            if (setMultiplier != 1.0) {
+                event.setAmount((float) (event.getAmount() * setMultiplier));
+            }
+        }
+
         // --- Resistencia elemental de la victima (solo los 5 elementos con atributo de raza) ---
         if (elementKey != null && target instanceof Player) {
             var attributeSupplier = RESISTANCE_BY_TYPE.get(elementKey);
@@ -213,11 +221,14 @@ public class ElementalDamageEvents {
             ElementalStackManager.registerHit(target, element, baseDamage);
         } else if (element.equals(ModDamageTypes.EARTH)) {
             if (attacker != null) {
-                applyEarthStun(target, attacker, baseDamage);
+                // Efecto especial: se calcula con el daño de tierra de los ultimos 2 segundos (ver ElementalDamageWindow).
+                applyEarthStun(target, attacker, com.tudominio.elementaldamage.ElementalDamageWindow.record(
+                        attacker.getUUID(), target.getUUID(), element, baseDamage, target.level().getGameTime()));
             }
         } else if (element.equals(ModDamageTypes.AIR)) {
             if (attacker != null) {
-                applyAirLightning(target, attacker, baseDamage);
+                applyAirLightning(target, attacker, com.tudominio.elementaldamage.ElementalDamageWindow.record(
+                        attacker.getUUID(), target.getUUID(), element, baseDamage, target.level().getGameTime()));
             }
         }
     }

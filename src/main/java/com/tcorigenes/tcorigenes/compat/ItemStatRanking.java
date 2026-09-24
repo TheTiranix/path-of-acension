@@ -73,7 +73,7 @@ public final class ItemStatRanking {
             // modifiers; se aisla item por item para que uno roto no tire abajo toda la lista.
             try {
                 ItemStack stack = new ItemStack(item);
-                if (stack.isEmpty()) {
+                if (stack.isEmpty() || com.tcorigenes.tcorigenes.weapon.RemovedItems.isRemoved(stack)) {
                     continue;
                 }
                 float dmg = sumModifiers(stack, EquipmentSlot.MAINHAND, Attributes.ATTACK_DAMAGE);

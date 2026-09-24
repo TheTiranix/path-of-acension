@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "vtaw_mw:item/wooden_longsword"
+  }
+}

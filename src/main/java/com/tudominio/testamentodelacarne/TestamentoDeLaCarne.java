@@ -59,6 +59,15 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_1.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_2.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_DEMONIO_3.get());
+                        output.accept((ItemLike) ModItems.DARK_METAL_PICKAXE.get());
+                        // Armas de otros mods que no aparecian en el creativo.
+                        for (String extra : new String[] {"cataclysm:zweiender", "cataclysm:final_fractal"}) {
+                            var item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
+                                    net.minecraft.resources.ResourceLocation.tryParse(extra));
+                            if (item != null && item != net.minecraft.world.item.Items.AIR) {
+                                output.accept((ItemLike) item);
+                            }
+                        }
                     })
                     .build()
     );
@@ -74,6 +83,10 @@ public class TestamentoDeLaCarne {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(Networking::register);
+        event.enqueueWork(() -> net.minecraftforge.common.TierSortingRegistry.registerTier(
+                com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER,
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "dark_metal"),
+                java.util.List.of(net.minecraft.world.item.Tiers.NETHERITE), java.util.List.of()));
     }
 
     /**

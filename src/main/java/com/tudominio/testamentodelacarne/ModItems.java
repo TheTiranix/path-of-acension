@@ -117,6 +117,10 @@ public class ModItems {
     public static final RegistryObject<Item> ESPADA_ANIMA_DEMONIO_3 = ITEMS.register(
             "espada_anima_demonio_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
+            "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

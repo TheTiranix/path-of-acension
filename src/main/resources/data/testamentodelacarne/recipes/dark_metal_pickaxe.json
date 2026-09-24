@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    " D ",
+    " H "
+  ],
+  "key": {
+    "I": {
+      "item": "born_in_chaos_v1:dark_metal_ingot"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "H": {
+      "item": "born_in_chaos_v1:bone_handle"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:dark_metal_pickaxe"
+  }
+}

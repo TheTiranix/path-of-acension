@@ -26,6 +26,7 @@ public final class WeaponWeights {
     public static final int THRESHOLD = 50;
     private static final Pattern TWO_HANDED = Pattern.compile(
             "great.?sword|great.?axe|claymore|zweihander|battle.?axe|war.?hammer|hammer|scythe|halberd|glaive|colossal|great.?blade|executioner");
+    private static final Pattern STAFF = Pattern.compile("staff");
     private static final Pattern LARGE_SHIELD = Pattern.compile("tower|great|large|heavy|kite");
 
     private WeaponWeights() {
@@ -47,6 +48,11 @@ public final class WeaponWeights {
     }
 
     public static boolean isTwoHanded(ItemStack stack) {
+        var id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        com.tcorigenes.tcorigenes.weapon.WeaponBalance.Spec spec = id == null ? null : com.tcorigenes.tcorigenes.weapon.WeaponBalance.spec(id);
+        if (spec != null && spec.twoHanded != null) {
+            return spec.twoHanded;
+        }
         return TWO_HANDED.matcher(path(stack)).find();
     }
 
@@ -68,14 +74,26 @@ public final class WeaponWeights {
         if (item instanceof DiggerItem && !(item instanceof AxeItem)) {
             return 0;
         }
-        double damage = attackDamage(stack);
-        if (damage <= 0.0) {
+        var id = ForgeRegistries.ITEMS.getKey(item);
+        com.tcorigenes.tcorigenes.weapon.WeaponBalance.Spec spec = id == null ? null : com.tcorigenes.tcorigenes.weapon.WeaponBalance.spec(id);
+        if (spec != null && spec.dex != null) {
+            return spec.dex;
+        }
+        String path = path(stack);
+        // Bastones: el quarterstaff (arma) pide 25; los bastones magicos, 50.
+        if (path.contains("quarterstaff")) {
+            return 25;
+        }
+        if (STAFF.matcher(path).find()) {
+            return 50;
+        }
+        if (path.contains("dagger") || path.contains("longsword") || path.contains("saber")) {
+            return 25;
+        }
+        if (attackDamage(stack) <= 0.0) {
             return 0;
         }
-        if (isTwoHanded(stack)) {
-            return (int) Math.round(60 + damage);
-        }
-        return (int) Math.round(6 + 2.5 * damage);
+        return isTwoHanded(stack) ? 100 : 50;
     }
 
     public static boolean isAnimaSword(ItemStack stack) {
