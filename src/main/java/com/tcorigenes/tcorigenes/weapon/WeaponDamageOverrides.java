@@ -123,6 +123,9 @@ public final class WeaponDamageOverrides {
             return;
         }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
+        if (spec != null && spec.ranged) {
+            return; // el daño de un arco es por impacto del proyectil (ver WeaponElemental), no un atributo
+        }
         WeaponBalance.Family family = familyOf(id);
 
         // Daño normal total.
@@ -177,6 +180,24 @@ public final class WeaponDamageOverrides {
 
     /** Armaduras: proteccion igualada a otra pieza (diamante) o escalada por la relacion del dark metal. */
     private static void applyArmor(ItemAttributeModifierEvent event, ResourceLocation id) {
+        WeaponBalance.ArmorFixed fixed = WeaponBalance.ARMOR_FIXED.get(id);
+        if (fixed != null) {
+            Item reference = ForgeRegistries.ITEMS.getValue(fixed.uuidRef());
+            if (reference != null) {
+                event.removeAttribute(Attributes.ARMOR);
+                event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
+                for (var entry : reference.getDefaultAttributeModifiers(event.getSlotType()).entries()) {
+                    double amount = entry.getKey() == Attributes.ARMOR ? fixed.defense()
+                            : entry.getKey() == Attributes.ARMOR_TOUGHNESS ? fixed.toughness() : Double.NaN;
+                    if (!Double.isNaN(amount)) {
+                        // mismo UUID por ranura que la pieza de referencia (evita choques entre piezas equipadas)
+                        event.addModifier(entry.getKey(), new AttributeModifier(
+                                entry.getValue().getId(), entry.getValue().getName(), amount, AttributeModifier.Operation.ADDITION));
+                    }
+                }
+            }
+            return;
+        }
         ResourceLocation like = WeaponBalance.ARMOR_LIKE.get(id);
         if (like != null) {
             Item reference = ForgeRegistries.ITEMS.getValue(like);

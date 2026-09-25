@@ -31,6 +31,8 @@ public final class WeaponBalance {
         public Double reach;
         public boolean removeBlockReach;
         public Boolean twoHanded;
+        /** Arma de proyectiles (arco): el daño es por IMPACTO del proyectil, no un atributo de melee. */
+        public boolean ranged;
         public Integer dex;
         public final List<Extra> extras = new ArrayList<>();
         public List<ResourceKey<DamageType>> cycle;
@@ -57,6 +59,11 @@ public final class WeaponBalance {
 
         public Spec noBlockReach() {
             this.removeBlockReach = true;
+            return this;
+        }
+
+        public Spec shot() {
+            this.ranged = true;
             return this;
         }
 
@@ -105,6 +112,12 @@ public final class WeaponBalance {
     public static final Map<ResourceLocation, ResourceLocation> ARMOR_LIKE = new HashMap<>();
     /** Armaduras cuya proteccion se escala por un factor (dark metal: ver static block). */
     public static final Map<ResourceLocation, ResourceLocation> ARMOR_SCALE_REF = new HashMap<>();
+
+    /** Armaduras con proteccion, tenacidad y durabilidad propias (ref = pieza de diamante para reutilizar sus UUID). */
+    public record ArmorFixed(double defense, double toughness, int durability, ResourceLocation uuidRef) {
+    }
+
+    public static final Map<ResourceLocation, ArmorFixed> ARMOR_FIXED = new HashMap<>();
 
     static final ResourceKey<DamageType> N = null;
     static final ResourceKey<DamageType> LIGHT = ModDamageTypes.LIGHT;
@@ -185,6 +198,7 @@ public final class WeaponBalance {
         w("aether:vampire_blade").dmg(10).el(LIGHT, 4);
 
         // ------------------------------------------------------------- Celestisynth
+        w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);
         w("celestisynth:aquaflora").dmg(180000).cycle(WATER, N, N, N);
         w("celestisynth:breezebreaker").dmg(180000).speed(3).cycle(AIR, NATURAL, N, N);
         w("celestisynth:solaris").dmg(200000).speed(2.7).cycle(FIRE, LUNAR, N, N);
@@ -298,9 +312,18 @@ public final class WeaponBalance {
         // ------------------------------------------------------------------- armaduras
         String[] diamond = {"helmet", "chestplate", "leggings", "boots"};
         for (String piece : diamond) {
-            for (String set : new String[] {"aether:neptune_", "aether:valkyrie_", "aether:phoenix_", "aether:gravitite_",
+            for (String set : new String[] {"aether:neptune_", "aether:valkyrie_", "aether:phoenix_",
                     "twilightforest:knightmetal_", "twilightforest:steeleaf_"}) {
                 ARMOR_LIKE.put(rl(set + piece), rl("minecraft:diamond_" + piece));
+            }
+            double defense = switch (piece) {
+                case "helmet" -> 6;
+                case "chestplate" -> 12;
+                case "leggings" -> 9;
+                default -> 5;
+            };
+            for (String set : new String[] {"aether:gravitite_", "minecraft:netherite_"}) {
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 5, 1500, rl("minecraft:diamond_" + piece)));
             }
             ARMOR_SCALE_REF.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), rl("born_in_chaos_v1:sharpened_dark_metal_sword"));
         }

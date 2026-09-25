@@ -73,6 +73,10 @@ public final class WeaponStatTooltip {
             if (Boolean.TRUE.equals(spec.twoHanded)) {
                 lines.add(Component.literal("A dos manos").withStyle(ChatFormatting.GOLD));
             }
+            if (spec.ranged && spec.damage != null) {
+                lines.add(Component.literal("Daño por impacto: " + trim(spec.damage.floatValue()))
+                        .withStyle(ChatFormatting.RED));
+            }
             for (WeaponBalance.Extra extra : spec.extras) {
                 lines.add(Component.literal("+" + trim(extra.amount()) + " Daño de " + elementName(extra.element()))
                         .withStyle(elementColor(extra.element())));
@@ -82,7 +86,7 @@ public final class WeaponStatTooltip {
                 for (ResourceKey<DamageType> slot : spec.cycle) {
                     sb.append(sb.length() == 0 ? "" : " → ").append(elementName(slot));
                 }
-                lines.add(Component.literal("Ciclo de golpes: " + sb).withStyle(ChatFormatting.LIGHT_PURPLE));
+                lines.add(Component.literal((spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb).withStyle(ChatFormatting.LIGHT_PURPLE));
             }
         }
         for (var entry : ArmorSetBonus.SETS.entrySet()) {
