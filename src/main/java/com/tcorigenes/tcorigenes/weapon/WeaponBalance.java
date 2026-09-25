@@ -223,6 +223,9 @@ public final class WeaponBalance {
         w("cataclysm:coral_spear").dmg(4).el(WATER, 2.5);
         w("cataclysm:the_annihilator").dmg(350).el(LIGHT, 100).el(AIR, 50);
         w("cataclysm:the_immolator").dmg(350).el(FIRE, 100).el(LUNAR, 50);
+        w("mowziesmobs:earthrend_gauntlet").dmg(300).el(ENDER, 200);
+        w("cataclysm:gauntlet_of_bulwark").dmg(300).el(ENDER, 200);
+        w("cataclysm:gauntlet_of_guard").dmg(300).el(ENDER, 200);
         w("cataclysm:tidal_claws").dmg(350).el(WATER, 150);
         w("cataclysm:meat_shredder").dmg(600).reach(4).two().el(LUNAR, 350);
         w("cataclysm:ancient_spear").dmg(70);

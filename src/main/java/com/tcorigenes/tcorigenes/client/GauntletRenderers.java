@@ -23,14 +23,12 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 /**
- * Dibuja los guanteletes equipados en las manos del personaje, proporcionados al brazo (el item a escala chica,
+ * Dibuja los guanteletes equipables (hoy solo la Endersoul Hand) en las manos del personaje, proporcionados al brazo (el item a escala chica,
  * del ancho de la mano, pegado a la punta; el slot 0 es la mano derecha y el 1 la izquierda).
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public final class GauntletRenderers {
-    public static final String[] ITEMS = {"cataclysm:gauntlet_of_guard", "cataclysm:gauntlet_of_bulwark",
-            "cataclysm:gauntlet_of_maelstrom", "mutantmonsters:endersoul_hand", "mowziesmobs:earthrend_gauntlet",
-            "cataclysm:tidal_claws"};
+    public static final String[] ITEMS = {"mutantmonsters:endersoul_hand"};
 
     private GauntletRenderers() {
     }
