@@ -32,6 +32,8 @@ public final class WeaponElemental {
     private static final Map<ResourceLocation, ResourceLocation> SHOT_ENTITIES = Map.of(
             ResourceLocation.fromNamespaceAndPath("celestisynth", "rainfall_arrow"),
             ResourceLocation.fromNamespaceAndPath("celestisynth", "rainfall_serenity"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "phantom_arrow"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "cursed_bow"),
             ResourceLocation.fromNamespaceAndPath("cataclysm", "cursed_sandstorm"),
             ResourceLocation.fromNamespaceAndPath("cataclysm", "wrath_of_the_desert"));
     private static final String CYCLE_KEY = "tc_weapon_cycle";
@@ -63,6 +65,10 @@ public final class WeaponElemental {
         } else {
             ItemStack weapon = attacker.getMainHandItem();
             id = ForgeRegistries.ITEMS.getKey(weapon.getItem());
+            if (direct instanceof net.minecraft.world.entity.projectile.AbstractArrow && id != null) {
+                WeaponBalance.Spec bow = WeaponBalance.spec(id);
+                shot = bow != null && bow.ranged; // flecha comun disparada con un arco que tiene daño por impacto
+            }
         }
         WeaponBalance.Spec spec = id == null ? null : WeaponBalance.spec(id);
         if (spec == null || (spec.ranged && !shot)) {

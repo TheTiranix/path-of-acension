@@ -23,8 +23,8 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 /**
- * Dibuja los guanteletes equipados en las manos del personaje, proporcionados al brazo (el item a escala chica
- * pegado a la mano; el slot 0 es la mano derecha y el 1 la izquierda).
+ * Dibuja los guanteletes equipados en las manos del personaje, proporcionados al brazo (el item a escala chica,
+ * del ancho de la mano, pegado a la punta; el slot 0 es la mano derecha y el 1 la izquierda).
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public final class GauntletRenderers {
@@ -58,7 +58,9 @@ public final class GauntletRenderers {
             (right ? model.rightArm : model.leftArm).translateAndRotate(poseStack);
             poseStack.translate(right ? -0.06 : 0.06, 0.6, 0.0); // punta del brazo (mano)
             poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-            poseStack.scale(0.55F, 0.55F, 0.55F);
+            // el item mide 1 bloque de lado y el brazo 0.25: a esta escala queda del ancho de la mano y no sobresale
+            // por los costados de la manga
+            poseStack.scale(0.26F, 0.26F, 0.26F);
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light,
                     OverlayTexture.NO_OVERLAY, poseStack, buffer, slotContext.entity().level(), 0);
             poseStack.popPose();

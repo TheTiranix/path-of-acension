@@ -58,8 +58,8 @@ public final class MaterialWeapons {
 
     public static final List<RegistryObject<Item>> ALL = new ArrayList<>();
 
-    private static final UUID DAMAGE_UUID = UUID.fromString("c15a5a00-0011-4a55-8a00-000000000011");
-    private static final UUID SPEED_UUID = UUID.fromString("c15a5a00-0012-4a55-8a00-000000000012");
+    private static final UUID DAMAGE_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+    private static final UUID SPEED_UUID = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
 
     private MaterialWeapons() {
     }

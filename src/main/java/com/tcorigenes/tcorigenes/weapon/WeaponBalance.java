@@ -207,6 +207,7 @@ public final class WeaponBalance {
 
         // ------------------------------------------------------------- Celestisynth
         // Wrath of the Desert: 3 torbellinos por uso, cada uno con su elemento fijo.
+        w("cataclysm:cursed_bow").dmg(15000).shot();
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
         w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);
         w("celestisynth:aquaflora").dmg(180000).cycle(WATER, N, N, N);

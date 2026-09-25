@@ -29,8 +29,10 @@ public final class WeaponDamageOverrides {
     private static final double BASE_SPEED = 4.0;
     private static final double BASE_REACH = 3.0;
 
-    private static final UUID DAMAGE_UUID = UUID.fromString("c15a5a00-0001-4a55-8a00-000000000001");
-    private static final UUID SPEED_UUID = UUID.fromString("c15a5a00-0002-4a55-8a00-000000000002");
+    // mismos UUID que Item.BASE_ATTACK_DAMAGE/SPEED_UUID (protegidos): el tooltip de vanilla solo suma la base del
+    // jugador (1 de daño, 4 de velocidad) a los modifiers con ese UUID; con otro muestra "+19" y "-1.3"
+    private static final UUID DAMAGE_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+    private static final UUID SPEED_UUID = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
     private static final UUID REACH_UUID = UUID.fromString("c15a5a00-0003-4a55-8a00-000000000003");
 
     private static final Map<ResourceLocation, Double> FACTOR_CACHE = new HashMap<>();
