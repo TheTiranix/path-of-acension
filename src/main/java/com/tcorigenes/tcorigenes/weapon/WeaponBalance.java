@@ -207,6 +207,10 @@ public final class WeaponBalance {
 
         // ------------------------------------------------------------- Celestisynth
         // Wrath of the Desert: 3 torbellinos por uso, cada uno con su elemento fijo.
+        w("panascraftrpgmod:the_king_of_the_abyss_sword").dmg(50000);
+        group("panascraftrpgmod:the_king_of_the_abyss_sword", 50000, "panascraftrpgmod:the_king_of_the_abyss_axe",
+                "panascraftrpgmod:the_king_of_the_abyss_pickaxe", "panascraftrpgmod:the_king_of_the_abyss_shovel",
+                "panascraftrpgmod:the_king_of_the_abyss_hoe");
         w("cataclysm:cursed_bow").dmg(15000).shot();
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
         w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);

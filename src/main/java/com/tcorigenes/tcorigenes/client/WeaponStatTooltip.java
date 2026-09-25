@@ -68,6 +68,11 @@ public final class WeaponStatTooltip {
         if (id == null) {
             return lines;
         }
+        if (id.equals(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ITEM_ID)) {
+            lines.add(Component.literal("Se puede equipar en el slot de guantes").withStyle(ChatFormatting.GOLD));
+            lines.add(Component.literal("Como guante: +" + trim(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE)
+                    + " Daño de Ender por golpe").withStyle(elementColor(com.tudominio.elementaldamage.ModDamageTypes.ENDER_ELEMENTAL)));
+        }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
         if (spec != null) {
             if (Boolean.TRUE.equals(spec.twoHanded)) {

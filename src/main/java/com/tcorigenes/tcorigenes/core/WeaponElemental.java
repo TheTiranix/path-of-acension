@@ -71,6 +71,9 @@ public final class WeaponElemental {
             }
         }
         WeaponBalance.Spec spec = id == null ? null : WeaponBalance.spec(id);
+        if (!shot && direct == attacker) {
+            applyGlove(attacker, event.getEntity(), spec);
+        }
         if (spec == null || (spec.ranged && !shot)) {
             return; // un arco solo cuenta por el impacto de su proyectil
         }
@@ -105,6 +108,24 @@ public final class WeaponElemental {
                 extra(target, attacker, extra.element(), extra.amount());
             } // cualquier otro elemento del equipo directamente no funciona (ver ElementalRestriction)
         }
+    }
+
+    /** Endersoul Hand equipada como guante: +30 de daño elemental ender por golpe (sujeto a la restriccion de elemento). */
+    private static void applyGlove(Player attacker, LivingEntity target, WeaponBalance.Spec weaponSpec) {
+        if (!com.tcorigenes.tcorigenes.compat.EndersoulGlove.isEquipped(attacker)) {
+            return;
+        }
+        ResourceKey<DamageType> converted = ElementalRestriction.converterElement(attacker);
+        ResourceKey<DamageType> element = com.tudominio.elementaldamage.ModDamageTypes.ENDER_ELEMENTAL;
+        if (converted != null) {
+            element = converted;
+        } else {
+            ResourceKey<DamageType> active = ElementalRestriction.activeElement(attacker, weaponSpec);
+            if (active != null && !active.equals(element)) {
+                return; // el jugador solo puede usar otro elemento
+            }
+        }
+        extra(target, attacker, element, com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE);
     }
 
     private static void extra(LivingEntity target, Player attacker, ResourceKey<DamageType> element, float amount) {
