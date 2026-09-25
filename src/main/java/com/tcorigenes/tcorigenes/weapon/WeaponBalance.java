@@ -33,6 +33,8 @@ public final class WeaponBalance {
         public Boolean twoHanded;
         /** Arma de proyectiles (arco): el daño es por IMPACTO del proyectil, no un atributo de melee. */
         public boolean ranged;
+        /** El elemento del ciclo lo lleva cada proyectil (se asigna al aparecer), no cada impacto (ej. los 3 torbellinos). */
+        public boolean perProjectile;
         public Integer dex;
         public final List<Extra> extras = new ArrayList<>();
         public List<ResourceKey<DamageType>> cycle;
@@ -64,6 +66,12 @@ public final class WeaponBalance {
 
         public Spec shot() {
             this.ranged = true;
+            return this;
+        }
+
+        public Spec perProjectile() {
+            this.ranged = true;
+            this.perProjectile = true;
             return this;
         }
 
@@ -198,6 +206,8 @@ public final class WeaponBalance {
         w("aether:vampire_blade").dmg(10).el(LIGHT, 4);
 
         // ------------------------------------------------------------- Celestisynth
+        // Wrath of the Desert: 3 torbellinos por uso, cada uno con su elemento fijo.
+        w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
         w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);
         w("celestisynth:aquaflora").dmg(180000).cycle(WATER, N, N, N);
         w("celestisynth:breezebreaker").dmg(180000).speed(3).cycle(AIR, NATURAL, N, N);

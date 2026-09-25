@@ -86,7 +86,7 @@ public final class WeaponStatTooltip {
                 for (ResourceKey<DamageType> slot : spec.cycle) {
                     sb.append(sb.length() == 0 ? "" : " → ").append(elementName(slot));
                 }
-                lines.add(Component.literal((spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb).withStyle(ChatFormatting.LIGHT_PURPLE));
+                lines.add(Component.literal((spec.perProjectile ? "Torbellinos (uno de cada elemento): " : spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb).withStyle(ChatFormatting.LIGHT_PURPLE));
             }
         }
         for (var entry : ArmorSetBonus.SETS.entrySet()) {

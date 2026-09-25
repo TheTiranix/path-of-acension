@@ -31,7 +31,9 @@ public final class WeaponElemental {
     /** Entidades-proyectil propias de un arma (no son flechas comunes) -> item del arma. Cada impacto avanza el ciclo. */
     private static final Map<ResourceLocation, ResourceLocation> SHOT_ENTITIES = Map.of(
             ResourceLocation.fromNamespaceAndPath("celestisynth", "rainfall_arrow"),
-            ResourceLocation.fromNamespaceAndPath("celestisynth", "rainfall_serenity"));
+            ResourceLocation.fromNamespaceAndPath("celestisynth", "rainfall_serenity"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "cursed_sandstorm"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "wrath_of_the_desert"));
     private static final String CYCLE_KEY = "tc_weapon_cycle";
     /** Impactos dentro de esta ventana (ticks) desde el que avanzo el ciclo cuentan como el mismo ataque. */
     private static final int SWING_GROUP_TICKS = 4;
@@ -74,7 +76,9 @@ public final class WeaponElemental {
         ResourceKey<DamageType> active = ElementalRestriction.activeElement(attacker, spec);
 
         if (spec.cycle != null && !spec.cycle.isEmpty()) {
-            ResourceKey<DamageType> slot = nextSlot(attacker, id, spec.cycle, !shot);
+            ResourceKey<DamageType> slot = spec.perProjectile && shot
+                    ? spec.cycle.get(projectileSlot(direct, attacker, id, spec.cycle.size()))
+                    : nextSlot(attacker, id, spec.cycle, !shot);
             if (slot != null) {
                 if (converted != null) {
                     slot = converted; // el Prisma Convertidor manda: el golpe se transforma en ese elemento
@@ -110,6 +114,10 @@ public final class WeaponElemental {
      */
     private static ResourceKey<DamageType> nextSlot(Player attacker, ResourceLocation itemId, List<ResourceKey<DamageType>> cycle,
             boolean groupSwing) {
+        return cycle.get(nextIndex(attacker, itemId, cycle.size(), groupSwing));
+    }
+
+    private static int nextIndex(Player attacker, ResourceLocation itemId, int size, boolean groupSwing) {
         CompoundTag data = attacker.getPersistentData();
         CompoundTag all = data.getCompound(CYCLE_KEY);
         CompoundTag entry = all.getCompound(itemId.toString());
@@ -117,15 +125,40 @@ public final class WeaponElemental {
         long since = now - entry.getLong("tick");
         int slot;
         if (groupSwing && entry.contains("tick") && since >= 0 && since < SWING_GROUP_TICKS) {
-            slot = Math.floorMod(entry.getInt("slot"), cycle.size());
+            slot = Math.floorMod(entry.getInt("slot"), size);
         } else {
-            slot = Math.floorMod(entry.getInt("next"), cycle.size());
+            slot = Math.floorMod(entry.getInt("next"), size);
             entry.putInt("slot", slot);
-            entry.putInt("next", (slot + 1) % cycle.size());
+            entry.putInt("next", (slot + 1) % size);
             entry.putLong("tick", now);
         }
         all.put(itemId.toString(), entry);
         data.put(CYCLE_KEY, all);
-        return cycle.get(slot);
+        return slot;
+    }
+
+    private static final String PROJECTILE_SLOT_KEY = "tc_cycle_slot";
+
+    /** Posicion del ciclo que lleva este proyectil: se asigna una sola vez (al aparecer o en su primer impacto). */
+    private static int projectileSlot(Entity projectile, Player owner, ResourceLocation itemId, int size) {
+        CompoundTag data = projectile.getPersistentData();
+        if (!data.contains(PROJECTILE_SLOT_KEY)) {
+            data.putInt(PROJECTILE_SLOT_KEY, nextIndex(owner, itemId, size, false));
+        }
+        return Math.floorMod(data.getInt(PROJECTILE_SLOT_KEY), size);
+    }
+
+    /** Al aparecer un proyectil de un arma con elemento por proyectil (torbellinos): le toca el siguiente del ciclo. */
+    public static void onProjectileSpawn(Entity entity) {
+        if (entity.level().isClientSide() || !(entity instanceof net.minecraft.world.entity.projectile.Projectile projectile)
+                || !(projectile.getOwner() instanceof Player owner)) {
+            return;
+        }
+        ResourceLocation typeId = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+        ResourceLocation itemId = typeId == null ? null : SHOT_ENTITIES.get(typeId);
+        WeaponBalance.Spec spec = itemId == null ? null : WeaponBalance.spec(itemId);
+        if (spec != null && spec.perProjectile && spec.cycle != null && !spec.cycle.isEmpty()) {
+            projectileSlot(entity, owner, itemId, spec.cycle.size());
+        }
     }
 }
