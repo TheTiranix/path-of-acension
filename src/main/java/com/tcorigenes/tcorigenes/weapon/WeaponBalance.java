@@ -185,7 +185,7 @@ public final class WeaponBalance {
         w("aether:vampire_blade").dmg(10).el(LIGHT, 4);
 
         // ------------------------------------------------------------- Celestisynth
-        w("celestisynth:aquaflora").dmg(1800).cycle(WATER, N, N, N);
+        w("celestisynth:aquaflora").dmg(180000).cycle(WATER, N, N, N);
         w("celestisynth:breezebreaker").dmg(180000).speed(3).cycle(AIR, NATURAL, N, N);
         w("celestisynth:solaris").dmg(200000).speed(2.7).cycle(FIRE, LUNAR, N, N);
         w("celestisynth:crescentia").dmg(450000).speed(1.5).two().cycle(ENDER, EARTH, N, N);

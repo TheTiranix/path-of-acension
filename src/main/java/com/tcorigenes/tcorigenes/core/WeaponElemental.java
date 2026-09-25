@@ -3,10 +3,8 @@ package com.tcorigenes.tcorigenes.core;
 
 import com.tcorigenes.tcorigenes.weapon.WeaponBalance;
 import com.tudominio.elementaldamage.PendingElementalHits;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
@@ -26,8 +24,9 @@ import net.minecraftforge.registries.ForgeRegistries;
  *   cuenta es fija por jugador+arma, nunca al azar.
  */
 public final class WeaponElemental {
-    /** Posicion en el ciclo por jugador y por arma. */
-    private static final Map<UUID, Map<ResourceLocation, Integer>> CYCLE_POSITION = new HashMap<>();
+    private static final String CYCLE_KEY = "tc_weapon_cycle";
+    /** Impactos dentro de esta ventana (ticks) desde el que avanzo el ciclo cuentan como el mismo ataque. */
+    private static final int SWING_GROUP_TICKS = 4;
 
     private WeaponElemental() {
     }
@@ -82,11 +81,29 @@ public final class WeaponElemental {
                 target.level().getGameTime() + PendingElementalHits.SAFE_DELAY_TICKS);
     }
 
-    /** Devuelve el elemento del golpe que toca (null = normal) y avanza el ciclo. */
+    /**
+     * Devuelve el elemento del golpe que toca (null = normal). La memoria del ultimo golpe se guarda en los datos
+     * persistentes del jugador, por arma (no en el NBT del item: cada cambio de NBT en la mano hace que el cliente
+     * repita la animacion de equipar). Todos los impactos de un mismo ataque (barrido, habilidades de varios
+     * golpes) caen dentro de SWING_GROUP_TICKS y comparten elemento; recien el ataque siguiente avanza el ciclo.
+     */
     private static ResourceKey<DamageType> nextSlot(Player attacker, ResourceLocation itemId, List<ResourceKey<DamageType>> cycle) {
-        Map<ResourceLocation, Integer> perItem = CYCLE_POSITION.computeIfAbsent(attacker.getUUID(), k -> new HashMap<>());
-        int position = perItem.getOrDefault(itemId, 0) % cycle.size();
-        perItem.put(itemId, (position + 1) % cycle.size());
-        return cycle.get(position);
+        CompoundTag data = attacker.getPersistentData();
+        CompoundTag all = data.getCompound(CYCLE_KEY);
+        CompoundTag entry = all.getCompound(itemId.toString());
+        long now = attacker.level().getGameTime();
+        long since = now - entry.getLong("tick");
+        int slot;
+        if (entry.contains("tick") && since >= 0 && since < SWING_GROUP_TICKS) {
+            slot = Math.floorMod(entry.getInt("slot"), cycle.size());
+        } else {
+            slot = Math.floorMod(entry.getInt("next"), cycle.size());
+            entry.putInt("slot", slot);
+            entry.putInt("next", (slot + 1) % cycle.size());
+            entry.putLong("tick", now);
+        }
+        all.put(itemId.toString(), entry);
+        data.put(CYCLE_KEY, all);
+        return cycle.get(slot);
     }
 }
