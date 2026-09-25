@@ -2,7 +2,6 @@
 package com.tcorigenes.tcorigenes.client;
 
 import com.tcorigenes.tcorigenes.core.Race;
-import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.phys.Vec3;
@@ -17,7 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class RacialPassivesClient {
-    private static final double GLIDE_MAX_FALL_SPEED = -0.08;
+    private static final double GLIDE_MAX_FALL_SPEED = -0.05; // por debajo de -0.03125 para que el servidor no lo tome por vuelo
 
     private RacialPassivesClient() {
     }
@@ -31,8 +30,8 @@ public final class RacialPassivesClient {
         if (player == null || player.onGround() || player.getAbilities().flying || player.isInWater()) {
             return;
         }
-        boolean angel = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
-                .map(info -> info.getRace() == Race.ANGEL).orElse(false);
+        // la Capability de raza solo vive en el servidor: en el cliente la raza llega por RaceSyncPacket (ClientRaceData)
+        boolean angel = ClientRaceData.get(player.getUUID()) == Race.ANGEL;
         Vec3 motion = player.getDeltaMovement();
         if (angel && motion.y < GLIDE_MAX_FALL_SPEED && !player.isFallFlying()) {
             player.setDeltaMovement(motion.x, GLIDE_MAX_FALL_SPEED, motion.z);

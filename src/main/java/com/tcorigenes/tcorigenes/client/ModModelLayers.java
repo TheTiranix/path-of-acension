@@ -60,7 +60,17 @@ public final class ModModelLayers {
                 PartPose.ZERO);
     }
 
-    private static final int FEATHERS_PER_WING = 5;
+    public static final int FEATHERS_PER_WING = 5;
+
+    /** Angulo de abanico (rotY, sin signo) de la pluma i con el ala completamente abierta. */
+    public static float featherFan(int i) {
+        return 0.45F + i * 0.22F;
+    }
+
+    /** Inclinacion hacia abajo (rotX) de la pluma i. */
+    public static float featherDroop(int i) {
+        return 0.1F + i * 0.12F;
+    }
 
     private static LayerDefinition createWingsLayer() {
         // En vez de un solo bloque rigido, cada ala es un abanico de "plumas" finas que se van
@@ -76,8 +86,8 @@ public final class ModModelLayers {
         // Pivote subido de y=4.0 a y=2.0 (media espalda alta, no la zona lumbar) por pedido.
         for (int i = 0; i < FEATHERS_PER_WING; i++) {
             float length = 17.0F - i * 2.2F;
-            float fanAngle = angleSign * (0.45F + i * 0.22F);
-            float droop = 0.1F + i * 0.12F;
+            float fanAngle = angleSign * featherFan(i);
+            float droop = featherDroop(i);
             CubeListBuilder builder = CubeListBuilder.create().texOffs(0, 0)
                     .addBox(0.0F, 0.0F, -0.5F, 1.0F, length, 1.0F);
             root.addOrReplaceChild(side + "_feather_" + i, builder,

@@ -63,6 +63,7 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         } else if (race == Race.ANGEL) {
             poseStack.pushPose();
             this.getParentModel().body.translateAndRotate(poseStack);
+            poseWings(WingAnimation.openness(player, partialTick), ageInTicks);
             // Translucent (no cutout): la textura tiene un degrade real de transparencia en las
             // puntas para que no se vea como un bloque duro.
             VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(WINGS_TEXTURE));
@@ -70,6 +71,26 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             poseStack.popPose();
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             renderMalnacido(poseStack, buffer, packedLight, player);
+        }
+    }
+
+    /**
+     * Alas plegadas contra la espalda (open = 0) que se abren en abanico al planear o volar (open = 1); abiertas
+     * aletean apenas.
+     */
+    private void poseWings(float open, float ageInTicks) {
+        float eased = open * open * (3.0F - 2.0F * open);
+        float flap = eased * (float) Math.sin(ageInTicks * 0.2F) * 0.06F;
+        for (int i = 0; i < ModModelLayers.FEATHERS_PER_WING; i++) {
+            float fan = ModModelLayers.featherFan(i) * eased + (0.04F + i * 0.02F) * (1.0F - eased);
+            float droop = ModModelLayers.featherDroop(i) + 0.18F * (1.0F - eased);
+            for (int side = 0; side < 2; side++) {
+                float sign = side == 0 ? 1.0F : -1.0F;
+                ModelPart feather = this.wings.getChild((side == 0 ? "left_feather_" : "right_feather_") + i);
+                feather.xRot = droop;
+                feather.yRot = sign * fan;
+                feather.zRot = sign * flap;
+            }
         }
     }
 
