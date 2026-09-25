@@ -25,6 +25,16 @@ public class PlayerAbilityLoadout {
 
         void setSkillPoints(int points);
 
+        /** XP del arbol: solo la da un admin con /skillxp; se canjea por puntos de habilidad (ver SkillTreeManager). */
+        long getSkillXp();
+
+        void setSkillXp(long xp);
+
+        /** Cuantos puntos compro este jugador con XP (cada uno sale mas caro que el anterior). */
+        int getPointsBought();
+
+        void setPointsBought(int bought);
+
         void saveNBTData(CompoundTag nbt);
 
         void loadNBTData(CompoundTag nbt);
@@ -34,6 +44,28 @@ public class PlayerAbilityLoadout {
         private String equippedAbilityId = null;
         private final Set<String> unlockedAbilityIds = new HashSet<>();
         private int skillPoints = 0;
+        private long skillXp = 0;
+        private int pointsBought = 0;
+
+        @Override
+        public long getSkillXp() {
+            return this.skillXp;
+        }
+
+        @Override
+        public void setSkillXp(long xp) {
+            this.skillXp = Math.max(0L, xp);
+        }
+
+        @Override
+        public int getPointsBought() {
+            return this.pointsBought;
+        }
+
+        @Override
+        public void setPointsBought(int bought) {
+            this.pointsBought = Math.max(0, bought);
+        }
 
         @Override
         public int getSkillPoints() {
@@ -85,6 +117,8 @@ public class PlayerAbilityLoadout {
             }
             nbt.put("unlocked_abilities", list);
             nbt.putInt("skill_points", this.skillPoints);
+            nbt.putLong("skill_xp", this.skillXp);
+            nbt.putInt("points_bought", this.pointsBought);
         }
 
         @Override
@@ -102,6 +136,8 @@ public class PlayerAbilityLoadout {
             if (nbt.contains("skill_points")) {
                 this.skillPoints = nbt.getInt("skill_points");
             }
+            this.skillXp = nbt.getLong("skill_xp");
+            this.pointsBought = nbt.getInt("points_bought");
         }
     }
 }

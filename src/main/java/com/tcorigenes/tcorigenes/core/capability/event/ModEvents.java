@@ -421,6 +421,8 @@ public class ModEvents {
                         carry.putString("Equipped", loadout.getEquippedAbilityId());
                     }
                     carry.putInt("SkillPoints", loadout.getSkillPoints());
+                    carry.putLong("SkillXp", loadout.getSkillXp());
+                    carry.putInt("PointsBought", loadout.getPointsBought());
                 });
 
         CompoundTag persisted = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
@@ -475,11 +477,15 @@ public class ModEvents {
                     String equippedAbilityId = oldLoadout.getEquippedAbilityId();
                     java.util.Set<String> unlocked = new java.util.HashSet<>(oldLoadout.getUnlockedAbilityIds());
                     int points = oldLoadout.getSkillPoints();
+                    long xp = oldLoadout.getSkillXp();
+                    int bought = oldLoadout.getPointsBought();
                     event.getEntity().getCapability(com.tcorigenes.tcorigenes.ability.capability.PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY)
                             .ifPresent(newLoadout -> {
                                 unlocked.forEach(newLoadout::unlockAbility);
                                 newLoadout.setEquippedAbilityId(equippedAbilityId);
                                 newLoadout.setSkillPoints(points);
+                                newLoadout.setSkillXp(xp);
+                                newLoadout.setPointsBought(bought);
                             });
                     return true;
                 }).orElse(false);
@@ -494,6 +500,8 @@ public class ModEvents {
                             newLoadout.setEquippedAbilityId(carry.getString("Equipped"));
                         }
                         newLoadout.setSkillPoints(carry.getInt("SkillPoints"));
+                        newLoadout.setSkillXp(carry.getLong("SkillXp"));
+                        newLoadout.setPointsBought(carry.getInt("PointsBought"));
                     });
         }
 

@@ -15,13 +15,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 /**
- * Definicion del arbol propio: una rama por clase con la misma forma (raiz, dos caminos de 3
- * nodos y una piedra clave al final que pide cualquiera de los dos caminos). La piedra clave
- * desbloquea la habilidad activa de la clase cuando existe una.
+ * Definicion del arbol propio: una rama de 50 nodos por clase con la misma forma. El primer nodo (la raiz)
+ * desbloquea la habilidad activa de la clase (las clases ya no arrancan con ella); despues hay dos caminos de 24
+ * nodos y una piedra clave final que pide cualquiera de los dos. Cada mejora crece de forma proporcional a lo
+ * largo del camino (de la mitad de la "unidad" de la estadistica en el primer nodo a una vez y media en el ultimo).
  *
- *            A1 - A2 - A3 \
- *   raiz <                  > clave
- *            B1 - B2 - B3 /
+ *            A1 - ... - A24 \
+ *   raiz <                    > clave
+ *            B1 - ... - B24 /
  */
 public final class SkillTree {
     public static final String NODE_PREFIX = "node:";
@@ -65,11 +66,19 @@ public final class SkillTree {
         return new Perk(title, icon, attribute, op, amount);
     }
 
-    /** Cuanto rinde cada nodo de un camino respecto de la "unidad" de su estadistica: empieza casi
-     *  nada y los ultimos suman mucho. La estadistica rota entre las del camino (nodo 1, 2, 3, 1...),
-     *  asi que la 3a recibe el multiplicador mas grande (x6) en el ultimo nodo. */
-    private static final double[] RAMP = {1, 1, 1, 2, 2, 2, 3, 4, 6};
-    public static final int NODES_PER_PATH = RAMP.length;
+    /** Nodos por camino: raiz + 2 caminos + piedra clave = 50 nodos por clase. */
+    public static final int NODES_PER_PATH = 24;
+
+    /** Multiplicador de la "unidad" de la estadistica en el nodo i del camino: crece linealmente de 0.5 a 1.5. */
+    private static double factor(int i) {
+        return 0.5 + (double) i / (NODES_PER_PATH - 1);
+    }
+
+    private static String tierTitle(Named[] names, int i) {
+        String base = names[i % names.length].title();
+        int tier = i / names.length;
+        return tier == 0 ? base : base + " " + (tier == 1 ? "II" : tier == 2 ? "III" : "IV");
+    }
 
     private record Stat(Supplier<Attribute> attribute, Operation op, double unit) {
     }
@@ -85,27 +94,36 @@ public final class SkillTree {
         return new Stat(attribute, op, unit);
     }
 
-    /** Rama de 20 nodos: raiz, dos caminos de 9 nodos y una piedra clave que pide cualquiera de los dos. */
+    /** Rama de 50 nodos: raiz (desbloquea la habilidad), dos caminos de 24 nodos y una piedra clave. */
     private static void branch(PlayerClass cls, String key, Perk root,
                                Stat[] statsA, Named[] a, Stat[] statsB, Named[] b, Perk keystone, String abilityId) {
-        add(cls, key + "_raiz", root, 0, 0, 1, List.of(), null);
+        Perk first = root;
+        Perk last = keystone;
+        if (abilityId != null) {
+            // el primer nodo ES la habilidad: lleva su nombre; la piedra clave pasa a ser la cima del arbol
+            first = new Perk(keystone.title(), keystone.icon(), root.attribute(), root.op(), root.amount());
+            last = new Perk("Cumbre: " + root.title(), root.icon(), keystone.attribute(), keystone.op(), keystone.amount());
+        }
+        add(cls, key + "_raiz", first, 0, 0, 1, List.of(), abilityId);
         String prevA = key + "_raiz";
         String prevB = key + "_raiz";
-        for (int i = 0; i < RAMP.length; i++) {
-            int cost = i < 6 ? 1 : 2;
+        for (int i = 0; i < NODES_PER_PATH; i++) {
+            int cost = i < NODES_PER_PATH / 2 ? 1 : 2;
             String idA = key + "_a" + (i + 1);
             String idB = key + "_b" + (i + 1);
-            add(cls, idA, pathPerk(a[i], statsA[i % statsA.length], RAMP[i]), i + 1, -1, cost, List.of(prevA), null);
-            add(cls, idB, pathPerk(b[i], statsB[i % statsB.length], RAMP[i]), i + 1, 1, cost, List.of(prevB), null);
+            add(cls, idA, pathPerk(tierTitle(a, i), a[i % a.length].icon(), statsA[i % statsA.length], factor(i)),
+                    i + 1, -1, cost, List.of(prevA), null);
+            add(cls, idB, pathPerk(tierTitle(b, i), b[i % b.length].icon(), statsB[i % statsB.length], factor(i)),
+                    i + 1, 1, cost, List.of(prevB), null);
             prevA = idA;
             prevB = idB;
         }
-        add(cls, key + "_clave", keystone, RAMP.length + 1, 0, 3, List.of(prevA, prevB), abilityId);
+        add(cls, key + "_clave", last, NODES_PER_PATH + 1, 0, 3, List.of(prevA, prevB), null);
     }
 
-    private static Perk pathPerk(Named named, Stat stat, double factor) {
-        double amount = Math.round(stat.unit() * factor * 1000.0) / 1000.0;
-        return new Perk(named.title(), named.icon(), stat.attribute(), stat.op(), amount);
+    private static Perk pathPerk(String title, Supplier<Item> icon, Stat stat, double factor) {
+        double amount = Math.round(stat.unit() * factor * 10000.0) / 10000.0;
+        return new Perk(title, icon, stat.attribute(), stat.op(), amount);
     }
 
     private static void add(PlayerClass cls, String id, Perk perk, int x, int y, int cost, List<String> parents, String abilityId) {

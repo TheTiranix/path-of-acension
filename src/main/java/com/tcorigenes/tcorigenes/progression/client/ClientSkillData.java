@@ -8,14 +8,18 @@ import java.util.Set;
 /** Copia en el cliente del estado del arbol (la manda SkillSyncPacket). */
 public final class ClientSkillData {
     private static int points;
+    private static long xp;
+    private static int bought;
     private static PlayerClass playerClass = PlayerClass.NINGUNA;
     private static Set<String> unlocked = new HashSet<>();
 
     private ClientSkillData() {
     }
 
-    public static void set(int newPoints, String className, Set<String> newUnlocked) {
+    public static void set(int newPoints, long newXp, int newBought, String className, Set<String> newUnlocked) {
         points = newPoints;
+        xp = newXp;
+        bought = newBought;
         try {
             playerClass = PlayerClass.valueOf(className);
         } catch (IllegalArgumentException e) {
@@ -26,6 +30,14 @@ public final class ClientSkillData {
 
     public static int points() {
         return points;
+    }
+
+    public static long xp() {
+        return xp;
+    }
+
+    public static int bought() {
+        return bought;
     }
 
     public static PlayerClass playerClass() {

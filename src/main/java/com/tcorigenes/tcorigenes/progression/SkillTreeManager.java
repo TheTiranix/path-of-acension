@@ -34,6 +34,14 @@ import net.minecraftforge.registries.ForgeRegistries;
  */
 public final class SkillTreeManager {
     public static final String PACT_KEY = "tc_pact";
+    /** Precio en XP del primer punto comprado; cada punto comprado suma PRICE_STEP al precio del siguiente. */
+    public static final long PRICE_BASE = 100;
+    public static final long PRICE_STEP = 25;
+
+    /** Precio en XP del proximo punto, dado cuantos puntos compro ya el jugador. */
+    public static long pointPrice(int bought) {
+        return PRICE_BASE + PRICE_STEP * (long) bought;
+    }
 
     private record Fixed(String key, Supplier<Attribute> attribute, Operation op, double amount) {
         UUID id() {
@@ -76,8 +84,21 @@ public final class SkillTreeManager {
 
     /** Reaplica todos los bonos del arbol/origen/pacto y manda el estado al cliente. */
     public static void refresh(ServerPlayer player) {
+        grantAbilityOfUnlockedNodes(player);
         reapply(player);
         sync(player);
+    }
+
+    /** El nodo raiz da la habilidad de la clase: si ya estaba desbloqueado de antes (cuando la daba la piedra clave), se la da. */
+    private static void grantAbilityOfUnlockedNodes(Player player) {
+        PlayerClass cls = currentClass(player);
+        player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
+            for (SkillNode node : SkillTree.forClass(cls)) {
+                if (node.abilityId() != null && loadout.isUnlocked(node.storageKey())) {
+                    loadout.unlockAbility(node.abilityId());
+                }
+            }
+        });
     }
 
     private static void reapply(Player player) {
@@ -153,9 +174,36 @@ public final class SkillTreeManager {
     }
 
     public static void sync(ServerPlayer player) {
-        int points = player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY)
-                .map(PlayerAbilityLoadout.IPlayerAbilityLoadout::getSkillPoints).orElse(0);
-        Networking.sendToPlayer(player, new SkillSyncPacket(points, currentClass(player).name(), unlockedNodes(player)));
+        var loadout = player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).resolve();
+        int points = loadout.map(PlayerAbilityLoadout.IPlayerAbilityLoadout::getSkillPoints).orElse(0);
+        long xp = loadout.map(PlayerAbilityLoadout.IPlayerAbilityLoadout::getSkillXp).orElse(0L);
+        int bought = loadout.map(PlayerAbilityLoadout.IPlayerAbilityLoadout::getPointsBought).orElse(0);
+        Networking.sendToPlayer(player, new SkillSyncPacket(points, xp, bought, currentClass(player).name(), unlockedNodes(player)));
+    }
+
+    /** Suma (o resta, con negativo) XP del arbol. Solo la usa el comando /skillxp. */
+    public static void addXp(ServerPlayer player, long amount) {
+        player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY)
+                .ifPresent(loadout -> loadout.setSkillXp(loadout.getSkillXp() + amount));
+        sync(player);
+    }
+
+    /** Canjea XP por 1 punto de habilidad al precio actual (sube con cada punto comprado). */
+    public static void buyPoint(ServerPlayer player) {
+        player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
+            long price = pointPrice(loadout.getPointsBought());
+            if (loadout.getSkillXp() < price) {
+                player.displayClientMessage(Component.literal("Te falta XP: el próximo punto cuesta " + price
+                        + " XP y tenés " + loadout.getSkillXp() + "."), true);
+                return;
+            }
+            loadout.setSkillXp(loadout.getSkillXp() - price);
+            loadout.setPointsBought(loadout.getPointsBought() + 1);
+            loadout.setSkillPoints(loadout.getSkillPoints() + 1);
+            player.displayClientMessage(Component.literal("Compraste 1 punto de habilidad por " + price
+                    + " XP. El próximo cuesta " + pointPrice(loadout.getPointsBought()) + " XP."), true);
+        });
+        sync(player);
     }
 
     /**

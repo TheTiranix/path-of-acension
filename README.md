@@ -70,7 +70,7 @@ La primera vez que abrís un cofre de botín (los de las estructuras), hay un 35
 El Hereje y el Arquero ven una **carga ígnea roja** pegada al cuerpo del enemigo, siempre en un punto lógico de su hitbox. Hay que **apuntar bien**: el bono solo vale si el golpe o la flecha pasa por la marca (sobre el modelo del mob, no sobre su hitbox). Acertarla suena a carne, hace daño extra y una parte ignora la armadura.
 
 ### Árbol de habilidades propio
-Una rama larga por clase (20 nodos: raíz, dos caminos de 9 y una piedra clave): los bonos empiezan pequeños y los últimos nodos suman mucho. Confirmación antes de gastar puntos (tecla **H**). Los puntos salen de **matar jefes** y de **las quests**.
+Una rama larga por clase (50 nodos: raíz, dos caminos de 24 y una piedra clave). **El primer nodo desbloquea la habilidad de la clase** (ya no se tiene de entrada) y cada mejora crece de forma proporcional a lo largo del camino. Confirmación antes de gastar puntos (tecla **H**). Los puntos salen de **matar jefes**, de **las quests** y de **comprarlos con XP de habilidad**: esa XP solo la otorga un admin con `/skillxp give <jugador> <cantidad>` (también `take` y `set`; `/skillxp` muestra tu XP y el precio), y cada punto comprado sale más caro que el anterior (100 XP el primero, +25 por cada uno).
 
 ### El panteón te observa
 Cada dios recompensa algo distinto: Pater premia crear y construir (y rezar en su altar), Meidris cultivar y criar animales, Deiros matar y hacer explotar cosas, Filis explorar y saquear cofres. Los altares aceptan ofrendas de todos.

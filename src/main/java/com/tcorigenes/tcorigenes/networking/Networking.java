@@ -17,6 +17,7 @@ import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.RaceSyncPacket;
+import com.tcorigenes.tcorigenes.progression.network.BuyPointPacket;
 import com.tcorigenes.tcorigenes.progression.network.SkillSyncPacket;
 import com.tcorigenes.tcorigenes.progression.network.UnlockNodePacket;
 import net.minecraft.resources.ResourceLocation;
@@ -66,6 +67,12 @@ public class Networking {
                 .decoder(UnlockNodePacket::new)
                 .encoder(UnlockNodePacket::toBytes)
                 .consumerMainThread(UnlockNodePacket::handle)
+                .add();
+
+        net.messageBuilder(BuyPointPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(BuyPointPacket::new)
+                .encoder(BuyPointPacket::toBytes)
+                .consumerMainThread(BuyPointPacket::handle)
                 .add();
 
         net.messageBuilder(SkillSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)

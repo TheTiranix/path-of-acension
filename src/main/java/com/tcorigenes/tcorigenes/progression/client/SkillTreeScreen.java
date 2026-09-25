@@ -6,6 +6,7 @@ import com.tcorigenes.tcorigenes.playerclass.PlayerClass;
 import com.tcorigenes.tcorigenes.progression.SkillNode;
 import com.tcorigenes.tcorigenes.progression.SkillTree;
 import com.tcorigenes.tcorigenes.progression.SkillTreeManager;
+import com.tcorigenes.tcorigenes.progression.network.BuyPointPacket;
 import com.tcorigenes.tcorigenes.progression.network.UnlockNodePacket;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class SkillTreeScreen extends Screen {
     private SkillNode pending;
     private Button confirmButton;
     private Button cancelButton;
+    private Button buyButton;
 
     public SkillTreeScreen() {
         super(Component.literal("Árbol de Habilidades"));
@@ -54,6 +56,8 @@ public class SkillTreeScreen extends Screen {
             }
             pending = null;
         }).bounds(centerX - 105, y, 100, 20).build());
+        buyButton = this.addRenderableWidget(Button.builder(Component.literal("Comprar punto"),
+                button -> Networking.sendToServer(new BuyPointPacket())).bounds(this.width - 176, 8, 168, 20).build());
         cancelButton = this.addRenderableWidget(Button.builder(Component.literal("Cancelar"), button -> pending = null)
                 .bounds(centerX + 5, y, 100, 20).build());
     }
@@ -134,7 +138,11 @@ public class SkillTreeScreen extends Screen {
         PlayerClass cls = ClientSkillData.playerClass();
         g.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
         g.drawCenteredString(this.font, Component.literal(
-                "Clase: " + cls.getDisplayName() + "   |   Puntos: " + ClientSkillData.points()), this.width / 2, 26, 0xFFD700);
+                "Clase: " + cls.getDisplayName() + "   |   Puntos: " + ClientSkillData.points()
+                        + "   |   XP: " + ClientSkillData.xp()), this.width / 2, 26, 0xFFD700);
+        long price = SkillTreeManager.pointPrice(ClientSkillData.bought());
+        buyButton.setMessage(Component.literal("Comprar punto (" + price + " XP)"));
+        buyButton.active = ClientSkillData.xp() >= price;
         if (minPan() < 0) {
             g.drawCenteredString(this.font, "Arrastrá con el mouse o usá la rueda para recorrer la rama", this.width / 2, 38, 0x888888);
         }

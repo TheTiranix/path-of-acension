@@ -26,6 +26,7 @@ public class ModCommands {
         new SetAbilityCommand(event.getDispatcher());
         new GrantSkillPointsCommand(event.getDispatcher());
         new ResetSkillTreeCommand(event.getDispatcher());
+        new com.tcorigenes.tcorigenes.command.SkillXpCommand(event.getDispatcher());
         new UnpurifyCommand(event.getDispatcher());
         new RespawnPointCommand(event.getDispatcher());
         new AbilityDebugCommand(event.getDispatcher());
