@@ -37,7 +37,7 @@ public final class WingAnimation {
             return true;
         }
         return !player.onGround() && !player.isInWater() && !player.isPassenger() && !player.isFallFlying()
-                && player.getDeltaMovement().y < -0.03;
+                && !player.isShiftKeyDown() && player.getDeltaMovement().y < -0.03;
     }
 
     @SubscribeEvent

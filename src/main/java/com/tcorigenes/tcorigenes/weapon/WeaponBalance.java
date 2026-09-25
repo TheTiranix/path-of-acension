@@ -121,11 +121,18 @@ public final class WeaponBalance {
     /** Armaduras cuya proteccion se escala por un factor (dark metal: ver static block). */
     public static final Map<ResourceLocation, ResourceLocation> ARMOR_SCALE_REF = new HashMap<>();
 
-    /** Armaduras con proteccion, tenacidad y durabilidad propias (ref = pieza de diamante para reutilizar sus UUID). */
+    /**
+     * Armaduras con proteccion, tenacidad y durabilidad propias (ref = pieza de diamante para reutilizar sus UUID).
+     * toughness NaN = no se toca la tenacidad original; durability 0 = irrompible.
+     */
     public record ArmorFixed(double defense, double toughness, int durability, ResourceLocation uuidRef) {
     }
 
     public static final Map<ResourceLocation, ArmorFixed> ARMOR_FIXED = new HashMap<>();
+    /** Armaduras que copian la durabilidad de otra pieza (knightmetal = diamante). */
+    public static final Map<ResourceLocation, ResourceLocation> ARMOR_DURABILITY_LIKE = new HashMap<>();
+    /** Armaduras irrompibles e imposibles de sacar por mobs (ver ArmorGuard). */
+    public static final java.util.Set<ResourceLocation> GUARDED_ARMOR = new java.util.HashSet<>();
 
     static final ResourceKey<DamageType> N = null;
     static final ResourceKey<DamageType> LIGHT = ModDamageTypes.LIGHT;
@@ -194,9 +201,9 @@ public final class WeaponBalance {
         w("aether:gravitite_sword").dmg(18);
         group("aether:gravitite_sword", 18, "aether:gravitite_axe", "aether:gravitite_pickaxe",
                 "aether:gravitite_shovel", "aether:gravitite_hoe");
-        w("aether:zanite_sword").dmg(13);
-        group("aether:zanite_sword", 13, "aether:zanite_axe", "aether:zanite_pickaxe",
-                "aether:zanite_shovel", "aether:zanite_hoe");
+        for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
+            w("aether:zanite_" + tool).like("minecraft:diamond_" + tool); // zanite = diamante del mismo tipo
+        }
         w("aether:holy_sword").dmg(6).el(LIGHT, 8);
         w("aether:lightning_sword").dmg(8).el(AIR, 2).el(LIGHT, 4);
         w("aether:valkyrie_lance").dmg(9).speed(1.5).reach(3.5).two().el(LIGHT, 3);
@@ -212,9 +219,11 @@ public final class WeaponBalance {
                 "panascraftrpgmod:the_king_of_the_abyss_pickaxe", "panascraftrpgmod:the_king_of_the_abyss_shovel",
                 "panascraftrpgmod:the_king_of_the_abyss_hoe");
         w("cataclysm:cursed_bow").dmg(15000).shot();
+        w("cataclysm:gauntlet_of_maelstrom").dmg(300).el(ENDER, 200);
+        w("mowziesmobs:axe_of_a_thousand_metals").two();
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
         w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);
-        w("celestisynth:aquaflora").dmg(180000).cycle(WATER, N, N, N);
+        w("celestisynth:aquaflora").dmg(180000).speed(3).cycle(WATER, N, N, N);
         w("celestisynth:breezebreaker").dmg(180000).speed(3).cycle(AIR, NATURAL, N, N);
         w("celestisynth:solaris").dmg(200000).speed(2.7).cycle(FIRE, LUNAR, N, N);
         w("celestisynth:crescentia").dmg(450000).speed(1.5).two().cycle(ENDER, EARTH, N, N);
@@ -342,6 +351,21 @@ public final class WeaponBalance {
             };
             for (String set : new String[] {"aether:gravitite_", "minecraft:netherite_"}) {
                 ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 5, 1500, rl("minecraft:diamond_" + piece)));
+            }
+            // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 400 usos mas
+            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(defense + 2, 5, 1900, rl("minecraft:diamond_" + piece)));
+            // Knightmetal: igual que el diamante en proteccion (ARMOR_LIKE) y en durabilidad
+            ARMOR_DURABILITY_LIKE.put(rl("twilightforest:knightmetal_" + piece), rl("minecraft:diamond_" + piece));
+            // Solar Crystal y Lunar Stone (Celestisynth): 2500 veces la proteccion del diamante, irrompibles y sin robo
+            double diamondDefense = switch (piece) {
+                case "helmet" -> 3;
+                case "chestplate" -> 8;
+                case "leggings" -> 6;
+                default -> 3;
+            };
+            for (String set : new String[] {"celestisynth:solar_crystal_", "celestisynth:lunar_stone_"}) {
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(diamondDefense * 2500.0, Double.NaN, 0, rl("minecraft:diamond_" + piece)));
+                GUARDED_ARMOR.add(rl(set + piece));
             }
             ARMOR_SCALE_REF.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), rl("born_in_chaos_v1:sharpened_dark_metal_sword"));
         }

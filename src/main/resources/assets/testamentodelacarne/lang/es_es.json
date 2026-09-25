@@ -82,5 +82,15 @@
   "item.testamentodelacarne.steeleaf_glaive": "Glaive de Hoja de Acero",
   "item.testamentodelacarne.steeleaf_hammer": "Martillo de Hoja de Acero",
   "item.testamentodelacarne.steeleaf_quarterstaff": "Bastón de Combate de Hoja de Acero",
-  "item.testamentodelacarne.steeleaf_spear": "Lanza de Hoja de Acero"
+  "item.testamentodelacarne.steeleaf_spear": "Lanza de Hoja de Acero",
+  "item.testamentodelacarne.fiery_dagger": "Daga de Ígneo",
+  "item.testamentodelacarne.fiery_longsword": "Sable de Ígneo",
+  "item.testamentodelacarne.fiery_katana": "Katana de Ígneo",
+  "item.testamentodelacarne.fiery_greatsword": "Espadón de Ígneo",
+  "item.testamentodelacarne.fiery_battleaxe": "Hacha de Batalla de Ígneo",
+  "item.testamentodelacarne.fiery_halberd": "Alabarda de Ígneo",
+  "item.testamentodelacarne.fiery_glaive": "Glaive de Ígneo",
+  "item.testamentodelacarne.fiery_hammer": "Martillo de Ígneo",
+  "item.testamentodelacarne.fiery_quarterstaff": "Bastón de Combate de Ígneo",
+  "item.testamentodelacarne.fiery_spear": "Lanza de Ígneo"
 }

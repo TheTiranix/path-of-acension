@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class RacialPassivesClient {
-    private static final double GLIDE_MAX_FALL_SPEED = -0.05; // por debajo de -0.03125 para que el servidor no lo tome por vuelo
+    private static final double GLIDE_MAX_FALL_SPEED = -0.08; // 60% mas rapido que -0.05; por debajo de -0.03125 el servidor no lo toma por vuelo
 
     private RacialPassivesClient() {
     }
@@ -33,7 +33,8 @@ public final class RacialPassivesClient {
         // la Capability de raza solo vive en el servidor: en el cliente la raza llega por RaceSyncPacket (ClientRaceData)
         boolean angel = ClientRaceData.get(player.getUUID()) == Race.ANGEL;
         Vec3 motion = player.getDeltaMovement();
-        if (angel && motion.y < GLIDE_MAX_FALL_SPEED && !player.isFallFlying()) {
+        // mantener agacharse (Shift por defecto) = caer sin planear (igual sin daño de caida: eso lo anula el servidor)
+        if (angel && !player.isShiftKeyDown() && motion.y < GLIDE_MAX_FALL_SPEED && !player.isFallFlying()) {
             player.setDeltaMovement(motion.x, GLIDE_MAX_FALL_SPEED, motion.z);
             player.fallDistance = 0.0F;
         }

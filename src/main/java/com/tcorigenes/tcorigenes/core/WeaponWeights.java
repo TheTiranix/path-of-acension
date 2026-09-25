@@ -25,7 +25,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class WeaponWeights {
     public static final int THRESHOLD = 50;
     private static final Pattern TWO_HANDED = Pattern.compile(
-            "great.?sword|great.?axe|claymore|zweihander|battle.?axe|war.?hammer|hammer|scythe|halberd|glaive|colossal|great.?blade|executioner");
+            "great.?sword|great.?axe|katana|claymore|zweihander|battle.?axe|war.?hammer|hammer|scythe|halberd|glaive|colossal|great.?blade|executioner");
     private static final Pattern STAFF = Pattern.compile("staff");
     private static final Pattern LARGE_SHIELD = Pattern.compile("tower|great|large|heavy|kite");
 
@@ -80,6 +80,9 @@ public final class WeaponWeights {
             return spec.dex;
         }
         String path = path(stack);
+        if (path.contains("katana")) {
+            return 100; // las katanas son de dos manos
+        }
         // Bastones: el quarterstaff (arma) pide 25; los bastones magicos, 50.
         if (path.contains("quarterstaff")) {
             return 25;

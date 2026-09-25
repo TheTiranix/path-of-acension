@@ -70,6 +70,11 @@ public final class WeaponDamageOverrides {
         return total;
     }
 
+    /** Redondea al .0 o .5 mas cercano (los daños escalados por proporcion respecto del diamante). */
+    public static double roundHalf(double value) {
+        return Math.round(value * 2.0) / 2.0;
+    }
+
     /** Daño normal total final (ya rebalanceado) de un item de mano principal, sin necesitar el evento. */
     public static double finalDamage(ResourceLocation id) {
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
@@ -84,7 +89,7 @@ public final class WeaponDamageOverrides {
         if (Double.isNaN(original)) {
             return 6.0;
         }
-        return family != null ? original * familyFactor(family) : original;
+        return family != null ? roundHalf(original * familyFactor(family)) : original;
     }
 
     /** Velocidad de ataque total final de un item de mano principal. */
@@ -138,7 +143,7 @@ public final class WeaponDamageOverrides {
             newDamageTotal = originalTotal(spec.damageLike, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);
         } else if (family != null) {
             double original = BASE_DAMAGE + sum(event.getOriginalModifiers().get(Attributes.ATTACK_DAMAGE));
-            newDamageTotal = original * familyFactor(family);
+            newDamageTotal = roundHalf(original * familyFactor(family));
         }
         if (id.getPath().endsWith("_paxel") && id.getNamespace().equals("mekanismtools")) {
             double original = BASE_DAMAGE + sum(event.getOriginalModifiers().get(Attributes.ATTACK_DAMAGE));
@@ -187,7 +192,9 @@ public final class WeaponDamageOverrides {
             Item reference = ForgeRegistries.ITEMS.getValue(fixed.uuidRef());
             if (reference != null) {
                 event.removeAttribute(Attributes.ARMOR);
-                event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
+                if (!Double.isNaN(fixed.toughness())) {
+                    event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
+                }
                 for (var entry : reference.getDefaultAttributeModifiers(event.getSlotType()).entries()) {
                     double amount = entry.getKey() == Attributes.ARMOR ? fixed.defense()
                             : entry.getKey() == Attributes.ARMOR_TOUGHNESS ? fixed.toughness() : Double.NaN;

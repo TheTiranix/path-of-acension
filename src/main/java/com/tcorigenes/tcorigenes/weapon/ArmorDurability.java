@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Durabilidad propia de las armaduras de WeaponBalance#ARMOR_FIXED. La durabilidad maxima vive en un campo final
+ * Durabilidad propia de las armaduras de WeaponBalance#ARMOR_FIXED (0 = irrompible) y ARMOR_DURABILITY_LIKE. La durabilidad maxima vive en un campo final
  * de Item (la fija el material del mod original), asi que se cambia por reflexion al terminar de cargar.
  */
 @EventBusSubscriber(modid = "tcorigenes", bus = EventBusSubscriber.Bus.MOD)
@@ -24,6 +24,14 @@ public final class ArmorDurability {
     private ArmorDurability() {
     }
 
+    private static void setMaxDamage(Item item, ResourceLocation id, int durability) {
+        try {
+            ObfuscationReflectionHelper.setPrivateValue(Item.class, item, durability, MAX_DAMAGE_FIELD);
+        } catch (RuntimeException e) {
+            LOGGER.warn("[tcorigenes] No se pudo cambiar la durabilidad de {}", id, e);
+        }
+    }
+
     @SubscribeEvent
     public static void onLoadComplete(FMLLoadCompleteEvent event) {
         event.enqueueWork(() -> {
@@ -33,10 +41,13 @@ public final class ArmorDurability {
                 if (item == null || !ForgeRegistries.ITEMS.containsKey(id)) {
                     continue;
                 }
-                try {
-                    ObfuscationReflectionHelper.setPrivateValue(Item.class, item, entry.getValue().durability(), MAX_DAMAGE_FIELD);
-                } catch (RuntimeException e) {
-                    LOGGER.warn("[tcorigenes] No se pudo cambiar la durabilidad de {}", id, e);
+                setMaxDamage(item, id, entry.getValue().durability());
+            }
+            for (var entry : WeaponBalance.ARMOR_DURABILITY_LIKE.entrySet()) {
+                Item item = ForgeRegistries.ITEMS.getValue(entry.getKey());
+                Item reference = ForgeRegistries.ITEMS.getValue(entry.getValue());
+                if (item != null && reference != null && ForgeRegistries.ITEMS.containsKey(entry.getKey())) {
+                    setMaxDamage(item, entry.getKey(), reference.getMaxDamage());
                 }
             }
         });

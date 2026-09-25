@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 /**
- * Armas nuevas de Zanite, Gravitite, Black Steel, Knightmetal y Steeleaf con los tipos de Variant Tools y
+ * Armas nuevas de Zanite, Gravitite, Black Steel, Knightmetal, Steeleaf y Fiery con los tipos de Variant Tools y
  * Basic Weapons que quedaron sin eliminar (pedido de alejandr0). Su daño es proporcional al tipo de arma
  * (el del diamante de ese tipo, ya rebalanceado) segun lo que el material aporta respecto a una espada de
  * diamante; la velocidad es la del tipo. Los valores se resuelven al primer uso (cuando ya estan registrados
@@ -38,11 +38,12 @@ public final class MaterialWeapons {
 
     public static final List<Material> MATERIALS = List.of(
             // multiplicador = daño de la espada del material / 7 (espada de diamante)
-            new Material("zanite", "Zanite", 13.0 / 7.0, 1100, "aether:zanite_gemstone"),
+            new Material("zanite", "Zanite", 1.0, 1100, "aether:zanite_gemstone"), // zanite = diamante del mismo tipo
             new Material("gravitite", "Gravitite", 18.0 / 7.0, 1300, "aether:enchanted_gravitite"),
             new Material("black_steel", "Black Steel", 13.0 / 7.0, 1800, "cataclysm:black_steel_ingot"),
             new Material("knightmetal", "Knightmetal", 1.0, 1500, "twilightforest:knightmetal_ingot"),
-            new Material("steeleaf", "Steeleaf", 1.0, 1100, "twilightforest:steeleaf_ingot"));
+            new Material("steeleaf", "Steeleaf", 1.0, 1100, "twilightforest:steeleaf_ingot"),
+            new Material("fiery", "Fiery", 26.0 / 7.0, 1024, "twilightforest:fiery_ingot"));
 
     public static final List<Type> TYPES = List.of(
             new Type("dagger", "vtaw_mw:diamond_dagger", "Dagger"),
@@ -93,7 +94,7 @@ public final class MaterialWeapons {
             }
             if (this.attributes == null) {
                 ResourceLocation ref = ResourceLocation.tryParse(this.type.diamondRef());
-                double damage = WeaponDamageOverrides.finalDamage(ref) * this.material.multiplier();
+                double damage = WeaponDamageOverrides.roundHalf(WeaponDamageOverrides.finalDamage(ref) * this.material.multiplier());
                 double speed = WeaponDamageOverrides.finalSpeed(ref);
                 ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
                 builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(DAMAGE_UUID, "Weapon modifier", damage - 1.0,

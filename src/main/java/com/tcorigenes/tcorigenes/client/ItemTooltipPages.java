@@ -29,6 +29,8 @@ import org.lwjgl.glfw.GLFW;
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class ItemTooltipPages {
+    /** Renglones de info (sin el nombre) hasta los que se muestra todo junto, sin paginar. */
+    private static final int MAX_LINES = 10;
     private static int page = 0;
     private static boolean noticeShown = false;
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##");
@@ -64,6 +66,22 @@ public final class ItemTooltipPages {
         }
     }
 
+    /** Saca la aclaracion "[Entity: 1 | Item: 179999]" que Apothic Attributes agrega al daño y la velocidad de ataque. */
+    private static void stripAdvancedBase(Component component) {
+        component.getSiblings().removeIf(sibling -> sibling.getContents() instanceof TranslatableContents translatable
+                && translatable.getKey().equals("attributeslib.adv.base"));
+        for (Component sibling : new ArrayList<>(component.getSiblings())) {
+            stripAdvancedBase(sibling);
+        }
+        if (component.getContents() instanceof TranslatableContents translatable) {
+            for (Object arg : translatable.getArgs()) {
+                if (arg instanceof Component inner) {
+                    stripAdvancedBase(inner);
+                }
+            }
+        }
+    }
+
     private static boolean has(Component component, String prefix) {
         if (component.getContents() instanceof TranslatableContents translatable) {
             if (translatable.getKey().startsWith(prefix)) {
@@ -85,6 +103,8 @@ public final class ItemTooltipPages {
 
     private static boolean isOurStatLine(String text) {
         return text.startsWith("A dos manos") || text.startsWith("Ciclo de golpes") || text.startsWith("Set completo")
+                || text.startsWith("Ciclo de impactos") || text.startsWith("Torbellinos") || text.startsWith("Daño por impacto")
+                || text.startsWith("Daño total") || text.startsWith("Se puede equipar") || text.startsWith("Como guante")
                 || (text.startsWith("+") && text.contains("Daño de "));
     }
 
@@ -93,6 +113,9 @@ public final class ItemTooltipPages {
         List<Component> original = event.getToolTip();
         if (original.size() < 2 || event.getItemStack().isEmpty()) {
             return;
+        }
+        for (Component line : original) {
+            stripAdvancedBase(line);
         }
         Component name = original.get(0);
         List<Component> stats = new ArrayList<>();
@@ -121,8 +144,16 @@ public final class ItemTooltipPages {
                 lore.add(line);
             }
         }
+        List<Component> hidden = new ArrayList<>();
         if (!hasAttributeLines) {
-            appendHiddenAttributes(event.getItemStack(), stats);
+            appendHiddenAttributes(event.getItemStack(), hidden);
+            stats.addAll(hidden);
+        }
+        // Se pagina solo si la info pasa de MAX_LINES renglones; si entra en una pagina se muestra toda junta.
+        int infoLines = stats.size() + requirements.size() + lore.size();
+        if (infoLines <= MAX_LINES) {
+            original.addAll(1, hidden);
+            return;
         }
         List<List<Component>> pages = new ArrayList<>();
         pages.add(stats);

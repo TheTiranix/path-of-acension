@@ -74,6 +74,7 @@ public final class WeaponStatTooltip {
                     + " Daño de Ender por golpe").withStyle(elementColor(com.tudominio.elementaldamage.ModDamageTypes.ENDER_ELEMENTAL)));
         }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
+        addTotalDamage(lines, stack, spec);
         if (spec != null) {
             if (Boolean.TRUE.equals(spec.twoHanded)) {
                 lines.add(Component.literal("A dos manos").withStyle(ChatFormatting.GOLD));
@@ -94,8 +95,9 @@ public final class WeaponStatTooltip {
                 lines.add(Component.literal((spec.perProjectile ? "Torbellinos (uno de cada elemento): " : spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb).withStyle(ChatFormatting.LIGHT_PURPLE));
             }
         }
+        // el bonus de set completo es solo de la armadura, no de las armas ni herramientas de la misma linea
         for (var entry : ArmorSetBonus.SETS.entrySet()) {
-            if (id.toString().startsWith(entry.getKey())) {
+            if (stack.getItem() instanceof net.minecraft.world.item.ArmorItem && id.toString().startsWith(entry.getKey())) {
                 lines.add(Component.literal("Set completo: +" + (int) (ArmorSetBonus.AMPLIFICATION * 100) + "% Daño de "
                         + elementName(entry.getValue())).withStyle(elementColor(entry.getValue())));
             }
@@ -103,8 +105,32 @@ public final class WeaponStatTooltip {
         return lines;
     }
 
+    /** "Daño total": daño normal (con el 1 de base del jugador incluido) mas los daños elementales fijos del arma. */
+    private static void addTotalDamage(List<Component> lines, net.minecraft.world.item.ItemStack stack, WeaponBalance.Spec spec) {
+        if (spec != null && spec.ranged) {
+            return; // los arcos muestran "Daño por impacto"
+        }
+        double normal = 0.0;
+        for (var modifier : stack.getAttributeModifiers(net.minecraft.world.entity.EquipmentSlot.MAINHAND)
+                .get(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE)) {
+            if (modifier.getOperation() == net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION) {
+                normal += modifier.getAmount();
+            }
+        }
+        if (normal <= 0.0) {
+            return;
+        }
+        normal += 1.0; // el daño base del jugador: el total real que se hace con un golpe cargado
+        float elemental = spec == null ? 0.0F : spec.extrasTotal();
+        String text = "Daño total: " + trim((float) (normal + elemental));
+        if (elemental > 0.0F) {
+            text += " (" + trim((float) normal) + " normal + " + trim(elemental) + " elemental)";
+        }
+        lines.add(Component.literal(text).withStyle(ChatFormatting.RED));
+    }
+
     private static String trim(float v) {
-        return v == (long) v ? Long.toString((long) v) : Float.toString(v);
+        return v == (long) v ? Long.toString((long) v) : String.format(java.util.Locale.ROOT, "%.1f", v);
     }
 
     @SubscribeEvent
