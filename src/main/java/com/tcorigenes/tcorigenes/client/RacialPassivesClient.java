@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class RacialPassivesClient {
-    private static final double GLIDE_MAX_FALL_SPEED = -0.08; // 60% mas rapido que -0.05; por debajo de -0.03125 el servidor no lo toma por vuelo
+    private static final double GLIDE_MAX_FALL_SPEED = -0.09; // 80% mas rapido que -0.05; por debajo de -0.03125 el servidor no lo toma por vuelo
 
     private RacialPassivesClient() {
     }

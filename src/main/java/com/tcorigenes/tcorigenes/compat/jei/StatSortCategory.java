@@ -80,9 +80,7 @@ public class StatSortCategory implements IRecipeCategory<StatSortRecipe> {
             int col = i % GRID_COLUMNS;
             int row = i / GRID_COLUMNS;
             builder.addSlot(RecipeIngredientRole.OUTPUT, col * 18 + 1, row * 18 + 1)
-                    .addItemStack(entry.stack())
-                    .addTooltipCallback((slotView, tooltip) ->
-                            tooltip.add(Component.literal(recipe.statLabel() + ": " + FORMAT.format(entry.value()))));
+                    .addItemStack(entry.stack());
         }
     }
 }

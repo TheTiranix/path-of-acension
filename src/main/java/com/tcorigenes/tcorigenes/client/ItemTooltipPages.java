@@ -102,7 +102,7 @@ public final class ItemTooltipPages {
     }
 
     private static boolean isOurStatLine(String text) {
-        return text.startsWith("A dos manos") || text.startsWith("Ciclo de golpes") || text.startsWith("Set completo")
+        return text.startsWith("Ciclo de golpes") || text.startsWith("Set completo")
                 || text.startsWith("Ciclo de impactos") || text.startsWith("Torbellinos") || text.startsWith("Daño por impacto")
                 || text.startsWith("Daño total") || text.startsWith("Se puede equipar") || text.startsWith("Como guante")
                 || (text.startsWith("+") && text.contains("Daño de "));
@@ -113,6 +113,15 @@ public final class ItemTooltipPages {
         List<Component> original = event.getToolTip();
         if (original.size() < 2 || event.getItemStack().isEmpty()) {
             return;
+        }
+        boolean twoHandedShown = false;
+        for (int i = 1; i < original.size(); i++) {
+            if (has(original.get(i), "item.held.two_handed")) {
+                if (twoHandedShown) {
+                    original.remove(i--); // Better Combat ya lo muestra: no repetirlo
+                }
+                twoHandedShown = true;
+            }
         }
         for (Component line : original) {
             stripAdvancedBase(line);
@@ -130,7 +139,9 @@ public final class ItemTooltipPages {
                 inAttributeBlock = false;
                 continue;
             }
-            if (has(line, "item.modifiers.")) {
+            if (has(line, "item.held.")) {
+                stats.add(line);
+            } else if (has(line, "item.modifiers.")) {
                 inAttributeBlock = true;
                 hasAttributeLines = true;
                 stats.add(line);

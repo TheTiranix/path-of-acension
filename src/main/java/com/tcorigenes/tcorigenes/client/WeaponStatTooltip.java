@@ -77,7 +77,8 @@ public final class WeaponStatTooltip {
         addTotalDamage(lines, stack, spec);
         if (spec != null) {
             if (Boolean.TRUE.equals(spec.twoHanded)) {
-                lines.add(Component.literal("A dos manos").withStyle(ChatFormatting.GOLD));
+                // el mismo texto que ya muestra Better Combat ("Two-Handed"); ItemTooltipPages saca el duplicado
+                lines.add(Component.translatable("item.held.two_handed").withStyle(ChatFormatting.GOLD));
             }
             if (spec.ranged && spec.damage != null) {
                 lines.add(Component.literal("Daño por impacto: " + trim(spec.damage.floatValue()))
@@ -123,9 +124,6 @@ public final class WeaponStatTooltip {
         normal += 1.0; // el daño base del jugador: el total real que se hace con un golpe cargado
         float elemental = spec == null ? 0.0F : spec.extrasTotal();
         String text = "Daño total: " + trim((float) (normal + elemental));
-        if (elemental > 0.0F) {
-            text += " (" + trim((float) normal) + " normal + " + trim(elemental) + " elemental)";
-        }
         lines.add(Component.literal(text).withStyle(ChatFormatting.RED));
     }
 
