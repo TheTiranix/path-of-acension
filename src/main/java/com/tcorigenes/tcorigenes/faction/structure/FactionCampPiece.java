@@ -38,8 +38,9 @@ public class FactionCampPiece extends StructurePiece {
      * en vez de un margen chico), para que ese recalculo no quede afuera del area reservada.
      */
     private static BoundingBox makeBoundingBox(BlockPos origin) {
-        return new BoundingBox(origin.getX() - 16, -64, origin.getZ() - 16,
-                origin.getX() + 16, 320, origin.getZ() + 16);
+        // Radio 26: cubre el piso (radio 20) y las cabañas del anillo exterior (radio 15 + alero 4) con margen.
+        return new BoundingBox(origin.getX() - 26, -64, origin.getZ() - 26,
+                origin.getX() + 26, 320, origin.getZ() + 26);
     }
 
     @Override

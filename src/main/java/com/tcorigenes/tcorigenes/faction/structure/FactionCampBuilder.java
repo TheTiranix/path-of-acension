@@ -12,14 +12,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -30,10 +33,18 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
  * Cada llamada a place() respeta el BoundingBox de la porcion de chunk que se esta procesando
  * (postProcess se llama una vez por cada chunk que toca el campamento), y el spawn de NPCs/cofre
  * solo se ejecuta una vez, cuando el chunk que contiene el centro es el que se esta procesando.
+ *
+ * Pedido de alejandr0: aldeas mas grandes (no solo 3 casas) y casas mas detalladas. Ahora son 6
+ * cabañas mas grandes, con techo a 4 aguas (aleros de escalera + capas de losa en piramide,
+ * rematado con un adorno arriba), mas ventanas, y cama + mesa de crafteo adentro.
  */
 public final class FactionCampBuilder {
-    private static final int HUT_RING_RADIUS = 9;
-    private static final int FLOOR_RADIUS = 13;
+    private static final int HUT_RING_RADIUS = 15;
+    private static final int FLOOR_RADIUS = 20;
+    /** Media distancia del piso al muro de la cabaña (7x7 de base). */
+    private static final int HUT_HALF = 3;
+    private static final int WALL_HEIGHT = 4;
+    private static final double[] HUT_ANGLES = {90, 150, 210, 270, 330, 30};
 
     private FactionCampBuilder() {
     }
@@ -106,14 +117,14 @@ public final class FactionCampBuilder {
         place(level, box, center.above(), palette.accent.defaultBlockState());
         place(level, box, center.above(2), palette.light.defaultBlockState());
 
-        double[] angles = {90, 210, 330};
-        for (double angleDeg : angles) {
+        for (double angleDeg : HUT_ANGLES) {
             double rad = Math.toRadians(angleDeg);
             int hx = center.getX() + (int) Math.round(Math.cos(rad) * HUT_RING_RADIUS);
             int hz = center.getZ() + (int) Math.round(Math.sin(rad) * HUT_RING_RADIUS);
             BlockPos hutCenter = new BlockPos(hx, center.getY(), hz);
             Direction doorFacing = nearestCardinal(center.getX() - hx, center.getZ() - hz);
             buildHut(level, hutCenter, palette, doorFacing, box);
+            placePath(level, center, hutCenter, palette, box);
         }
     }
 
@@ -124,37 +135,92 @@ public final class FactionCampBuilder {
         return dz >= 0 ? Direction.SOUTH : Direction.NORTH;
     }
 
+    /** Sendero de losas entre la puerta de la cabaña y la plaza central, para que la aldea se vea conectada. */
+    private static void placePath(WorldGenLevel level, BlockPos center, BlockPos hutCenter, FactionPalette palette, BoundingBox box) {
+        BlockPos from = hutCenter.relative(nearestCardinal(center.getX() - hutCenter.getX(), center.getZ() - hutCenter.getZ()), HUT_HALF + 2);
+        int steps = Math.max(Math.abs(center.getX() - from.getX()), Math.abs(center.getZ() - from.getZ()));
+        for (int i = 0; i <= steps; i++) {
+            double t = steps == 0 ? 0 : (double) i / steps;
+            int px = (int) Math.round(from.getX() + (center.getX() - from.getX()) * t);
+            int pz = (int) Math.round(from.getZ() + (center.getZ() - from.getZ()) * t);
+            place(level, box, new BlockPos(px, hutCenter.getY() - 1, pz), palette.accent.defaultBlockState());
+        }
+    }
+
     private static void buildHut(WorldGenLevel level, BlockPos hutCenter, FactionPalette palette, Direction doorFacing, BoundingBox box) {
-        for (int dx = -2; dx <= 2; dx++) {
-            for (int dz = -2; dz <= 2; dz++) {
+        for (int dx = -HUT_HALF; dx <= HUT_HALF; dx++) {
+            for (int dz = -HUT_HALF; dz <= HUT_HALF; dz++) {
                 BlockPos base = hutCenter.offset(dx, 0, dz);
-                boolean edge = Math.abs(dx) == 2 || Math.abs(dz) == 2;
+                boolean edge = Math.abs(dx) == HUT_HALF || Math.abs(dz) == HUT_HALF;
                 if (edge) {
-                    place(level, box, base, palette.wall.defaultBlockState());
-                    place(level, box, base.above(1), palette.wall.defaultBlockState());
-                    place(level, box, base.above(2), palette.wall.defaultBlockState());
+                    for (int y = 0; y < WALL_HEIGHT; y++) {
+                        place(level, box, base.above(y), palette.wall.defaultBlockState());
+                    }
+                    boolean corner = Math.abs(dx) == HUT_HALF && Math.abs(dz) == HUT_HALF;
+                    if (corner) {
+                        // Vigas de esquina a la vista (detalle: se nota la estructura, no es un cubo liso).
+                        for (int y = 0; y < WALL_HEIGHT; y++) {
+                            place(level, box, base.above(y), palette.accent.defaultBlockState());
+                        }
+                    }
                 } else {
                     place(level, box, base, palette.floor.defaultBlockState());
-                    place(level, box, base.above(1), Blocks.AIR.defaultBlockState());
-                    place(level, box, base.above(2), Blocks.AIR.defaultBlockState());
+                    for (int y = 0; y < WALL_HEIGHT; y++) {
+                        place(level, box, base.above(y), Blocks.AIR.defaultBlockState());
+                    }
                 }
             }
         }
 
-        for (int dx = -3; dx <= 3; dx++) {
-            for (int dz = -3; dz <= 3; dz++) {
-                place(level, box, hutCenter.offset(dx, 3, dz), palette.roof.defaultBlockState());
-            }
-        }
-
+        buildRoof(level, hutCenter, palette, box);
         placeDoor(level, box, hutCenter, palette, doorFacing);
         placeWindows(level, box, hutCenter, doorFacing);
         placeInteriorLight(level, box, hutCenter, palette, doorFacing);
+        placeFurniture(level, box, hutCenter, palette, doorFacing);
+    }
+
+    /**
+     * Techo a cuatro aguas: un alero de escaleras (orientadas hacia afuera en cada lado) apoyado
+     * sobre las paredes, y arriba una piramide de losas que se va cerrando hasta un adorno final
+     * (un bloque de acento, como una veleta). Mucho mas detallado que la losa lisa de antes.
+     */
+    private static void buildRoof(WorldGenLevel level, BlockPos hutCenter, FactionPalette palette, BoundingBox box) {
+        int eave = HUT_HALF + 1;
+        int roofY = WALL_HEIGHT;
+        for (int dx = -eave; dx <= eave; dx++) {
+            for (int dz = -eave; dz <= eave; dz++) {
+                boolean onRing = Math.max(Math.abs(dx), Math.abs(dz)) == eave;
+                if (!onRing) {
+                    continue;
+                }
+                BlockPos pos = hutCenter.offset(dx, roofY, dz);
+                if (Math.abs(dx) == eave && Math.abs(dz) == eave) {
+                    place(level, box, pos, palette.roof.defaultBlockState()); // esquina: losa lisa
+                } else if (Math.abs(dx) == eave) {
+                    place(level, box, pos, palette.wallStairs.defaultBlockState()
+                            .setValue(StairBlock.FACING, dx > 0 ? Direction.EAST : Direction.WEST));
+                } else {
+                    place(level, box, pos, palette.wallStairs.defaultBlockState()
+                            .setValue(StairBlock.FACING, dz > 0 ? Direction.SOUTH : Direction.NORTH));
+                }
+            }
+        }
+        for (int layer = 1; layer <= eave; layer++) {
+            int radius = eave - layer;
+            BlockState state = radius == 0 ? palette.accent.defaultBlockState() : palette.roof.defaultBlockState();
+            for (int dx = -radius; dx <= radius; dx++) {
+                for (int dz = -radius; dz <= radius; dz++) {
+                    if (dx * dx + dz * dz <= radius * radius) {
+                        place(level, box, hutCenter.offset(dx, roofY + layer, dz), state);
+                    }
+                }
+            }
+        }
     }
 
     /** Puerta de verdad (se puede abrir), no solo un hueco en la pared. */
     private static void placeDoor(WorldGenLevel level, BoundingBox box, BlockPos hutCenter, FactionPalette palette, Direction doorFacing) {
-        BlockPos doorBase = hutCenter.relative(doorFacing, 2);
+        BlockPos doorBase = hutCenter.relative(doorFacing, HUT_HALF); // sobre la pared misma, no adentro
         place(level, box, doorBase, palette.floor.defaultBlockState());
 
         BlockState lower = palette.door.defaultBlockState()
@@ -168,27 +234,45 @@ public final class FactionCampBuilder {
         place(level, box, doorBase.above(2), upper);
     }
 
-    /** Ventanas de vidrio en las dos paredes laterales (perpendiculares a la puerta). */
+    /** Dos ventanas de vidrio por pared lateral (perpendiculares a la puerta), no solo una. */
     private static void placeWindows(WorldGenLevel level, BoundingBox box, BlockPos hutCenter, Direction doorFacing) {
         Direction sideA = doorFacing.getClockWise();
         Direction sideB = doorFacing.getCounterClockWise();
-        place(level, box, hutCenter.relative(sideA, 2).above(1), Blocks.GLASS_PANE.defaultBlockState());
-        place(level, box, hutCenter.relative(sideB, 2).above(1), Blocks.GLASS_PANE.defaultBlockState());
+        for (Direction side : new Direction[] {sideA, sideB}) {
+            for (int offset : new int[] {-1, 1}) {
+                BlockPos pos = hutCenter.relative(side, HUT_HALF).relative(doorFacing, offset);
+                place(level, box, pos.above(1), Blocks.GLASS_PANE.defaultBlockState());
+                place(level, box, pos.above(2), Blocks.GLASS_PANE.defaultBlockState());
+            }
+        }
     }
 
     /** Antes esto era una lampara parada en el piso; ahora cuelga del techo o va en la pared del fondo. */
     private static void placeInteriorLight(WorldGenLevel level, BoundingBox box, BlockPos hutCenter, FactionPalette palette, Direction doorFacing) {
         if (palette.light == Blocks.LANTERN || palette.light == Blocks.SOUL_LANTERN) {
             BlockState hanging = palette.light.defaultBlockState().setValue(LanternBlock.HANGING, true);
-            place(level, box, hutCenter.above(2), hanging);
+            place(level, box, hutCenter.above(WALL_HEIGHT - 1), hanging);
             return;
         }
-        BlockPos wallLightPos = hutCenter.relative(doorFacing.getOpposite(), 1).above(1);
+        BlockPos wallLightPos = hutCenter.relative(doorFacing.getOpposite(), HUT_HALF - 1).above(1);
         if (palette.light == Blocks.END_ROD) {
             place(level, box, wallLightPos, Blocks.END_ROD.defaultBlockState().setValue(DirectionalBlock.FACING, doorFacing));
         } else {
             place(level, box, wallLightPos, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, doorFacing));
         }
+    }
+
+    /** Cama contra la pared del fondo y mesa de crafteo cerca de la puerta: la cabaña ya no esta vacia por dentro. */
+    private static void placeFurniture(WorldGenLevel level, BoundingBox box, BlockPos hutCenter, FactionPalette palette, Direction doorFacing) {
+        Direction sideA = doorFacing.getClockWise();
+        Direction back = doorFacing.getOpposite();
+        BlockPos foot = hutCenter.relative(back, HUT_HALF - 2).relative(sideA, HUT_HALF - 1);
+        BlockPos head = foot.relative(back, 1);
+        place(level, box, foot, palette.bed.defaultBlockState().setValue(BedBlock.FACING, back).setValue(BedBlock.PART, BedPart.FOOT));
+        place(level, box, head, palette.bed.defaultBlockState().setValue(BedBlock.FACING, back).setValue(BedBlock.PART, BedPart.HEAD));
+
+        BlockPos table = hutCenter.relative(doorFacing.getCounterClockWise(), HUT_HALF - 1).relative(doorFacing, HUT_HALF - 2);
+        place(level, box, table, Blocks.CRAFTING_TABLE.defaultBlockState());
     }
 
     private static void fillFlavorChest(WorldGenLevel level, BlockPos center, Faction faction) {
@@ -214,11 +298,10 @@ public final class FactionCampBuilder {
     }
 
     private static void spawnNpcs(WorldGenLevel level, BlockPos center, Faction faction, RandomSource random) {
-        double[] angles = {90, 210, 330};
-        for (double angleDeg : angles) {
+        for (double angleDeg : HUT_ANGLES) {
             double rad = Math.toRadians(angleDeg);
-            double nx = center.getX() + 0.5 + Math.cos(rad) * (HUT_RING_RADIUS - 3.0);
-            double nz = center.getZ() + 0.5 + Math.sin(rad) * (HUT_RING_RADIUS - 3.0);
+            double nx = center.getX() + 0.5 + Math.cos(rad) * (HUT_RING_RADIUS - HUT_HALF - 1.0);
+            double nz = center.getZ() + 0.5 + Math.sin(rad) * (HUT_RING_RADIUS - HUT_HALF - 1.0);
             FactionNpcEntity npc = ModEntityTypes.FACTION_NPC.get().create(level.getLevel());
             if (npc != null) {
                 npc.setFaction(faction);
