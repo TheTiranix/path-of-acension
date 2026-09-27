@@ -29,16 +29,22 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/siervo_antennas.png");
     private static final ResourceLocation WINGS_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/angel_wings.png");
+    private static final ResourceLocation GEARS_WOOD_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_wood.png");
+    private static final ResourceLocation GEARS_METAL_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_metal.png");
 
     private final ModelPart horns;
     private final ModelPart wings;
     private final ModelPart antennas;
+    private final ModelPart gears;
 
     public RaceFeaturesLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, EntityModelSet modelSet) {
         super(parent);
         this.horns = modelSet.bakeLayer(ModModelLayers.DEMON_HORNS);
         this.wings = modelSet.bakeLayer(ModModelLayers.ANGEL_WINGS);
         this.antennas = modelSet.bakeLayer(ModModelLayers.SIERVO_ANTENNAS);
+        this.gears = modelSet.bakeLayer(ModModelLayers.AUTOMATA_GEARS);
     }
 
     @Override
@@ -71,7 +77,40 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             poseStack.popPose();
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             renderMalnacido(poseStack, buffer, packedLight, player);
+        } else if (race == Race.AUTOMATA) {
+            renderGears(poseStack, buffer, packedLight, ageInTicks);
         }
+    }
+
+    /** true si el jugador ya desbloqueo TODOS los nodos del arbol de su clase actual. */
+    private static boolean treeMaxed() {
+        var cls = com.tcorigenes.tcorigenes.progression.client.ClientSkillData.playerClass();
+        var nodes = com.tcorigenes.tcorigenes.progression.SkillTree.forClass(cls);
+        if (nodes.isEmpty()) {
+            return false;
+        }
+        var unlocked = com.tcorigenes.tcorigenes.progression.client.ClientSkillData.unlocked();
+        return nodes.stream().allMatch(node -> unlocked.contains(node.storageKey()));
+    }
+
+    /** Engranajes girando en cada hombro; de madera hasta que el arbol de la clase actual esta al maximo,
+     *  ahi pasan a ser de metal (pedido de alejandr0). */
+    private void renderGears(PoseStack poseStack, MultiBufferSource buffer, int packedLight, float ageInTicks) {
+        ResourceLocation texture = treeMaxed() ? GEARS_METAL_TEXTURE : GEARS_WOOD_TEXTURE;
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(texture));
+        float spin = ageInTicks * 0.08F;
+        poseStack.pushPose();
+        this.getParentModel().body.translateAndRotate(poseStack);
+        for (int side = 0; side < 2; side++) {
+            float xSign = side == 0 ? 1.0F : -1.0F;
+            poseStack.pushPose();
+            poseStack.translate(xSign * 4.7, -10.5, 0.0);
+            ModelPart gear = this.gears.getChild((side == 0 ? "left" : "right") + "_gear");
+            gear.zRot = xSign * spin;
+            gear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
+            poseStack.popPose();
+        }
+        poseStack.popPose();
     }
 
     /**

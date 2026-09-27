@@ -37,6 +37,12 @@ public class ModAttributes {
     public static final RegistryObject<Attribute> RESIST_ENDER = ATTRIBUTES.register(
             "resist_ender", () -> new RangedAttribute("attribute.name.elementaldamage.resist_ender", 0.0, -5.0, 1.0).setSyncable(true));
 
+    public static final RegistryObject<Attribute> RESIST_EARTH = ATTRIBUTES.register(
+            "resist_earth", () -> new RangedAttribute("attribute.name.elementaldamage.resist_earth", 0.0, -5.0, 1.0).setSyncable(true));
+
+    public static final RegistryObject<Attribute> RESIST_AIR = ATTRIBUTES.register(
+            "resist_air", () -> new RangedAttribute("attribute.name.elementaldamage.resist_air", 0.0, -5.0, 1.0).setSyncable(true));
+
     public static final RegistryObject<Attribute> CRIT_CHANCE = ATTRIBUTES.register(
             "crit_chance", () -> new RangedAttribute("attribute.name.elementaldamage.crit_chance", 0.0, 0.0, 1.0).setSyncable(true));
 
@@ -62,6 +68,8 @@ public class ModAttributes {
         event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_WATER.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_LUNAR.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_ENDER.get());
+        event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_EARTH.get());
+        event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_AIR.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, CRIT_CHANCE.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, CRIT_DAMAGE.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, BOW_DAMAGE_MULT.get());

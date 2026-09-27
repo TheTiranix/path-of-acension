@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public final class EnderWarriorSize {
     private static final float EXTRA_HEIGHT = 0.5F;
     private static final float STONE_GIANT_SCALE = 1.25F;
+    private static final float AUTOMATA_SCALE = 1.22F;
 
     private EnderWarriorSize() {
     }
@@ -46,6 +47,12 @@ public final class EnderWarriorSize {
             // 25% mas alto y ancho en cualquier pose.
             event.setNewSize(EntityDimensions.scalable(old.width * STONE_GIANT_SCALE, old.height * STONE_GIANT_SCALE));
             event.setNewEyeHeight(event.getNewEyeHeight() * STONE_GIANT_SCALE);
+            return;
+        }
+        if (race == Race.AUTOMATA) {
+            // Alto y grande, en la misma linea que el Malnacido/Gigante Rocoso.
+            event.setNewSize(EntityDimensions.scalable(old.width * AUTOMATA_SCALE, old.height * AUTOMATA_SCALE));
+            event.setNewEyeHeight(event.getNewEyeHeight() * AUTOMATA_SCALE);
             return;
         }
         if (race != Race.ENDER_WARRIOR) {

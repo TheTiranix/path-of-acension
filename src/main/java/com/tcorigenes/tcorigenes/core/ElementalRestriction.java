@@ -33,6 +33,7 @@ public final class ElementalRestriction {
             case SIERVO_DE_LA_LUNA -> ModDamageTypes.LUNAR;
             case ENDER_WARRIOR -> ModDamageTypes.ENDER_ELEMENTAL;
             case STONE_GIANT -> ModDamageTypes.EARTH;
+            case AUTOMATA -> ModDamageTypes.AIR;
             default -> null;
         };
     }

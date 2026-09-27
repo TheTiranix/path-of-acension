@@ -42,6 +42,8 @@ public final class RacialElemental {
             }
             case ENDER_WARRIOR -> convert(event, target, attacker, ModDamageTypes.ENDER_ELEMENTAL, 0.05F);
             case STONE_GIANT -> convert(event, target, attacker, ModDamageTypes.EARTH, 0.10F);
+            case AUTOMATA -> convert(event, target, attacker, ModDamageTypes.AIR,
+                    0.10F * com.tcorigenes.tcorigenes.ability.AutomataOverload.airMultiplier(attacker));
             default -> {
             }
         }

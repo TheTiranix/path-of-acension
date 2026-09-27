@@ -46,7 +46,9 @@ public class ElementalDamageEvents {
             ModDamageTypes.FIRE_ELEMENTAL, () -> ModAttributes.RESIST_FIRE,
             ModDamageTypes.WATER_ELEMENTAL, () -> ModAttributes.RESIST_WATER,
             ModDamageTypes.LUNAR, () -> ModAttributes.RESIST_LUNAR,
-            ModDamageTypes.ENDER_ELEMENTAL, () -> ModAttributes.RESIST_ENDER
+            ModDamageTypes.ENDER_ELEMENTAL, () -> ModAttributes.RESIST_ENDER,
+            ModDamageTypes.EARTH, () -> ModAttributes.RESIST_EARTH,
+            ModDamageTypes.AIR, () -> ModAttributes.RESIST_AIR
     );
 
     @SubscribeEvent

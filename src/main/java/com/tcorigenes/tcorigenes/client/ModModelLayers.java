@@ -19,6 +19,8 @@ public final class ModModelLayers {
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "siervo_antennas"), "main");
     public static final ModelLayerLocation ANGEL_WINGS =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "angel_wings"), "main");
+    public static final ModelLayerLocation AUTOMATA_GEARS =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_gears"), "main");
 
     private ModModelLayers() {
     }
@@ -27,6 +29,20 @@ public final class ModModelLayers {
         event.registerLayerDefinition(DEMON_HORNS, ModModelLayers::createHornsLayer);
         event.registerLayerDefinition(ANGEL_WINGS, ModModelLayers::createWingsLayer);
         event.registerLayerDefinition(SIERVO_ANTENNAS, ModModelLayers::createAntennasLayer);
+        event.registerLayerDefinition(AUTOMATA_GEARS, ModModelLayers::createGearsLayer);
+    }
+
+    /** Un engranaje plano por hombro; gira sobre si mismo en RaceFeaturesLayer. La textura (madera o
+     *  metal segun el arbol de habilidades, ver RaceFeaturesLayer) dibuja los dientes. */
+    private static LayerDefinition createGearsLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        for (String side : new String[] {"left", "right"}) {
+            root.addOrReplaceChild(side + "_gear",
+                    CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -3.5F, -1.0F, 7.0F, 7.0F, 2.0F),
+                    PartPose.ZERO);
+        }
+        return LayerDefinition.create(mesh, 16, 16);
     }
 
     private static LayerDefinition createHornsLayer() {

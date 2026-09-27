@@ -16,7 +16,8 @@ import net.minecraftforge.network.NetworkEvent.Context;
  *  El servidor decide segun la raza real del jugador, nunca confia en el cliente. */
 public class ActivateRacialAbilityPacket {
     private static final Map<Race, String> RACE_ABILITIES = Map.of(
-            Race.ENDER_WARRIOR, "tcorigenes:teletransporte_ender"
+            Race.ENDER_WARRIOR, "tcorigenes:teletransporte_ender",
+            Race.AUTOMATA, "tcorigenes:sobrecarga_automata"
     );
 
     public ActivateRacialAbilityPacket() {

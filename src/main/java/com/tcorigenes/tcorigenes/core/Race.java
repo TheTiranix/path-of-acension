@@ -10,7 +10,8 @@ public enum Race {
     SIERVO_DE_LA_LUNA("Siervo de la Luna"),
     ENDER_WARRIOR("Ender Warrior"),
     MALNACIDO("Malnacido"),
-    STONE_GIANT("Gigante Rocoso");
+    STONE_GIANT("Gigante Rocoso"),
+    AUTOMATA("Autómata");
 
     private final String displayName;
 

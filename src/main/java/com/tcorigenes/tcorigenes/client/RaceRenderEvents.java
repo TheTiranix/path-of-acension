@@ -60,6 +60,9 @@ public final class RaceRenderEvents {
         } else if (race == Race.STONE_GIANT) {
             event.getPoseStack().pushPose();
             event.getPoseStack().scale(1.25F, 1.25F, 1.25F);
+        } else if (race == Race.AUTOMATA) {
+            event.getPoseStack().pushPose();
+            event.getPoseStack().scale(1.22F, 1.22F, 1.22F);
         }
         // El Malnacido se dibuja en RaceFeaturesLayer (ver renderMalnacido).
     }
@@ -105,7 +108,7 @@ public final class RaceRenderEvents {
     public static void onRenderPlayerPost(RenderPlayerEvent.Post event) {
         Player player = event.getEntity();
         Race race = ClientRaceData.get(player.getUUID());
-        if (race == Race.ENDER_WARRIOR || race == Race.STONE_GIANT) {
+        if (race == Race.ENDER_WARRIOR || race == Race.STONE_GIANT || race == Race.AUTOMATA) {
             event.getPoseStack().popPose();
         }
     }

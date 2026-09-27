@@ -43,6 +43,9 @@ public class RaceAttributeManager {
     private static final UUID KNOCKBACK_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2");
     private static final UUID REACH_MODIFIER_ID = UUID.fromString("aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3");
     private static final UUID CRIT_CHANCE_MODIFIER_ID = UUID.fromString("99999999-9999-4999-8999-999999999999");
+    private static final UUID RESIST_EARTH_MODIFIER_ID = UUID.fromString("bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1");
+    private static final UUID RESIST_AIR_MODIFIER_ID = UUID.fromString("bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2");
+    private static final UUID SPELL_POWER_MODIFIER_ID = UUID.fromString("bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3");
 
     public static void updateAttributes(Player player, Race race) {
         AttributeInstance health = player.getAttribute(Attributes.MAX_HEALTH);
@@ -56,6 +59,10 @@ public class RaceAttributeManager {
         AttributeInstance resistWater = player.getAttribute(ModAttributes.RESIST_WATER.get());
         AttributeInstance resistLunar = player.getAttribute(ModAttributes.RESIST_LUNAR.get());
         AttributeInstance resistEnder = player.getAttribute(ModAttributes.RESIST_ENDER.get());
+        AttributeInstance resistEarth = player.getAttribute(ModAttributes.RESIST_EARTH.get());
+        AttributeInstance resistAir = player.getAttribute(ModAttributes.RESIST_AIR.get());
+        AttributeInstance spellPower = player.getAttribute(net.minecraftforge.registries.ForgeRegistries.ATTRIBUTES.getValue(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "spell_power")));
         AttributeInstance critChance = player.getAttribute(ModAttributes.CRIT_CHANCE.get());
         AttributeInstance luck = player.getAttribute(Attributes.LUCK);
         AttributeInstance drawSpeed = player.getAttribute(ModAttributes.DRAW_SPEED.get());
@@ -75,6 +82,9 @@ public class RaceAttributeManager {
         removeIfPresent(resistLunar, RESIST_LUNAR_MODIFIER_ID);
         removeIfPresent(resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID);
         removeIfPresent(resistEnder, RESIST_ENDER_MODIFIER_ID);
+        removeIfPresent(resistEarth, RESIST_EARTH_MODIFIER_ID);
+        removeIfPresent(resistAir, RESIST_AIR_MODIFIER_ID);
+        removeIfPresent(spellPower, SPELL_POWER_MODIFIER_ID);
         removeIfPresent(critChance, CRIT_CHANCE_MODIFIER_ID);
         removeIfPresent(luck, LUCK_MODIFIER_ID);
         removeIfPresent(drawSpeed, DRAW_SPEED_MODIFIER_ID);
@@ -147,6 +157,24 @@ public class RaceAttributeManager {
                 add(player, toApply, speed, SPEED_MODIFIER_ID, "Gigante Rocoso Slowness", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 add(player, toApply, attackSpeed, ATTACK_SPEED_MODIFIER_ID, "Gigante Rocoso Attack Speed", -0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
                 add(player, toApply, drawSpeed, DRAW_SPEED_MODIFIER_ID, "Gigante Rocoso Draw Speed", -0.10, AttributeModifier.Operation.ADDITION);
+            }
+            case AUTOMATA -> {
+                // Hibrido tanque/daño (ninguno de los dos puro): +14% vida, +10% daño, -8% velocidad
+                // base (aparte de la penalizacion de la habilidad, que es propia y aparte, ver
+                // AutomataOverload). Afinidad tierra/aire (+25% resistencia) y debilidad marcada a
+                // fuego/agua (-40%, toma mas daño). Prohibido usar magia: el poder de hechizo de Iron's
+                // Spellbooks queda en 0 (Ars Nouveau no tiene un atributo equivalente para anular).
+                add(player, toApply, health, HEALTH_MODIFIER_ID, "Autómata Health", 0.14, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, attackDamage, ATTACK_DAMAGE_MODIFIER_ID, "Autómata Damage", 0.10, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, speed, SPEED_MODIFIER_ID, "Autómata Slowness", -0.08, AttributeModifier.Operation.MULTIPLY_TOTAL);
+                add(player, toApply, resistEarth, RESIST_EARTH_MODIFIER_ID, "Autómata Earth Affinity", 0.25, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistAir, RESIST_AIR_MODIFIER_ID, "Autómata Air Affinity", 0.25, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistFire, RESIST_FIRE_MODIFIER_ID, "Autómata Fire Weakness", -0.40, AttributeModifier.Operation.ADDITION);
+                add(player, toApply, resistWater, RESIST_WATER_WEAKNESS_MODIFIER_ID, "Autómata Water Weakness", -0.40, AttributeModifier.Operation.ADDITION);
+                if (spellPower != null) {
+                    toApply.add(() -> spellPower.addTransientModifier(new AttributeModifier(
+                            SPELL_POWER_MODIFIER_ID, "Autómata No Magic", -1.0, AttributeModifier.Operation.MULTIPLY_BASE)));
+                }
             }
             case MALNACIDO -> {
                 if (player.getPersistentData().getBoolean("malnacido_purificado")) {

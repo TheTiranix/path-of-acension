@@ -28,6 +28,7 @@ public final class OriginInfo {
             case ENDER_WARRIOR -> "ender";
             case MALNACIDO -> "malnacido";
             case STONE_GIANT -> "stone_giant";
+            case AUTOMATA -> "automata";
         };
         return new ResourceLocation("tcorigenes", "textures/gui/origin/" + name + ".png");
     }
@@ -74,6 +75,7 @@ public final class OriginInfo {
             case ENDER_WARRIOR -> "Un guerrero del vacío. El agua es su enemiga.";
             case MALNACIDO -> "Nacido maldito, deforme y odiado por todos.";
             case STONE_GIANT -> "Un coloso de piedra: lento, pero casi imparable.";
+            case AUTOMATA -> "Un gigante de engranajes al servicio de Deiros. La magia no puede tocarlo.";
         };
     }
 
@@ -141,6 +143,17 @@ public final class OriginInfo {
                 l.add(plus("Recibe 5% menos de todo el daño."));
                 l.add(plus("25% más alto y ancho. 10% de su daño se convierte en tierra."));
                 l.add(minus("-10% de velocidad de movimiento, de ataque y de carga."));
+            }
+            case AUTOMATA -> {
+                l.add(plus("+14% de vida y +10% de daño (mitad tanque, mitad daño: no es ninguno de los dos puro)."));
+                l.add(plus("+25% de resistencia a la tierra y al aire. 10% de su daño se convierte en aire."));
+                l.add(plus("Habilidad racial (J): +50% de daño de aire a cambio de -35% de velocidad, 20 s. Recarga: 60 s."));
+                l.add(plus("Sus puños (sin nada en la mano) lanzan por el aire al enemigo; al caer sufre daño de caída y queda paralizado 1 s."));
+                l.add(plus("La armadura de Create y de Mekanism (incluido el MekaSuit) le da un aumento muy considerable de estadísticas; a cualquier otra raza no le hace nada extra."));
+                l.add(plus("Empieza con mucho favor de Deiros: en el lore, es su sirviente."));
+                l.add(minus("-8% de velocidad de movimiento. -40% de resistencia al fuego y al agua elemental (toma bastante más daño)."));
+                l.add(minus("Tiene prohibido usar magia: el poder de sus hechizos queda en 0."));
+                l.add(note("25% más alto y ancho, con engranajes en los hombros (de metal cuando el árbol de habilidades de su clase está al máximo)."));
             }
         }
         return l;

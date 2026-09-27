@@ -35,6 +35,7 @@ public final class AbilityRegistry {
         registerOjoDeHalcon();
         registerEspirituAnima();
         registerTeletransporteEnder();
+        registerSobrecargaAutomata();
         register(new PlayerAbility() {
             @Override
             public String id() {
@@ -237,6 +238,33 @@ public final class AbilityRegistry {
                 player.fallDistance = 0;
                 player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.ENDERMAN_TELEPORT,
                         net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
+            }
+        });
+    }
+
+    /** "Sobrecarga" del Autómata: +50% daño elemental de aire a cambio de -35% velocidad, 20s. Cooldown 60s. */
+    private static void registerSobrecargaAutomata() {
+        register(new PlayerAbility() {
+            @Override
+            public String id() {
+                return "tcorigenes:sobrecarga_automata";
+            }
+
+            @Override
+            public int cooldownTicks() {
+                return AutomataOverload.COOLDOWN_TICKS;
+            }
+
+            @Override
+            public ResourceLocation icon() {
+                return ResourceLocation.withDefaultNamespace("textures/item/iron_ingot.png");
+            }
+
+            @Override
+            public void activate(net.minecraft.server.level.ServerPlayer player) {
+                AutomataOverload.start(player);
+                player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.ANVIL_LAND,
+                        net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 0.6F);
             }
         });
     }

@@ -11,6 +11,8 @@
   "attribute.name.elementaldamage.resist_water": "Resistencia al Agua Elemental",
   "attribute.name.elementaldamage.resist_lunar": "Resistencia Lunar",
   "attribute.name.elementaldamage.resist_ender": "Resistencia Ender",
+  "attribute.name.elementaldamage.resist_earth": "Resistencia a la Tierra",
+  "attribute.name.elementaldamage.resist_air": "Resistencia al Aire",
   "attribute.name.elementaldamage.crit_chance": "Probabilidad de Crítico",
   "attribute.name.elementaldamage.crit_damage": "Daño Crítico",
   "attribute.name.elementaldamage.bow_damage_mult": "Multiplicador de Daño con Arco",

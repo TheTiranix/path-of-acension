@@ -24,8 +24,14 @@ public final class FavorManager {
             case DEVOTO, ANGEL -> CREATOR_PANTHEON;
             case DEMONIO -> Set.of(Deity.DEIROS, Deity.LUNA);
             case SIERVO_DE_LA_LUNA -> Set.of(Deity.LUNA, Deity.DEIROS);
+            case AUTOMATA -> Set.of(Deity.DEIROS);
             default -> Set.of();
         };
+    }
+
+    /** El Autómata es, en el lore, el sirviente de Deiros: empieza con mucho mas favor que el resto (75, no 10). */
+    private static int startingFavorFor(Race race, Deity deity) {
+        return race == Race.AUTOMATA && deity == Deity.DEIROS ? 75 : 10;
     }
 
     private FavorManager() {
@@ -65,7 +71,7 @@ public final class FavorManager {
         }
         player.getCapability(PlayerFavorProvider.PLAYER_FAVOR_CAPABILITY).ifPresent(data -> {
             for (Deity deity : deities) {
-                data.setFavor(deity, Math.max(data.getFavor(deity), 10));
+                data.setFavor(deity, Math.max(data.getFavor(deity), startingFavorFor(race, deity)));
             }
             sync(player, data);
         });
