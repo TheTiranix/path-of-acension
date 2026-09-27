@@ -41,7 +41,9 @@ public final class ArmorDurability {
                 if (item == null || !ForgeRegistries.ITEMS.containsKey(id)) {
                     continue;
                 }
-                setMaxDamage(item, id, entry.getValue().durability());
+                if (entry.getValue().durability() >= 0) {
+                    setMaxDamage(item, id, entry.getValue().durability());
+                }
             }
             // Todas las armas y armaduras de Celestisynth son irrompibles
             for (var entry : ForgeRegistries.ITEMS.getEntries()) {

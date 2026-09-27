@@ -123,7 +123,7 @@ public final class WeaponBalance {
 
     /**
      * Armaduras con proteccion, tenacidad y durabilidad propias (ref = pieza de diamante para reutilizar sus UUID).
-     * toughness NaN = no se toca la tenacidad original; durability 0 = irrompible.
+     * toughness NaN = no se toca la tenacidad original; durability 0 = irrompible; durability < 0 = no se toca.
      */
     public record ArmorFixed(double defense, double toughness, int durability, ResourceLocation uuidRef) {
     }
@@ -345,7 +345,7 @@ public final class WeaponBalance {
             }
             double defense = switch (piece) {
                 case "helmet" -> 6;
-                case "chestplate" -> 12;
+                case "chestplate" -> 11;
                 case "leggings" -> 9;
                 default -> 5;
             };
@@ -367,7 +367,50 @@ public final class WeaponBalance {
                 ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(diamondDefense * 2500.0, Double.NaN, 0, rl("minecraft:diamond_" + piece)));
                 GUARDED_ARMOR.add(rl(set + piece));
             }
-            ARMOR_SCALE_REF.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), rl("born_in_chaos_v1:sharpened_dark_metal_sword"));
+            // Depth (Sea Dwellers): al nivel del diamante.
+            ARMOR_LIKE.put(rl("seadwellers:depth_" + piece), rl("minecraft:diamond_" + piece));
+            // Diving Armor (Alex's Caves): al nivel del netherite (proteccion y dureza).
+            ARMOR_LIKE.put(rl("alexscaves:diving_" + (piece.equals("chestplate") ? "chestplate" : piece)), rl("minecraft:netherite_" + piece));
+            // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
+            double darkMetalDefense = switch (piece) {
+                case "helmet" -> 4;
+                case "chestplate" -> 9;
+                case "leggings" -> 7;
+                default -> 4;
+            };
+            ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
+            // Netherite Battlemage (Ars Nouveau): valores fijos propios + 4 de tenacidad de armadura.
+            String battlemagePiece = switch (piece) {
+                case "helmet" -> "hood";
+                case "chestplate" -> "robes";
+                default -> piece; // leggings, boots
+            };
+            double battlemageDefense = switch (piece) {
+                case "helmet" -> 5.5;
+                case "chestplate" -> 10.5;
+                case "leggings" -> 8.5;
+                default -> 5.5;
+            };
+            ARMOR_FIXED.put(rl("ars_nouveau:battlemage_" + battlemagePiece), new ArmorFixed(battlemageDefense, 4, -1, rl("minecraft:diamond_" + piece)));
+            // Myrmex (Ice and Fire): valores fijos propios, ambas variantes (desierto y jungla).
+            double myrmexDefense = switch (piece) {
+                case "helmet" -> 2.5;
+                case "chestplate" -> 7.5;
+                case "leggings" -> 5.5;
+                default -> 2.5;
+            };
+            for (String variant : new String[] {"desert", "jungle"}) {
+                ARMOR_FIXED.put(rl("iceandfire:myrmex_" + variant + "_" + piece), new ArmorFixed(myrmexDefense, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
+            }
+        }
+        // Chitin (Death Worm) y Troll Leather (Ice and Fire): pantalones a 5, botas a 2 (ambas variantes de cada uno).
+        for (String color : new String[] {"yellow", "white", "red"}) {
+            ARMOR_FIXED.put(rl("iceandfire:deathworm_" + color + "_leggings"), new ArmorFixed(5, Double.NaN, -1, rl("minecraft:diamond_leggings")));
+            ARMOR_FIXED.put(rl("iceandfire:deathworm_" + color + "_boots"), new ArmorFixed(2, Double.NaN, -1, rl("minecraft:diamond_boots")));
+        }
+        for (String variant : new String[] {"forest_troll", "frost_troll", "mountain_troll"}) {
+            ARMOR_FIXED.put(rl("iceandfire:" + variant + "_leather_leggings"), new ArmorFixed(5, Double.NaN, -1, rl("minecraft:diamond_leggings")));
+            ARMOR_FIXED.put(rl("iceandfire:" + variant + "_leather_boots"), new ArmorFixed(2, Double.NaN, -1, rl("minecraft:diamond_boots")));
         }
     }
 

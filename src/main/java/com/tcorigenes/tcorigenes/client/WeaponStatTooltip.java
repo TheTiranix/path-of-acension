@@ -123,6 +123,11 @@ public final class WeaponStatTooltip {
         }
         normal += 1.0; // el daño base del jugador: el total real que se hace con un golpe cargado
         float elemental = spec == null ? 0.0F : spec.extrasTotal();
+        if (elemental <= 0.0F) {
+            // Sin daño elemental fijo: el arma solo tiene un tipo de daño por golpe (aunque cicle entre normal
+            // y un elemento, nunca los suma: cada golpe es de UN tipo solo, ver WeaponElemental).
+            return;
+        }
         String text = "Daño total: " + trim((float) (normal + elemental));
         lines.add(Component.literal(text).withStyle(ChatFormatting.RED));
     }
