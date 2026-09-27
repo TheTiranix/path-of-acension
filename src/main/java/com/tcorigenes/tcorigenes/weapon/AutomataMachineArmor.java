@@ -27,9 +27,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 @EventBusSubscriber(modid = "tcorigenes")
 public final class AutomataMachineArmor {
     private static final String[] MACHINE_NAMESPACES = {"create", "mekanism", "mekanismtools"};
-    private static final double ARMOR_PER_PIECE = 4.0;
-    private static final double TOUGHNESS_PER_PIECE = 2.0;
-    private static final double KNOCKBACK_RES_PER_PIECE = 0.05;
+    private static final double ARMOR_PER_PIECE = 12.0;
+    private static final double TOUGHNESS_PER_PIECE = 6.0;
+    private static final double KNOCKBACK_RES_PER_PIECE = 0.20;
     private static final EquipmentSlot[] SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
     private AutomataMachineArmor() {

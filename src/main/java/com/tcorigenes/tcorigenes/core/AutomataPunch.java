@@ -1,6 +1,7 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.core;
 
+import com.tcorigenes.tcorigenes.ability.AutomataOverload;
 import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,15 +17,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 /**
- * Puños del Autómata: a mano limpia (sin ningun item en la mano), el golpe lanza al enemigo lo
- * bastante alto como para que la caida le haga daño de verdad (vanilla se encarga solo del daño de
- * caida), y al aterrizar queda "paralizado" 1s (aproximado con Lentitud extrema, la unica forma sin
- * mixins de frenar el movimiento de cualquier LivingEntity, jugador o mob).
+ * Golpes del Autómata SOLO mientras la habilidad racial (Sobrecarga, ver AutomataOverload) esta activa:
+ * cualquier golpe (con cualquier cosa en la mano, no solo a puño limpio) tiene 50% de chance de lanzar
+ * al enemigo lo bastante alto como para que la caida le haga daño de verdad (vanilla se encarga solo del
+ * daño de caida), y al aterrizar queda "paralizado" 1s (aproximado con Lentitud extrema, la unica forma
+ * sin mixins de frenar el movimiento de cualquier LivingEntity, jugador o mob). Fuera de la habilidad,
+ * los golpes del Autómata son golpes normales, nunca lanzan a nadie por el aire.
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class AutomataPunch {
     /** Velocidad vertical (bloques/tick) para que la caida sea de mas de 3 bloques (empieza a doler). */
     private static final double LAUNCH_VELOCITY = 1.3;
+    private static final float LAUNCH_CHANCE = 0.5F;
     private static final int PARALYSIS_TICKS = 20;
     /** Cuantos ticks se espera como maximo a que aterrice (agua, vuelo, etc.): despues se descarta. */
     private static final int MAX_WAIT_TICKS = 100;
@@ -44,12 +48,12 @@ public final class AutomataPunch {
         if (!(event.getSource().getEntity() instanceof Player attacker) || event.getSource().getDirectEntity() != attacker) {
             return; // solo golpe directo (nada de flechas, proyectiles o daño elemental diferido)
         }
-        if (!attacker.getMainHandItem().isEmpty()) {
-            return; // solo a puño limpio
-        }
         Race race = attacker.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace()).orElse(Race.HUMANO);
-        if (race != Race.AUTOMATA) {
-            return;
+        if (race != Race.AUTOMATA || !AutomataOverload.isActive(attacker)) {
+            return; // solo mientras la habilidad esta activa
+        }
+        if (attacker.getRandom().nextFloat() >= LAUNCH_CHANCE) {
+            return; // 50% de chance
         }
         LivingEntity target = event.getEntity();
         Vec3 motion = target.getDeltaMovement();

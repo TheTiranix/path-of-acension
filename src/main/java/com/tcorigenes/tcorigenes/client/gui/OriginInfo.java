@@ -145,10 +145,10 @@ public final class OriginInfo {
                 l.add(minus("-10% de velocidad de movimiento, de ataque y de carga."));
             }
             case AUTOMATA -> {
-                l.add(plus("+14% de vida y +10% de daño (mitad tanque, mitad daño: no es ninguno de los dos puro)."));
+                l.add(plus("+14% de vida y +10% de daño."));
                 l.add(plus("+25% de resistencia a la tierra y al aire. 10% de su daño se convierte en aire."));
                 l.add(plus("Habilidad racial (J): +50% de daño de aire a cambio de -35% de velocidad, 20 s. Recarga: 60 s."));
-                l.add(plus("Sus puños (sin nada en la mano) lanzan por el aire al enemigo; al caer sufre daño de caída y queda paralizado 1 s."));
+                l.add(plus("Mientras la habilidad racial está activa, cada golpe (con cualquier arma) tiene 50% de chance de lanzar al enemigo por el aire; al caer sufre daño de caída y queda paralizado 1 s."));
                 l.add(plus("La armadura de Create y de Mekanism (incluido el MekaSuit) le da un aumento muy considerable de estadísticas; a cualquier otra raza no le hace nada extra."));
                 l.add(plus("Empieza con mucho favor de Deiros: en el lore, es su sirviente."));
                 l.add(minus("-8% de velocidad de movimiento. -40% de resistencia al fuego y al agua elemental (toma bastante más daño)."));

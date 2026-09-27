@@ -104,7 +104,10 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         for (int side = 0; side < 2; side++) {
             float xSign = side == 0 ? 1.0F : -1.0F;
             poseStack.pushPose();
-            poseStack.translate(xSign * 4.7, -10.5, 0.0);
+            // Body local space: y=0 es la base del cuello, +y baja hacia la cintura; los brazos
+            // pivotean cerca de x=+-5, y=2. Esto pone el engranaje pegado al hombro, no volando
+            // sobre la cabeza (el offset de -10.5 anterior quedaba bien arriba del modelo).
+            poseStack.translate(xSign * 5.2, 1.0, 0.5);
             ModelPart gear = this.gears.getChild((side == 0 ? "left" : "right") + "_gear");
             gear.zRot = xSign * spin;
             gear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
