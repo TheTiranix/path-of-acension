@@ -347,7 +347,7 @@ public final class WeaponBalance {
                 case "helmet" -> 6;
                 case "chestplate" -> 11;
                 case "leggings" -> 9;
-                default -> 5;
+                default -> 6;
             };
             for (String set : new String[] {"aether:gravitite_", "minecraft:netherite_"}) {
                 ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 5, 1500, rl("minecraft:diamond_" + piece)));
