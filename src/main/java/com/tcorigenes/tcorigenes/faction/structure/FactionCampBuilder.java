@@ -164,9 +164,9 @@ public final class FactionCampBuilder {
                         }
                     }
                 } else {
-                    place(level, box, base, palette.floor.defaultBlockState());
-                    for (int y = 0; y < WALL_HEIGHT; y++) {
-                        place(level, box, base.above(y), Blocks.AIR.defaultBlockState());
+                    place(level, box, base, palette.floor.defaultBlockState()); // y=0: piso
+                    for (int y = 1; y < WALL_HEIGHT; y++) { // y=1..3: aire (ojo: arrancar en 1, no en 0,
+                        place(level, box, base.above(y), Blocks.AIR.defaultBlockState()); // o se borra el piso de arriba)
                     }
                 }
             }
@@ -180,38 +180,35 @@ public final class FactionCampBuilder {
     }
 
     /**
-     * Techo a cuatro aguas: un alero de escaleras (orientadas hacia afuera en cada lado) apoyado
-     * sobre las paredes, y arriba una piramide de losas que se va cerrando hasta un adorno final
-     * (un bloque de acento, como una veleta). Mucho mas detallado que la losa lisa de antes.
+     * Techo a cuatro aguas, en capas escalonadas (piramide/ziggurat): cada capa es un alero de
+     * escaleras (orientadas hacia afuera) CON el interior relleno de losa en la MISMA altura, para
+     * que apoye directo sobre la capa de abajo sin dejar un hueco de aire en el medio (el bug que
+     * hacia "flotar" el techo). Se achica un anillo por capa hasta terminar en un adorno (acento).
      */
     private static void buildRoof(WorldGenLevel level, BlockPos hutCenter, FactionPalette palette, BoundingBox box) {
         int eave = HUT_HALF + 1;
         int roofY = WALL_HEIGHT;
-        for (int dx = -eave; dx <= eave; dx++) {
-            for (int dz = -eave; dz <= eave; dz++) {
-                boolean onRing = Math.max(Math.abs(dx), Math.abs(dz)) == eave;
-                if (!onRing) {
-                    continue;
-                }
-                BlockPos pos = hutCenter.offset(dx, roofY, dz);
-                if (Math.abs(dx) == eave && Math.abs(dz) == eave) {
-                    place(level, box, pos, palette.roof.defaultBlockState()); // esquina: losa lisa
-                } else if (Math.abs(dx) == eave) {
-                    place(level, box, pos, palette.wallStairs.defaultBlockState()
-                            .setValue(StairBlock.FACING, dx > 0 ? Direction.EAST : Direction.WEST));
-                } else {
-                    place(level, box, pos, palette.wallStairs.defaultBlockState()
-                            .setValue(StairBlock.FACING, dz > 0 ? Direction.SOUTH : Direction.NORTH));
-                }
-            }
-        }
-        for (int layer = 1; layer <= eave; layer++) {
+        for (int layer = 0; layer <= eave; layer++) {
             int radius = eave - layer;
-            BlockState state = radius == 0 ? palette.accent.defaultBlockState() : palette.roof.defaultBlockState();
+            int y = roofY + layer;
+            if (radius == 0) {
+                place(level, box, hutCenter.offset(0, y, 0), palette.accent.defaultBlockState());
+                break;
+            }
             for (int dx = -radius; dx <= radius; dx++) {
                 for (int dz = -radius; dz <= radius; dz++) {
-                    if (dx * dx + dz * dz <= radius * radius) {
-                        place(level, box, hutCenter.offset(dx, roofY + layer, dz), state);
+                    BlockPos pos = hutCenter.offset(dx, y, dz);
+                    boolean onRing = Math.max(Math.abs(dx), Math.abs(dz)) == radius;
+                    if (!onRing) {
+                        place(level, box, pos, palette.roof.defaultBlockState()); // relleno solido: sin huecos
+                    } else if (Math.abs(dx) == radius && Math.abs(dz) == radius) {
+                        place(level, box, pos, palette.roof.defaultBlockState()); // esquina: losa lisa
+                    } else if (Math.abs(dx) == radius) {
+                        place(level, box, pos, palette.wallStairs.defaultBlockState()
+                                .setValue(StairBlock.FACING, dx > 0 ? Direction.EAST : Direction.WEST));
+                    } else {
+                        place(level, box, pos, palette.wallStairs.defaultBlockState()
+                                .setValue(StairBlock.FACING, dz > 0 ? Direction.SOUTH : Direction.NORTH));
                     }
                 }
             }
@@ -234,15 +231,16 @@ public final class FactionCampBuilder {
         place(level, box, doorBase.above(2), upper);
     }
 
-    /** Dos ventanas de vidrio por pared lateral (perpendiculares a la puerta), no solo una. */
+    /** Dos ventanas de vidrio por pared lateral (perpendiculares a la puerta), no solo una. Vidrio macizo,
+     *  no paneles: los paneles quedaban como una linea fina en el hueco de la pared en vez de una ventana. */
     private static void placeWindows(WorldGenLevel level, BoundingBox box, BlockPos hutCenter, Direction doorFacing) {
         Direction sideA = doorFacing.getClockWise();
         Direction sideB = doorFacing.getCounterClockWise();
         for (Direction side : new Direction[] {sideA, sideB}) {
             for (int offset : new int[] {-1, 1}) {
                 BlockPos pos = hutCenter.relative(side, HUT_HALF).relative(doorFacing, offset);
-                place(level, box, pos.above(1), Blocks.GLASS_PANE.defaultBlockState());
-                place(level, box, pos.above(2), Blocks.GLASS_PANE.defaultBlockState());
+                place(level, box, pos.above(1), Blocks.GLASS.defaultBlockState());
+                place(level, box, pos.above(2), Blocks.GLASS.defaultBlockState());
             }
         }
     }
@@ -305,6 +303,7 @@ public final class FactionCampBuilder {
             FactionNpcEntity npc = ModEntityTypes.FACTION_NPC.get().create(level.getLevel());
             if (npc != null) {
                 npc.setFaction(faction);
+                npc.assignRandomName(random);
                 npc.moveTo(nx, center.getY(), nz, random.nextFloat() * 360.0F, 0.0F);
                 level.addFreshEntity(npc);
             }

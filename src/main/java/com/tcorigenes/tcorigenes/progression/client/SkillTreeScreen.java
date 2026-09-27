@@ -37,6 +37,8 @@ public class SkillTreeScreen extends Screen {
     private Button confirmButton;
     private Button cancelButton;
     private Button buyButton;
+    /** Mientras es true, arrastrar el mouse mueve el panel de stats en vez de recorrer la rama (ver mouseClicked). */
+    private boolean draggingStatsPanel;
 
     public SkillTreeScreen() {
         super(Component.literal("Árbol de Habilidades"));
@@ -81,10 +83,20 @@ public class SkillTreeScreen extends Screen {
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (button == 0) {
-            panX = Math.max(minPan(), Math.min(0, panX + (int) dragX));
+            if (draggingStatsPanel) {
+                PlayerStatsPanel.moveBy(dragX, dragY, this.width, this.height);
+            } else {
+                panX = Math.max(minPan(), Math.min(0, panX + (int) dragX));
+            }
             return true;
         }
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        draggingStatsPanel = false;
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
@@ -124,6 +136,10 @@ public class SkillTreeScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && PlayerStatsPanel.isOver(mouseX, mouseY)) {
+            draggingStatsPanel = true; // se suelta en mouseReleased
+            return true;
+        }
         SkillNode node = hoveredNode(mouseX, mouseY);
         if (node != null && button == 0 && colorOf(node) == COLOR_AVAILABLE) {
             pending = node; // no se gasta nada hasta apretar "Confirmar"
@@ -135,6 +151,9 @@ public class SkillTreeScreen extends Screen {
     @Override
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
         this.renderBackground(g);
+        // Ambientacion del pack (rojo sangre oscuro) en vez del fondo vanilla liso.
+        g.fillGradient(0, 0, this.width, 44, 0x9A2A0505, 0x002A0505);
+        g.fill(0, 43, this.width, 44, 0xFF5A0A0A);
         PlayerClass cls = ClientSkillData.playerClass();
         g.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
         g.drawCenteredString(this.font, Component.literal(
@@ -173,7 +192,7 @@ public class SkillTreeScreen extends Screen {
             int y = nodeY(node);
             int color = colorOf(node);
             g.fill(x - HALF - 2, y - HALF - 2, x + HALF + 2, y + HALF + 2, color);
-            g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1E1E1E);
+            g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1A0808);
             g.renderItem(new ItemStack(node.icon().get()), x - 8, y - 8);
         }
 
@@ -190,7 +209,7 @@ public class SkillTreeScreen extends Screen {
             int y = nodeY(pending);
             g.fill(x - HALF - 4, y - HALF - 4, x + HALF + 4, y + HALF + 4, 0xFFFFFFFF);
             g.fill(x - HALF - 2, y - HALF - 2, x + HALF + 2, y + HALF + 2, colorOf(pending));
-            g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1E1E1E);
+            g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1A0808);
             g.renderItem(new ItemStack(pending.icon().get()), x - 8, y - 8);
             String question = "¿Desbloquear \"" + pending.title() + "\" por " + pending.cost() + " punto(s)?"
                     + (confirmButton.active ? "" : "  (te faltan puntos)");

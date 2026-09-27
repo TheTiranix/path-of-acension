@@ -23,12 +23,21 @@ import net.minecraftforge.common.ForgeMod;
 /**
  * Panel de stats finales del jugador dentro del arbol de habilidades (pedido de alejandr0): cada numero es el
  * resultado de todos los modificadores juntos (items, raza, clase, arbol...) y al pasar el mouse muestra de que
- * esta formado (ej. +7 de espada, +2 de anillo).
+ * esta formado (ej. +7 de espada, +2 de anillo). Se puede arrastrar con el mouse (ver SkillTreeScreen) para que no
+ * tape otros overlays (ej. HUDs de rendimiento en la esquina), y el fondo tiene el tono sangre/oscuro del pack
+ * en vez de un cuadro negro liso.
  */
 public final class PlayerStatsPanel {
     private static final DecimalFormat FORMAT = new DecimalFormat("0.##");
     private static final int ROW_HEIGHT = 11;
     private static final int WIDTH = 150;
+    private static final int BORDER = 0xFF5A0A0A;
+
+    /** Posicion actual del panel (se arrastra con el mouse); se resetea sola si queda fuera de una pantalla chica. */
+    private static int panelX = 8;
+    private static int panelY = 50;
+    private static int lastScreenW = -1;
+    private static int lastScreenH = -1;
 
     private record Row(String label, Supplier<Attribute> attribute, boolean percent) {
     }
@@ -64,15 +73,47 @@ public final class PlayerStatsPanel {
         return percent ? FORMAT.format(v * 100.0) + "%" : FORMAT.format(v);
     }
 
-    /** Dibuja el panel y devuelve las lineas del tooltip de la fila bajo el mouse (null si no hay ninguna). */
-    public static List<Component> render(GuiGraphics g, Font font, int mouseX, int mouseY, int x, int y) {
+    /** Alto total del panel con las filas actuales (para saber si el mouse esta encima, ver isOver). */
+    private static int height() {
+        return ROWS.size() * ROW_HEIGHT + 16;
+    }
+
+    /** true si el punto esta sobre el panel (para poder arrastrarlo, ver SkillTreeScreen). */
+    public static boolean isOver(double mouseX, double mouseY) {
+        return mouseX >= panelX - 3 && mouseX <= panelX + WIDTH && mouseY >= panelY - 3 && mouseY <= panelY + height();
+    }
+
+    public static void moveBy(double dx, double dy, int screenW, int screenH) {
+        panelX = (int) Math.round(Math.max(0, Math.min(screenW - WIDTH, panelX + dx)));
+        panelY = (int) Math.round(Math.max(0, Math.min(screenH - height(), panelY + dy)));
+    }
+
+    /** Dibuja el panel y devuelve las lineas del tooltip de la fila bajo el mouse (null si no hay ninguna). Los
+     *  x/y que recibe son solo la posicion INICIAL (primera vez que se abre en una pantalla de este tamaño). */
+    public static List<Component> render(GuiGraphics g, Font font, int mouseX, int mouseY, int defaultX, int defaultY) {
         Player player = Minecraft.getInstance().player;
         if (player == null) {
             return null;
         }
-        int height = ROWS.size() * ROW_HEIGHT + 16;
-        g.fill(x - 3, y - 3, x + WIDTH, y + height, 0xAA000000);
+        int screenW = Minecraft.getInstance().getWindow().getGuiScaledWidth();
+        int screenH = Minecraft.getInstance().getWindow().getGuiScaledHeight();
+        if (screenW != lastScreenW || screenH != lastScreenH) {
+            lastScreenW = screenW;
+            lastScreenH = screenH;
+            panelX = defaultX;
+            panelY = defaultY;
+        }
+        int x = panelX;
+        int y = panelY;
+        int height = height();
+        // Fondo con el tono sangre/oscuro del pack (degrade), no un cuadro negro liso, mas un borde.
+        g.fillGradient(x - 3, y - 3, x + WIDTH, y + height, 0xE02A0505, 0xF0120202);
+        g.fill(x - 3, y - 3, x + WIDTH, y - 2, BORDER);
+        g.fill(x - 3, y + height - 1, x + WIDTH, y + height, BORDER);
+        g.fill(x - 3, y - 3, x - 2, y + height, BORDER);
+        g.fill(x + WIDTH - 1, y - 3, x + WIDTH, y + height, BORDER);
         g.drawString(font, "Stats finales", x, y, 0xFFD700, false);
+        g.fill(x, y + 9, x + WIDTH - 6, y + 10, 0x665A0A0A);
         List<Component> tooltip = null;
         int rowY = y + 12;
         for (Row row : ROWS.values()) {

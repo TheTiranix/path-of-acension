@@ -2,12 +2,15 @@
 package com.tcorigenes.tcorigenes.faction.entity;
 
 import com.tcorigenes.tcorigenes.faction.Faction;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -36,6 +39,15 @@ public class FactionNpcEntity extends PathfinderMob {
     private static final EntityDataAccessor<Integer> FACTION =
             SynchedEntityData.defineId(FactionNpcEntity.class, EntityDataSerializers.INT);
     private static final String NBT_FACTION = "Faction";
+
+    /** Nombres al azar (pedido de alejandr0: sin relacion con la faccion, y con dos guiños puntuales adentro). */
+    private static final List<String> NAMES = List.of(
+            "Roberto Carlos", "Marley", "Felipe Pettinato", "Ramona Quispe", "Herminio Basualdo",
+            "Casimira Ledesma", "Facundo Achaval", "Aurelia Montenegro", "Bartolo Yupanqui", "Delfina Roldan",
+            "Eustaquio Villagra", "Fermina Sarmiento", "Godofredo Cardozo", "Higinia Paz", "Ireneo Quiroga",
+            "Josefa Benitez", "Leocadio Funes", "Macaria Sosa", "Nemesio Aranda", "Olegaria Vera",
+            "Prudencio Godoy", "Remigia Ontiveros", "Segismundo Chaparro", "Tiburcia Manrique", "Ubaldo Escalante",
+            "Venancia Bracamonte", "Wenceslao Zarate", "Ximena Maldonado", "Anacleto Figueroa", "Baltazar Rivadeneira");
 
     public FactionNpcEntity(EntityType<? extends FactionNpcEntity> type, net.minecraft.world.level.Level level) {
         super(type, level);
@@ -73,6 +85,13 @@ public class FactionNpcEntity extends PathfinderMob {
         this.entityData.set(FACTION, faction.ordinal());
     }
 
+    /** Nombre al azar (sin relacion con la faccion): llamar una sola vez, al spawnear (no en cada carga del save,
+     *  el nombre ya elegido viaja solo en el NBT estandar de CustomName). */
+    public void assignRandomName(RandomSource random) {
+        setCustomName(Component.literal(NAMES.get(random.nextInt(NAMES.size()))));
+        setCustomNameVisible(true);
+    }
+
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType,
@@ -85,6 +104,7 @@ public class FactionNpcEntity extends PathfinderMob {
                 setFaction(matched);
             }
         }
+        assignRandomName(this.random);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, dataTag);
     }
 
