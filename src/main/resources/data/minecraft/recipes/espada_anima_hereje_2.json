@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "ASA",
+    " N "
+  ],
+  "key": {
+    "S": {
+      "item": "testamentodelacarne:espada_anima_hereje_1"
+    },
+    "E": {
+      "item": "minecraft:redstone_block"
+    },
+    "A": {
+      "item": "testamentodelacarne:alma_corrupta"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:espada_anima_hereje_2"
+  }
+}

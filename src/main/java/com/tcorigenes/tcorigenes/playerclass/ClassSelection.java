@@ -30,11 +30,15 @@ public final class ClassSelection {
                 .ifPresent(loadout -> loadout.setEquippedAbilityId(
                         classAbility != null && loadout.isUnlocked(classAbility) ? classAbility : null));
         if (selectedClass == PlayerClass.GUERRERO_ANIMA) {
-            // Espada ligada al alma desde el principio (solo si todavia no la tiene). Demonio tiene
-            // su propia version (Espada Ánima Demonio, mismas estadisticas, otro aspecto).
-            boolean isDemonio = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
-                    .map(info -> info.getRace() == Race.DEMONIO).orElse(false);
-            String swordId = isDemonio ? "espada_anima_demonio_1" : "espada_anima_1";
+            // Espada ligada al alma desde el principio (solo si todavia no la tiene). Demonio y Hereje
+            // tienen su propia version (mismas estadisticas, otro aspecto: Espada Ánima Demonio / Hereje).
+            Race race = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
+                    .map(info -> info.getRace()).orElse(Race.HUMANO);
+            String swordId = switch (race) {
+                case DEMONIO -> "espada_anima_demonio_1";
+                case HEREJE -> "espada_anima_hereje_1";
+                default -> "espada_anima_1";
+            };
             var sword = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("testamentodelacarne", swordId));
             if (sword != null && !player.getInventory().contains(new ItemStack(sword))) {
                 player.getInventory().add(new ItemStack(sword));
