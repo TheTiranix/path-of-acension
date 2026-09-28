@@ -50,22 +50,44 @@ public final class ModModelLayers {
      *  (this.gears.render(...)), que es la forma que ya sabemos que funciona para alas/cuernos, en vez
      *  de buscar el hijo y traducir la pose a mano antes de dibujarlo (eso fallaba: no se veian).
      *  Gira sobre si mismo en RaceFeaturesLayer. La textura (madera o metal segun el arbol de
-     *  habilidades) dibuja los dientes. */
+     *  habilidades) dibuja el color base; los dientes son geometria real (ver gearCuboids), no textura,
+     *  para que se vea como un engranaje de verdad desde cualquier angulo.
+     *  Posicion: Y negativo = por ENCIMA de la linea del hombro (el body vanilla mide y=[0,12], 0 arriba
+     *  del todo), apoyados sobre el hombro en vez de enterrados adentro del brazo (que ocupa x=[4,8]/y=[0,12]
+     *  del lado derecho, espejado del izquierdo). Antes estaban centrados en y=0.5 (adentro del brazo) y
+     *  ahora quedan arriba, con solo el borde inferior tocando el hombro. */
     private static LayerDefinition createGearsLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         // z NEGATIVO = adelante (mismo lado que la cara): si fuera positivo el brazo (solido, opaco)
         // queda ENTRE la camara y el engranaje y lo tapa por completo desde una vista de frente.
         root.addOrReplaceChild("left_gear",
-                CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -0.8F, 5.0F, 5.0F, 1.6F),
-                PartPose.offset(7.5F, 0.5F, -0.3F));
+                gearCuboids(), PartPose.offset(6.5F, -2.0F, -0.3F));
         root.addOrReplaceChild("right_gear",
-                CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -0.8F, 5.0F, 5.0F, 1.6F),
-                PartPose.offset(-7.5F, 0.5F, -0.3F));
+                gearCuboids(), PartPose.offset(-6.5F, -2.0F, -0.3F));
         root.addOrReplaceChild("back_gear",
-                CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -0.8F, 5.0F, 5.0F, 1.6F),
-                PartPose.offset(0.0F, 3.0F, 2.6F));
+                gearCuboids(), PartPose.offset(0.0F, 1.5F, 2.6F));
         return LayerDefinition.create(mesh, 16, 16);
+    }
+
+    /** Engranaje real: un cubo central (buje) mas 8 dientes cuadrados distribuidos en circulo
+     *  (trigonometria simple, sin rotar cada caja), asi el contorno tiene muescas de verdad entre
+     *  diente y diente en vez de ser solo una plancha lisa con textura pintada. */
+    private static CubeListBuilder gearCuboids() {
+        float hubHalf = 1.5F;
+        float toothHalf = 0.8F;
+        float toothOffset = 2.0F;
+        float depth = 1.6F;
+        CubeListBuilder builder = CubeListBuilder.create().texOffs(0, 0)
+                .addBox(-hubHalf, -hubHalf, -depth / 2.0F, hubHalf * 2.0F, hubHalf * 2.0F, depth);
+        int teeth = 8;
+        for (int i = 0; i < teeth; i++) {
+            double angle = Math.PI * 2.0 * i / teeth;
+            float cx = (float) (Math.cos(angle) * toothOffset);
+            float cy = (float) (Math.sin(angle) * toothOffset);
+            builder.addBox(cx - toothHalf, cy - toothHalf, -depth / 2.0F, toothHalf * 2.0F, toothHalf * 2.0F, depth);
+        }
+        return builder;
     }
 
     private static LayerDefinition createHornsLayer() {

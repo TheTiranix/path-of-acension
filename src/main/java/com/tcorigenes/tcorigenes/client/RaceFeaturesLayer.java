@@ -87,11 +87,15 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         }
     }
 
-    /** Nucleo de energia en el pecho: brillo real (RenderType.eyes, como los ojos del Enderman, ignora la
-     *  luz del entorno) con un leve pulso. */
+    /** Nucleo de energia en el pecho: brillo real, full-bright, con un leve pulso. Antes usaba
+     *  RenderType.eyes (aditivo, como los ojos del Enderman) pero el pack usa Oculus/Sodium, que en
+     *  varias versiones rompe ese pipeline especifico y lo deja negro solido en vez de brillar (bug
+     *  conocido, no es exclusivo de este mod). entityTranslucentEmissive pasa por el pipeline normal
+     *  de renderizado de entidades (con blending real, respeta el degrade de la textura) forzando luz
+     *  maxima, que es mucho mas compatible. */
     private void renderCore(PoseStack poseStack, MultiBufferSource buffer, float ageInTicks) {
         float pulse = 0.85F + 0.15F * (float) Math.sin(ageInTicks * 0.1F);
-        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(CORE_TEXTURE));
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(CORE_TEXTURE));
         poseStack.pushPose();
         this.getParentModel().body.translateAndRotate(poseStack);
         poseStack.scale(pulse, pulse, 1.0F);

@@ -104,7 +104,7 @@ public class ModItems {
             "espada_anima_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ESPADA_ANIMA_3 = ITEMS.register(
-            "espada_anima_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
+            "espada_anima_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
     /** Variante exclusiva de Demonio + Guerrero Ánima (ver ClassSelection): mismas estadisticas por
      *  fase que la Espada Ánima normal, solo cambia el aspecto (alma corrompida por sangre demoniaca). */
@@ -115,7 +115,7 @@ public class ModItems {
             "espada_anima_demonio_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ESPADA_ANIMA_DEMONIO_3 = ITEMS.register(
-            "espada_anima_demonio_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
+            "espada_anima_demonio_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
     /** Variante exclusiva de Hereje + Guerrero Ánima (ver ClassSelection): mismas estadisticas por
      *  fase que la Espada Ánima normal, solo cambia el aspecto (hoja facetada con sangre). */
@@ -126,7 +126,7 @@ public class ModItems {
             "espada_anima_hereje_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ESPADA_ANIMA_HEREJE_3 = ITEMS.register(
-            "espada_anima_hereje_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
+            "espada_anima_hereje_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
     public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(

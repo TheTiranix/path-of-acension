@@ -21,9 +21,16 @@ import net.minecraftforge.registries.ForgeRegistries;
  */
 public class AnimaSwordItem extends SwordItem {
     private final Multimap<Attribute, AttributeModifier> attributeModifiers;
+    private final boolean foil;
 
     public AnimaSwordItem(float attackDamage, float attackSpeed, float attackRange, Properties properties) {
+        this(attackDamage, attackSpeed, attackRange, properties, false);
+    }
+
+    /** foil = true para las variantes T3 (brillo de encantado, pedido de alejandr0). */
+    public AnimaSwordItem(float attackDamage, float attackSpeed, float attackRange, Properties properties, boolean foil) {
         super(ModTiers.ANIMA_TIER, 0, 0.0F, properties);
+        this.foil = foil;
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE,
@@ -43,6 +50,11 @@ public class AnimaSwordItem extends SwordItem {
     @Override
     public boolean isDamageable(ItemStack stack) {
         return false;
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return this.foil;
     }
 
     @Override
