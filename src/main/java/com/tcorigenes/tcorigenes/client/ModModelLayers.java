@@ -39,7 +39,7 @@ public final class ModModelLayers {
         PartDefinition root = mesh.getRoot();
         for (String side : new String[] {"left", "right"}) {
             root.addOrReplaceChild(side + "_gear",
-                    CubeListBuilder.create().texOffs(0, 0).addBox(-2.75F, -2.75F, -1.0F, 5.5F, 5.5F, 2.0F),
+                    CubeListBuilder.create().texOffs(0, 0).addBox(-3.25F, -3.25F, -1.2F, 6.5F, 6.5F, 2.4F),
                     PartPose.ZERO);
         }
         return LayerDefinition.create(mesh, 16, 16);

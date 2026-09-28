@@ -18,7 +18,7 @@ import org.lwjgl.glfw.GLFW;
  *  icono grande, nombre y frase, y la descripcion completa con scroll (rueda del mouse). */
 abstract class OriginSelectionScreen<T> extends Screen {
     private static final int PANEL_W = 320;
-    private static final int TEXT_W = 288;
+    private static final int TEXT_W = 270;
     private static final int STRIP_ICON = 16;
     private static final int STRIP_SLOT = 24;
     private static final int LINE_H = 10;

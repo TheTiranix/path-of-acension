@@ -88,25 +88,38 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
     }
 
     /**
-     * Cuerpo entero del Autómata: se re-dibuja TODO el modelo (piel real tapada, mismo truco que el
-     * Malnacido) con una textura de placas metalicas en vez de la piel del jugador, mas un brillo real
-     * (RenderType.eyes, sin sombras, como el Enderman) en los ojos y el nucleo del pecho. Reusa 100% la
-     * animacion vanilla (caminar, atacar, agarrar items): solo cambia que se ve, no como se mueve.
+     * Cuerpo entero del Autómata: se dibuja SOLO la capa "de afuera" del modelo (hat/jacket/sleeves/
+     * pants, la que vainilla ya usa mas grande para la chaqueta/pelo largo de las skins) con la textura
+     * de placas metalicas, agrandada un poco mas todavia (ver setScale). Al ser mas grande que la capa
+     * de adentro (donde esta la piel REAL del jugador, que sigue dibujandose pero queda completamente
+     * tapada/encerrada), no hay parpadeo por z-fighting (que es lo que pasaba al re-dibujar encima, a
+     * la misma escala, la capa base entera). Ademas, brillo real (RenderType.eyes, sin sombras, como el
+     * Enderman) en los ojos y el nucleo del pecho. Reusa 100% la animacion vanilla: solo cambia que se
+     * ve, no como se mueve.
      */
     private void renderAutomataBody(PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         PlayerModel<AbstractClientPlayer> model = this.getParentModel();
         VertexConsumer plating = buffer.getBuffer(RenderType.entityCutoutNoCull(AUTOMATA_SKIN));
-        ModelPart[] parts = {model.head, model.hat, model.body, model.jacket,
-                model.rightArm, model.rightSleeve, model.leftArm, model.leftSleeve,
-                model.rightLeg, model.rightPants, model.leftLeg, model.leftPants};
-        for (ModelPart part : parts) {
+        ModelPart[] outerLayer = {model.hat, model.jacket, model.rightSleeve, model.leftSleeve,
+                model.rightPants, model.leftPants};
+        for (ModelPart part : outerLayer) {
+            setScale(part, 1.15F);
             part.render(poseStack, plating, packedLight, OverlayTexture.NO_OVERLAY);
         }
         // Brillo real (ignora la luz del mundo, como los ojos del Enderman): solo pinta los pixeles
         // de ojos/nucleo, el resto de la textura de brillo es transparente.
         VertexConsumer glow = buffer.getBuffer(RenderType.eyes(AUTOMATA_GLOW));
-        model.head.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
-        model.body.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
+        model.hat.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
+        model.jacket.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
+        for (ModelPart part : outerLayer) {
+            setScale(part, 1.0F);
+        }
+    }
+
+    private static void setScale(ModelPart part, float scale) {
+        part.xScale = scale;
+        part.yScale = scale;
+        part.zScale = scale;
     }
 
     /** true si el jugador ya desbloqueo TODOS los nodos del arbol de su clase actual. */
@@ -132,9 +145,9 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             float xSign = side == 0 ? 1.0F : -1.0F;
             poseStack.pushPose();
             // Body local space: y=0 es la base del cuello, +y baja hacia la cintura; los brazos
-            // pivotean cerca de x=+-5, y=2. Bien afuera (x=7) y adelante (z=1.3) para que no quede
-            // adentro/detras de la manga de la armadura (que ya de por si es mas ancha que el brazo).
-            poseStack.translate(xSign * 7.0, 0.5, 1.3);
+            // pivotean cerca de x=+-5, y=2. Bien afuera (x=7.8) y adelante (z=1.3) para que no quede
+            // adentro/detras de la manga de la armadura (que ademas ahora se dibuja un 15% mas grande).
+            poseStack.translate(xSign * 7.8, 0.5, 1.3);
             ModelPart gear = this.gears.getChild((side == 0 ? "left" : "right") + "_gear");
             gear.zRot = xSign * spin;
             gear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
