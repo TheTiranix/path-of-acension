@@ -33,6 +33,10 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_wood.png");
     private static final ResourceLocation GEARS_METAL_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_metal.png");
+    private static final ResourceLocation AUTOMATA_SKIN =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_skin.png");
+    private static final ResourceLocation AUTOMATA_GLOW =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_glow.png");
 
     private final ModelPart horns;
     private final ModelPart wings;
@@ -78,8 +82,31 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             renderMalnacido(poseStack, buffer, packedLight, player);
         } else if (race == Race.AUTOMATA) {
+            renderAutomataBody(poseStack, buffer, packedLight);
             renderGears(poseStack, buffer, packedLight, ageInTicks);
         }
+    }
+
+    /**
+     * Cuerpo entero del Autómata: se re-dibuja TODO el modelo (piel real tapada, mismo truco que el
+     * Malnacido) con una textura de placas metalicas en vez de la piel del jugador, mas un brillo real
+     * (RenderType.eyes, sin sombras, como el Enderman) en los ojos y el nucleo del pecho. Reusa 100% la
+     * animacion vanilla (caminar, atacar, agarrar items): solo cambia que se ve, no como se mueve.
+     */
+    private void renderAutomataBody(PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        PlayerModel<AbstractClientPlayer> model = this.getParentModel();
+        VertexConsumer plating = buffer.getBuffer(RenderType.entityCutoutNoCull(AUTOMATA_SKIN));
+        ModelPart[] parts = {model.head, model.hat, model.body, model.jacket,
+                model.rightArm, model.rightSleeve, model.leftArm, model.leftSleeve,
+                model.rightLeg, model.rightPants, model.leftLeg, model.leftPants};
+        for (ModelPart part : parts) {
+            part.render(poseStack, plating, packedLight, OverlayTexture.NO_OVERLAY);
+        }
+        // Brillo real (ignora la luz del mundo, como los ojos del Enderman): solo pinta los pixeles
+        // de ojos/nucleo, el resto de la textura de brillo es transparente.
+        VertexConsumer glow = buffer.getBuffer(RenderType.eyes(AUTOMATA_GLOW));
+        model.head.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
+        model.body.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
     }
 
     /** true si el jugador ya desbloqueo TODOS los nodos del arbol de su clase actual. */
@@ -93,11 +120,11 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         return nodes.stream().allMatch(node -> unlocked.contains(node.storageKey()));
     }
 
-    /** Engranajes girando en cada hombro; de madera hasta que el arbol de la clase actual esta al maximo,
-     *  ahi pasan a ser de metal (pedido de alejandr0). */
+    /** Engranajes girando en cada hombro y uno mas grande en la espalda; de madera hasta que el arbol de
+     *  la clase actual esta al maximo, ahi pasan a ser de metal (pedido de alejandr0). */
     private void renderGears(PoseStack poseStack, MultiBufferSource buffer, int packedLight, float ageInTicks) {
         ResourceLocation texture = treeMaxed() ? GEARS_METAL_TEXTURE : GEARS_WOOD_TEXTURE;
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(texture));
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(texture));
         float spin = ageInTicks * 0.08F;
         poseStack.pushPose();
         this.getParentModel().body.translateAndRotate(poseStack);
@@ -105,14 +132,22 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             float xSign = side == 0 ? 1.0F : -1.0F;
             poseStack.pushPose();
             // Body local space: y=0 es la base del cuello, +y baja hacia la cintura; los brazos
-            // pivotean cerca de x=+-5, y=2. Esto pone el engranaje pegado al hombro, no volando
-            // sobre la cabeza (el offset de -10.5 anterior quedaba bien arriba del modelo).
-            poseStack.translate(xSign * 5.2, 1.0, 0.5);
+            // pivotean cerca de x=+-5, y=2. Bien afuera (x=7) y adelante (z=1.3) para que no quede
+            // adentro/detras de la manga de la armadura (que ya de por si es mas ancha que el brazo).
+            poseStack.translate(xSign * 7.0, 0.5, 1.3);
             ModelPart gear = this.gears.getChild((side == 0 ? "left" : "right") + "_gear");
             gear.zRot = xSign * spin;
             gear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
         }
+        // Engranaje principal de la espalda (mas grande, gira mas lento): z positivo es "atras".
+        poseStack.pushPose();
+        poseStack.translate(0.0, 4.0, 3.2);
+        poseStack.scale(1.4F, 1.4F, 1.0F);
+        ModelPart backGear = this.gears.getChild("left_gear");
+        backGear.zRot = spin * 0.5F;
+        backGear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
         poseStack.popPose();
     }
 
