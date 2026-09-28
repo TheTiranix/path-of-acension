@@ -33,10 +33,6 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_wood.png");
     private static final ResourceLocation GEARS_METAL_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_metal.png");
-    private static final ResourceLocation AUTOMATA_SKIN =
-            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_skin.png");
-    private static final ResourceLocation AUTOMATA_GLOW =
-            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_glow.png");
 
     private final ModelPart horns;
     private final ModelPart wings;
@@ -82,44 +78,8 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             renderMalnacido(poseStack, buffer, packedLight, player);
         } else if (race == Race.AUTOMATA) {
-            renderAutomataBody(poseStack, buffer, packedLight);
             renderGears(poseStack, buffer, packedLight, ageInTicks);
         }
-    }
-
-    /**
-     * Cuerpo entero del Autómata: se dibuja SOLO la capa "de afuera" del modelo (hat/jacket/sleeves/
-     * pants, la que vainilla ya usa mas grande para la chaqueta/pelo largo de las skins) con la textura
-     * de placas metalicas, agrandada un poco mas todavia (ver setScale). Al ser mas grande que la capa
-     * de adentro (donde esta la piel REAL del jugador, que sigue dibujandose pero queda completamente
-     * tapada/encerrada), no hay parpadeo por z-fighting (que es lo que pasaba al re-dibujar encima, a
-     * la misma escala, la capa base entera). Ademas, brillo real (RenderType.eyes, sin sombras, como el
-     * Enderman) en los ojos y el nucleo del pecho. Reusa 100% la animacion vanilla: solo cambia que se
-     * ve, no como se mueve.
-     */
-    private void renderAutomataBody(PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        PlayerModel<AbstractClientPlayer> model = this.getParentModel();
-        VertexConsumer plating = buffer.getBuffer(RenderType.entityCutoutNoCull(AUTOMATA_SKIN));
-        ModelPart[] outerLayer = {model.hat, model.jacket, model.rightSleeve, model.leftSleeve,
-                model.rightPants, model.leftPants};
-        for (ModelPart part : outerLayer) {
-            setScale(part, 1.15F);
-            part.render(poseStack, plating, packedLight, OverlayTexture.NO_OVERLAY);
-        }
-        // Brillo real (ignora la luz del mundo, como los ojos del Enderman): solo pinta los pixeles
-        // de ojos/nucleo, el resto de la textura de brillo es transparente.
-        VertexConsumer glow = buffer.getBuffer(RenderType.eyes(AUTOMATA_GLOW));
-        model.hat.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
-        model.jacket.render(poseStack, glow, 0xF000F0, OverlayTexture.NO_OVERLAY);
-        for (ModelPart part : outerLayer) {
-            setScale(part, 1.0F);
-        }
-    }
-
-    private static void setScale(ModelPart part, float scale) {
-        part.xScale = scale;
-        part.yScale = scale;
-        part.zScale = scale;
     }
 
     /** true si el jugador ya desbloqueo TODOS los nodos del arbol de su clase actual. */
@@ -133,34 +93,21 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         return nodes.stream().allMatch(node -> unlocked.contains(node.storageKey()));
     }
 
-    /** Engranajes girando en cada hombro y uno mas grande en la espalda; de madera hasta que el arbol de
-     *  la clase actual esta al maximo, ahi pasan a ser de metal (pedido de alejandr0). */
+    /** Engranajes girando en cada hombro y uno en la espalda; de madera hasta que el arbol de la clase
+     *  actual esta al maximo, ahi pasan a ser de metal (pedido de alejandr0). Misma tecnica EXACTA que
+     *  las alas del Angel (que sabemos que se ve): la posicion va horneada en el PartPose de cada hijo
+     *  (ver ModModelLayers#createGearsLayer), aca solo se gira cada uno y se dibuja la RAIZ una vez. */
     private void renderGears(PoseStack poseStack, MultiBufferSource buffer, int packedLight, float ageInTicks) {
         ResourceLocation texture = treeMaxed() ? GEARS_METAL_TEXTURE : GEARS_WOOD_TEXTURE;
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(texture));
         float spin = ageInTicks * 0.08F;
+        this.gears.getChild("left_gear").zRot = spin;
+        this.gears.getChild("right_gear").zRot = -spin;
+        this.gears.getChild("back_gear").zRot = spin * 0.5F;
+
         poseStack.pushPose();
         this.getParentModel().body.translateAndRotate(poseStack);
-        for (int side = 0; side < 2; side++) {
-            float xSign = side == 0 ? 1.0F : -1.0F;
-            poseStack.pushPose();
-            // Body local space: y=0 es la base del cuello, +y baja hacia la cintura; los brazos
-            // pivotean cerca de x=+-5, y=2. Bien afuera (x=7.8) y adelante (z=1.3) para que no quede
-            // adentro/detras de la manga de la armadura (que ademas ahora se dibuja un 15% mas grande).
-            poseStack.translate(xSign * 7.8, 0.5, 1.3);
-            ModelPart gear = this.gears.getChild((side == 0 ? "left" : "right") + "_gear");
-            gear.zRot = xSign * spin;
-            gear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
-            poseStack.popPose();
-        }
-        // Engranaje principal de la espalda (mas grande, gira mas lento): z positivo es "atras".
-        poseStack.pushPose();
-        poseStack.translate(0.0, 4.0, 3.2);
-        poseStack.scale(1.4F, 1.4F, 1.0F);
-        ModelPart backGear = this.gears.getChild("left_gear");
-        backGear.zRot = spin * 0.5F;
-        backGear.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
-        poseStack.popPose();
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(texture));
+        this.gears.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
         poseStack.popPose();
     }
 

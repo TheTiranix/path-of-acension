@@ -32,16 +32,26 @@ public final class ModModelLayers {
         event.registerLayerDefinition(AUTOMATA_GEARS, ModModelLayers::createGearsLayer);
     }
 
-    /** Un engranaje plano por hombro; gira sobre si mismo en RaceFeaturesLayer. La textura (madera o
-     *  metal segun el arbol de habilidades, ver RaceFeaturesLayer) dibuja los dientes. */
+    /** Un engranaje por hombro y uno en la espalda, con la posicion HORNEADA en el propio PartPose
+     *  (igual que las plumas del ala, ver addWing): asi se dibujan renderizando la RAIZ una sola vez
+     *  (this.gears.render(...)), que es la forma que ya sabemos que funciona para alas/cuernos, en vez
+     *  de buscar el hijo y traducir la pose a mano antes de dibujarlo (eso fallaba: no se veian).
+     *  Gira sobre si mismo en RaceFeaturesLayer. La textura (madera o metal segun el arbol de
+     *  habilidades) dibuja los dientes. */
     private static LayerDefinition createGearsLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        for (String side : new String[] {"left", "right"}) {
-            root.addOrReplaceChild(side + "_gear",
-                    CubeListBuilder.create().texOffs(0, 0).addBox(-3.25F, -3.25F, -1.2F, 6.5F, 6.5F, 2.4F),
-                    PartPose.ZERO);
-        }
+        // z NEGATIVO = adelante (mismo lado que la cara): si fuera positivo el brazo (solido, opaco)
+        // queda ENTRE la camara y el engranaje y lo tapa por completo desde una vista de frente.
+        root.addOrReplaceChild("left_gear",
+                CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -0.8F, 5.0F, 5.0F, 1.6F),
+                PartPose.offset(7.5F, 0.5F, -0.3F));
+        root.addOrReplaceChild("right_gear",
+                CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -0.8F, 5.0F, 5.0F, 1.6F),
+                PartPose.offset(-7.5F, 0.5F, -0.3F));
+        root.addOrReplaceChild("back_gear",
+                CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -0.8F, 5.0F, 5.0F, 1.6F),
+                PartPose.offset(0.0F, 3.0F, 2.6F));
         return LayerDefinition.create(mesh, 16, 16);
     }
 
