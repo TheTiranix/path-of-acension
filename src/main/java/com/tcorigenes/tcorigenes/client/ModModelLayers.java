@@ -21,6 +21,8 @@ public final class ModModelLayers {
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "angel_wings"), "main");
     public static final ModelLayerLocation AUTOMATA_GEARS =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_gears"), "main");
+    public static final ModelLayerLocation AUTOMATA_CORE =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_core"), "main");
 
     private ModModelLayers() {
     }
@@ -30,6 +32,17 @@ public final class ModModelLayers {
         event.registerLayerDefinition(ANGEL_WINGS, ModModelLayers::createWingsLayer);
         event.registerLayerDefinition(SIERVO_ANTENNAS, ModModelLayers::createAntennasLayer);
         event.registerLayerDefinition(AUTOMATA_GEARS, ModModelLayers::createGearsLayer);
+        event.registerLayerDefinition(AUTOMATA_CORE, ModModelLayers::createCoreLayer);
+    }
+
+    /** Nucleo de energia en el pecho (pedido de alejandr0): brilla de verdad, ver RaceFeaturesLayer. */
+    private static LayerDefinition createCoreLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        root.addOrReplaceChild("core",
+                CubeListBuilder.create().texOffs(0, 0).addBox(-1.6F, -1.6F, -0.6F, 3.2F, 3.2F, 1.2F),
+                PartPose.offset(0.0F, 4.0F, -2.3F));
+        return LayerDefinition.create(mesh, 16, 16);
     }
 
     /** Un engranaje por hombro y uno en la espalda, con la posicion HORNEADA en el propio PartPose

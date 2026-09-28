@@ -33,11 +33,14 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_wood.png");
     private static final ResourceLocation GEARS_METAL_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_metal.png");
+    private static final ResourceLocation CORE_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_core.png");
 
     private final ModelPart horns;
     private final ModelPart wings;
     private final ModelPart antennas;
     private final ModelPart gears;
+    private final ModelPart core;
 
     public RaceFeaturesLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, EntityModelSet modelSet) {
         super(parent);
@@ -45,6 +48,7 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
         this.wings = modelSet.bakeLayer(ModModelLayers.ANGEL_WINGS);
         this.antennas = modelSet.bakeLayer(ModModelLayers.SIERVO_ANTENNAS);
         this.gears = modelSet.bakeLayer(ModModelLayers.AUTOMATA_GEARS);
+        this.core = modelSet.bakeLayer(ModModelLayers.AUTOMATA_CORE);
     }
 
     @Override
@@ -79,7 +83,20 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             renderMalnacido(poseStack, buffer, packedLight, player);
         } else if (race == Race.AUTOMATA) {
             renderGears(poseStack, buffer, packedLight, ageInTicks);
+            renderCore(poseStack, buffer, ageInTicks);
         }
+    }
+
+    /** Nucleo de energia en el pecho: brillo real (RenderType.eyes, como los ojos del Enderman, ignora la
+     *  luz del entorno) con un leve pulso. */
+    private void renderCore(PoseStack poseStack, MultiBufferSource buffer, float ageInTicks) {
+        float pulse = 0.85F + 0.15F * (float) Math.sin(ageInTicks * 0.1F);
+        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(CORE_TEXTURE));
+        poseStack.pushPose();
+        this.getParentModel().body.translateAndRotate(poseStack);
+        poseStack.scale(pulse, pulse, 1.0F);
+        this.core.render(poseStack, consumer, 0xF000F0, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
     }
 
     /** true si el jugador ya desbloqueo TODOS los nodos del arbol de su clase actual. */
@@ -99,9 +116,11 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
      *  (ver ModModelLayers#createGearsLayer), aca solo se gira cada uno y se dibuja la RAIZ una vez. */
     private void renderGears(PoseStack poseStack, MultiBufferSource buffer, int packedLight, float ageInTicks) {
         ResourceLocation texture = treeMaxed() ? GEARS_METAL_TEXTURE : GEARS_WOOD_TEXTURE;
+        // Mismo sentido en los 3 (antes el hombro derecho giraba al reves que el izquierdo: el efecto
+        // combinado de las dos direcciones opuestas daba la sensacion de que "se cerraban" hacia adentro).
         float spin = ageInTicks * 0.08F;
         this.gears.getChild("left_gear").zRot = spin;
-        this.gears.getChild("right_gear").zRot = -spin;
+        this.gears.getChild("right_gear").zRot = spin;
         this.gears.getChild("back_gear").zRot = spin * 0.5F;
 
         poseStack.pushPose();

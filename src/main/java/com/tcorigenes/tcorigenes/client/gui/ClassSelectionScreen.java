@@ -1,19 +1,30 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.client.gui;
 
+import com.tcorigenes.tcorigenes.client.ClientRaceData;
+import com.tcorigenes.tcorigenes.core.Race;
 import com.tcorigenes.tcorigenes.networking.Networking;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseClassPacket;
 import com.tcorigenes.tcorigenes.playerclass.PlayerClass;
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-/** Elegir clase; aparece justo despues de elegir raza. No se cierra con ESC: hay que elegir. */
+/** Elegir clase; aparece justo despues de elegir raza. No se cierra con ESC: hay que elegir.
+ *  El Autómata no puede ser Ritualista Arcano (tiene prohibido usar magia), asi que ni se muestra. */
 public class ClassSelectionScreen extends OriginSelectionScreen<PlayerClass> {
     public ClassSelectionScreen() {
-        super(Component.literal("Elige tu Clase"),
-                Arrays.stream(PlayerClass.values()).filter(c -> c != PlayerClass.NINGUNA).toList());
+        super(Component.literal("Elige tu Clase"), options());
+    }
+
+    private static List<PlayerClass> options() {
+        var player = Minecraft.getInstance().player;
+        boolean automata = player != null && ClientRaceData.get(player.getUUID()) == Race.AUTOMATA;
+        return Arrays.stream(PlayerClass.values())
+                .filter(c -> c != PlayerClass.NINGUNA && !(automata && c == PlayerClass.RITUALISTA_ARCANO))
+                .toList();
     }
 
     @Override

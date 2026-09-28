@@ -282,4 +282,45 @@ public final class SkillTreeManager {
         });
         refresh(player);
     }
+
+    /**
+     * Desbloquea VARIOS nodos de una sola vez (pedido de alejandr0: antes habia que confirmar de a uno,
+     * muy molesto). Los procesa EN EL ORDEN que llegan, gastando puntos a medida que avanza: un nodo que
+     * depende de OTRO de la misma tanda ya cuenta como disponible si ese otro se proceso antes en la
+     * MISMA lista (no hace falta mandarlos en orden estricto: se reintenta varias pasadas). Los que no
+     * llegan a estar disponibles o no alcanza el punto se saltean, no cortan el resto.
+     */
+    public static void tryUnlockBatch(ServerPlayer player, java.util.List<String> nodeIds) {
+        player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
+            PlayerClass cls = currentClass(player);
+            java.util.Set<String> unlocked = loadout.getUnlockedAbilityIds();
+            java.util.List<String> pending = new java.util.ArrayList<>(new java.util.LinkedHashSet<>(nodeIds));
+            int applied = 0;
+            boolean progressed = true;
+            while (!pending.isEmpty() && progressed) {
+                progressed = false;
+                for (java.util.Iterator<String> it = pending.iterator(); it.hasNext(); ) {
+                    SkillNode node = SkillTree.get(it.next());
+                    if (node == null || !isAvailable(node, cls, unlocked) || loadout.getSkillPoints() < node.cost()) {
+                        continue; // puede volverse disponible en una pasada siguiente (depende de otro de la tanda)
+                    }
+                    loadout.setSkillPoints(loadout.getSkillPoints() - node.cost());
+                    loadout.unlockAbility(node.storageKey());
+                    if (node.abilityId() != null) {
+                        loadout.unlockAbility(node.abilityId());
+                    }
+                    it.remove();
+                    applied++;
+                    progressed = true;
+                }
+            }
+            if (applied > 0) {
+                player.displayClientMessage(Component.literal("Desbloqueaste " + applied + " nodo(s)."), true);
+            }
+            if (!pending.isEmpty()) {
+                player.displayClientMessage(Component.literal(pending.size() + " nodo(s) no se pudieron desbloquear (puntos insuficientes o ya no disponibles)."), true);
+            }
+        });
+        refresh(player);
+    }
 }
