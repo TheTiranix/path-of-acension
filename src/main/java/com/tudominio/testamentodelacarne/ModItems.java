@@ -164,6 +164,17 @@ public class ModItems {
     public static final RegistryObject<Item> ESPADA_ANIMA_PURIFICADO_3 = ITEMS.register(
             "espada_anima_purificado_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
+    /** Martillos Anima del Autómata (categoria martillo en Better Combat, ver weapon_attributes). Se entregan
+     *  y se intercambian solos segun la raza (ver MalnacidoSwordSwap). */
+    public static final RegistryObject<Item> ESPADA_ANIMA_AUTOMATA_1 = ITEMS.register(
+            "espada_anima_automata_1", () -> new AnimaSwordItem(5.0F, -2.4F, 2.6F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_AUTOMATA_2 = ITEMS.register(
+            "espada_anima_automata_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_AUTOMATA_3 = ITEMS.register(
+            "espada_anima_automata_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
+
     public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));

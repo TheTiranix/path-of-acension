@@ -72,6 +72,9 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_MALNACIDO_2.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_MALNACIDO_3.get());
                         output.accept((ItemLike) ModItems.ESPADA_ANIMA_PURIFICADO_3.get());
+                        output.accept((ItemLike) ModItems.ESPADA_ANIMA_AUTOMATA_1.get());
+                        output.accept((ItemLike) ModItems.ESPADA_ANIMA_AUTOMATA_2.get());
+                        output.accept((ItemLike) ModItems.ESPADA_ANIMA_AUTOMATA_3.get());
                         output.accept((ItemLike) ModItems.DARK_METAL_PICKAXE.get());
                         output.accept((ItemLike) ModItems.PRISMA_CONVERTIDOR.get());
                         MaterialWeapons.ALL.forEach(weapon -> output.accept((ItemLike) weapon.get()));
