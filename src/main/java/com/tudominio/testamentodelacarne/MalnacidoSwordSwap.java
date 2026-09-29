@@ -35,6 +35,7 @@ public final class MalnacidoSwordSwap {
                 ? (player.getPersistentData().getBoolean("malnacido_purificado")
                         ? ModItems.ESPADA_ANIMA_PURIFICADO_3.get() : ModItems.ESPADA_ANIMA_MALNACIDO_3.get())
                 : ModItems.ESPADA_ANIMA_3.get();
+        Item t2 = malnacido ? ModItems.ESPADA_ANIMA_MALNACIDO_2.get() : ModItems.ESPADA_ANIMA_2.get();
         Item t1 = malnacido ? ModItems.ESPADA_ANIMA_MALNACIDO_1.get() : ModItems.ESPADA_ANIMA_1.get();
         Inventory inv = player.getInventory();
         for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -46,6 +47,8 @@ public final class MalnacidoSwordSwap {
             Item target = null;
             if (isT3Family(item) && item != t3) {
                 target = t3;
+            } else if (isT2Family(item) && item != t2) {
+                target = t2;
             } else if (isT1Family(item) && item != t1) {
                 target = t1;
             }
@@ -61,6 +64,10 @@ public final class MalnacidoSwordSwap {
     private static boolean isT3Family(Item item) {
         return item == ModItems.ESPADA_ANIMA_3.get() || item == ModItems.ESPADA_ANIMA_MALNACIDO_3.get()
                 || item == ModItems.ESPADA_ANIMA_PURIFICADO_3.get();
+    }
+
+    private static boolean isT2Family(Item item) {
+        return item == ModItems.ESPADA_ANIMA_2.get() || item == ModItems.ESPADA_ANIMA_MALNACIDO_2.get();
     }
 
     private static boolean isT1Family(Item item) {
