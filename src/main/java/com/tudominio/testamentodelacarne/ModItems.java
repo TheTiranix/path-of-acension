@@ -152,6 +152,9 @@ public class ModItems {
 
     /** T3 del Malnacido (espadon a dos manos en Better Combat): maldita mientras no se purifique y con
      *  esmeraldas al purificarse. Se intercambian solas segun el estado del jugador (ver MalnacidoSwordSwap). */
+    public static final RegistryObject<Item> ESPADA_ANIMA_MALNACIDO_1 = ITEMS.register(
+            "espada_anima_malnacido_1", () -> new AnimaSwordItem(5.0F, -2.4F, 2.6F, new Item.Properties().fireResistant()));
+
     public static final RegistryObject<Item> ESPADA_ANIMA_MALNACIDO_3 = ITEMS.register(
             "espada_anima_malnacido_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 

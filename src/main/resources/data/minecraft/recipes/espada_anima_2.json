@@ -1,4 +1,3 @@
-
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
@@ -8,7 +7,7 @@
   ],
   "key": {
     "S": {
-      "item": "testamentodelacarne:espada_anima_1"
+      "tag": "testamentodelacarne:anima_t1"
     },
     "E": {
       "item": "testamentodelacarne:engranaje_arcano"

@@ -30,17 +30,26 @@ public final class MalnacidoSwordSwap {
         Player player = event.player;
         Race race = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
                 .map(info -> info.getRace()).orElse(Race.HUMANO);
-        Item target;
-        if (race == Race.MALNACIDO) {
-            target = player.getPersistentData().getBoolean("malnacido_purificado")
-                    ? ModItems.ESPADA_ANIMA_PURIFICADO_3.get() : ModItems.ESPADA_ANIMA_MALNACIDO_3.get();
-        } else {
-            target = ModItems.ESPADA_ANIMA_3.get();
-        }
+        boolean malnacido = race == Race.MALNACIDO;
+        Item t3 = malnacido
+                ? (player.getPersistentData().getBoolean("malnacido_purificado")
+                        ? ModItems.ESPADA_ANIMA_PURIFICADO_3.get() : ModItems.ESPADA_ANIMA_MALNACIDO_3.get())
+                : ModItems.ESPADA_ANIMA_3.get();
+        Item t1 = malnacido ? ModItems.ESPADA_ANIMA_MALNACIDO_1.get() : ModItems.ESPADA_ANIMA_1.get();
         Inventory inv = player.getInventory();
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ItemStack stack = inv.getItem(i);
-            if (stack.isEmpty() || stack.getItem() == target || !isFamily(stack.getItem(), race)) {
+            if (stack.isEmpty()) {
+                continue;
+            }
+            Item item = stack.getItem();
+            Item target = null;
+            if (isT3Family(item) && item != t3) {
+                target = t3;
+            } else if (isT1Family(item) && item != t1) {
+                target = t1;
+            }
+            if (target == null) {
                 continue;
             }
             ItemStack swapped = new ItemStack(target, stack.getCount());
@@ -49,9 +58,12 @@ public final class MalnacidoSwordSwap {
         }
     }
 
-    /** Solo la T3 normal se convierte a variante de Malnacido; las variantes vuelven a la normal si ya no lo es. */
-    private static boolean isFamily(Item item, Race race) {
-        boolean variant = item == ModItems.ESPADA_ANIMA_MALNACIDO_3.get() || item == ModItems.ESPADA_ANIMA_PURIFICADO_3.get();
-        return race == Race.MALNACIDO ? (variant || item == ModItems.ESPADA_ANIMA_3.get()) : variant;
+    private static boolean isT3Family(Item item) {
+        return item == ModItems.ESPADA_ANIMA_3.get() || item == ModItems.ESPADA_ANIMA_MALNACIDO_3.get()
+                || item == ModItems.ESPADA_ANIMA_PURIFICADO_3.get();
+    }
+
+    private static boolean isT1Family(Item item) {
+        return item == ModItems.ESPADA_ANIMA_1.get() || item == ModItems.ESPADA_ANIMA_MALNACIDO_1.get();
     }
 }
