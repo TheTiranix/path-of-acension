@@ -150,6 +150,14 @@ public class ModItems {
     public static final RegistryObject<Item> ESPADA_ANIMA_SIERVO_3 = ITEMS.register(
             "espada_anima_siervo_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
+    /** T3 del Malnacido (espadon a dos manos en Better Combat): maldita mientras no se purifique y con
+     *  esmeraldas al purificarse. Se intercambian solas segun el estado del jugador (ver MalnacidoSwordSwap). */
+    public static final RegistryObject<Item> ESPADA_ANIMA_MALNACIDO_3 = ITEMS.register(
+            "espada_anima_malnacido_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_PURIFICADO_3 = ITEMS.register(
+            "espada_anima_purificado_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
+
     public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));
