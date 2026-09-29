@@ -197,3 +197,6 @@ vtaw_mw-forge-1.20.1-1.0.4.jar
 watut-forge-1.20.1-1.2.3.jar
 waystones-forge-1.20.1-14.1.13.jar
 zfastnoise-1.0.13+1.20+forge.jar
+tectonic-3.0.17-forge-1.20.1.jar
+lithostitched-forge-1.20.1-1.4.11.jar
+Terralith_1.20.x_v2.5.4.jar
