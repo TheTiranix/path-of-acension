@@ -97,7 +97,8 @@ public final class WeaponElemental {
                 }
                 float total = event.getAmount();
                 event.setCanceled(true); // este golpe entero pasa a ser el elemental, no se suma aparte
-                extra(target, attacker, slot, total);
+                // Un solo tipo de daño elemental y nada de daño normal antes: sin delay (pedido de alejandr0).
+                PendingElementalHits.hurtNow(target, attacker, slot, total);
                 return;
             }
         }

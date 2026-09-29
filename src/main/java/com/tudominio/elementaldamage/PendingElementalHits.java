@@ -36,6 +36,14 @@ public final class PendingElementalHits {
     private PendingElementalHits() {
     }
 
+    /** Golpe elemental inmediato para cuando el golpe ENTERO ya se convirtio en un unico elemento (sin daño normal
+     *  antes): ahi no hace falta el delay, porque el golpe normal se cancela. Como estamos adentro del hurt() original,
+     *  vanilla ya puso invulnerableTime en 20 y descartaria este golpe; se baja a 0 para que entre completo. */
+    public static void hurtNow(LivingEntity target, LivingEntity attacker, ResourceKey<DamageType> element, float amount) {
+        target.invulnerableTime = 0;
+        ElementalDamageSource.hurt(target, element, attacker, amount);
+    }
+
     public static void queue(LivingEntity target, LivingEntity attacker, ResourceKey<DamageType> element, float amount, long fireAtTick) {
         QUEUE.add(new PendingHit(target, attacker, element, amount, fireAtTick));
     }
