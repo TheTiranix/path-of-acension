@@ -65,7 +65,7 @@ public class AnimaSwordItem extends SwordItem {
     /** La copia racial del Ender Warrior (ver SoulboundItems) no se puede ni tirar a mano. */
     @Override
     public boolean onDroppedByPlayer(ItemStack item, Player player) {
-        return !com.tcorigenes.tcorigenes.core.SoulboundItems.isSoulbound(item);
+        return !com.tcorigenes.tcorigenes.core.SoulboundItems.isSoulbound(item) && !DualScythe.isCopy(item);
     }
 
     @Override

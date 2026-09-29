@@ -38,6 +38,7 @@ public final class ClassSelection {
                 case DEMONIO -> "espada_anima_demonio_1";
                 case HEREJE -> "espada_anima_hereje_1";
                 case ANGEL -> "espada_anima_angel_1";
+                case SIERVO_DE_LA_LUNA -> "espada_anima_siervo_1";
                 default -> "espada_anima_1";
             };
             var sword = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("testamentodelacarne", swordId));

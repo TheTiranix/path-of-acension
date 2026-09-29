@@ -139,6 +139,17 @@ public class ModItems {
     public static final RegistryObject<Item> ESPADA_ANIMA_ANGEL_3 = ITEMS.register(
             "espada_anima_angel_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
+    /** Variante exclusiva de Siervo de la Luna + Guerrero Ánima (ver ClassSelection): guadaña ligada al alma.
+     *  La fase 3 se empuña de a dos (ver DualScythe). */
+    public static final RegistryObject<Item> ESPADA_ANIMA_SIERVO_1 = ITEMS.register(
+            "espada_anima_siervo_1", () -> new AnimaSwordItem(5.0F, -2.4F, 2.6F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_SIERVO_2 = ITEMS.register(
+            "espada_anima_siervo_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ESPADA_ANIMA_SIERVO_3 = ITEMS.register(
+            "espada_anima_siervo_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
+
     public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));
