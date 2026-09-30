@@ -29,6 +29,7 @@ public class ModCommands {
         new com.tcorigenes.tcorigenes.command.SkillXpCommand(event.getDispatcher());
         new UnpurifyCommand(event.getDispatcher());
         new RespawnPointCommand(event.getDispatcher());
+        new com.tcorigenes.tcorigenes.command.ForceSaveCommand(event.getDispatcher());
         new AbilityDebugCommand(event.getDispatcher());
         new FavorCommand(event.getDispatcher());
         new RankingsCommand(event.getDispatcher());

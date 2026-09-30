@@ -43,15 +43,24 @@ public class ChooseCheckpointPacket {
             if (player == null) {
                 return;
             }
+            boolean forced = !this.load && CheckpointManager.consumeForcedSave(player);
             if (this.checkpointId == null) {
-                player.getSleepingPos().ifPresent(pos -> CheckpointManager.createCheckpoint(player, pos, null));
+                if (forced) {
+                    CheckpointManager.createCheckpoint(player, player.blockPosition(), null, true);
+                } else {
+                    player.getSleepingPos().ifPresent(pos -> CheckpointManager.createCheckpoint(player, pos, null));
+                }
                 return;
             }
             List<Checkpoint> active = CheckpointManager.active(player.getServer());
             active.stream().filter(c -> c.id.equals(this.checkpointId)).findFirst().ifPresent(checkpoint -> {
                 if (!this.load) {
                     // Pantalla de dormir: elegir uno existente lo SOBRESCRIBE con esta cama y el mundo de ahora.
-                    player.getSleepingPos().ifPresent(pos -> CheckpointManager.createCheckpoint(player, pos, checkpoint.id));
+                    if (forced) {
+                        CheckpointManager.createCheckpoint(player, player.blockPosition(), checkpoint.id, true);
+                    } else {
+                        player.getSleepingPos().ifPresent(pos -> CheckpointManager.createCheckpoint(player, pos, checkpoint.id));
+                    }
                     return;
                 }
                 CheckpointManager.setPreferred(player, checkpoint.id);

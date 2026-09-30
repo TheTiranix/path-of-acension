@@ -185,19 +185,38 @@ public final class CheckpointManager {
     /** Crea un save de cama nuevo, o si replaceId != null SOBRESCRIBE ese. Respeta el cooldown de 1 dia
      *  entre saves y la espera de 1 dia de una cama recien colocada. */
     public static void createCheckpoint(ServerPlayer player, BlockPos bedPos, UUID replaceId) {
+        createCheckpoint(player, bedPos, replaceId, false);
+    }
+
+    /** Jugadores a los que /forcesave les abrio la pantalla: su proxima eleccion guarda donde estan parados, sin cama ni esperas. */
+    private static final java.util.Set<UUID> FORCED_SAVE = new java.util.HashSet<>();
+
+    /** Pedido de alejandr0: comando para abrir la interfaz de guardado pasando todas las restricciones (cama, espera de
+     *  1 dia entre saves y de 1 dia en una cama nueva). */
+    public static void openForcedSaveScreen(ServerPlayer player) {
+        FORCED_SAVE.add(player.getUUID());
+        sendCheckpointScreen(player, false);
+    }
+
+    /** true (y consume la marca) si la proxima eleccion de este jugador es un guardado forzado. */
+    public static boolean consumeForcedSave(ServerPlayer player) {
+        return FORCED_SAVE.remove(player.getUUID());
+    }
+
+    public static void createCheckpoint(ServerPlayer player, BlockPos bedPos, UUID replaceId, boolean force) {
         MinecraftServer server = player.getServer();
         if (server == null) {
             return;
         }
         CheckpointSavedData data = CheckpointSavedData.get(server);
         long now = server.overworld().getGameTime();
-        if (data.lastSaveTick != Long.MIN_VALUE && now - data.lastSaveTick < SAVE_COOLDOWN_TICKS) {
+        if (!force && data.lastSaveTick != Long.MIN_VALUE && now - data.lastSaveTick < SAVE_COOLDOWN_TICKS) {
             player.displayClientMessage(Component.literal("Todavía no podés guardar: falta esperar "
                     + describeTicks(SAVE_COOLDOWN_TICKS - (now - data.lastSaveTick)) + " (1 día de Minecraft entre saves).")
                     .withStyle(ChatFormatting.RED), false);
             return;
         }
-        for (var entry : data.bedPlacedAt.entrySet()) {
+        for (var entry : force ? java.util.Collections.<String, Long>emptyMap().entrySet() : data.bedPlacedAt.entrySet()) {
             String prefix = player.level().dimension().location() + "|";
             if (!entry.getKey().startsWith(prefix)) {
                 continue;
