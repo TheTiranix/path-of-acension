@@ -175,6 +175,26 @@ public class ModItems {
     public static final RegistryObject<Item> ESPADA_ANIMA_AUTOMATA_3 = ITEMS.register(
             "espada_anima_automata_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
+    public static final RegistryObject<Item> SAPPHIRE_HELMET = ITEMS.register(
+            "sapphire_helmet", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_CHESTPLATE = ITEMS.register(
+            "sapphire_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_LEGGINGS = ITEMS.register(
+            "sapphire_leggings", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_BOOTS = ITEMS.register(
+            "sapphire_boots", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
     public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));

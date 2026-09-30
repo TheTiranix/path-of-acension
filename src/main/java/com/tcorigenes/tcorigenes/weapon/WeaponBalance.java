@@ -394,6 +394,14 @@ public final class WeaponBalance {
                 default -> 4;
             };
             ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, -1, rl("minecraft:diamond_" + piece)));
+            // Armadura de zafiro (nuestra, ver SapphireArmorMaterial): 3.5 casco y botas, 8.5 pechera, 6.5 pantalones, 3 de tenacidad.
+            double sapphireDefense = switch (piece) {
+                case "helmet" -> 3.5;
+                case "chestplate" -> 8.5;
+                case "leggings" -> 6.5;
+                default -> 3.5;
+            };
+            ARMOR_FIXED.put(rl("testamentodelacarne:sapphire_" + piece), new ArmorFixed(sapphireDefense, 3, -1, rl("minecraft:diamond_" + piece)));
             // Netherite Battlemage (Iron's Spellbooks, netherite_mage_*): valores fijos propios + 4 de tenacidad de armadura.
             // La Battlemage normal de Ars Nouveau NO se toca: usa los valores por defecto del mod.
             double battlemageDefense = switch (piece) {
