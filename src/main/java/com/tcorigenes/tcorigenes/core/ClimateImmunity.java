@@ -35,11 +35,11 @@ public final class ClimateImmunity {
     private ClimateImmunity() {
     }
 
-    private static boolean wearsSet(Player player, String prefix) {
+    private static boolean wearsSet(Player player, String namespace, String prefix) {
         for (EquipmentSlot slot : ARMOR) {
             ItemStack stack = player.getItemBySlot(slot);
             ResourceLocation id = stack.isEmpty() ? null : ForgeRegistries.ITEMS.getKey(stack.getItem());
-            if (id == null || !id.getNamespace().equals("celestisynth") || !id.getPath().startsWith(prefix)) {
+            if (id == null || !id.getNamespace().equals(namespace) || !id.getPath().startsWith(prefix)) {
                 return false;
             }
         }
@@ -47,11 +47,20 @@ public final class ClimateImmunity {
     }
 
     public static boolean wearsSolarSet(Player player) {
-        return wearsSet(player, SOLAR);
+        return wearsSet(player, "celestisynth", SOLAR);
     }
 
     public static boolean wearsLunarSet(Player player) {
-        return wearsSet(player, LUNAR);
+        return wearsSet(player, "celestisynth", LUNAR);
+    }
+
+    public static boolean wearsYetiSet(Player player) {
+        return wearsSet(player, "twilightforest", "yeti_");
+    }
+
+    /** Inmunidad al frio: sets divinos (solar/lunar) y set completo de Yeti. */
+    public static boolean isColdImmune(Player player) {
+        return wearsSolarSet(player) || wearsLunarSet(player) || wearsYetiSet(player);
     }
 
     public static boolean wearsImmunitySet(Player player) {
@@ -81,6 +90,9 @@ public final class ClimateImmunity {
         boolean solar = wearsSolarSet(player);
         boolean lunar = wearsLunarSet(player);
         if (!solar && !lunar) {
+            if (wearsYetiSet(player)) {
+                refresh(player, ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.fromNamespaceAndPath("toughasnails", "ice_resistance")));
+            }
             return;
         }
         if (solar) {
@@ -101,7 +113,7 @@ public final class ClimateImmunity {
         DamageSource source = event.getSource();
         if (source.is(DamageTypeTags.IS_FIRE) && isFireImmune(player)) {
             event.setCanceled(true);
-        } else if (source.is(DamageTypes.FREEZE) && wearsImmunitySet(player)) {
+        } else if (source.is(DamageTypes.FREEZE) && isColdImmune(player)) {
             event.setCanceled(true);
         } else if (source.is(DamageTypes.WITHER) && wearsLunarSet(player)) {
             event.setCanceled(true);

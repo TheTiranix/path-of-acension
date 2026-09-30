@@ -34,6 +34,12 @@ public final class DivineArmorTweaks {
             UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000013"),
             UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000014")};
 
+    private static final UUID[] YETI_IDS = {
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000021"),
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000022"),
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000023"),
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000024")};
+
     private DivineArmorTweaks() {
     }
 
@@ -52,6 +58,13 @@ public final class DivineArmorTweaks {
             return;
         }
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem());
+        if (id != null && id.getNamespace().equals("twilightforest") && id.getPath().startsWith("yeti_")) {
+            // Yeti: 10% de resistencia al retroceso por pieza (la proteccion y la tenacidad estan en WeaponBalance).
+            event.removeAttribute(Attributes.KNOCKBACK_RESISTANCE);
+            event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
+                    YETI_IDS[index(event.getSlotType())], "Armadura de yeti", 0.10, AttributeModifier.Operation.ADDITION));
+            return;
+        }
         if (id == null || !id.getNamespace().equals("celestisynth")) {
             return;
         }

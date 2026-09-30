@@ -339,8 +339,7 @@ public final class WeaponBalance {
         // ------------------------------------------------------------------- armaduras
         String[] diamond = {"helmet", "chestplate", "leggings", "boots"};
         for (String piece : diamond) {
-            for (String set : new String[] {"aether:neptune_", "aether:valkyrie_", "aether:phoenix_",
-                    "twilightforest:knightmetal_", "twilightforest:steeleaf_"}) {
+            for (String set : new String[] {"twilightforest:knightmetal_", "twilightforest:steeleaf_"}) {
                 ARMOR_LIKE.put(rl(set + piece), rl("minecraft:diamond_" + piece));
             }
             double defense = switch (piece) {
@@ -350,8 +349,24 @@ public final class WeaponBalance {
                 default -> 6;
             };
             for (String set : new String[] {"aether:gravitite_", "minecraft:netherite_"}) {
-                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 5, 1500, rl("minecraft:diamond_" + piece)));
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, 1500, rl("minecraft:diamond_" + piece)));
             }
+            // Valkyrie y Phoenix: +3 de proteccion por pieza sobre lo que tenian (como el diamante) y 4 de tenacidad, igual que
+            // gravitite; el bonus de set completo (+20% al daño de luz / fuego) esta en ArmorSetBonus.
+            for (String set : new String[] {"aether:valkyrie_", "aether:phoenix_"}) {
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, -1, rl("minecraft:diamond_" + piece)));
+            }
+            // Neptune (Aether): 5 casco y botas, 10 pechera, 8 pantalones, 3 de tenacidad por pieza.
+            double neptuneDefense = switch (piece) {
+                case "helmet" -> 5;
+                case "chestplate" -> 10;
+                case "leggings" -> 8;
+                default -> 5;
+            };
+            ARMOR_FIXED.put(rl("aether:neptune_" + piece), new ArmorFixed(neptuneDefense, 3, -1, rl("minecraft:diamond_" + piece)));
+            // Yeti (Twilight Forest): como gravitite (6/11/9/6) con 5 de tenacidad; 10% de resistencia al retroceso por
+            // pieza e inmunidad al frio con el set completo (ver YetiArmor y ClimateImmunity).
+            ARMOR_FIXED.put(rl("twilightforest:yeti_" + piece), new ArmorFixed(defense, 5, -1, rl("minecraft:diamond_" + piece)));
             // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 400 usos mas
             ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(defense + 2, 5, 1900, rl("minecraft:diamond_" + piece)));
             // Knightmetal: igual que el diamante en proteccion (ARMOR_LIKE) y en durabilidad
@@ -378,20 +393,16 @@ public final class WeaponBalance {
                 case "leggings" -> 7;
                 default -> 4;
             };
-            ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
-            // Netherite Battlemage (Ars Nouveau): valores fijos propios + 4 de tenacidad de armadura.
-            String battlemagePiece = switch (piece) {
-                case "helmet" -> "hood";
-                case "chestplate" -> "robes";
-                default -> piece; // leggings, boots
-            };
+            ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, -1, rl("minecraft:diamond_" + piece)));
+            // Netherite Battlemage (Iron's Spellbooks, netherite_mage_*): valores fijos propios + 4 de tenacidad de armadura.
+            // La Battlemage normal de Ars Nouveau NO se toca: usa los valores por defecto del mod.
             double battlemageDefense = switch (piece) {
                 case "helmet" -> 5.5;
                 case "chestplate" -> 10.5;
                 case "leggings" -> 8.5;
                 default -> 5.5;
             };
-            ARMOR_FIXED.put(rl("ars_nouveau:battlemage_" + battlemagePiece), new ArmorFixed(battlemageDefense, 4, -1, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:netherite_mage_" + piece), new ArmorFixed(battlemageDefense, 4, -1, rl("minecraft:diamond_" + piece)));
             // Myrmex (Ice and Fire): valores fijos propios, ambas variantes (desierto y jungla).
             double myrmexDefense = switch (piece) {
                 case "helmet" -> 2.5;
