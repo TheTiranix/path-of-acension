@@ -29,6 +29,8 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/siervo_antennas.png");
     private static final ResourceLocation WINGS_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/angel_wings.png");
+    private static final ResourceLocation WINGS_GOLD_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/angel_wings_gold.png");
     private static final ResourceLocation GEARS_WOOD_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_gear_wood.png");
     private static final ResourceLocation GEARS_METAL_TEXTURE =
@@ -76,7 +78,9 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             poseWings(WingAnimation.openness(player, partialTick), ageInTicks);
             // Translucent (no cutout): la textura tiene un degrade real de transparencia en las
             // puntas para que no se vea como un bloque duro.
-            VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(WINGS_TEXTURE));
+            // Con el arbol de habilidades al maximo las alas se vuelven doradas (solo se sabe el arbol del jugador local).
+            boolean gold = player == net.minecraft.client.Minecraft.getInstance().player && treeMaxed();
+            VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(gold ? WINGS_GOLD_TEXTURE : WINGS_TEXTURE));
             wings.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {

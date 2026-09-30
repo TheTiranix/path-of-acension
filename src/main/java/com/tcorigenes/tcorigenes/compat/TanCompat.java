@@ -20,7 +20,7 @@ public final class TanCompat {
     /** Calor extremo segun Tough As Nails (nivel HOT). */
     public static boolean isExtremeHeat(Player player) {
         return TemperatureHelper.isTemperatureEnabled()
-                && !com.tcorigenes.tcorigenes.core.ClimateImmunity.isFireImmune(player)
+                && !com.tcorigenes.tcorigenes.core.ClimateImmunity.isHeatImmune(player)
                 && TemperatureHelper.getTemperatureData(player).getLevel() == TemperatureLevel.HOT;
     }
 

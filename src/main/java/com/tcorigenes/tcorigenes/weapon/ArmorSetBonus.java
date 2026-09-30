@@ -22,6 +22,12 @@ public final class ArmorSetBonus {
             "aether:phoenix_", ModDamageTypes.FIRE_ELEMENTAL,
             "aether:valkyrie_", ModDamageTypes.LIGHT);
 
+    /** Armaduras divinas (Celestisynth): +2.5% de daño elemental por pieza. */
+    public static final double PIECE_BONUS = 0.025;
+    public static final Map<String, ResourceKey<DamageType>> PIECE_SETS = Map.of(
+            "celestisynth:solar_crystal_", ModDamageTypes.FIRE_ELEMENTAL,
+            "celestisynth:lunar_stone_", ModDamageTypes.LUNAR);
+
     private ArmorSetBonus() {
     }
 
@@ -35,13 +41,26 @@ public final class ArmorSetBonus {
         return true;
     }
 
-    /** 1.0 si no hay bonus para ese elemento; 1.2 con el set completo correspondiente. */
+    /** 1.0 si no hay bonus para ese elemento; 1.2 con el set completo correspondiente; mas 2.5% por pieza divina. */
     public static double multiplier(Player player, ResourceKey<DamageType> element) {
+        double result = 1.0;
         for (var entry : SETS.entrySet()) {
             if (entry.getValue().equals(element) && hasFullSet(player, entry.getKey())) {
-                return 1.0 + AMPLIFICATION;
+                result = 1.0 + AMPLIFICATION;
             }
         }
-        return 1.0;
+        for (var entry : PIECE_SETS.entrySet()) {
+            if (entry.getValue().equals(element)) {
+                int pieces = 0;
+                for (EquipmentSlot slot : new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
+                    ResourceLocation id = ForgeRegistries.ITEMS.getKey(player.getItemBySlot(slot).getItem());
+                    if (id != null && id.toString().startsWith(entry.getKey())) {
+                        pieces++;
+                    }
+                }
+                result += PIECE_BONUS * pieces;
+            }
+        }
+        return result;
     }
 }

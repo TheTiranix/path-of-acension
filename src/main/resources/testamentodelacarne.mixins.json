@@ -6,5 +6,8 @@
   "refmap": "testamentodelacarne.refmap.json",
   "server": [
     "TimeStopEntityTickProcedureMixin"
+  ],
+  "mixins": [
+    "CSArmorItemMixin"
   ]
 }

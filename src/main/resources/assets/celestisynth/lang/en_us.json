@@ -1,0 +1,12 @@
+{
+  "item.celestisynth.solar_crystal_helmet": "Divine Solar Helmet",
+  "item.celestisynth.lunar_stone_helmet": "Divine Lunar Helmet",
+  "item.celestisynth.solar_crystal_chestplate": "Divine Solar Chestplate",
+  "item.celestisynth.lunar_stone_chestplate": "Divine Lunar Chestplate",
+  "item.celestisynth.solar_crystal_leggings": "Divine Solar Leggings",
+  "item.celestisynth.lunar_stone_leggings": "Divine Lunar Leggings",
+  "item.celestisynth.solar_crystal_boots": "Divine Solar Boots",
+  "item.celestisynth.lunar_stone_boots": "Divine Lunar Boots",
+  "item.celestisynth.solar_crystal_armor_bonus": "When receiving damage, the armor bursts in a circle of flame, dealing fire damage and burning surrounding hostile mobs. Each piece increases the damage of the burst and the duration of the fire.",
+  "item.celestisynth.lunar_stone_armor_bonus": "When receiving damage, the armor bursts in a wave of violet lunar energy, dealing lunar damage to surrounding hostile mobs. Each piece increases the damage of the burst."
+}

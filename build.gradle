@@ -144,6 +144,9 @@ dependencies {
     compileOnly files('libs/ToughAsNails-forge-1.20.1-9.2.0.171.jar')
     compileOnly files('libs/curios-forge-5.14.1+1.20.1.jar')
 
+    // Solo para que el Mixin de las armaduras divinas encuentre CSArmorItem (Celestisynth). No se empaqueta.
+    compileOnly files('libs/celestisynth-1.20.1-1.3.1.jar')
+
     // Mixin annotation processor (genera el refmap para que Forge remapee en runtime)
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
