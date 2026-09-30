@@ -61,7 +61,10 @@ public final class WeaponStatTooltip {
         };
     }
 
-    /** Lineas propias del pack para un item (vacio si no tiene nada que mostrar). */
+    /**
+     * Lineas propias del pack, para meter DENTRO del bloque de atributos ("When in Main Hand:", "When on Body:"...) con el
+     * mismo estilo que el resto (pedido de alejandr0: nada suelto en la descripcion). Vacio si el item no tiene nada.
+     */
     public static List<Component> linesFor(net.minecraft.world.item.ItemStack stack) {
         List<Component> lines = new ArrayList<>();
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
@@ -69,67 +72,44 @@ public final class WeaponStatTooltip {
             return lines;
         }
         if (id.equals(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ITEM_ID)) {
-            lines.add(Component.literal("Se puede equipar en el slot de guantes").withStyle(ChatFormatting.GOLD));
-            lines.add(Component.literal("Como guante: +" + trim(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE)
-                    + " Daño de Ender por golpe").withStyle(elementColor(com.tudominio.elementaldamage.ModDamageTypes.ENDER_ELEMENTAL)));
+            lines.add(attributeLine("+" + trim(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE) + " Daño Elemental de Ender"));
+            return lines;
         }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
-        addTotalDamage(lines, stack, spec);
         if (spec != null) {
-            if (Boolean.TRUE.equals(spec.twoHanded)) {
-                // el mismo texto que ya muestra Better Combat ("Two-Handed"); ItemTooltipPages saca el duplicado
-                lines.add(Component.translatable("item.held.two_handed").withStyle(ChatFormatting.GOLD));
-            }
             if (spec.ranged && spec.damage != null) {
-                lines.add(Component.literal("Daño por impacto: " + trim(spec.damage.floatValue()))
-                        .withStyle(ChatFormatting.RED));
+                lines.add(attributeLine("+" + trim(spec.damage.floatValue()) + " Daño por impacto"));
             }
             for (WeaponBalance.Extra extra : spec.extras) {
-                lines.add(Component.literal("+" + trim(extra.amount()) + " Daño de " + elementName(extra.element()))
-                        .withStyle(elementColor(extra.element())));
+                lines.add(attributeLine("+" + trim(extra.amount()) + " Daño Elemental de " + elementName(extra.element())));
             }
             if (spec.cycle != null && !spec.cycle.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
                 for (ResourceKey<DamageType> slot : spec.cycle) {
                     sb.append(sb.length() == 0 ? "" : " → ").append(elementName(slot));
                 }
-                lines.add(Component.literal((spec.perProjectile ? "Torbellinos (uno de cada elemento): " : spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb).withStyle(ChatFormatting.LIGHT_PURPLE));
+                lines.add(attributeLine((spec.perProjectile ? "Torbellinos: " : spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb));
             }
         }
         // el bonus de set completo es solo de la armadura, no de las armas ni herramientas de la misma linea
         for (var entry : ArmorSetBonus.SETS.entrySet()) {
             if (stack.getItem() instanceof net.minecraft.world.item.ArmorItem && id.toString().startsWith(entry.getKey())) {
-                lines.add(Component.literal("Set completo: +" + (int) (ArmorSetBonus.AMPLIFICATION * 100) + "% Daño de "
-                        + elementName(entry.getValue())).withStyle(elementColor(entry.getValue())));
+                lines.add(attributeLine("Set completo: +" + (int) (ArmorSetBonus.AMPLIFICATION * 100) + "% Daño de " + elementName(entry.getValue())));
             }
         }
         return lines;
     }
 
-    /** "Daño total": daño normal (con el 1 de base del jugador incluido) mas los daños elementales fijos del arma. */
-    private static void addTotalDamage(List<Component> lines, net.minecraft.world.item.ItemStack stack, WeaponBalance.Spec spec) {
-        if (spec != null && spec.ranged) {
-            return; // los arcos muestran "Daño por impacto"
+    private static Component attributeLine(String text) {
+        return Component.literal(" " + text).withStyle(ChatFormatting.BLUE);
+    }
+
+    /** Clave del encabezado del bloque de atributos donde van las lineas ("item.modifiers.mainhand", ".chest"...). */
+    private static String headerKey(net.minecraft.world.item.ItemStack stack, ResourceLocation id) {
+        if (stack.getItem() instanceof net.minecraft.world.item.ArmorItem armor) {
+            return "item.modifiers." + armor.getEquipmentSlot().getName();
         }
-        double normal = 0.0;
-        for (var modifier : stack.getAttributeModifiers(net.minecraft.world.entity.EquipmentSlot.MAINHAND)
-                .get(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE)) {
-            if (modifier.getOperation() == net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION) {
-                normal += modifier.getAmount();
-            }
-        }
-        if (normal <= 0.0) {
-            return;
-        }
-        normal += 1.0; // el daño base del jugador: el total real que se hace con un golpe cargado
-        float elemental = spec == null ? 0.0F : spec.extrasTotal();
-        if (elemental <= 0.0F) {
-            // Sin daño elemental fijo: el arma solo tiene un tipo de daño por golpe (aunque cicle entre normal
-            // y un elemento, nunca los suma: cada golpe es de UN tipo solo, ver WeaponElemental).
-            return;
-        }
-        String text = "Daño total: " + trim((float) (normal + elemental));
-        lines.add(Component.literal(text).withStyle(ChatFormatting.RED));
+        return "item.modifiers.mainhand";
     }
 
     private static String trim(float v) {
@@ -139,8 +119,35 @@ public final class WeaponStatTooltip {
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         List<Component> lines = linesFor(event.getItemStack());
-        if (!lines.isEmpty()) {
-            event.getToolTip().addAll(1, lines);
+        if (lines.isEmpty()) {
+            return;
         }
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem());
+        boolean glove = id != null && id.equals(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ITEM_ID);
+        String key = glove ? "item.modifiers.hand" : headerKey(event.getItemStack(), id);
+        List<Component> tooltip = event.getToolTip();
+        int header = -1;
+        for (int i = 1; i < tooltip.size(); i++) {
+            if (tooltip.get(i).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents translatable
+                    && translatable.getKey().equals(key)) {
+                header = i;
+                break;
+            }
+        }
+        if (header < 0) {
+            // el item no trae ese bloque: se crea uno (con linea en blanco arriba, como el de vanilla) al final
+            tooltip.add(Component.empty());
+            tooltip.add(glove ? Component.literal("When in Hand:").withStyle(ChatFormatting.GRAY)
+                    : Component.translatable(key).withStyle(ChatFormatting.GRAY));
+            tooltip.addAll(lines);
+            return;
+        }
+        int end = header + 1;
+        while (end < tooltip.size() && !tooltip.get(end).getString().isEmpty()
+                && (tooltip.get(end).getString().startsWith(" ") || tooltip.get(end).getString().startsWith("+")
+                || tooltip.get(end).getString().startsWith("-") || tooltip.get(end).getString().startsWith("\u00a7"))) {
+            end++;
+        }
+        tooltip.addAll(end, lines);
     }
 }

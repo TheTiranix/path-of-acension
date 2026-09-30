@@ -9,6 +9,7 @@
   ],
   "mixins": [
     "CSArmorItemMixin",
-    "BreezebreakerItemMixin"
+    "BreezebreakerItemMixin",
+    "ItemStackRarityMixin"
   ]
 }

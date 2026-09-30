@@ -102,10 +102,11 @@ public final class ItemTooltipPages {
     }
 
     private static boolean isOurStatLine(String text) {
-        return text.startsWith("Ciclo de golpes") || text.startsWith("Set completo")
-                || text.startsWith("Ciclo de impactos") || text.startsWith("Torbellinos") || text.startsWith("Daño por impacto")
-                || text.startsWith("Daño total") || text.startsWith("Se puede equipar") || text.startsWith("Como guante")
-                || (text.startsWith("+") && text.contains("Daño de "));
+        String trimmed = text.trim();
+        return trimmed.startsWith("Ciclo de golpes") || trimmed.startsWith("Set completo")
+                || trimmed.startsWith("Ciclo de impactos") || trimmed.startsWith("Torbellinos") || trimmed.startsWith("Daño por impacto")
+                || trimmed.startsWith("Daño total") || trimmed.startsWith("When in Hand")
+                || (trimmed.startsWith("+") && (trimmed.contains("Daño Elemental de ") || trimmed.contains("Daño por impacto")));
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
