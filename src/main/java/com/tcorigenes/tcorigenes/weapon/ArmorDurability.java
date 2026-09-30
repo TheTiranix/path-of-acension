@@ -62,6 +62,14 @@ public final class ArmorDurability {
                     setMaxDamage(item, entry.getKey(), entry.getValue());
                 }
             }
+            for (var entry : WeaponBalance.DURABILITY_MIN.entrySet()) {
+                Item item = ForgeRegistries.ITEMS.getValue(entry.getKey());
+                // solo sube y solo si el item se rompe (los irrompibles siguen igual)
+                if (item != null && ForgeRegistries.ITEMS.containsKey(entry.getKey()) && item.getMaxDamage() > 0
+                        && item.getMaxDamage() < entry.getValue()) {
+                    setMaxDamage(item, entry.getKey(), entry.getValue());
+                }
+            }
             for (var entry : WeaponBalance.ARMOR_DURABILITY_LIKE.entrySet()) {
                 Item item = ForgeRegistries.ITEMS.getValue(entry.getKey());
                 Item reference = ForgeRegistries.ITEMS.getValue(entry.getValue());

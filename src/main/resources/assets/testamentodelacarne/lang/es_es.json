@@ -143,5 +143,20 @@
   "item.testamentodelacarne.sapphire_glaive": "Glaive de Zafiro",
   "item.testamentodelacarne.sapphire_hammer": "Martillo de Zafiro",
   "item.testamentodelacarne.sapphire_quarterstaff": "Bastón de Combate de Zafiro",
-  "item.testamentodelacarne.sapphire_spear": "Lanza de Zafiro"
+  "item.testamentodelacarne.sapphire_spear": "Lanza de Zafiro",
+  "item.testamentodelacarne.diascite_dagger": "Daga de Diascita",
+  "item.testamentodelacarne.diascite_longsword": "Sable de Diascita",
+  "item.testamentodelacarne.diascite_katana": "Katana de Diascita",
+  "item.testamentodelacarne.diascite_greatsword": "Espadón de Diascita",
+  "item.testamentodelacarne.diascite_battleaxe": "Hacha de Batalla de Diascita",
+  "item.testamentodelacarne.diascite_halberd": "Alabarda de Diascita",
+  "item.testamentodelacarne.diascite_glaive": "Glaive de Diascita",
+  "item.testamentodelacarne.diascite_hammer": "Martillo de Diascita",
+  "item.testamentodelacarne.diascite_quarterstaff": "Bastón de Combate de Diascita",
+  "item.testamentodelacarne.diascite_spear": "Lanza de Diascita",
+  "item.testamentodelacarne.diascite_sword": "Espada de Diascita",
+  "item.testamentodelacarne.diascite_helmet": "Casco de Diascita",
+  "item.testamentodelacarne.diascite_chestplate": "Peto de Diascita",
+  "item.testamentodelacarne.diascite_leggings": "Pantalones de Diascita",
+  "item.testamentodelacarne.diascite_boots": "Botas de Diascita"
 }

@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "testamentodelacarne:item/diascite_spear_held"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "testamentodelacarne:item/diascite_spear_gui"
+    },
+    "ground": {
+      "parent": "testamentodelacarne:item/diascite_spear_gui"
+    },
+    "fixed": {
+      "parent": "testamentodelacarne:item/diascite_spear_gui"
+    }
+  }
+}

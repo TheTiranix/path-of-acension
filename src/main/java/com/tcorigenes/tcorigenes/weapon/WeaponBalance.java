@@ -147,6 +147,34 @@ public final class WeaponBalance {
 
     /** Durabilidad de cada pieza de gravitite / netherite / valkyrie / phoenix: el ancla del resto. */
     public static final int GRAVITITE_DURABILITY = 1500;
+    /**
+     * Durabilidad MINIMA por item (pedido de alejandr0: revisar las que quedaban por debajo de su nivel). Solo sube: si el item
+     * ya tenia mas usos se queda como esta, y los items que no se rompen (0 usos) no se tocan. Ver ArmorDurability.
+     */
+    public static final Map<ResourceLocation, Integer> DURABILITY_MIN = new HashMap<>();
+
+    private static void minDur(int uses, String... ids) {
+        for (String id : ids) {
+            DURABILITY_MIN.merge(rl(id), uses, Math::max);
+        }
+    }
+
+    private static final String[] TOOLS5 = {"sword", "axe", "pickaxe", "shovel", "hoe"};
+    private static final String[] ARMOR4 = {"helmet", "chestplate", "leggings", "boots"};
+
+    /** Espada, hacha, pico, pala y azada de un set: prefix + tipo (ej. "iceandfire:dragonsteel_fire_" + "sword"). */
+    private static void minDurTools(int uses, String prefix) {
+        for (String tool : TOOLS5) {
+            minDur(uses, prefix + tool);
+        }
+    }
+
+    private static void minDurArmor(int uses, String prefix) {
+        for (String piece : ARMOR4) {
+            minDur(uses, prefix + piece);
+        }
+    }
+
     /** Durabilidad de herramientas (no armaduras) que se fija a mano: id -> usos. Ver ArmorDurability. */
     public static final Map<ResourceLocation, Integer> TOOL_DURABILITY = new HashMap<>();
 
@@ -155,6 +183,16 @@ public final class WeaponBalance {
      * GRAVITITE_DURABILITY y las demas escalan segun (defensa + tenacidad) respecto de ella. ArmorDurability nunca la
      * deja por debajo de la que la armadura ya tenia.
      */
+    /** Proteccion de la pieza de diamante (3 / 8 / 6 / 3). */
+    static double diamondDefenseOf(String piece) {
+        return switch (piece) {
+            case "helmet" -> 3;
+            case "chestplate" -> 8;
+            case "leggings" -> 6;
+            default -> 3;
+        };
+    }
+
     static int scaledDurability(double defense, double toughness, double gravititeDefense) {
         return (int) Math.round(GRAVITITE_DURABILITY * (defense + toughness) / (gravititeDefense + 4.0));
     }
@@ -325,6 +363,82 @@ public final class WeaponBalance {
         TOOL_DURABILITY.put(rl("twilightforest:fiery_sword"), 3031);
         TOOL_DURABILITY.put(rl("twilightforest:fiery_pickaxe"), 3031);
 
+        // ------------------------------------------------------ durabilidades minimas por nivel (ver DURABILITY_MIN)
+        // Ice and Fire: la plata queda sobre el hierro, el myrmex al nivel del diamante, el hueso de dragon y el dragonsteel muy por
+        // encima (dragonsteel = diamante + 10000, igual que su armadura).
+        minDurTools(1200, "iceandfire:silver_");
+        minDurTools(1561, "iceandfire:myrmex_desert_");
+        minDurTools(1561, "iceandfire:myrmex_jungle_");
+        minDur(1561, "iceandfire:myrmex_desert_sword_venom", "iceandfire:myrmex_jungle_sword_venom");
+        minDurTools(3000, "iceandfire:dragonbone_");
+        minDur(3000, "iceandfire:dragonbone_sword_fire", "iceandfire:dragonbone_sword_ice", "iceandfire:dragonbone_sword_lightning",
+                "iceandfire:dragonbone_bow");
+        for (String element : new String[] {"fire", "ice", "lightning"}) {
+            minDurTools(1561 + 10000, "iceandfire:dragonsteel_" + element + "_");
+        }
+        minDur(2500, "iceandfire:dread_sword", "iceandfire:dread_knight_sword", "iceandfire:dread_queen_sword",
+                "iceandfire:tide_trident", "iceandfire:troll_weapon_axe", "iceandfire:troll_weapon_hammer");
+        minDur(2000, "iceandfire:ghost_sword", "iceandfire:amphithere_macuahuitl");
+        minDur(1800, "iceandfire:hippogryph_sword", "iceandfire:stymphalian_bird_dagger");
+        for (String color : new String[] {"blue", "bronze", "deepblue", "green", "purple", "red", "teal"}) {
+            minDurArmor(1000, "iceandfire:tide_" + color + "_"); // armadura de serpiente marina: al nivel del diamante
+        }
+
+        // Panascraft: todo con durabilidad altisima.
+        minDurTools(20000, "panascraftrpgmod:the_king_of_the_abyss_");
+        minDurArmor(20000, "panascraftrpgmod:the_king_of_the_abyss_armor_");
+        minDurArmor(20000, "panascraftrpgmod:upgraded_armor_");
+        minDurArmor(20000, "panascraftrpgmod:void_armor_");
+        minDur(20000, "panascraftrpgmod:void_sword");
+
+        // Born in Chaos: espadas especiales sobre el dark metal (1800) y los jefes todavia mas arriba.
+        minDur(2500, "born_in_chaos_v1:spider_bite_sword", "born_in_chaos_v1:soul_cutlass", "born_in_chaos_v1:spiritual_sword",
+                "born_in_chaos_v1:darkwarblade", "born_in_chaos_v1:dark_ritual_dagger", "born_in_chaos_v1:intoxicating_dagger",
+                "born_in_chaos_v1:nightmare_claw", "born_in_chaos_v1:sweet_sword", "born_in_chaos_v1:shell_mace");
+        minDur(1800, "born_in_chaos_v1:sharpened_dark_metal_sword");
+        minDur(3000, "born_in_chaos_v1:nightmare_scythe", "born_in_chaos_v1:frostbitten_blade", "born_in_chaos_v1:great_reaper_axe",
+                "born_in_chaos_v1:skullbreaker_hammer", "born_in_chaos_v1:stop_hammer");
+        minDur(4000, "born_in_chaos_v1:soulbane");
+
+        // Aether: zanite = diamante, gravitite y valkyrie = netherite, las espadas especiales por encima.
+        minDurTools(1561, "aether:zanite_");
+        minDurTools(2031, "aether:gravitite_");
+        minDur(2031, "aether:valkyrie_axe", "aether:valkyrie_pickaxe", "aether:valkyrie_shovel", "aether:valkyrie_hoe");
+        minDur(2500, "aether:lightning_sword", "aether:holy_sword", "aether:vampire_blade", "aether:flaming_sword",
+                "aether:pig_slayer", "aether:hammer_of_kingbdogz", "aether:hammer_of_jeb", "aether:valkyrie_lance");
+        minDur(2000, "aether:phoenix_bow");
+
+        // Natures Aura: infused iron (sobre el hierro) < sky < depth (arma de 14 de daño).
+        minDurTools(1000, "naturesaura:infused_iron_");
+        minDurTools(1500, "naturesaura:sky_");
+        minDurTools(2500, "naturesaura:depth_");
+        minDur(800, "naturesaura:infused_iron_helmet", "naturesaura:infused_iron_shoes");
+        minDur(1000, "naturesaura:sky_helmet", "naturesaura:sky_shoes");
+        minDur(1500, "naturesaura:depth_helmet", "naturesaura:depth_shoes");
+
+        // Sculk Horde: armas de jefe; diascite al nivel del dark metal (1800); ferriscite un poco menos.
+        minDur(2500, "sculkhorde:sculk_sweeper_sword");
+        minDur(3000, "sculkhorde:sculk_enderman_cleaver");
+        minDur(4000, "sculkhorde:blade_of_purity");
+        minDur(1800, "sculkhorde:diascite_axe", "sculkhorde:diascite_hoe", "sculkhorde:diascite_pickaxe", "sculkhorde:diascite_shovel");
+        minDur(1000, "sculkhorde:ferriscite_axe", "sculkhorde:ferriscite_hoe", "sculkhorde:ferriscite_pickaxe",
+                "sculkhorde:ferriscite_shovel");
+
+        // Cataclysm (armas de dos manos y gauntlets), Alexs Caves, Mowzies, Scary Mobs y EEEABs Mobs: armas de jefe.
+        minDur(8000, "cataclysm:meat_shredder", "cataclysm:soul_render", "cataclysm:zweiender");
+        minDur(5000, "cataclysm:gauntlet_of_bulwark", "cataclysm:gauntlet_of_guard", "cataclysm:gauntlet_of_maelstrom",
+                "mowziesmobs:earthrend_gauntlet", "alexscaves:galena_gauntlet");
+        minDur(6000, "alexscaves:extinction_spear", "mowziesmobs:axe_of_a_thousand_metals");
+        minDur(5000, "eeeabsmobs:guardian_axe");
+        minDur(4000, "scary_mobs:mallet");
+        minDur(3000, "eeeabsmobs:immortal_sword", "eeeabsmobs:immortal_axe", "eeeabsmobs:netherworld_katana");
+        // Irons Spellbooks: espadas
+        minDur(3000, "irons_spellbooks:amethyst_rapier", "irons_spellbooks:claymore", "irons_spellbooks:spellbreaker",
+                "irons_spellbooks:dreadsword", "irons_spellbooks:template_large_sword");
+
+        // Espada de diascite (nuestra): como la de dark metal (10 de daño).
+        w("testamentodelacarne:diascite_sword").dmg(10);
+
         // Herramientas de zafiro (nuestras): al nivel del diamante.
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
             w("testamentodelacarne:sapphire_" + tool).like("minecraft:diamond_" + tool);
@@ -427,6 +541,34 @@ public final class WeaponBalance {
             ARMOR_LIKE.put(rl("seadwellers:depth_" + piece), rl("minecraft:diamond_" + piece));
             // Diving Armor (Alex's Caves): al nivel del netherite (proteccion y dureza).
             ARMOR_LIKE.put(rl("alexscaves:diving_" + (piece.equals("chestplate") ? "chestplate" : piece)), rl("minecraft:netherite_" + piece));
+            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 12 casco y botas, 17 pechera, 15 pantalones y 10000 usos mas que el diamante.
+            double dragonsteelDefense = switch (piece) {
+                case "helmet" -> 12;
+                case "chestplate" -> 17;
+                case "leggings" -> 15;
+                default -> 12;
+            };
+            int diamondPieceDurability = switch (piece) {
+                case "helmet" -> 363;
+                case "chestplate" -> 528;
+                case "leggings" -> 495;
+                default -> 429;
+            };
+            for (String element : new String[] {"fire", "ice", "lightning"}) {
+                ARMOR_FIXED.put(rl("iceandfire:dragonsteel_" + element + "_" + piece),
+                        new ArmorFixed(dragonsteelDefense, Double.NaN, diamondPieceDurability + 10000, rl("minecraft:diamond_" + piece)));
+            }
+            // Cursium e Ignitium (Cataclysm): 30 veces la proteccion del diamante y 20 de tenacidad por pieza (ignitium tambien en
+            // su version con elytra).
+            double cataclysmDefense = diamondDefenseOf(piece) * 30.0;
+            ARMOR_FIXED.put(rl("cataclysm:cursium_" + piece),
+                    new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("cataclysm:ignitium_" + piece),
+                    new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_" + piece)));
+            if (piece.equals("chestplate")) {
+                ARMOR_FIXED.put(rl("cataclysm:ignitium_elytra_chestplate"),
+                        new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_chestplate")));
+            }
             // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
             double darkMetalDefense = switch (piece) {
                 case "helmet" -> 4;
@@ -435,6 +577,8 @@ public final class WeaponBalance {
                 default -> 4;
             };
             ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
+            // Diascite (nuestra, Sculk Horde): igual que el dark metal.
+            ARMOR_FIXED.put(rl("testamentodelacarne:diascite_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Armadura de zafiro (nuestra, ver SapphireArmorMaterial): 3.5 casco y botas, 8.5 pechera, 6.5 pantalones, 3 de tenacidad.
             double sapphireDefense = switch (piece) {
                 case "helmet" -> 3.5;

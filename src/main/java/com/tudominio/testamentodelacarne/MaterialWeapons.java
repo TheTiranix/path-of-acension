@@ -46,7 +46,9 @@ public final class MaterialWeapons {
             // fiery: 1000 usos mas que las herramientas de netherite (2031 + 1000)
             new Material("fiery", "Fiery", 26.0 / 7.0, 3031, "twilightforest:fiery_ingot"),
             // zafiro: como el diamante (daño) con 100 usos mas (1561 + 100), se craftea con el sapphire_gem de Ice and Fire
-            new Material("sapphire", "Sapphire", 1.0, 1661, "iceandfire:sapphire_gem"));
+            new Material("sapphire", "Sapphire", 1.0, 1661, "iceandfire:sapphire_gem"),
+            // diascite (Sculk Horde): al nivel del dark metal (espada de 10 de daño, 1800 usos)
+            new Material("diascite", "Diascite", 10.0 / 7.0, 1800, "sculkhorde:diascite"));
 
     public static final List<Type> TYPES = List.of(
             new Type("dagger", "vtaw_mw:diamond_dagger", "Dagger"),

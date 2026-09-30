@@ -195,6 +195,30 @@ public class ModItems {
                     com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
 
+    public static final RegistryObject<Item> DIASCITE_SWORD = ITEMS.register(
+            "diascite_sword", () -> new net.minecraft.world.item.SwordItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.DIASCITE_TIER, 3, -2.4F, new Item.Properties()));
+
+    public static final RegistryObject<Item> DIASCITE_HELMET = ITEMS.register(
+            "diascite_helmet", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DiasciteArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> DIASCITE_CHESTPLATE = ITEMS.register(
+            "diascite_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DiasciteArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> DIASCITE_LEGGINGS = ITEMS.register(
+            "diascite_leggings", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DiasciteArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> DIASCITE_BOOTS = ITEMS.register(
+            "diascite_boots", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DiasciteArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
     public static final RegistryObject<Item> SAPPHIRE_SWORD = ITEMS.register(
             "sapphire_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 3, -2.4F, new Item.Properties()));

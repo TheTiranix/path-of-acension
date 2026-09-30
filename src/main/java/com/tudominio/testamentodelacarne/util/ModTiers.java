@@ -15,6 +15,13 @@ public class ModTiers {
             () -> Ingredient.of((ItemLike) ModItems.ENGRANAJE_ARCANO.get())
     );
 
+    /** Espada de diascite: al nivel del dark metal (1800 usos, +3 de daño base), se repara con el diascite de Sculk Horde. */
+    public static final ForgeTier DIASCITE_TIER = new ForgeTier(
+            4, 1800, 8.5F, 3.0F, 12, BlockTags.NEEDS_DIAMOND_TOOL,
+            () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("sculkhorde", "diascite")))
+    );
+
     /** Herramientas de zafiro (pedido de alejandr0): como el diamante (nivel 3, 8 de velocidad, +3 de daño) con 100 usos
      *  mas (1561 + 100); se reparan con el sapphire_gem de Ice and Fire. */
     public static final ForgeTier SAPPHIRE_TIER = new ForgeTier(

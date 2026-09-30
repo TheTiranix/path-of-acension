@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " MM",
+    " SM",
+    "S  "
+  ],
+  "key": {
+    "M": {
+      "item": "sculkhorde:diascite"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:diascite_glaive"
+  }
+}
