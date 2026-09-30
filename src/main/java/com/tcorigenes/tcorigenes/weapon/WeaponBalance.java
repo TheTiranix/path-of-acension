@@ -223,7 +223,7 @@ public final class WeaponBalance {
         w("mowziesmobs:axe_of_a_thousand_metals").two();
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
         w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);
-        w("celestisynth:aquaflora").dmg(180000).speed(3).cycle(WATER, N, N, N);
+        w("celestisynth:aquaflora").dmg(180000).speed(3).cycle(NATURAL, WATER, N, N);
         w("celestisynth:breezebreaker").dmg(180000).speed(3).cycle(AIR, NATURAL, N, N);
         w("celestisynth:solaris").dmg(200000).speed(2.7).cycle(FIRE, LUNAR, N, N);
         w("celestisynth:crescentia").dmg(450000).speed(1.5).two().cycle(ENDER, EARTH, N, N);
