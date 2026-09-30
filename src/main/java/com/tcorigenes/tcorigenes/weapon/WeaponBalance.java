@@ -341,6 +341,9 @@ public final class WeaponBalance {
         w("sculkhorde:blade_of_purity").dmg(40).el(LIGHT, 20);
         w("alexscaves:extinction_spear").dmg(350).el(NATURAL, 150);
         w("mutantmonsters:hulk_hammer").dmg(40).el(LUNAR, 20);
+        // Mutants Buff: Charged Hammer y Flame Burst Hammer (upgraded_hulk_hammer): 45 de daño y 20 de aire.
+        w("mutantsbuff:charged_hammer").dmg(45).el(AIR, 20);
+        w("mutantsbuff:upgraded_hulk_hammer").dmg(45).el(AIR, 20);
         w("naturesaura:depth_sword").dmg(14).el(LUNAR, 4);
         w("mowziesmobs:wrought_axe").dmg(600).el(EARTH, 300);
         w("irons_spellbooks:amethyst_rapier").dmg(22).reach(2.5);
@@ -438,6 +441,9 @@ public final class WeaponBalance {
 
         // Espada de diascite (nuestra): como la de dark metal (10 de daño).
         w("testamentodelacarne:diascite_sword").dmg(10);
+
+        minDur(5000, "mutantsbuff:charged_hammer", "mutantsbuff:upgraded_hulk_hammer");
+        minDur(4000, "mutantmonsters:hulk_hammer");
 
         // Herramientas de zafiro (nuestras): al nivel del diamante.
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
