@@ -1,0 +1,25 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  M  ",
+    " MMM ",
+    "  S  ",
+    "  S  ",
+    "  E  "
+  ],
+  "key": {
+    "M": {
+      "item": "cataclysm:black_steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "E": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "cataclysm:black_steel_shovel"
+  }
+}

@@ -44,7 +44,32 @@ public class ModJeiPlugin implements IModPlugin {
         }
     }
 
+    /** Recetas que solo se pueden hacer en la mesa tier 2 (3x3) y en la tier 3 (5x5), ver CraftingGate. */
+    public static final RecipeType<net.minecraft.world.item.crafting.CraftingRecipe> TIER2_CRAFTING =
+            RecipeType.create("tcorigenes", "tier2_crafting", net.minecraft.world.item.crafting.CraftingRecipe.class);
+    public static final RecipeType<net.minecraft.world.item.crafting.CraftingRecipe> TIER3_CRAFTING =
+            RecipeType.create("tcorigenes", "tier3_crafting", net.minecraft.world.item.crafting.CraftingRecipe.class);
+
     private static IJeiRuntime runtime;
+
+    /** Recetas de crafteo comun (con su nivel) calculadas de la lista del cliente; null si todavia no hay mundo. */
+    private static List<net.minecraft.world.item.crafting.CraftingRecipe> craftingRecipes(int tier) {
+        var level = net.minecraft.client.Minecraft.getInstance().level;
+        List<net.minecraft.world.item.crafting.CraftingRecipe> result = new ArrayList<>();
+        if (level == null) {
+            return result;
+        }
+        var manager = level.getRecipeManager();
+        for (var recipe : manager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING)) {
+            if (com.tudominio.testamentodelacarne.crafting.CraftingGate.requiredTier(recipe, level.registryAccess()) == tier) {
+                result.add(recipe);
+            }
+        }
+        if (tier == 3) {
+            result.addAll(manager.getAllRecipesFor(com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER3_TYPE.get()));
+        }
+        return result;
+    }
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -64,6 +89,12 @@ public class ModJeiPlugin implements IModPlugin {
         }
         if (!hidden.isEmpty()) {
             jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(mezz.jei.api.constants.VanillaTypes.ITEM_STACK, hidden);
+        }
+        // Las recetas de tier 2 y 3 salen de la categoria de crafteo comun (ya estan en las suyas).
+        List<net.minecraft.world.item.crafting.CraftingRecipe> gated = new ArrayList<>(craftingRecipes(2));
+        gated.addAll(craftingRecipes(3).stream().filter(r -> !(r instanceof com.tudominio.testamentodelacarne.crafting.Tier3ShapedRecipe)).toList());
+        if (!gated.isEmpty()) {
+            jeiRuntime.getRecipeManager().hideRecipes(mezz.jei.api.constants.RecipeTypes.CRAFTING, gated);
         }
     }
 
@@ -104,6 +135,10 @@ public class ModJeiPlugin implements IModPlugin {
             registration.addRecipeCategories(new StatSortCategory(ARMOR_SORT.get(category),
                     Component.literal("Armadura: " + category.label()), new ItemStack(iconOf(category)), guiHelper));
         }
+        registration.addRecipeCategories(new TieredCraftingCategory(TIER2_CRAFTING, Component.literal("Mesa de crafteo tier 2"),
+                new ItemStack(com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER2_TABLE_ITEM.get()), 3, guiHelper));
+        registration.addRecipeCategories(new TieredCraftingCategory(TIER3_CRAFTING, Component.literal("Mesa de crafteo tier 3"),
+                new ItemStack(com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER3_TABLE_ITEM.get()), 5, guiHelper));
     }
 
     @Override
@@ -112,6 +147,8 @@ public class ModJeiPlugin implements IModPlugin {
         org.slf4j.LoggerFactory.getLogger(ModJeiPlugin.class).info(
                 "[tcorigenes] JEI: {} items con daño, {} con armadura", damageEntries.size(), ItemStatRanking.armorRanking().size());
 
+        registration.addRecipes(TIER2_CRAFTING, craftingRecipes(2));
+        registration.addRecipes(TIER3_CRAFTING, craftingRecipes(3));
         registration.addRecipes(DAMAGE_SORT, chunk(damageEntries, "Daño"));
         for (ArmorCategory category : ArmorCategory.values()) {
             registration.addRecipes(ARMOR_SORT.get(category), chunk(ItemStatRanking.armorRanking(category), "Armadura"));
@@ -148,6 +185,12 @@ public class ModJeiPlugin implements IModPlugin {
     /** Catalizadores: items que NUNCA aparecen en las listas (si no JEI filtra los "usos" a ese item). */
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        var tier2 = com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER2_TABLE_ITEM.get();
+        var tier3 = com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER3_TABLE_ITEM.get();
+        registration.addRecipeCatalysts(TIER2_CRAFTING, tier2, tier3);
+        registration.addRecipeCatalysts(TIER3_CRAFTING, tier3);
+        // las mesas de nivel tambien hacen las recetas comunes
+        registration.addRecipeCatalysts(mezz.jei.api.constants.RecipeTypes.CRAFTING, tier2, tier3);
         registration.addRecipeCatalysts(DAMAGE_SORT, ModItems.ORBE_DE_ORIGENES.get());
         for (ArmorCategory category : ArmorCategory.values()) {
             registration.addRecipeCatalysts(ARMOR_SORT.get(category), ModItems.ANILLO_DE_PURIFICACION.get());

@@ -82,7 +82,7 @@ public final class WeaponDamageOverrides {
             return spec.damage;
         }
         if (spec != null && spec.damageLike != null) {
-            return originalTotal(spec.damageLike, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);
+            return roundHalf(originalTotal(spec.damageLike, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND) * spec.damageLikeFactor);
         }
         double original = originalTotal(id, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);
         WeaponBalance.Family family = familyOf(id);
@@ -140,7 +140,7 @@ public final class WeaponDamageOverrides {
         if (spec != null && spec.damage != null) {
             newDamageTotal = spec.damage;
         } else if (spec != null && spec.damageLike != null) {
-            newDamageTotal = originalTotal(spec.damageLike, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND);
+            newDamageTotal = roundHalf(originalTotal(spec.damageLike, Attributes.ATTACK_DAMAGE, BASE_DAMAGE, EquipmentSlot.MAINHAND) * spec.damageLikeFactor);
         } else if (family != null) {
             double original = BASE_DAMAGE + sum(event.getOriginalModifiers().get(Attributes.ATTACK_DAMAGE));
             newDamageTotal = roundHalf(original * familyFactor(family));

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "AAA",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "born_in_chaos_v1:dark_metal_ingot"
+    }
+  },
+  "result": {
+    "item": "born_in_chaos_v1:dark_metal_armor_helmet"
+  }
+}

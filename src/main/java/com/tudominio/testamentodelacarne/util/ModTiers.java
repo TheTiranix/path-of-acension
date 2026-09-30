@@ -15,6 +15,13 @@ public class ModTiers {
             () -> Ingredient.of((ItemLike) ModItems.ENGRANAJE_ARCANO.get())
     );
 
+    /** Herramientas y espada de arcane (pedido de alejandr0): 100000 usos, se reparan con arcane salvage. */
+    public static final ForgeTier ARCANE_TIER = new ForgeTier(
+            5, 100000, 14.0F, 5.0F, 25, BlockTags.NEEDS_DIAMOND_TOOL,
+            () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "arcane_salvage")))
+    );
+
     /** Espada de diascite: al nivel del dark metal (1800 usos, +3 de daño base), se repara con el diascite de Sculk Horde. */
     public static final ForgeTier DIASCITE_TIER = new ForgeTier(
             4, 1800, 8.5F, 3.0F, 12, BlockTags.NEEDS_DIAMOND_TOOL,

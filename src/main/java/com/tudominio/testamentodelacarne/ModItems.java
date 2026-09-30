@@ -220,6 +220,74 @@ public class ModItems {
                     com.tudominio.testamentodelacarne.util.DiasciteArmorMaterial.INSTANCE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
 
+    /** Gema de gravitite (pedido de alejandr0): sale de fundir el mineral de gravitite y es el material de todo lo de gravitite. */
+    public static final RegistryObject<Item> GRAVITITE_GEM = ITEMS.register(
+            "gravitite_gem", () -> new Item(new Item.Properties()));
+
+    /** Encendedor de metal azul (pedido de alejandr0): se craftea con depth ingot, dark metal ingot y pedernal en la mesa tier 2. */
+    public static final RegistryObject<Item> BLUE_FLINT_AND_STEEL = ITEMS.register(
+            "blue_flint_and_steel", () -> new net.minecraft.world.item.FlintAndSteelItem(new Item.Properties().durability(256)));
+
+    public static final RegistryObject<Item> ARCANE_HELMET = ITEMS.register(
+            "arcane_helmet", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
+                    net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> BLACK_STEEL_HELMET = ITEMS.register(
+            "black_steel_helmet", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
+                    net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_CHESTPLATE = ITEMS.register(
+            "arcane_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> BLACK_STEEL_CHESTPLATE = ITEMS.register(
+            "black_steel_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_LEGGINGS = ITEMS.register(
+            "arcane_leggings", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> BLACK_STEEL_LEGGINGS = ITEMS.register(
+            "black_steel_leggings", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_BOOTS = ITEMS.register(
+            "arcane_boots", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> BLACK_STEEL_BOOTS = ITEMS.register(
+            "black_steel_boots", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_SWORD = ITEMS.register(
+            "arcane_sword", () -> new net.minecraft.world.item.SwordItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.ARCANE_TIER, 3, -2.4F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_PICKAXE = ITEMS.register(
+            "arcane_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.ARCANE_TIER, 1, -2.8F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_AXE = ITEMS.register(
+            "arcane_axe", () -> new net.minecraft.world.item.AxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.ARCANE_TIER, 5.0F, -3.0F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_SHOVEL = ITEMS.register(
+            "arcane_shovel", () -> new net.minecraft.world.item.ShovelItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.ARCANE_TIER, 1.5F, -3.0F, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> ARCANE_HOE = ITEMS.register(
+            "arcane_hoe", () -> new net.minecraft.world.item.HoeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.ARCANE_TIER, -3, 0.0F, new Item.Properties().fireResistant()));
+
     public static final RegistryObject<Item> SAPPHIRE_SWORD = ITEMS.register(
             "sapphire_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 3, -2.4F, new Item.Properties()));

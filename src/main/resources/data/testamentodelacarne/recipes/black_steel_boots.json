@@ -1,0 +1,23 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MM MM",
+    "M   M",
+    "ME EM"
+  ],
+  "key": {
+    "M": {
+      "item": "cataclysm:black_steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "E": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:black_steel_boots"
+  }
+}

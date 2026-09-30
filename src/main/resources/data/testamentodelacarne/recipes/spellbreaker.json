@@ -1,0 +1,25 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "    M",
+    "   MM",
+    "  DMD",
+    " WDW ",
+    "W    "
+  ],
+  "key": {
+    "M": {
+      "item": "irons_spellbooks:arcane_salvage"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "W": {
+      "item": "irons_spellbooks:weapon_parts"
+    }
+  },
+  "result": {
+    "item": "irons_spellbooks:spellbreaker"
+  }
+}

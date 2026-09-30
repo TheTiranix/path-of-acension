@@ -1,9 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
   "pattern": [
-    "M",
-    "S",
-    "M"
+    "M   M",
+    " M M ",
+    "  S  ",
+    " M M ",
+    "M   M"
   ],
   "key": {
     "M": {
@@ -11,6 +14,9 @@
     },
     "S": {
       "item": "minecraft:stick"
+    },
+    "E": {
+      "item": "minecraft:diamond"
     }
   },
   "result": {

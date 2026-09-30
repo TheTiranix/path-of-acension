@@ -1,0 +1,25 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "    A",
+    "   AA",
+    "  CAC",
+    " WCW ",
+    "W    "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "W": {
+      "item": "irons_spellbooks:weapon_parts"
+    }
+  },
+  "result": {
+    "item": "irons_spellbooks:amethyst_rapier"
+  }
+}

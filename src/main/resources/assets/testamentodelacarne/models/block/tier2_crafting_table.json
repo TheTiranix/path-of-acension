@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "testamentodelacarne:block/tier2_crafting_table_bottom",
+    "up": "testamentodelacarne:block/tier2_crafting_table_top",
+    "north": "testamentodelacarne:block/tier2_crafting_table_front",
+    "south": "testamentodelacarne:block/tier2_crafting_table_front",
+    "east": "testamentodelacarne:block/tier2_crafting_table_side",
+    "west": "testamentodelacarne:block/tier2_crafting_table_side",
+    "particle": "testamentodelacarne:block/tier2_crafting_table_front"
+  }
+}

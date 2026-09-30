@@ -1,0 +1,25 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMMMM",
+    " MSM ",
+    "  S  ",
+    "  S  ",
+    "  E  "
+  ],
+  "key": {
+    "M": {
+      "item": "iceandfire:dragonsteel_fire_ingot"
+    },
+    "S": {
+      "tag": "forge:bones/wither"
+    },
+    "E": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "iceandfire:dragonsteel_fire_pickaxe"
+  }
+}

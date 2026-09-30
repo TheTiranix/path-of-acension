@@ -27,6 +27,7 @@ public final class WeaponBalance {
         public Double damage;
         /** Copiar el daño total de otro item (ej. knightmetal = diamante). */
         public ResourceLocation damageLike;
+        public double damageLikeFactor = 1.0;
         public Double speed;
         public Double reach;
         public boolean removeBlockReach;
@@ -48,6 +49,13 @@ public final class WeaponBalance {
 
         public Spec like(String id) {
             this.damageLike = rl(id);
+            return this;
+        }
+
+        /** Como "like" pero multiplicado (ej. las herramientas de arcane: el daño del diamante x 34/7). */
+        public Spec likeScaled(String id, double factor) {
+            this.damageLike = rl(id);
+            this.damageLikeFactor = factor;
             return this;
         }
 
@@ -322,8 +330,8 @@ public final class WeaponBalance {
         w("cataclysm:soul_render").dmg(600).two().el(LUNAR, 150).el(AIR, 150);
         w("cataclysm:ceraunus").dmg(700).el(WATER, 350);
         w("cataclysm:zweiender").dmg(600);
-        w("cataclysm:black_steel_sword").dmg(13);
-        group("cataclysm:black_steel_sword", 13, "cataclysm:black_steel_axe", "cataclysm:black_steel_pickaxe",
+        w("cataclysm:black_steel_sword").dmg(34);
+        group("cataclysm:black_steel_sword", 34, "cataclysm:black_steel_axe", "cataclysm:black_steel_pickaxe",
                 "cataclysm:black_steel_shovel", "cataclysm:black_steel_hoe");
 
         // ------------------------------------------------------------ Born in Chaos
@@ -366,9 +374,9 @@ public final class WeaponBalance {
         w("mutantsbuff:upgraded_hulk_hammer").dmg(45).el(AIR, 20);
         w("naturesaura:depth_sword").dmg(14).el(LUNAR, 4);
         w("mowziesmobs:wrought_axe").dmg(600).el(EARTH, 300);
-        w("irons_spellbooks:amethyst_rapier").dmg(22).reach(2.5);
+        w("irons_spellbooks:amethyst_rapier").dmg(30).reach(2.5);
         w("irons_spellbooks:claymore").dmg(15).el(EARTH, 3);
-        w("irons_spellbooks:spellbreaker").dmg(39);
+        w("irons_spellbooks:spellbreaker").dmg(53); // 39 x 30/22: proporcional al aumento de la rapier
         w("twilightforest:ice_sword").dmg(18).el(ICE, 5);
         w("twilightforest:fiery_sword").dmg(26);
         group("twilightforest:fiery_sword", 26, "twilightforest:fiery_pickaxe");
@@ -475,6 +483,15 @@ public final class WeaponBalance {
 
         minDur(5000, "mutantsbuff:charged_hammer", "mutantsbuff:upgraded_hulk_hammer");
         minDur(4000, "mutantmonsters:hulk_hammer");
+
+        // Arcane (nuestras, pedido de alejandr0): espada de 34 y las herramientas proporcionales a las de diamante.
+        w("testamentodelacarne:arcane_sword").dmg(34);
+        for (String tool : new String[] {"axe", "pickaxe", "shovel", "hoe"}) {
+            w("testamentodelacarne:arcane_" + tool).likeScaled("minecraft:diamond_" + tool, 34.0 / 7.0);
+        }
+        // 100000 usos: armas y herramientas de black steel (Cataclysm) y las armas de arcane de Iron's Spellbooks
+        minDur(100000, "cataclysm:black_steel_sword", "cataclysm:black_steel_axe", "cataclysm:black_steel_pickaxe",
+                "cataclysm:black_steel_shovel", "cataclysm:black_steel_hoe", "irons_spellbooks:amethyst_rapier", "irons_spellbooks:spellbreaker");
 
         // Herramientas de zafiro (nuestras): al nivel del diamante.
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
@@ -612,6 +629,12 @@ public final class WeaponBalance {
             ARMOR_FIXED.put(rl("mekanismtools:osmium_" + piece),
                     new ArmorFixed(osmiumDefense, 1, scaledDurability(osmiumDefense, 1, defense), rl("minecraft:diamond_" + piece)));
             EXACT_DURABILITY.add(rl("mekanismtools:osmium_" + piece));
+            // Armaduras de arcane y black steel (nuestras): 4 veces la proteccion del diamante, 8 de tenacidad, 60000 usos cada pieza.
+            for (String set : new String[] {"arcane", "black_steel"}) {
+                ARMOR_FIXED.put(rl("testamentodelacarne:" + set + "_" + piece),
+                        new ArmorFixed(diamondDefenseOf(piece) * 4.0, 8, 60000, rl("minecraft:diamond_" + piece)));
+                EXACT_DURABILITY.add(rl("testamentodelacarne:" + set + "_" + piece));
+            }
             // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
             double darkMetalDefense = switch (piece) {
                 case "helmet" -> 4;

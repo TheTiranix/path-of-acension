@@ -1,0 +1,23 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MM MM",
+    "M   M",
+    "ME EM"
+  ],
+  "key": {
+    "M": {
+      "item": "iceandfire:dragonsteel_fire_ingot"
+    },
+    "S": {
+      "tag": "forge:bones/wither"
+    },
+    "E": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "iceandfire:dragonsteel_fire_boots"
+  }
+}

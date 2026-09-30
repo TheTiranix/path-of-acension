@@ -1,0 +1,192 @@
+{
+  "type": "minecraft:overworld",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "alexscaves:abyssal_chasm",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              -0.33
+            ],
+            "humidity": [
+              -1.0,
+              0.0
+            ],
+            "continentalness": [
+              -2.0,
+              2.0
+            ],
+            "erosion": [
+              -2.0,
+              2.0
+            ],
+            "depth": [
+              -2.0,
+              2.0
+            ],
+            "weirdness": [
+              -2.0,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "alexscaves:forlorn_hollows",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              -0.33
+            ],
+            "humidity": [
+              0.0,
+              1.0
+            ],
+            "continentalness": [
+              -2.0,
+              2.0
+            ],
+            "erosion": [
+              -2.0,
+              2.0
+            ],
+            "depth": [
+              -2.0,
+              2.0
+            ],
+            "weirdness": [
+              -2.0,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "alexscaves:magnetic_caves",
+          "parameters": {
+            "temperature": [
+              -0.33,
+              0.33
+            ],
+            "humidity": [
+              -1.0,
+              0.0
+            ],
+            "continentalness": [
+              -2.0,
+              2.0
+            ],
+            "erosion": [
+              -2.0,
+              2.0
+            ],
+            "depth": [
+              -2.0,
+              2.0
+            ],
+            "weirdness": [
+              -2.0,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "alexscaves:toxic_caves",
+          "parameters": {
+            "temperature": [
+              -0.33,
+              0.33
+            ],
+            "humidity": [
+              0.0,
+              1.0
+            ],
+            "continentalness": [
+              -2.0,
+              2.0
+            ],
+            "erosion": [
+              -2.0,
+              2.0
+            ],
+            "depth": [
+              -2.0,
+              2.0
+            ],
+            "weirdness": [
+              -2.0,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "alexscaves:primordial_caves",
+          "parameters": {
+            "temperature": [
+              0.33,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              0.0
+            ],
+            "continentalness": [
+              -2.0,
+              2.0
+            ],
+            "erosion": [
+              -2.0,
+              2.0
+            ],
+            "depth": [
+              -2.0,
+              2.0
+            ],
+            "weirdness": [
+              -2.0,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "alexscaves:candy_cavity",
+          "parameters": {
+            "temperature": [
+              0.33,
+              1.0
+            ],
+            "humidity": [
+              0.0,
+              1.0
+            ],
+            "continentalness": [
+              -2.0,
+              2.0
+            ],
+            "erosion": [
+              -2.0,
+              2.0
+            ],
+            "depth": [
+              -2.0,
+              2.0
+            ],
+            "weirdness": [
+              -2.0,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        }
+      ]
+    }
+  }
+}

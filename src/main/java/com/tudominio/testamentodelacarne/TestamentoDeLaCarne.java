@@ -84,6 +84,23 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.DIASCITE_CHESTPLATE.get());
                         output.accept((ItemLike) ModItems.DIASCITE_LEGGINGS.get());
                         output.accept((ItemLike) ModItems.DIASCITE_BOOTS.get());
+                        output.accept((ItemLike) com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER2_TABLE_ITEM.get());
+                        output.accept((ItemLike) com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER3_TABLE_ITEM.get());
+                        output.accept((ItemLike) ModItems.GRAVITITE_GEM.get());
+                        output.accept((ItemLike) ModItems.BLUE_FLINT_AND_STEEL.get());
+                        output.accept((ItemLike) ModItems.ARCANE_SWORD.get());
+                        output.accept((ItemLike) ModItems.ARCANE_PICKAXE.get());
+                        output.accept((ItemLike) ModItems.ARCANE_AXE.get());
+                        output.accept((ItemLike) ModItems.ARCANE_SHOVEL.get());
+                        output.accept((ItemLike) ModItems.ARCANE_HOE.get());
+                        output.accept((ItemLike) ModItems.ARCANE_HELMET.get());
+                        output.accept((ItemLike) ModItems.ARCANE_CHESTPLATE.get());
+                        output.accept((ItemLike) ModItems.ARCANE_LEGGINGS.get());
+                        output.accept((ItemLike) ModItems.ARCANE_BOOTS.get());
+                        output.accept((ItemLike) ModItems.BLACK_STEEL_HELMET.get());
+                        output.accept((ItemLike) ModItems.BLACK_STEEL_CHESTPLATE.get());
+                        output.accept((ItemLike) ModItems.BLACK_STEEL_LEGGINGS.get());
+                        output.accept((ItemLike) ModItems.BLACK_STEEL_BOOTS.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_SWORD.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_PICKAXE.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_AXE.get());
@@ -107,6 +124,7 @@ public class TestamentoDeLaCarne {
     public TestamentoDeLaCarne() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);
+        com.tudominio.testamentodelacarne.crafting.ModCrafting.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addPackFinders);

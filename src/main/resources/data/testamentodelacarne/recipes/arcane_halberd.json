@@ -1,0 +1,25 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  MM ",
+    " MMM ",
+    "  SM ",
+    "  S  ",
+    " ESE "
+  ],
+  "key": {
+    "M": {
+      "item": "irons_spellbooks:arcane_salvage"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "E": {
+      "item": "irons_spellbooks:weapon_parts"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:arcane_halberd"
+  }
+}

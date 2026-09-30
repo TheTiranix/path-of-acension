@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "OLO",
+    "GTG",
+    "O O"
+  ],
+  "key": {
+    "O": {
+      "item": "mekanism:ingot_osmium"
+    },
+    "L": {
+      "item": "testamentodelacarne:lente_de_la_verdad_oculta"
+    },
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
+    "T": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:tier2_crafting_table"
+  }
+}

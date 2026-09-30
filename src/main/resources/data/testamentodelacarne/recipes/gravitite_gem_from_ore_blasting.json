@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "aether:gravitite_ore"
+  },
+  "result": "testamentodelacarne:gravitite_gem",
+  "experience": 1.0,
+  "cookingtime": 100
+}

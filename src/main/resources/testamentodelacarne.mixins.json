@@ -17,7 +17,8 @@
     "KrampusHenchmanAttackProcedureMixin",
     "CelestisynthParticleUtilMixin",
     "WorldGenDragonCaveMixin",
-    "WorldGenDragonRoostsMixin"
+    "WorldGenDragonRoostsMixin",
+    "CraftingMenuMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin"
