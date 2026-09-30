@@ -145,6 +145,20 @@ public final class WeaponBalance {
     static final ResourceKey<DamageType> AIR = ModDamageTypes.AIR;
     static final ResourceKey<DamageType> NATURAL = ModDamageTypes.NATURAL;
 
+    /** Durabilidad de cada pieza de gravitite / netherite / valkyrie / phoenix: el ancla del resto. */
+    public static final int GRAVITITE_DURABILITY = 1500;
+    /** Durabilidad de herramientas (no armaduras) que se fija a mano: id -> usos. Ver ArmorDurability. */
+    public static final Map<ResourceLocation, Integer> TOOL_DURABILITY = new HashMap<>();
+
+    /**
+     * Durabilidad proporcional a la proteccion: la armadura de gravitite (defensa de esa pieza + 4 de tenacidad) vale
+     * GRAVITITE_DURABILITY y las demas escalan segun (defensa + tenacidad) respecto de ella. ArmorDurability nunca la
+     * deja por debajo de la que la armadura ya tenia.
+     */
+    static int scaledDurability(double defense, double toughness, double gravititeDefense) {
+        return (int) Math.round(GRAVITITE_DURABILITY * (defense + toughness) / (gravititeDefense + 4.0));
+    }
+
     private WeaponBalance() {
     }
 
@@ -307,6 +321,15 @@ public final class WeaponBalance {
         group("minecraft:netherite_sword", 18, "minecraft:netherite_axe", "minecraft:netherite_pickaxe",
                 "minecraft:netherite_shovel", "minecraft:netherite_hoe");
 
+        // Fiery (Twilight Forest): sus herramientas tienen 1000 usos mas que las de netherite (2031 + 1000).
+        TOOL_DURABILITY.put(rl("twilightforest:fiery_sword"), 3031);
+        TOOL_DURABILITY.put(rl("twilightforest:fiery_pickaxe"), 3031);
+
+        // Herramientas de zafiro (nuestras): al nivel del diamante.
+        for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
+            w("testamentodelacarne:sapphire_" + tool).like("minecraft:diamond_" + tool);
+        }
+
         // Knightmetal y Steeleaf: al nivel del diamante.
         w("twilightforest:knightmetal_sword").like("minecraft:diamond_sword");
         w("twilightforest:knightmetal_axe").like("minecraft:diamond_axe");
@@ -349,12 +372,12 @@ public final class WeaponBalance {
                 default -> 6;
             };
             for (String set : new String[] {"aether:gravitite_", "minecraft:netherite_"}) {
-                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, 1500, rl("minecraft:diamond_" + piece)));
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, GRAVITITE_DURABILITY, rl("minecraft:diamond_" + piece)));
             }
             // Valkyrie y Phoenix: +3 de proteccion por pieza sobre lo que tenian (como el diamante) y 4 de tenacidad, igual que
             // gravitite; el bonus de set completo (+20% al daño de luz / fuego) esta en ArmorSetBonus.
             for (String set : new String[] {"aether:valkyrie_", "aether:phoenix_"}) {
-                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, -1, rl("minecraft:diamond_" + piece)));
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, scaledDurability(defense, 4, defense), rl("minecraft:diamond_" + piece)));
             }
             // Neptune (Aether): 5 casco y botas, 10 pechera, 8 pantalones, 3 de tenacidad por pieza.
             double neptuneDefense = switch (piece) {
@@ -363,12 +386,30 @@ public final class WeaponBalance {
                 case "leggings" -> 8;
                 default -> 5;
             };
-            ARMOR_FIXED.put(rl("aether:neptune_" + piece), new ArmorFixed(neptuneDefense, 3, -1, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("aether:neptune_" + piece), new ArmorFixed(neptuneDefense, 3, scaledDurability(neptuneDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Yeti (Twilight Forest): como gravitite (6/11/9/6) con 5 de tenacidad; 10% de resistencia al retroceso por
             // pieza e inmunidad al frio con el set completo (ver YetiArmor y ClimateImmunity).
-            ARMOR_FIXED.put(rl("twilightforest:yeti_" + piece), new ArmorFixed(defense, 5, -1, rl("minecraft:diamond_" + piece)));
-            // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 400 usos mas
-            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(defense + 2, 5, 1900, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("twilightforest:yeti_" + piece), new ArmorFixed(defense, 5, scaledDurability(defense, 5, defense), rl("minecraft:diamond_" + piece)));
+            // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 1000 usos mas (2500)
+            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(defense + 2, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            // Dragon scale armor (Ice and Fire, todos los colores): 8 casco y botas, 13 pechera, 11 pantalones, 6 de tenacidad
+            // y 500 usos mas que gravitite/netherite (2000).
+            double dragonDefense = switch (piece) {
+                case "helmet" -> 8;
+                case "chestplate" -> 13;
+                case "leggings" -> 11;
+                default -> 8;
+            };
+            for (String color : new String[] {"amythest", "black", "blue", "bronze", "copper", "electric", "gray", "green",
+                    "red", "sapphire", "silver", "white"}) {
+                ARMOR_FIXED.put(rl("iceandfire:armor_" + color + "_" + piece),
+                        new ArmorFixed(dragonDefense, 6, GRAVITITE_DURABILITY + 500, rl("minecraft:diamond_" + piece)));
+            }
+            // Armaduras "como" otra (diamante / netherite): tambien igualan su durabilidad (nunca la bajan, ver ArmorDurability)
+            for (String set : new String[] {"twilightforest:steeleaf_", "seadwellers:depth_"}) {
+                ARMOR_DURABILITY_LIKE.put(rl(set + piece), rl("minecraft:diamond_" + piece));
+            }
+            ARMOR_DURABILITY_LIKE.put(rl("alexscaves:diving_" + piece), rl("minecraft:netherite_" + piece));
             // Knightmetal: igual que el diamante en proteccion (ARMOR_LIKE) y en durabilidad
             ARMOR_DURABILITY_LIKE.put(rl("twilightforest:knightmetal_" + piece), rl("minecraft:diamond_" + piece));
             // Solar Crystal y Lunar Stone (Celestisynth): 2500 veces la proteccion del diamante, irrompibles y sin robo
@@ -393,7 +434,7 @@ public final class WeaponBalance {
                 case "leggings" -> 7;
                 default -> 4;
             };
-            ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, -1, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Armadura de zafiro (nuestra, ver SapphireArmorMaterial): 3.5 casco y botas, 8.5 pechera, 6.5 pantalones, 3 de tenacidad.
             double sapphireDefense = switch (piece) {
                 case "helmet" -> 3.5;
@@ -410,7 +451,7 @@ public final class WeaponBalance {
                 case "leggings" -> 8.5;
                 default -> 5.5;
             };
-            ARMOR_FIXED.put(rl("irons_spellbooks:netherite_mage_" + piece), new ArmorFixed(battlemageDefense, 4, -1, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:netherite_mage_" + piece), new ArmorFixed(battlemageDefense, 4, scaledDurability(battlemageDefense, 4, defense), rl("minecraft:diamond_" + piece)));
             // Myrmex (Ice and Fire): valores fijos propios, ambas variantes (desierto y jungla).
             double myrmexDefense = switch (piece) {
                 case "helmet" -> 2.5;
@@ -419,17 +460,17 @@ public final class WeaponBalance {
                 default -> 2.5;
             };
             for (String variant : new String[] {"desert", "jungle"}) {
-                ARMOR_FIXED.put(rl("iceandfire:myrmex_" + variant + "_" + piece), new ArmorFixed(myrmexDefense, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
+                ARMOR_FIXED.put(rl("iceandfire:myrmex_" + variant + "_" + piece), new ArmorFixed(myrmexDefense, Double.NaN, scaledDurability(myrmexDefense, 0, defense), rl("minecraft:diamond_" + piece)));
             }
         }
         // Chitin (Death Worm) y Troll Leather (Ice and Fire): pantalones a 5, botas a 2 (ambas variantes de cada uno).
         for (String color : new String[] {"yellow", "white", "red"}) {
-            ARMOR_FIXED.put(rl("iceandfire:deathworm_" + color + "_leggings"), new ArmorFixed(5, Double.NaN, -1, rl("minecraft:diamond_leggings")));
-            ARMOR_FIXED.put(rl("iceandfire:deathworm_" + color + "_boots"), new ArmorFixed(2, Double.NaN, -1, rl("minecraft:diamond_boots")));
+            ARMOR_FIXED.put(rl("iceandfire:deathworm_" + color + "_leggings"), new ArmorFixed(5, Double.NaN, scaledDurability(5, 0, 9), rl("minecraft:diamond_leggings")));
+            ARMOR_FIXED.put(rl("iceandfire:deathworm_" + color + "_boots"), new ArmorFixed(2, Double.NaN, scaledDurability(2, 0, 6), rl("minecraft:diamond_boots")));
         }
         for (String variant : new String[] {"forest_troll", "frost_troll", "mountain_troll"}) {
-            ARMOR_FIXED.put(rl("iceandfire:" + variant + "_leather_leggings"), new ArmorFixed(5, Double.NaN, -1, rl("minecraft:diamond_leggings")));
-            ARMOR_FIXED.put(rl("iceandfire:" + variant + "_leather_boots"), new ArmorFixed(2, Double.NaN, -1, rl("minecraft:diamond_boots")));
+            ARMOR_FIXED.put(rl("iceandfire:" + variant + "_leather_leggings"), new ArmorFixed(5, Double.NaN, scaledDurability(5, 0, 9), rl("minecraft:diamond_leggings")));
+            ARMOR_FIXED.put(rl("iceandfire:" + variant + "_leather_boots"), new ArmorFixed(2, Double.NaN, scaledDurability(2, 0, 6), rl("minecraft:diamond_boots")));
         }
     }
 

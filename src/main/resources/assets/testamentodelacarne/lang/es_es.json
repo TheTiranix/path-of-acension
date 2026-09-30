@@ -128,5 +128,20 @@
   "item.testamentodelacarne.fiery_glaive": "Glaive de Ígneo",
   "item.testamentodelacarne.fiery_hammer": "Martillo de Ígneo",
   "item.testamentodelacarne.fiery_quarterstaff": "Bastón de Combate de Ígneo",
-  "item.testamentodelacarne.fiery_spear": "Lanza de Ígneo"
+  "item.testamentodelacarne.fiery_spear": "Lanza de Ígneo",
+  "item.testamentodelacarne.sapphire_sword": "Espada de Zafiro",
+  "item.testamentodelacarne.sapphire_pickaxe": "Pico de Zafiro",
+  "item.testamentodelacarne.sapphire_axe": "Hacha de Zafiro",
+  "item.testamentodelacarne.sapphire_shovel": "Pala de Zafiro",
+  "item.testamentodelacarne.sapphire_hoe": "Azada de Zafiro",
+  "item.testamentodelacarne.sapphire_dagger": "Daga de Zafiro",
+  "item.testamentodelacarne.sapphire_longsword": "Sable de Zafiro",
+  "item.testamentodelacarne.sapphire_katana": "Katana de Zafiro",
+  "item.testamentodelacarne.sapphire_greatsword": "Espadón de Zafiro",
+  "item.testamentodelacarne.sapphire_battleaxe": "Hacha de Batalla de Zafiro",
+  "item.testamentodelacarne.sapphire_halberd": "Alabarda de Zafiro",
+  "item.testamentodelacarne.sapphire_glaive": "Glaive de Zafiro",
+  "item.testamentodelacarne.sapphire_hammer": "Martillo de Zafiro",
+  "item.testamentodelacarne.sapphire_quarterstaff": "Bastón de Combate de Zafiro",
+  "item.testamentodelacarne.sapphire_spear": "Lanza de Zafiro"
 }

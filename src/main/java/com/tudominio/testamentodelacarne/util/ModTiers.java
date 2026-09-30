@@ -15,6 +15,14 @@ public class ModTiers {
             () -> Ingredient.of((ItemLike) ModItems.ENGRANAJE_ARCANO.get())
     );
 
+    /** Herramientas de zafiro (pedido de alejandr0): como el diamante (nivel 3, 8 de velocidad, +3 de daño) con 100 usos
+     *  mas (1561 + 100); se reparan con el sapphire_gem de Ice and Fire. */
+    public static final ForgeTier SAPPHIRE_TIER = new ForgeTier(
+            3, 1661, 8.0F, 3.0F, 10, BlockTags.NEEDS_DIAMOND_TOOL,
+            () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("iceandfire", "sapphire_gem")))
+    );
+
     /** Pico de Dark Metal: nivel por encima del diamante (se registra DESPUES del netherite en
      *  TierSortingRegistry, ver TestamentoDeLaCarne#commonSetup), un poco mas rapido y duradero que el diamante. */
     public static final ForgeTier DARK_METAL_TIER = new ForgeTier(

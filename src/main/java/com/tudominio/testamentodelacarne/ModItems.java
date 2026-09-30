@@ -195,6 +195,26 @@ public class ModItems {
                     com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
 
+    public static final RegistryObject<Item> SAPPHIRE_SWORD = ITEMS.register(
+            "sapphire_sword", () -> new net.minecraft.world.item.SwordItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 3, -2.4F, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_PICKAXE = ITEMS.register(
+            "sapphire_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 1, -2.8F, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_AXE = ITEMS.register(
+            "sapphire_axe", () -> new net.minecraft.world.item.AxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 5.0F, -3.0F, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_SHOVEL = ITEMS.register(
+            "sapphire_shovel", () -> new net.minecraft.world.item.ShovelItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 1.5F, -3.0F, new Item.Properties()));
+
+    public static final RegistryObject<Item> SAPPHIRE_HOE = ITEMS.register(
+            "sapphire_hoe", () -> new net.minecraft.world.item.HoeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, -3, 0.0F, new Item.Properties()));
+
     public static final RegistryObject<Item> DARK_METAL_PICKAXE = ITEMS.register(
             "dark_metal_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER, 1, -2.8F, new Item.Properties()));

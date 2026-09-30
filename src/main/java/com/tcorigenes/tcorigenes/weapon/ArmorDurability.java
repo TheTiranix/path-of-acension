@@ -41,8 +41,12 @@ public final class ArmorDurability {
                 if (item == null || !ForgeRegistries.ITEMS.containsKey(id)) {
                     continue;
                 }
-                if (entry.getValue().durability() >= 0) {
-                    setMaxDamage(item, id, entry.getValue().durability());
+                int durability = entry.getValue().durability();
+                if (durability == 0) {
+                    setMaxDamage(item, id, 0); // irrompible
+                } else if (durability > 0) {
+                    // "agregar durabilidad": nunca queda por debajo de la que la armadura ya tenia
+                    setMaxDamage(item, id, Math.max(item.getMaxDamage(), durability));
                 }
             }
             // Todas las armas y armaduras de Celestisynth son irrompibles
@@ -52,11 +56,17 @@ public final class ArmorDurability {
                     setMaxDamage(item, entry.getKey().location(), 0);
                 }
             }
+            for (var entry : WeaponBalance.TOOL_DURABILITY.entrySet()) {
+                Item item = ForgeRegistries.ITEMS.getValue(entry.getKey());
+                if (item != null && ForgeRegistries.ITEMS.containsKey(entry.getKey())) {
+                    setMaxDamage(item, entry.getKey(), entry.getValue());
+                }
+            }
             for (var entry : WeaponBalance.ARMOR_DURABILITY_LIKE.entrySet()) {
                 Item item = ForgeRegistries.ITEMS.getValue(entry.getKey());
                 Item reference = ForgeRegistries.ITEMS.getValue(entry.getValue());
                 if (item != null && reference != null && ForgeRegistries.ITEMS.containsKey(entry.getKey())) {
-                    setMaxDamage(item, entry.getKey(), reference.getMaxDamage());
+                    setMaxDamage(item, entry.getKey(), Math.max(item.getMaxDamage(), reference.getMaxDamage()));
                 }
             }
         });

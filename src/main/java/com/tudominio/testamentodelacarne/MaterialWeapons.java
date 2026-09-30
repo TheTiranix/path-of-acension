@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 /**
- * Armas nuevas de Zanite, Gravitite, Black Steel, Knightmetal, Steeleaf y Fiery con los tipos de Variant Tools y
+ * Armas nuevas de Zanite, Gravitite, Black Steel, Knightmetal, Steeleaf, Fiery y Zafiro con los tipos de Variant Tools y
  * Basic Weapons que quedaron sin eliminar (pedido de alejandr0). Su daño es proporcional al tipo de arma
  * (el del diamante de ese tipo, ya rebalanceado) segun lo que el material aporta respecto a una espada de
  * diamante; la velocidad es la del tipo. Los valores se resuelven al primer uso (cuando ya estan registrados
@@ -43,7 +43,10 @@ public final class MaterialWeapons {
             new Material("black_steel", "Black Steel", 13.0 / 7.0, 1800, "cataclysm:black_steel_ingot"),
             new Material("knightmetal", "Knightmetal", 1.0, 1500, "twilightforest:knightmetal_ingot"),
             new Material("steeleaf", "Steeleaf", 1.0, 1100, "twilightforest:steeleaf_ingot"),
-            new Material("fiery", "Fiery", 26.0 / 7.0, 1024, "twilightforest:fiery_ingot"));
+            // fiery: 1000 usos mas que las herramientas de netherite (2031 + 1000)
+            new Material("fiery", "Fiery", 26.0 / 7.0, 3031, "twilightforest:fiery_ingot"),
+            // zafiro: como el diamante (daño) con 100 usos mas (1561 + 100), se craftea con el sapphire_gem de Ice and Fire
+            new Material("sapphire", "Sapphire", 1.0, 1661, "iceandfire:sapphire_gem"));
 
     public static final List<Type> TYPES = List.of(
             new Type("dagger", "vtaw_mw:diamond_dagger", "Dagger"),
