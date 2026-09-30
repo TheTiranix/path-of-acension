@@ -29,6 +29,12 @@ public final class ModEntityTypes {
                     .fireImmune()
                     .build("weak_point"));
 
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.core.DamageDummyEntity>> DAMAGE_DUMMY = ENTITY_TYPES.register("damage_dummy",
+            () -> EntityType.Builder.<com.tcorigenes.tcorigenes.core.DamageDummyEntity>of(com.tcorigenes.tcorigenes.core.DamageDummyEntity::new, MobCategory.MISC)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(10)
+                    .build("damage_dummy"));
+
     private ModEntityTypes() {
     }
 

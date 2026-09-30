@@ -129,7 +129,8 @@ public class ModItems {
             "espada_anima_hereje_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
     /** Variante exclusiva de Angel + Guerrero Ánima (ver ClassSelection): mismas estadisticas por
-     *  fase que la Espada Ánima normal, solo cambia el aspecto (estilete plateado -> espada alada). */
+     *  fase que la Espada Ánima normal, solo cambia el aspecto (estilete plateado -> espada alada); la fase 3 pega 100000
+     *  por golpe (pedido de alejandr0). */
     public static final RegistryObject<Item> ESPADA_ANIMA_ANGEL_1 = ITEMS.register(
             "espada_anima_angel_1", () -> new AnimaSwordItem(5.0F, -2.4F, 2.6F, new Item.Properties().fireResistant()));
 
@@ -137,7 +138,7 @@ public class ModItems {
             "espada_anima_angel_2", () -> new AnimaSwordItem(8.0F, -2.2F, 2.8F, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ESPADA_ANIMA_ANGEL_3 = ITEMS.register(
-            "espada_anima_angel_3", () -> new AnimaSwordItem(10.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
+            "espada_anima_angel_3", () -> new AnimaSwordItem(99999.0F, -2.0F, 3.0F, new Item.Properties().fireResistant().rarity(Rarity.EPIC), true));
 
     /** Variante exclusiva de Siervo de la Luna + Guerrero Ánima (ver ClassSelection): guadaña ligada al alma.
      *  La fase 3 se empuña de a dos (ver DualScythe). */

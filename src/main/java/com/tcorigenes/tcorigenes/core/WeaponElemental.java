@@ -49,10 +49,11 @@ public final class WeaponElemental {
         return spec == null ? 0.0F : spec.extrasTotal();
     }
 
-    public static void apply(LivingHurtEvent event, Player attacker) {
-        if (event.getAmount() <= 0.0F || attacker.level().isClientSide()) {
-            return;
-        }
+    /** Arma de la que sale este golpe y si es el impacto de un proyectil suyo (ver SHOT_ENTITIES y los arcos con daño por impacto). */
+    private record Source(ResourceLocation id, boolean shot) {
+    }
+
+    private static Source sourceOf(LivingHurtEvent event, Player attacker) {
         ResourceLocation id;
         boolean shot = false;
         Entity direct = event.getSource().getDirectEntity();
@@ -70,6 +71,33 @@ public final class WeaponElemental {
                 shot = bow != null && bow.ranged; // flecha comun disparada con un arco que tiene daño por impacto
             }
         }
+        return new Source(id, shot);
+    }
+
+    /**
+     * Fija el daño por impacto de los arcos (WeaponBalance) ANTES de que se tire el critico: pedido de alejandr0, el critico
+     * de los arcos tiene que funcionar igual que el de las espadas (antes el daño por impacto se ponia despues y pisaba el
+     * critico). Lo llama ElementalDamageEvents al principio del golpe.
+     */
+    public static void applyShotDamage(LivingHurtEvent event, Player attacker) {
+        if (event.getAmount() <= 0.0F || attacker.level().isClientSide()) {
+            return;
+        }
+        Source source = sourceOf(event, attacker);
+        WeaponBalance.Spec spec = source.id() == null ? null : WeaponBalance.spec(source.id());
+        if (source.shot() && spec != null && spec.damage != null) {
+            event.setAmount(spec.damage.floatValue());
+        }
+    }
+
+    public static void apply(LivingHurtEvent event, Player attacker) {
+        if (event.getAmount() <= 0.0F || attacker.level().isClientSide()) {
+            return;
+        }
+        Source source = sourceOf(event, attacker);
+        ResourceLocation id = source.id();
+        boolean shot = source.shot();
+        Entity direct = event.getSource().getDirectEntity();
         WeaponBalance.Spec spec = id == null ? null : WeaponBalance.spec(id);
         if (!shot && direct == attacker) {
             applyGlove(attacker, event.getEntity(), spec);
@@ -77,12 +105,10 @@ public final class WeaponElemental {
         if (spec == null || (spec.ranged && !shot)) {
             return; // un arco solo cuenta por el impacto de su proyectil
         }
-        if (shot && spec.damage != null) {
-            event.setAmount(spec.damage.floatValue());
-        }
         LivingEntity target = event.getEntity();
         ResourceKey<DamageType> converted = ElementalRestriction.converterElement(attacker);
         ResourceKey<DamageType> active = ElementalRestriction.activeElement(attacker, spec);
+        ResourceKey<DamageType> absorb = converted == null ? ElementalRestriction.skillAbsorbElement(attacker, spec) : null;
 
         if (spec.cycle != null && !spec.cycle.isEmpty()) {
             ResourceKey<DamageType> slot = spec.perProjectile && shot
@@ -91,6 +117,8 @@ public final class WeaponElemental {
             if (slot != null) {
                 if (converted != null) {
                     slot = converted; // el Prisma Convertidor manda: el golpe se transforma en ese elemento
+                } else if (absorb != null) {
+                    slot = absorb; // la habilidad de absorcion: el golpe entero pasa al elemento de la raza / el mayor
                 } else if (!slot.equals(active)) {
                     event.setCanceled(true); // elemento que este jugador no puede usar: ese golpe no hace daño
                     return;
@@ -105,6 +133,14 @@ public final class WeaponElemental {
         for (WeaponBalance.Extra extra : spec.extras) {
             if (converted != null) {
                 extra(target, attacker, converted, extra.amount());
+            } else if (absorb != null) {
+                // absorbido: pega como el elemento que absorbe; solo el del propio elemento dispara el efecto especial
+                long fireAt = target.level().getGameTime() + PendingElementalHits.SAFE_DELAY_TICKS;
+                if (extra.element().equals(absorb)) {
+                    PendingElementalHits.queue(target, attacker, absorb, extra.amount(), fireAt);
+                } else {
+                    PendingElementalHits.queueNoEffect(target, attacker, absorb, extra.amount(), fireAt);
+                }
             } else if (extra.element().equals(active)) {
                 extra(target, attacker, extra.element(), extra.amount());
             } // cualquier otro elemento del equipo directamente no funciona (ver ElementalRestriction)

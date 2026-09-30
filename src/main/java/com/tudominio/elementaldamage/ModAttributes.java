@@ -48,6 +48,10 @@ public class ModAttributes {
     public static final RegistryObject<Attribute> LUNAR_SPELL_POWER = ATTRIBUTES.register(
             "lunar_spell_power", () -> new RangedAttribute("attribute.name.elementaldamage.lunar_spell_power", 1.0, 0.0, 10.0).setSyncable(true));
 
+    /** 1 = el jugador desbloqueo la "absorcion elemental" del arbol de habilidades (funcion del Prisma Convertidor sin el item). */
+    public static final RegistryObject<Attribute> ELEMENT_ABSORB = ATTRIBUTES.register(
+            "element_absorb", () -> new RangedAttribute("attribute.name.elementaldamage.element_absorb", 0.0, 0.0, 1.0).setSyncable(true));
+
     public static final RegistryObject<Attribute> CRIT_CHANCE = ATTRIBUTES.register(
             "crit_chance", () -> new RangedAttribute("attribute.name.elementaldamage.crit_chance", 0.0, 0.0, 1.0).setSyncable(true));
 
@@ -76,6 +80,7 @@ public class ModAttributes {
         event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_EARTH.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, RESIST_AIR.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, LUNAR_SPELL_POWER.get());
+        event.add(net.minecraft.world.entity.EntityType.PLAYER, ELEMENT_ABSORB.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, CRIT_CHANCE.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, CRIT_DAMAGE.get());
         event.add(net.minecraft.world.entity.EntityType.PLAYER, BOW_DAMAGE_MULT.get());

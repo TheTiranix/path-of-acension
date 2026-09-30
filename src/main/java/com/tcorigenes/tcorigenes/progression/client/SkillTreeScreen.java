@@ -260,6 +260,7 @@ public class SkillTreeScreen extends Screen {
         g.pose().translate(this.width / 2.0, canvasCenterY(), 0);
         g.pose().scale(zoom, zoom, 1F);
         g.pose().translate(-camX, -camY, 0);
+        drawPhaseBands(g);
         for (SkillNode node : nodes) {
             for (String parentId : node.parents()) {
                 SkillNode parent = SkillTree.get(parentId);
@@ -313,10 +314,28 @@ public class SkillTreeScreen extends Screen {
         g.fill(cx - 1, Math.min(py, cy), cx + 1, Math.max(py, cy) + 1, color);
     }
 
+    /** Las 3 fases del arbol: franjas verticales con su nombre (ver SkillNode#phase). */
+    private void drawPhaseBands(GuiGraphics g) {
+        int[][] ranges = {{0, 8}, {9, 16}, {17, 25}};
+        int[] colors = {0x2255AAFF, 0x22FFD700, 0x22FF5555};
+        for (int i = 0; i < ranges.length; i++) {
+            int left = ranges[i][0] * CELL - CELL / 2;
+            int right = ranges[i][1] * CELL + CELL / 2;
+            g.fill(left, -3 * CELL, right, 3 * CELL, colors[i]);
+            g.drawString(this.font, "FASE " + (i + 1), left + 8, -3 * CELL + 6, 0xFFFFFFFF, false);
+        }
+    }
+
     private List<Component> tooltipFor(SkillNode node) {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(node.title()).withStyle(ChatFormatting.GOLD));
-        if (node.attribute() != null) {
+        lines.add(Component.literal("Fase " + node.phase() + " de 3").withStyle(ChatFormatting.DARK_AQUA));
+        if (node.attribute() != null && node.attribute().get() == com.tudominio.elementaldamage.ModAttributes.ELEMENT_ABSORB.get()) {
+            lines.add(Component.literal("Tus golpes convierten los daños elementales que no son el de tu raza en el de tu raza.")
+                    .withStyle(ChatFormatting.GREEN));
+            lines.add(Component.literal("Sin elemento racial, todo se absorbe en el elemento mayor del arma.").withStyle(ChatFormatting.GREEN));
+            lines.add(Component.literal("El efecto especial solo usa el daño base del elemento que absorbe.").withStyle(ChatFormatting.GREEN));
+        } else if (node.attribute() != null) {
             String value = node.operation() == AttributeModifier.Operation.ADDITION
                     ? "+" + FORMAT.format(node.amount())
                     : "+" + FORMAT.format(node.amount() * 100) + "%";

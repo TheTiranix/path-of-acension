@@ -77,6 +77,9 @@ public class ElementalDamageEvents {
         // "Daño elemental base": el monto tal cual llega, antes de que crítico/tag/resistencia
         // lo inflen. Todas las formulas de "cada X de daño" (fuego, hielo, agua, ender, tierra,
         // aire, natural) se calculan sobre ESTO, no sobre el daño final ya modificado.
+        if (attacker instanceof Player shooter && (elementKey == null || !ModDamageTypes.ALL.contains(elementKey))) {
+            com.tcorigenes.tcorigenes.core.WeaponElemental.applyShotDamage(event, shooter);
+        }
         float baseDamage = event.getAmount();
 
         // --- Critico del atacante: chance propia (la vulnerabilidad ender ahora es reduccion de armadura, no critico) ---
@@ -149,7 +152,9 @@ public class ElementalDamageEvents {
         }
 
         if (elementKey != null && ModDamageTypes.ALL.contains(elementKey)) {
-            applyOnHitEffect(target, attacker, elementKey, baseDamage);
+            if (!PendingElementalHits.suppressEffect) {
+                applyOnHitEffect(target, attacker, elementKey, baseDamage);
+            }
             ElementalDamageIndicator.show(target, elementKey, event.getAmount());
         } else {
             // No es uno de nuestros 9 tipos (golpe normal de jugador o de mob): si quien pega es

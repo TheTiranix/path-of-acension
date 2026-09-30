@@ -12,6 +12,14 @@
     "BreezebreakerItemMixin",
     "FrostboundDanceAttackMixin",
     "CrescentiaBarrageAttackMixin",
-    "ItemStackRarityMixin"
+    "ItemStackRarityMixin",
+    "KrampusAttackProcedureMixin",
+    "KrampusHenchmanAttackProcedureMixin",
+    "CelestisynthParticleUtilMixin",
+    "WorldGenDragonCaveMixin",
+    "WorldGenDragonRoostsMixin"
+  ],
+  "client": [
+    "CelestisynthParticleEngineMixin"
   ]
 }

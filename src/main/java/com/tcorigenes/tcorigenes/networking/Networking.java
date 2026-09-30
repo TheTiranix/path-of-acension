@@ -12,6 +12,8 @@ import com.tcorigenes.tcorigenes.networking.packet.CloseCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.CoinflipResultPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
+import com.tcorigenes.tcorigenes.networking.packet.PacifistSyncPacket;
+import com.tcorigenes.tcorigenes.networking.packet.TogglePacifistPacket;
 import com.tcorigenes.tcorigenes.networking.packet.WeakPointAimPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket;
@@ -164,6 +166,18 @@ public class Networking {
                 .decoder(ChooseCheckpointPacket::new)
                 .encoder(ChooseCheckpointPacket::toBytes)
                 .consumerMainThread(ChooseCheckpointPacket::handle)
+                .add();
+
+        net.messageBuilder(TogglePacifistPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(TogglePacifistPacket::new)
+                .encoder(TogglePacifistPacket::toBytes)
+                .consumerMainThread(TogglePacifistPacket::handle)
+                .add();
+
+        net.messageBuilder(PacifistSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PacifistSyncPacket::new)
+                .encoder(PacifistSyncPacket::toBytes)
+                .consumerMainThread(PacifistSyncPacket::handle)
                 .add();
     }
 

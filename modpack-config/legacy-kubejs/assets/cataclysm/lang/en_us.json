@@ -1,0 +1,11 @@
+{
+  "item.cataclysm.cursium_upgrade.desc": "Skymetal Upgrade",
+  "item.cataclysm.cursium_upgrade.ingredients.desc": "Skymetal Ingot",
+  "item.cataclysm.cursium_ingot": "Skymetal Ingot",
+  "item.cataclysm.cursium_helmet": "Skymetal Helmet",
+  "item.cataclysm.cursium_chestplate": "Skymetal Chestplate",
+  "item.cataclysm.cursium_leggings": "Skymetal Leggings",
+  "item.cataclysm.cursium_boots": "Skymetal Boots",
+  "block.cataclysm.cursium_block": "Block of Skymetal",
+  "trim_material.cataclysm.cursium": "Skymetal Material"
+}

@@ -45,8 +45,9 @@ public final class ArmorDurability {
                 if (durability == 0) {
                     setMaxDamage(item, id, 0); // irrompible
                 } else if (durability > 0) {
-                    // "agregar durabilidad": nunca queda por debajo de la que la armadura ya tenia
-                    setMaxDamage(item, id, Math.max(item.getMaxDamage(), durability));
+                    // "agregar durabilidad": nunca queda por debajo de la que la armadura ya tenia, salvo las de EXACT_DURABILITY
+                    setMaxDamage(item, id, WeaponBalance.EXACT_DURABILITY.contains(id)
+                            ? durability : Math.max(item.getMaxDamage(), durability));
                 }
             }
             // Todas las armas y armaduras de Celestisynth son irrompibles

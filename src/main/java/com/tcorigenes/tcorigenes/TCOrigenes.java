@@ -59,6 +59,7 @@ public class TCOrigenes {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.MobLevelDisplay.class));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.RankingButtons.class));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.WeaponWeightTooltip.class));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.PacifistButton.class));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModEvents.class);
@@ -74,11 +75,13 @@ public class TCOrigenes {
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.FACTION_NPC.get(), FactionNpcEntity.createAttributes().build());
+        event.put(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.core.DamageDummyEntity.createAttributes().build());
     }
 
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.FACTION_NPC.get(), com.tcorigenes.tcorigenes.faction.client.FactionNpcRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.WEAK_POINT.get(), com.tcorigenes.tcorigenes.client.WeakPointRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.client.DamageDummyRenderer::new);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -96,6 +99,7 @@ public class TCOrigenes {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.ORBE_DE_ORIGENES);
+            event.accept(ModItems.DAMAGE_DUMMY_EGG);
             event.accept(ModItems.ANILLO_DE_PURIFICACION);
             event.accept(ModItems.BATERIA_LUNAR);
             event.accept(ModItems.VINCULO_DE_CARNE);

@@ -37,8 +37,15 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public final class CheckpointManager {
     /** 1 dia de Minecraft. */
     private static final long GRACE_PERIOD_TICKS = 24000;
-    /** Cooldown entre saves de cama y espera de una cama recien colocada: 1 dia de Minecraft. */
-    private static final long SAVE_COOLDOWN_TICKS = 24000;
+    /** Espera de una cama recien colocada: 1 dia de Minecraft. */
+    private static final long NEW_BED_WAIT_TICKS = 24000;
+    /**
+     * Cooldown entre saves de cama (pedido de alejandr0): el minimo para que durmiendo en el ultimo tic de la noche
+     * (tic 23459 del dia) se pueda guardar de nuevo en el primer tic de la noche siguiente (tic 12542 del dia que sigue):
+     * 12542 + 24000 - 23459 = 13083 ticks, unos 11 minutos. Como solo se guarda durmiendo y solo se duerme de noche, en la
+     * practica es "hay que esperar a la siguiente noche".
+     */
+    private static final long SAVE_COOLDOWN_TICKS = 13083;
     private static final String PREFERRED_KEY = "tc_preferred_checkpoint";
 
     /** Quien esta durmiendo AHORA MISMO (segun el ultimo tick chequeado), para detectar el momento
@@ -211,8 +218,7 @@ public final class CheckpointManager {
         CheckpointSavedData data = CheckpointSavedData.get(server);
         long now = server.overworld().getGameTime();
         if (!force && data.lastSaveTick != Long.MIN_VALUE && now - data.lastSaveTick < SAVE_COOLDOWN_TICKS) {
-            player.displayClientMessage(Component.literal("Todavía no podés guardar: falta esperar "
-                    + describeTicks(SAVE_COOLDOWN_TICKS - (now - data.lastSaveTick)) + " (1 día de Minecraft entre saves).")
+            player.displayClientMessage(Component.literal("Todavía no podés guardar: tenés que esperar a la siguiente noche.")
                     .withStyle(ChatFormatting.RED), false);
             return;
         }
@@ -222,9 +228,9 @@ public final class CheckpointManager {
                 continue;
             }
             BlockPos placed = BlockPos.of(Long.parseLong(entry.getKey().substring(prefix.length())));
-            if (placed.distManhattan(bedPos) <= 1 && now - entry.getValue() < SAVE_COOLDOWN_TICKS) {
+            if (placed.distManhattan(bedPos) <= 1 && now - entry.getValue() < NEW_BED_WAIT_TICKS) {
                 player.displayClientMessage(Component.literal("Esta cama es nueva: falta esperar "
-                        + describeTicks(SAVE_COOLDOWN_TICKS - (now - entry.getValue())) + " para poder guardar en ella.")
+                        + describeTicks(NEW_BED_WAIT_TICKS - (now - entry.getValue())) + " para poder guardar en ella.")
                         .withStyle(ChatFormatting.RED), false);
                 return;
             }

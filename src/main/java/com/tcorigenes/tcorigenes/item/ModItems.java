@@ -35,6 +35,11 @@ public class ModItems {
     public static final RegistryObject<Item> BRAZALETE_DARK_METAL = ITEMS.register(
             "brazalete_dark_metal", () -> new BrazaleteItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 1.0));
 
+    /** Huevo del dummy de daño (ver DamageDummyEntity). */
+    public static final RegistryObject<Item> DAMAGE_DUMMY_EGG = ITEMS.register(
+            "damage_dummy_spawn_egg", () -> new net.minecraftforge.common.ForgeSpawnEggItem(
+                    com.tcorigenes.tcorigenes.faction.ModEntityTypes.DAMAGE_DUMMY, 0xC8A464, 0x7A4A1E, new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

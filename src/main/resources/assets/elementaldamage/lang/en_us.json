@@ -17,5 +17,6 @@
   "attribute.name.elementaldamage.crit_damage": "Daño Crítico",
   "attribute.name.elementaldamage.bow_damage_mult": "Multiplicador de Daño con Arco",
   "attribute.name.elementaldamage.draw_speed": "Velocidad de Carga",
-  "attribute.name.elementaldamage.lunar_spell_power": "Lunar Spell Power"
+  "attribute.name.elementaldamage.lunar_spell_power": "Lunar Spell Power",
+  "attribute.name.elementaldamage.element_absorb": "Elemental absorption"
 }

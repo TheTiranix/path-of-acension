@@ -28,8 +28,12 @@ public final class PendingElementalHits {
     /** Mas de 10 ticks: fuera de la ventana "solo aplica si es mayor al golpe anterior" de vanilla. */
     public static final int SAFE_DELAY_TICKS = 11;
     private record PendingHit(LivingEntity target, LivingEntity attacker, ResourceKey<DamageType> element,
-                               float amount, long fireAtTick) {
+                               float amount, long fireAtTick, boolean noEffect) {
     }
+
+    /** true mientras se aplica un golpe "absorbido" (ver ElementalRestriction#skillAbsorbElement): pega pero no dispara el efecto
+     *  especial del elemento (lo lee ElementalDamageEvents). */
+    public static boolean suppressEffect;
 
     private static final List<PendingHit> QUEUE = new ArrayList<>();
 
@@ -45,7 +49,12 @@ public final class PendingElementalHits {
     }
 
     public static void queue(LivingEntity target, LivingEntity attacker, ResourceKey<DamageType> element, float amount, long fireAtTick) {
-        QUEUE.add(new PendingHit(target, attacker, element, amount, fireAtTick));
+        QUEUE.add(new PendingHit(target, attacker, element, amount, fireAtTick, false));
+    }
+
+    /** Igual que queue, pero el golpe no dispara el efecto especial de su elemento (daño absorbido por otro elemento). */
+    public static void queueNoEffect(LivingEntity target, LivingEntity attacker, ResourceKey<DamageType> element, float amount, long fireAtTick) {
+        QUEUE.add(new PendingHit(target, attacker, element, amount, fireAtTick, true));
     }
 
     /** Llamar todos los ticks: la cola normalmente esta vacia o tiene un par de items nomas.
@@ -74,7 +83,12 @@ public final class PendingElementalHits {
         }
         for (PendingHit hit : due) {
             if (hit.target().isAlive() && hit.attacker().isAlive()) {
-                ElementalDamageSource.hurt(hit.target(), hit.element(), hit.attacker(), hit.amount());
+                suppressEffect = hit.noEffect();
+                try {
+                    ElementalDamageSource.hurt(hit.target(), hit.element(), hit.attacker(), hit.amount());
+                } finally {
+                    suppressEffect = false;
+                }
             }
         }
     }

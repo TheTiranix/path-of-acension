@@ -58,6 +58,26 @@ public final class ClimateImmunity {
         return wearsSet(player, "twilightforest", "yeti_");
     }
 
+    /** Set completo de Ignitium (Cataclysm): inmune al fuego y al calor (pedido de alejandr0). */
+    public static boolean wearsIgnitiumSet(Player player) {
+        return wearsSet(player, "cataclysm", "ignitium_");
+    }
+
+    /** Set completo de Skymetal (antes Cursium, Cataclysm): inmune al daño por caida. */
+    public static boolean wearsSkymetalSet(Player player) {
+        return wearsSet(player, "cataclysm", "cursium_");
+    }
+
+    /** Set completo de Ghost Warrior (EEEAB's Mobs): inmune al wither. */
+    public static boolean wearsGhostWarriorSet(Player player) {
+        return wearsSet(player, "eeeabsmobs", "ghost_warrior_");
+    }
+
+    /** Inmune al wither: Divine Lunar Armor y Ghost Warrior. */
+    public static boolean isWitherImmune(Player player) {
+        return wearsLunarSet(player) || wearsGhostWarriorSet(player);
+    }
+
     /** Inmunidad al frio: sets divinos (solar/lunar) y set completo de Yeti. */
     public static boolean isColdImmune(Player player) {
         return wearsSolarSet(player) || wearsLunarSet(player) || wearsYetiSet(player);
@@ -68,7 +88,8 @@ public final class ClimateImmunity {
     }
 
     public static boolean isFireImmune(Player player) {
-        return player.hasEffect(MobEffects.FIRE_RESISTANCE) || player.fireImmune() || wearsSolarSet(player);
+        return player.hasEffect(MobEffects.FIRE_RESISTANCE) || player.fireImmune() || wearsSolarSet(player)
+                || wearsIgnitiumSet(player);
     }
 
     public static boolean isHeatImmune(Player player) {
@@ -89,6 +110,12 @@ public final class ClimateImmunity {
         Player player = event.player;
         boolean solar = wearsSolarSet(player);
         boolean lunar = wearsLunarSet(player);
+        if (isWitherImmune(player)) {
+            player.removeEffect(MobEffects.WITHER);
+        }
+        if (wearsIgnitiumSet(player)) {
+            refresh(player, MobEffects.FIRE_RESISTANCE);
+        }
         if (!solar && !lunar) {
             if (wearsYetiSet(player)) {
                 refresh(player, ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.fromNamespaceAndPath("toughasnails", "ice_resistance")));
@@ -97,9 +124,6 @@ public final class ClimateImmunity {
         }
         if (solar) {
             refresh(player, MobEffects.FIRE_RESISTANCE);
-        }
-        if (lunar) {
-            player.removeEffect(MobEffects.WITHER);
         }
         refresh(player, ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.fromNamespaceAndPath("toughasnails", "ice_resistance")));
         refresh(player, ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.fromNamespaceAndPath("toughasnails", "climate_clemency")));
@@ -115,7 +139,7 @@ public final class ClimateImmunity {
             event.setCanceled(true);
         } else if (source.is(DamageTypes.FREEZE) && isColdImmune(player)) {
             event.setCanceled(true);
-        } else if (source.is(DamageTypes.WITHER) && wearsLunarSet(player)) {
+        } else if (source.is(DamageTypes.WITHER) && isWitherImmune(player)) {
             event.setCanceled(true);
         } else if (source.typeHolder().unwrapKey().map(k -> k.location().getPath().equals("hyperthermia")).orElse(false)
                 && isHeatImmune(player)) {
@@ -123,10 +147,18 @@ public final class ClimateImmunity {
         }
     }
 
+    /** Skymetal: sin daño de caida. */
+    @SubscribeEvent
+    public static void onFall(net.minecraftforge.event.entity.living.LivingFallEvent event) {
+        if (event.getEntity() instanceof Player player && wearsSkymetalSet(player)) {
+            event.setCanceled(true);
+        }
+    }
+
     @SubscribeEvent
     public static void onEffectApplicable(MobEffectEvent.Applicable event) {
         if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect() == MobEffects.WITHER
-                && wearsLunarSet(player)) {
+                && isWitherImmune(player)) {
             event.setResult(Event.Result.DENY);
         }
     }

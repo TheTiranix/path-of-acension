@@ -51,6 +51,20 @@ public final class ElementalRestriction {
         return null;
     }
 
+    /**
+     * Habilidad "Prisma Elemental" del arbol (pedido de alejandr0): en cada golpe los daños elementales que no son el de la raza
+     * se transforman en el de la raza; si la raza no tiene elemento, se absorben en el elemento mayor del arma. Devuelve ese
+     * elemento (null si el jugador no la tiene desbloqueada o no hay ninguno). El efecto especial solo se calcula con el daño base
+     * del elemento que absorbe: los demas pegan pero sin efecto (ver WeaponElemental).
+     */
+    public static ResourceKey<DamageType> skillAbsorbElement(Player player, WeaponBalance.Spec spec) {
+        var attribute = player.getAttribute(com.tudominio.elementaldamage.ModAttributes.ELEMENT_ABSORB.get());
+        if (attribute == null || attribute.getValue() <= 0.0) {
+            return null;
+        }
+        return activeElement(player, spec);
+    }
+
     /** El elemento que le funciona a este jugador con esta arma (null = ninguno de los elementales del equipo). */
     public static ResourceKey<DamageType> activeElement(Player player, WeaponBalance.Spec spec) {
         ResourceKey<DamageType> race = raceElement(player);

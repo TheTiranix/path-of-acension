@@ -105,6 +105,9 @@ public final class SkillTree {
             last = new Perk("Cumbre: " + root.title(), root.icon(), keystone.attribute(), keystone.op(), keystone.amount());
         }
         add(cls, key + "_raiz", first, 0, 0, 1, List.of(), abilityId);
+        // Fase 1: el Prisma Elemental (funcion del Prisma Convertidor sin llevar el item, ver ElementalRestriction#skillAbsorbElement)
+        add(cls, key + "_prisma", new Perk("Prisma Elemental", () -> com.tudominio.testamentodelacarne.ModItems.PRISMA_CONVERTIDOR.get(),
+                () -> ModAttributes.ELEMENT_ABSORB.get(), Operation.ADDITION, 1.0), 1, 0, 2, List.of(key + "_raiz"), null);
         String prevA = key + "_raiz";
         String prevB = key + "_raiz";
         for (int i = 0; i < NODES_PER_PATH; i++) {

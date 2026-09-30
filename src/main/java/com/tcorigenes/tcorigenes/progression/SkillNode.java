@@ -29,6 +29,14 @@ public record SkillNode(
         double amount,
         String abilityId) {
 
+    /**
+     * Fase del arbol (todas las clases tienen 3): la 1 va de la raiz al nodo 8 de cada camino, la 2 del 9 al 16 y la 3 del 17 al 24
+     * mas la piedra clave. El nodo x de la grilla es su posicion en el camino.
+     */
+    public int phase() {
+        return x <= 8 ? 1 : x <= 16 ? 2 : 3;
+    }
+
     public UUID modifierId() {
         return UUID.nameUUIDFromBytes(("tcorigenes:skill:" + id).getBytes(java.nio.charset.StandardCharsets.UTF_8));
     }

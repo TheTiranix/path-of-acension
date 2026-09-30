@@ -36,6 +36,8 @@ public final class WeaponBalance {
         /** El elemento del ciclo lo lleva cada proyectil (se asigna al aparecer), no cada impacto (ej. los 3 torbellinos). */
         public boolean perProjectile;
         public Integer dex;
+        /** Linea extra del tooltip (ej. "Prende fuego"). */
+        public String note;
         public final List<Extra> extras = new ArrayList<>();
         public List<ResourceKey<DamageType>> cycle;
 
@@ -82,6 +84,11 @@ public final class WeaponBalance {
 
         public Spec one() {
             this.twoHanded = false;
+            return this;
+        }
+
+        public Spec note(String text) {
+            this.note = text;
             return this;
         }
 
@@ -174,6 +181,9 @@ public final class WeaponBalance {
             minDur(uses, prefix + piece);
         }
     }
+
+    /** Armaduras de ARMOR_FIXED cuya durabilidad se fija EXACTA (puede bajar la original); el resto solo sube. */
+    public static final java.util.Set<ResourceLocation> EXACT_DURABILITY = new java.util.HashSet<>();
 
     /** Durabilidad de herramientas (no armaduras) que se fija a mano: id -> usos. Ver ArmorDurability. */
     public static final Map<ResourceLocation, Integer> TOOL_DURABILITY = new HashMap<>();
@@ -271,6 +281,16 @@ public final class WeaponBalance {
                 "panascraftrpgmod:the_king_of_the_abyss_pickaxe", "panascraftrpgmod:the_king_of_the_abyss_shovel",
                 "panascraftrpgmod:the_king_of_the_abyss_hoe");
         w("cataclysm:cursed_bow").dmg(15000).shot();
+        // Arcos (pedido de alejandr0): el daño es por impacto; el arco vanilla hace 9 por flecha.
+        w("iceandfire:dragonbone_bow").dmg(12).shot();
+        w("burnt:flint_bow").dmg(11).shot().note("Prende fuego");
+        w("twilightforest:ice_bow").dmg(15).shot().el(ICE, 3);
+        w("twilightforest:ender_bow").dmg(15).shot().el(ENDER, 3);
+        w("twilightforest:seeker_bow").dmg(15).shot().el(NATURAL, 3);
+        w("aether:phoenix_bow").dmg(12).shot().el(FIRE, 3);
+        w("ars_nouveau:spell_bow").dmg(12).shot();
+        w("ars_nouveau:spell_crossbow").dmg(12).shot();
+        w("alexscaves:dreadbow").dmg(100).shot().el(LUNAR, 50).note("Genera una lluvia de flechas");
         w("cataclysm:gauntlet_of_maelstrom").dmg(300).el(ENDER, 200);
         w("mowziesmobs:axe_of_a_thousand_metals").two();
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
@@ -357,6 +377,11 @@ public final class WeaponBalance {
         w("immersive_weathering:ice_sickle").speed(2);
         w("mekanismtools:lapis_lazuli_paxel").speed(0.9);
 
+        // Osmium (Mekanism Tools): espada de 6.5 y el resto proporcional.
+        w("mekanismtools:osmium_sword").dmg(6.5);
+        group("mekanismtools:osmium_sword", 6.5, "mekanismtools:osmium_axe", "mekanismtools:osmium_pickaxe",
+                "mekanismtools:osmium_shovel", "mekanismtools:osmium_hoe", "mekanismtools:osmium_paxel");
+
         // Netherite vanilla: espada 18 y el resto proporcional.
         w("minecraft:netherite_sword").dmg(18);
         group("minecraft:netherite_sword", 18, "minecraft:netherite_axe", "minecraft:netherite_pickaxe",
@@ -378,6 +403,12 @@ public final class WeaponBalance {
                 "iceandfire:dragonbone_bow");
         for (String element : new String[] {"fire", "ice", "lightning"}) {
             minDurTools(1561 + 10000, "iceandfire:dragonsteel_" + element + "_");
+        }
+        for (String element : new String[] {"fire", "ice", "lightning"}) {
+            String swordId = "iceandfire:dragonsteel_" + element + "_sword";
+            w(swordId).dmg(50);
+            group(swordId, 50, "iceandfire:dragonsteel_" + element + "_axe", "iceandfire:dragonsteel_" + element + "_pickaxe",
+                    "iceandfire:dragonsteel_" + element + "_shovel", "iceandfire:dragonsteel_" + element + "_hoe");
         }
         minDur(2500, "iceandfire:dread_sword", "iceandfire:dread_knight_sword", "iceandfire:dread_queen_sword",
                 "iceandfire:tide_trident", "iceandfire:troll_weapon_axe", "iceandfire:troll_weapon_hammer");
@@ -511,19 +542,16 @@ public final class WeaponBalance {
             // pieza e inmunidad al frio con el set completo (ver YetiArmor y ClimateImmunity).
             ARMOR_FIXED.put(rl("twilightforest:yeti_" + piece), new ArmorFixed(defense, 5, scaledDurability(defense, 5, defense), rl("minecraft:diamond_" + piece)));
             // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 1000 usos mas (2500)
-            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(defense + 2, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
-            // Dragon scale armor (Ice and Fire, todos los colores): 8 casco y botas, 13 pechera, 11 pantalones, 6 de tenacidad
-            // y 500 usos mas que gravitite/netherite (2000).
-            double dragonDefense = switch (piece) {
-                case "helmet" -> 8;
-                case "chestplate" -> 13;
-                case "leggings" -> 11;
-                default -> 8;
-            };
+            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(diamondDefenseOf(piece) * 2.5, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("twilightforest:fiery_" + piece));
+            // Dragon scale armor (Ice and Fire, todos los colores): iguales a las de fiery (2.5 veces el diamante, 5 de tenacidad,
+            // 2500 usos).
+            double dragonDefense = diamondDefenseOf(piece) * 2.5;
             for (String color : new String[] {"amythest", "black", "blue", "bronze", "copper", "electric", "gray", "green",
                     "red", "sapphire", "silver", "white"}) {
                 ARMOR_FIXED.put(rl("iceandfire:armor_" + color + "_" + piece),
-                        new ArmorFixed(dragonDefense, 6, GRAVITITE_DURABILITY + 500, rl("minecraft:diamond_" + piece)));
+                        new ArmorFixed(dragonDefense, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+                EXACT_DURABILITY.add(rl("iceandfire:armor_" + color + "_" + piece));
             }
             // Armaduras "como" otra (diamante / netherite): tambien igualan su durabilidad (nunca la bajan, ver ArmorDurability)
             for (String set : new String[] {"twilightforest:steeleaf_", "seadwellers:depth_"}) {
@@ -547,13 +575,8 @@ public final class WeaponBalance {
             ARMOR_LIKE.put(rl("seadwellers:depth_" + piece), rl("minecraft:diamond_" + piece));
             // Diving Armor (Alex's Caves): al nivel del netherite (proteccion y dureza).
             ARMOR_LIKE.put(rl("alexscaves:diving_" + (piece.equals("chestplate") ? "chestplate" : piece)), rl("minecraft:netherite_" + piece));
-            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 12 casco y botas, 17 pechera, 15 pantalones y 10000 usos mas que el diamante.
-            double dragonsteelDefense = switch (piece) {
-                case "helmet" -> 12;
-                case "chestplate" -> 17;
-                case "leggings" -> 15;
-                default -> 12;
-            };
+            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 6 veces la proteccion y la durabilidad del diamante (tenacidad sin tocar).
+            double dragonsteelDefense = diamondDefenseOf(piece) * 6.0;
             int diamondPieceDurability = switch (piece) {
                 case "helmet" -> 363;
                 case "chestplate" -> 528;
@@ -562,7 +585,8 @@ public final class WeaponBalance {
             };
             for (String element : new String[] {"fire", "ice", "lightning"}) {
                 ARMOR_FIXED.put(rl("iceandfire:dragonsteel_" + element + "_" + piece),
-                        new ArmorFixed(dragonsteelDefense, Double.NaN, diamondPieceDurability + 10000, rl("minecraft:diamond_" + piece)));
+                        new ArmorFixed(dragonsteelDefense, Double.NaN, diamondPieceDurability * 6, rl("minecraft:diamond_" + piece)));
+                EXACT_DURABILITY.add(rl("iceandfire:dragonsteel_" + element + "_" + piece));
             }
             // Cursium e Ignitium (Cataclysm): 30 veces la proteccion del diamante y 20 de tenacidad por pieza (ignitium tambien en
             // su version con elytra).
@@ -575,6 +599,19 @@ public final class WeaponBalance {
                 ARMOR_FIXED.put(rl("cataclysm:ignitium_elytra_chestplate"),
                         new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_chestplate")));
             }
+            // Ghost Warrior (EEEAB's Mobs): iguales a las de Skymetal e Ignitium (ademas son inmunes al wither, ver ClimateImmunity).
+            ARMOR_FIXED.put(rl("eeeabsmobs:ghost_warrior_" + piece),
+                    new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_" + piece)));
+            // Osmium (Mekanism Tools): 2.5 casco y botas, 6 pechera, 5 pantalones, 1 de tenacidad; durabilidad proporcional (exacta).
+            double osmiumDefense = switch (piece) {
+                case "helmet" -> 2.5;
+                case "chestplate" -> 6;
+                case "leggings" -> 5;
+                default -> 2.5;
+            };
+            ARMOR_FIXED.put(rl("mekanismtools:osmium_" + piece),
+                    new ArmorFixed(osmiumDefense, 1, scaledDurability(osmiumDefense, 1, defense), rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("mekanismtools:osmium_" + piece));
             // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
             double darkMetalDefense = switch (piece) {
                 case "helmet" -> 4;

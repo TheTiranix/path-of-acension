@@ -75,6 +75,9 @@ public final class WeaponStatTooltip {
             lines.add(attributeLine("+" + trim(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE) + " Daño Elemental de Ender"));
             return lines;
         }
+        if (id.toString().equals("minecraft:bow")) {
+            lines.add(attributeLine("+9 Daño por impacto"));
+        }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
         if (spec != null) {
             if (spec.ranged && spec.damage != null) {
@@ -82,6 +85,9 @@ public final class WeaponStatTooltip {
             }
             for (WeaponBalance.Extra extra : spec.extras) {
                 lines.add(attributeLine("+" + trim(extra.amount()) + " Daño Elemental de " + elementName(extra.element())));
+            }
+            if (spec.note != null) {
+                lines.add(attributeLine(spec.note));
             }
             if (spec.cycle != null && !spec.cycle.isEmpty()) {
                 StringBuilder sb = new StringBuilder();

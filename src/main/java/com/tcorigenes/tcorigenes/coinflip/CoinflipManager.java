@@ -261,7 +261,7 @@ public final class CoinflipManager {
                 }
                 slots.get(order.get(next++)).set(stack);
             }
-            player.displayClientMessage(Component.literal("La moneda cayó de tu lado: el cofre te sonríe.")
+            player.displayClientMessage(Component.literal("La moneda cayó de tu lado: el destino te sonríe.")
                     .withStyle(ChatFormatting.GOLD), true);
         } else {
             for (Slot slot : slots) {
