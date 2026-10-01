@@ -11,12 +11,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * Armaduras de arcane y de black steel (pedido de alejandr0): 4 veces la proteccion del diamante (12 / 24 / 32 / 12), 8 de tenacidad por
- * pieza y 60000 usos cada una. Los valores finales los fija WeaponBalance#ARMOR_FIXED; aca estan los mismos para el material.
+ * pieza y 5000 usos cada una (el doble que fiery). Los valores finales los fija WeaponBalance#ARMOR_FIXED; aca estan los mismos para el material.
  */
 public final class TierArmorMaterial implements ArmorMaterial {
     public static final TierArmorMaterial ARCANE = new TierArmorMaterial("testamentodelacarne:arcane", "irons_spellbooks:arcane_salvage");
     public static final TierArmorMaterial BLACK_STEEL = new TierArmorMaterial("testamentodelacarne:black_steel", "cataclysm:black_steel_ingot");
-    private static final int[] DURABILITY = {60000, 60000, 60000, 60000}; // boots, leggings, chestplate, helmet
+    private static final int[] DURABILITY = {5000, 5000, 5000, 5000}; // boots, leggings, chestplate, helmet
     private static final int[] DEFENSE = {12, 24, 32, 12};
 
     private final String name;

@@ -19,6 +19,51 @@ public final class MiscArmorMaterials {
     private MiscArmorMaterials() {
     }
 
+    /** Wrought (set completo de Mowzie's, pedido de alejandr0): 20 veces el diamante, 15 de tenacidad, irrompible. */
+    public static final ArmorMaterial WROUGHT = new ArmorMaterial() {
+        private final int[] defense = {60, 120, 160, 60};
+
+        @Override
+        public int getDurabilityForType(ArmorItem.Type type) {
+            return 1;
+        }
+
+        @Override
+        public int getDefenseForType(ArmorItem.Type type) {
+            return defense[type.ordinal()];
+        }
+
+        @Override
+        public int getEnchantmentValue() {
+            return 10;
+        }
+
+        @Override
+        public SoundEvent getEquipSound() {
+            return SoundEvents.ARMOR_EQUIP_IRON;
+        }
+
+        @Override
+        public Ingredient getRepairIngredient() {
+            return Ingredient.EMPTY;
+        }
+
+        @Override
+        public String getName() {
+            return "testamentodelacarne:wrought";
+        }
+
+        @Override
+        public float getToughness() {
+            return 15.0F;
+        }
+
+        @Override
+        public float getKnockbackResistance() {
+            return 0.0F;
+        }
+    };
+
     /** Naga Scale: igual que el diamante. */
     public static final ArmorMaterial NAGA = new ArmorMaterial() {
         private final int[] durability = {429, 495, 528, 363};

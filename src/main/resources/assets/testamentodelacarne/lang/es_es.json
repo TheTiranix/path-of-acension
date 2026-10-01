@@ -192,5 +192,8 @@
   "item.testamentodelacarne.darkness_leggings": "Pantalones de la Oscuridad",
   "item.testamentodelacarne.darkness_boots": "Botas de la Oscuridad",
   "item.testamentodelacarne.naga_helmet": "Casco de Escamas de Naga",
-  "item.testamentodelacarne.naga_boots": "Botas de Escamas de Naga"
+  "item.testamentodelacarne.naga_boots": "Botas de Escamas de Naga",
+  "item.testamentodelacarne.wrought_chestplate": "Peto Forjado",
+  "item.testamentodelacarne.wrought_leggings": "Pantalones Forjados",
+  "item.testamentodelacarne.wrought_boots": "Botas Forjadas"
 }

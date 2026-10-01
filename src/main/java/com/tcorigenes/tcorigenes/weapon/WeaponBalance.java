@@ -298,7 +298,7 @@ public final class WeaponBalance {
         w("aether:phoenix_bow").dmg(12).shot().el(FIRE, 3);
         w("ars_nouveau:spell_bow").dmg(12).shot();
         w("ars_nouveau:spell_crossbow").dmg(12).shot();
-        w("alexscaves:dreadbow").dmg(100).shot().el(LUNAR, 50).note("Genera una lluvia de flechas");
+        w("alexscaves:dreadbow").dmg(100).shot().el(LUNAR, 50).note("Hace llover flechas oscuras del cielo (cada una pega con este daño)");
         w("cataclysm:gauntlet_of_maelstrom").dmg(300).el(ENDER, 200);
         w("mowziesmobs:wrought_axe").two(); // el Axe of a Thousand Metals es la wrought_axe
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
@@ -413,8 +413,11 @@ public final class WeaponBalance {
         minDurTools(3000, "iceandfire:dragonbone_");
         minDur(3000, "iceandfire:dragonbone_sword_fire", "iceandfire:dragonbone_sword_ice", "iceandfire:dragonbone_sword_lightning",
                 "iceandfire:dragonbone_bow");
+        // dragonsteel: 20% mas que arcane y black steel (6062 x 1.2); arcane/black steel: el doble que fiery (3031 x 2)
         for (String element : new String[] {"fire", "ice", "lightning"}) {
-            minDurTools(1561 + 10000, "iceandfire:dragonsteel_" + element + "_");
+            for (String tool : TOOLS5) {
+                TOOL_DURABILITY.put(rl("iceandfire:dragonsteel_" + element + "_" + tool), 7274);
+            }
         }
         for (String element : new String[] {"fire", "ice", "lightning"}) {
             String swordId = "iceandfire:dragonsteel_" + element + "_sword";
@@ -431,8 +434,13 @@ public final class WeaponBalance {
         }
 
         // Panascraft: todo con durabilidad altisima.
-        minDurTools(20000, "panascraftrpgmod:the_king_of_the_abyss_");
-        minDurArmor(20000, "panascraftrpgmod:the_king_of_the_abyss_armor_");
+        // The King of the Abyss: armadura y herramientas irrompibles (durabilidad 0)
+        for (String tool : TOOLS5) {
+            TOOL_DURABILITY.put(rl("panascraftrpgmod:the_king_of_the_abyss_" + tool), 0);
+        }
+        for (String piece : ARMOR4) {
+            TOOL_DURABILITY.put(rl("panascraftrpgmod:the_king_of_the_abyss_armor_" + piece), 0);
+        }
         minDurArmor(20000, "panascraftrpgmod:upgraded_armor_");
         minDurArmor(20000, "panascraftrpgmod:void_armor_");
         minDur(20000, "panascraftrpgmod:void_sword");
@@ -494,8 +502,10 @@ public final class WeaponBalance {
             w("testamentodelacarne:arcane_" + tool).likeScaled("minecraft:diamond_" + tool, 34.0 / 7.0);
         }
         // 100000 usos: armas y herramientas de black steel (Cataclysm) y las armas de arcane de Iron's Spellbooks
-        minDur(100000, "cataclysm:black_steel_sword", "cataclysm:black_steel_axe", "cataclysm:black_steel_pickaxe",
-                "cataclysm:black_steel_shovel", "cataclysm:black_steel_hoe", "irons_spellbooks:amethyst_rapier", "irons_spellbooks:spellbreaker");
+        for (String id : new String[] {"cataclysm:black_steel_sword", "cataclysm:black_steel_axe", "cataclysm:black_steel_pickaxe",
+                "cataclysm:black_steel_shovel", "cataclysm:black_steel_hoe", "irons_spellbooks:amethyst_rapier", "irons_spellbooks:spellbreaker"}) {
+            TOOL_DURABILITY.put(rl(id), 6062);
+        }
 
         // Herramientas de zafiro (nuestras): al nivel del diamante.
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
@@ -606,23 +616,23 @@ public final class WeaponBalance {
             };
             for (String element : new String[] {"fire", "ice", "lightning"}) {
                 ARMOR_FIXED.put(rl("iceandfire:dragonsteel_" + element + "_" + piece),
-                        new ArmorFixed(dragonsteelDefense, Double.NaN, diamondPieceDurability * 6, rl("minecraft:diamond_" + piece)));
+                        new ArmorFixed(dragonsteelDefense, Double.NaN, 6000, rl("minecraft:diamond_" + piece)));
                 EXACT_DURABILITY.add(rl("iceandfire:dragonsteel_" + element + "_" + piece));
             }
             // Cursium e Ignitium (Cataclysm): 30 veces la proteccion del diamante y 20 de tenacidad por pieza (ignitium tambien en
             // su version con elytra).
             double cataclysmDefense = diamondDefenseOf(piece) * 30.0;
             ARMOR_FIXED.put(rl("cataclysm:cursium_" + piece),
-                    new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_" + piece)));
+                    new ArmorFixed(cataclysmDefense, 20, 0, rl("minecraft:diamond_" + piece)));
             ARMOR_FIXED.put(rl("cataclysm:ignitium_" + piece),
-                    new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_" + piece)));
+                    new ArmorFixed(cataclysmDefense, 20, 0, rl("minecraft:diamond_" + piece)));
             if (piece.equals("chestplate")) {
                 ARMOR_FIXED.put(rl("cataclysm:ignitium_elytra_chestplate"),
-                        new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_chestplate")));
+                        new ArmorFixed(cataclysmDefense, 20, 0, rl("minecraft:diamond_chestplate")));
             }
             // Ghost Warrior (EEEAB's Mobs): iguales a las de Skymetal e Ignitium (ademas son inmunes al wither, ver ClimateImmunity).
             ARMOR_FIXED.put(rl("eeeabsmobs:ghost_warrior_" + piece),
-                    new ArmorFixed(cataclysmDefense, 20, scaledDurability(cataclysmDefense, 20, defense), rl("minecraft:diamond_" + piece)));
+                    new ArmorFixed(cataclysmDefense, 20, 0, rl("minecraft:diamond_" + piece)));
             // Osmium (Mekanism Tools): 2.5 casco y botas, 6 pechera, 5 pantalones, 1 de tenacidad; durabilidad proporcional (exacta).
             double osmiumDefense = switch (piece) {
                 case "helmet" -> 2.5;
@@ -636,12 +646,16 @@ public final class WeaponBalance {
             // Armaduras de arcane y black steel (nuestras): 4 veces la proteccion del diamante, 8 de tenacidad, 60000 usos cada pieza.
             for (String set : new String[] {"arcane", "black_steel"}) {
                 ARMOR_FIXED.put(rl("testamentodelacarne:" + set + "_" + piece),
-                        new ArmorFixed(diamondDefenseOf(piece) * 4.0, 8, 60000, rl("minecraft:diamond_" + piece)));
+                        new ArmorFixed(diamondDefenseOf(piece) * 4.0, 8, 5000, rl("minecraft:diamond_" + piece)));
                 EXACT_DURABILITY.add(rl("testamentodelacarne:" + set + "_" + piece));
             }
             // Wrought Helm (Mowzie's): 60 de proteccion y 15 de tenacidad (velocidades en WroughtHelmTweaks).
             if (piece.equals("helmet")) {
-                ARMOR_FIXED.put(rl("mowziesmobs:wrought_helmet"), new ArmorFixed(60, 15, -1, rl("minecraft:diamond_helmet")));
+                ARMOR_FIXED.put(rl("mowziesmobs:wrought_helmet"), new ArmorFixed(60, 15, 0, rl("minecraft:diamond_helmet")));
+            } else {
+                // resto del set (nuestro): la misma relacion que el diamante (casco 3 -> 60 = 20 veces), 15 de tenacidad, irrompible
+                ARMOR_FIXED.put(rl("testamentodelacarne:wrought_" + piece),
+                        new ArmorFixed(diamondDefenseOf(piece) * 20.0, 15, 0, rl("minecraft:diamond_" + piece)));
             }
             // Naga Scale (Twilight Forest): tunica y pantalones iguales al diamante (casco y botas son nuestros, ver NagaArmorItem).
             if (piece.equals("chestplate")) {

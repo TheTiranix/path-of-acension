@@ -106,6 +106,9 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.NAGA_BOOTS.get());
                         output.accept((ItemLike) ModItems.DARKNESS_LEGGINGS.get());
                         output.accept((ItemLike) ModItems.DARKNESS_BOOTS.get());
+                        output.accept((ItemLike) ModItems.WROUGHT_CHESTPLATE.get());
+                        output.accept((ItemLike) ModItems.WROUGHT_LEGGINGS.get());
+                        output.accept((ItemLike) ModItems.WROUGHT_BOOTS.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_SWORD.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_PICKAXE.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_AXE.get());

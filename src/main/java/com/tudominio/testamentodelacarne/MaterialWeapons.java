@@ -41,14 +41,14 @@ public final class MaterialWeapons {
             new Material("zanite", "Zanite", 1.0, 1100, "aether:zanite_gemstone"), // zanite = diamante del mismo tipo
             new Material("gravitite", "Gravitite", 18.0 / 7.0, 1300, "testamentodelacarne:gravitite_gem"),
             // black steel y arcane: 34 de daño la espada basica (34 / 7 del diamante) y 100000 usos (pedido de alejandr0)
-            new Material("black_steel", "Black Steel", 34.0 / 7.0, 100000, "cataclysm:black_steel_ingot"),
+            new Material("black_steel", "Black Steel", 34.0 / 7.0, 6062, "cataclysm:black_steel_ingot"),
             new Material("knightmetal", "Knightmetal", 1.0, 1500, "twilightforest:knightmetal_ingot"),
             new Material("steeleaf", "Steeleaf", 1.0, 1100, "twilightforest:steeleaf_ingot"),
             // fiery: 1000 usos mas que las herramientas de netherite (2031 + 1000)
             new Material("fiery", "Fiery", 26.0 / 7.0, 3031, "twilightforest:fiery_ingot"),
             // zafiro: como el diamante (daño) con 100 usos mas (1561 + 100), se craftea con el sapphire_gem de Ice and Fire
             new Material("sapphire", "Sapphire", 1.0, 1661, "iceandfire:sapphire_gem"),
-            new Material("arcane", "Arcane", 34.0 / 7.0, 100000, "irons_spellbooks:arcane_salvage"),
+            new Material("arcane", "Arcane", 34.0 / 7.0, 6062, "irons_spellbooks:arcane_salvage"),
             // diascite (Sculk Horde): al nivel del dark metal (espada de 10 de daño, 1800 usos)
             new Material("diascite", "Diascite", 10.0 / 7.0, 1800, "sculkhorde:diascite"));
 

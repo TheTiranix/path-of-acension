@@ -307,6 +307,18 @@ public class ModItems {
             "darkness_boots", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.DARKNESS,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
 
+    public static final RegistryObject<Item> WROUGHT_CHESTPLATE = ITEMS.register(
+            "wrought_chestplate", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.WROUGHT,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> WROUGHT_LEGGINGS = ITEMS.register(
+            "wrought_leggings", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.WROUGHT,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> WROUGHT_BOOTS = ITEMS.register(
+            "wrought_boots", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.WROUGHT,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
+
     public static final RegistryObject<Item> SAPPHIRE_SWORD = ITEMS.register(
             "sapphire_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 3, -2.4F, new Item.Properties()));

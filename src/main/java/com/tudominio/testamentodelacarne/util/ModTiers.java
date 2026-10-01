@@ -17,7 +17,7 @@ public class ModTiers {
 
     /** Herramientas y espada de arcane (pedido de alejandr0): 100000 usos, se reparan con arcane salvage. */
     public static final ForgeTier ARCANE_TIER = new ForgeTier(
-            5, 100000, 14.0F, 5.0F, 25, BlockTags.NEEDS_DIAMOND_TOOL,
+            5, 6062, 14.0F, 5.0F, 25, BlockTags.NEEDS_DIAMOND_TOOL,
             () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "arcane_salvage")))
     );

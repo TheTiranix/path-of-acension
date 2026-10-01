@@ -57,6 +57,11 @@ public final class WeaponElemental {
         ResourceLocation id;
         boolean shot = false;
         Entity direct = event.getSource().getDirectEntity();
+        // Dreadbow: las flechas oscuras (las que llueven del cielo tambien) pegan con un tipo de daño propio de Alex's Caves cuyo
+        // causante directo es el propio jugador: no pasan por la deteccion de proyectil y hacian el daño casi sin modificar
+        if (event.getSource().typeHolder().unwrapKey().map(k -> k.location().toString().equals("alexscaves:dark_arrow")).orElse(false)) {
+            return new Source(ResourceLocation.fromNamespaceAndPath("alexscaves", "dreadbow"), true);
+        }
         ResourceLocation directId = direct == null || direct == attacker ? null
                 : ForgeRegistries.ENTITY_TYPES.getKey(direct.getType());
         if (directId != null && SHOT_ENTITIES.containsKey(directId)) {
