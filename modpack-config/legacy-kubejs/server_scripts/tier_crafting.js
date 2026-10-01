@@ -20,3 +20,11 @@ ServerEvents.recipes(event => {
     event.remove({ output: output });
   });
 });
+
+// Netherite (armas, herramientas y armaduras): ya no se mejoran desde diamante en la mesa de herreria; se hacen mejorando un item de
+// dark metal con 4 lingotes de netherite en cruz en la mesa tier 2 (recetas netherite_*_upgrade del mod).
+ServerEvents.recipes(event => {
+  ["minecraft:netherite_sword", "minecraft:netherite_pickaxe", "minecraft:netherite_axe", "minecraft:netherite_shovel", "minecraft:netherite_hoe", "minecraft:netherite_helmet", "minecraft:netherite_chestplate", "minecraft:netherite_leggings", "minecraft:netherite_boots"].forEach(output => {
+    event.remove({ output: output, type: 'minecraft:smithing_transform' });
+  });
+});

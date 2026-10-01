@@ -41,8 +41,16 @@ public final class KeresShadowControl {
         if (event.getLevel().isClientSide() || !SHADOW.equals(ForgeRegistries.ENTITY_TYPES.getKey(event.getEntity().getType()))) {
             return;
         }
-        if (!(event.getEntity() instanceof Projectile projectile) || !(projectile.getOwner() instanceof Player owner)) {
+        if (!(event.getEntity() instanceof Projectile projectile)) {
             return;
+        }
+        Player owner = projectile.getOwner() instanceof Player p ? p : null;
+        if (owner == null) {
+            // el dueño se asigna a veces despues de que aparece: se toma al jugador mas cercano con la Keres en la mano
+            owner = event.getLevel().getNearestPlayer(projectile, 12.0);
+            if (owner == null || !"celestisynth:keres".equals(String.valueOf(ForgeRegistries.ITEMS.getKey(owner.getMainHandItem().getItem())))) {
+                return;
+            }
         }
         if (!enabled(owner)) {
             event.setCanceled(true);

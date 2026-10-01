@@ -13,10 +13,7 @@
       "item": "cataclysm:black_steel_ingot"
     },
     "S": {
-      "item": "minecraft:stick"
-    },
-    "E": {
-      "item": "minecraft:diamond"
+      "item": "iceandfire:sapphire_gem"
     }
   },
   "result": {

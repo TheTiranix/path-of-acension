@@ -3,17 +3,17 @@
   "category": "equipment",
   "pattern": [
     "  M  ",
-    " MM  ",
-    " MM  ",
-    "MMEM ",
-    " S   "
+    " MMM ",
+    " MMM ",
+    "MMEMM",
+    "  S  "
   ],
   "key": {
     "M": {
       "item": "cataclysm:black_steel_ingot"
     },
     "S": {
-      "item": "minecraft:stick"
+      "item": "iceandfire:sapphire_gem"
     },
     "E": {
       "item": "minecraft:diamond"

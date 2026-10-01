@@ -2,18 +2,18 @@
   "type": "testamentodelacarne:tier3_shaped",
   "category": "equipment",
   "pattern": [
-    "  MM ",
+    "  M  ",
     " MMM ",
-    "  SM ",
     "  S  ",
-    " ESE "
+    " ESE ",
+    "  S  "
   ],
   "key": {
     "M": {
       "item": "irons_spellbooks:arcane_salvage"
     },
     "S": {
-      "item": "minecraft:stick"
+      "item": "iceandfire:sapphire_gem"
     },
     "E": {
       "item": "irons_spellbooks:weapon_parts"

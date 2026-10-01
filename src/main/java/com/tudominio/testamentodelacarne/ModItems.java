@@ -229,7 +229,7 @@ public class ModItems {
             "blue_flint_and_steel", () -> new net.minecraft.world.item.FlintAndSteelItem(new Item.Properties().durability(256)));
 
     public static final RegistryObject<Item> ARCANE_HELMET = ITEMS.register(
-            "arcane_helmet", () -> new net.minecraft.world.item.ArmorItem(
+            "arcane_helmet", () -> new ArcaneArmorItem(
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
 
@@ -239,7 +239,7 @@ public class ModItems {
                     net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ARCANE_CHESTPLATE = ITEMS.register(
-            "arcane_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+            "arcane_chestplate", () -> new ArcaneArmorItem(
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
 
@@ -249,7 +249,7 @@ public class ModItems {
                     net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ARCANE_LEGGINGS = ITEMS.register(
-            "arcane_leggings", () -> new net.minecraft.world.item.ArmorItem(
+            "arcane_leggings", () -> new ArcaneArmorItem(
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
 
@@ -259,7 +259,7 @@ public class ModItems {
                     net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ARCANE_BOOTS = ITEMS.register(
-            "arcane_boots", () -> new net.minecraft.world.item.ArmorItem(
+            "arcane_boots", () -> new ArcaneArmorItem(
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 

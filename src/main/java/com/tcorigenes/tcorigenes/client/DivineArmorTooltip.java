@@ -67,7 +67,7 @@ public final class DivineArmorTooltip {
         return result;
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST)
     public static void onGather(RenderTooltipEvent.GatherComponents event) {
         if (!isDivine(event.getItemStack())) {
             return;

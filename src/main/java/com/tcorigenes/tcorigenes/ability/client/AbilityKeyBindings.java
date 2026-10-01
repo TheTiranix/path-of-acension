@@ -28,8 +28,6 @@ public class AbilityKeyBindings {
     public static final KeyMapping TOGGLE_KERES_SHADOWS = new KeyMapping(
             "key.tcorigenes.toggle_keres_shadows", InputConstants.Type.KEYSYM, InputConstants.KEY_K, "key.categories.tcorigenes");
 
-    private static boolean keresShadows = true;
-
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(ACTIVATE_ABILITY);
@@ -50,13 +48,7 @@ public class AbilityKeyBindings {
             SkillTreeScreen.open();
         }
         while (TOGGLE_KERES_SHADOWS.consumeClick()) {
-            keresShadows = !keresShadows;
-            Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(keresShadows));
-            var player = net.minecraft.client.Minecraft.getInstance().player;
-            if (player != null) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal(keresShadows
-                        ? "Lanzas negras de la Keres: activadas (2 de vida cada una)" : "Lanzas negras de la Keres: desactivadas"), true);
-            }
+            Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(true));
         }
         while (ACTIVATE_RACIAL.consumeClick()) {
             Networking.sendToServer(new ActivateRacialAbilityPacket());

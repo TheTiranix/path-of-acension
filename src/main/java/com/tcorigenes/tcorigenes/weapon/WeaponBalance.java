@@ -307,7 +307,7 @@ public final class WeaponBalance {
         w("celestisynth:breezebreaker").dmg(180000).speed(3).cycle(AIR, NATURAL, N, N);
         w("celestisynth:solaris").dmg(200000).speed(2.7).cycle(FIRE, LUNAR, N, N);
         w("celestisynth:crescentia").dmg(450000).speed(1.5).two().cycle(ENDER, EARTH, N, N);
-        w("celestisynth:frostbound").dmg(450000).speed(1.5).two().cycle(ICE, AIR, N, N);
+        w("celestisynth:frostbound").dmg(450000).speed(1.5).two().cycle(ICE, AIR, N, N).note("Arma de dos manos");
         w("celestisynth:keres").dmg(400000).cycle(LUNAR, AIR, N, N);
         w("celestisynth:poltergeist").dmg(220000).speed(2.4).cycle(LIGHT, NATURAL, N, N);
 
@@ -482,7 +482,8 @@ public final class WeaponBalance {
         minDur(8000, "cataclysm:meat_shredder", "cataclysm:soul_render", "cataclysm:zweiender");
         minDur(5000, "cataclysm:gauntlet_of_bulwark", "cataclysm:gauntlet_of_guard", "cataclysm:gauntlet_of_maelstrom",
                 "mowziesmobs:earthrend_gauntlet", "alexscaves:galena_gauntlet");
-        minDur(6000, "alexscaves:extinction_spear", "mowziesmobs:wrought_axe");
+        minDur(6000, "alexscaves:extinction_spear");
+        TOOL_DURABILITY.put(rl("mowziesmobs:wrought_axe"), 0); // Axe of a Thousand Metals: irrompible
         minDur(5000, "eeeabsmobs:guardian_axe");
         minDur(4000, "scary_mobs:mallet");
         minDur(3000, "eeeabsmobs:immortal_sword", "eeeabsmobs:immortal_axe", "eeeabsmobs:netherworld_katana");
