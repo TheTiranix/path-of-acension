@@ -126,6 +126,9 @@ public final class WeaponDamageOverrides {
         }
         EquipmentSlot slot = event.getSlotType();
         if (slot != EquipmentSlot.MAINHAND) {
+            if (event.getItemStack().getItem() instanceof net.minecraft.world.item.ArmorItem armorItem && armorItem.getEquipmentSlot() != slot) {
+                return; // el tooltip pide todas las ranuras: lo de una pieza solo va en la suya
+            }
             applyArmor(event, id);
             return;
         }

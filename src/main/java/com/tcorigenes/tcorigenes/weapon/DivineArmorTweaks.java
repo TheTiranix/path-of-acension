@@ -57,6 +57,11 @@ public final class DivineArmorTweaks {
         if (event.getSlotType().getType() != EquipmentSlot.Type.ARMOR) {
             return;
         }
+        // el tooltip pide los atributos de TODAS las ranuras: solo se tocan los de la ranura propia de la pieza
+        if (event.getItemStack().getItem() instanceof net.minecraft.world.item.ArmorItem armorItem
+                && armorItem.getEquipmentSlot() != event.getSlotType()) {
+            return;
+        }
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem());
         if (id != null && id.getNamespace().equals("twilightforest") && id.getPath().startsWith("yeti_")) {
             // Yeti: 10% de resistencia al retroceso por pieza (la proteccion y la tenacidad estan en WeaponBalance).
