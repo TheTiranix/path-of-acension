@@ -314,15 +314,58 @@ public class SkillTreeScreen extends Screen {
         g.fill(cx - 1, Math.min(py, cy), cx + 1, Math.max(py, cy) + 1, color);
     }
 
-    /** Las 3 fases del arbol: franjas verticales con su nombre (ver SkillNode#phase). */
+    /** Las 3 fases del arbol (ver SkillNode#phase): franjas con degradado, marco, brillo en los bordes y un cartel con nombre. */
     private void drawPhaseBands(GuiGraphics g) {
         int[][] ranges = {{0, 8}, {9, 16}, {17, 25}};
-        int[] colors = {0x2255AAFF, 0x22FFD700, 0x22FF5555};
+        int[] accent = {0xFF55B8FF, 0xFFFFD24A, 0xFFFF5A4A};
+        String[] titles = {"I \u00b7 DESPERTAR", "II \u00b7 ASCENSO", "III \u00b7 TRASCENDENCIA"};
+        String[] subtitles = {"los primeros pasos de tu camino", "el poder se afianza", "la cumbre de la clase"};
+        int top = -3 * CELL;
+        int bottom = 3 * CELL;
         for (int i = 0; i < ranges.length; i++) {
             int left = ranges[i][0] * CELL - CELL / 2;
             int right = ranges[i][1] * CELL + CELL / 2;
-            g.fill(left, -3 * CELL, right, 3 * CELL, colors[i]);
-            g.drawString(this.font, "FASE " + (i + 1), left + 8, -3 * CELL + 6, 0xFFFFFFFF, false);
+            int color = accent[i] & 0x00FFFFFF;
+            // fondo: degradado vertical (mas claro arriba, oscuro abajo)
+            g.fillGradient(left, top, right, bottom, 0x55000000 | color, 0x14000000 | color);
+            // puntitos tenues a modo de textura
+            for (int x = left + 10; x < right - 4; x += 22) {
+                for (int y = top + 38; y < bottom - 6; y += 22) {
+                    g.fill(x, y, x + 1, y + 1, 0x30000000 | color);
+                }
+            }
+            // marco con brillo: linea fuerte al borde y dos mas suaves hacia adentro
+            g.fill(left, top, right, top + 2, accent[i]);
+            g.fill(left, bottom - 2, right, bottom, accent[i]);
+            g.fill(left, top + 2, right, top + 4, 0x66000000 | color);
+            g.fill(left, bottom - 4, right, bottom - 2, 0x66000000 | color);
+            g.fill(left, top + 4, right, top + 6, 0x30000000 | color);
+            g.fill(left, bottom - 6, right, bottom - 4, 0x30000000 | color);
+            // divisorias verticales entre fases (la primera y la ultima son el borde del arbol)
+            g.fill(left, top, left + 2, bottom, accent[i]);
+            g.fill(left + 2, top, left + 5, bottom, 0x40000000 | color);
+            g.fill(right - 2, top, right, bottom, accent[i]);
+            g.fill(right - 5, top, right - 2, bottom, 0x40000000 | color);
+            // esquinas con rombo
+            for (int[] corner : new int[][] {{left, top}, {right, top}, {left, bottom}, {right, bottom}}) {
+                g.fill(corner[0] - 4, corner[1] - 1, corner[0] + 4, corner[1] + 1, 0xFFFFFFFF);
+                g.fill(corner[0] - 1, corner[1] - 4, corner[0] + 1, corner[1] + 4, 0xFFFFFFFF);
+            }
+            // cartel con el nombre de la fase
+            int bannerW = Math.min(right - left - 24, 190);
+            int bannerX = (left + right) / 2 - bannerW / 2;
+            int bannerY = top + 8;
+            g.fillGradient(bannerX, bannerY, bannerX + bannerW, bannerY + 26, 0xE0000000 | (color & 0x303030), 0xE0101010);
+            g.fill(bannerX, bannerY, bannerX + bannerW, bannerY + 1, accent[i]);
+            g.fill(bannerX, bannerY + 25, bannerX + bannerW, bannerY + 26, accent[i]);
+            g.fill(bannerX, bannerY, bannerX + 1, bannerY + 26, accent[i]);
+            g.fill(bannerX + bannerW - 1, bannerY, bannerX + bannerW, bannerY + 26, accent[i]);
+            g.pose().pushPose();
+            g.pose().translate((left + right) / 2.0, bannerY + 4, 0);
+            g.pose().scale(1.25F, 1.25F, 1F);
+            g.drawCenteredString(this.font, "\u2726 FASE " + titles[i] + " \u2726", 0, 0, accent[i]);
+            g.pose().popPose();
+            g.drawCenteredString(this.font, subtitles[i], (left + right) / 2, bannerY + 16, 0xFFAAAAAA);
         }
     }
 

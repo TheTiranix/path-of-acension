@@ -27,6 +27,10 @@ public abstract class ItemStackRarityMixin {
             return;
         }
         var item = self.getItem();
+        if (com.tcorigenes.tcorigenes.weapon.PlainNameItems.matches(ForgeRegistries.ITEMS.getKey(item))) {
+            cir.setReturnValue(Rarity.COMMON);
+            return;
+        }
         if (item instanceof TieredItem || item instanceof ProjectileWeaponItem || item instanceof TridentItem) {
             ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
             if (id != null && !id.getNamespace().equals("celestisynth")) {

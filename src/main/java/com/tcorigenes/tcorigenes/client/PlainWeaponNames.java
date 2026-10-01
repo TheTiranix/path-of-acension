@@ -30,10 +30,11 @@ public final class PlainWeaponNames {
     public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         var item = stack.getItem();
-        if (!(item instanceof TieredItem || item instanceof ProjectileWeaponItem || item instanceof TridentItem)) {
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
+        boolean listed = com.tcorigenes.tcorigenes.weapon.PlainNameItems.matches(id);
+        if (!listed && !(item instanceof TieredItem || item instanceof ProjectileWeaponItem || item instanceof TridentItem)) {
             return;
         }
-        ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
         if (id == null || id.getNamespace().equals("celestisynth")) {
             return;
         }

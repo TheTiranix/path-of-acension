@@ -31,7 +31,8 @@ public abstract class CraftingMenuMixin {
     @Inject(method = "m_150546_", at = @At("HEAD"), remap = false, require = 0)
     private static void testamentodelacarne$tierStart(AbstractContainerMenu menu, Level level, Player player, CraftingContainer container,
             ResultContainer result, CallbackInfo ci) {
-        CraftingGate.currentTier = menu instanceof CraftingTier tiered ? tiered.craftingTier() : menu instanceof CraftingMenu ? 1 : 0;
+        // todo menu que no sea de nuestras mesas con nivel (mesa comun, grilla 2x2 del inventario, mesas de otros mods) es nivel 1
+        CraftingGate.currentTier = menu instanceof CraftingTier tiered ? tiered.craftingTier() : 1;
     }
 
     @Inject(method = "m_150546_", at = @At("RETURN"), remap = false, require = 0)

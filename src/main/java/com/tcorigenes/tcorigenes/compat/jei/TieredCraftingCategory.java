@@ -70,7 +70,6 @@ public class TieredCraftingCategory implements IRecipeCategory<CraftingRecipe> {
                 continue;
             }
             builder.addSlot(RecipeIngredientRole.INPUT, 2 + (i % width) * 18, 2 + (i / width) * 18)
-                    .setBackground(this.guiHelper.getSlotDrawable(), -1, -1)
                     .addIngredients(ingredient);
         }
         var level = Minecraft.getInstance().level;
@@ -83,6 +82,13 @@ public class TieredCraftingCategory implements IRecipeCategory<CraftingRecipe> {
 
     @Override
     public void draw(CraftingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
+        // la grilla entera de la mesa, con las casillas vacias (JEI dibuja los items arriba de esto)
+        for (int row = 0; row < this.grid; row++) {
+            for (int col = 0; col < this.grid; col++) {
+                this.guiHelper.getSlotDrawable().draw(graphics, 1 + col * 18, 1 + row * 18);
+            }
+        }
         graphics.drawString(Minecraft.getInstance().font, "\u2192", this.grid * 18 + 18, this.grid * 9 - 3, 0xFF555555, false);
+        this.guiHelper.getSlotDrawable().draw(graphics, this.grid * 18 + 39, this.grid * 9 - 8);
     }
 }
