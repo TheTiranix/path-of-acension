@@ -38,8 +38,8 @@ public final class DivineArmorTooltip {
                 && !id.getPath().endsWith("_block");
     }
 
-    private static int celestialColor() {
-        int scroll = (int) (System.currentTimeMillis() / 50L);
+    private static int celestialColor(int offset) {
+        int scroll = (int) (System.currentTimeMillis() / 50L) + offset;
         if (!reflectionFailed) {
             try {
                 if (colorMethod == null) {
@@ -58,6 +58,15 @@ public final class DivineArmorTooltip {
         return java.awt.Color.HSBtoRGB(0.5F + hue * 0.2F, 0.45F, 1.0F) & 0xFFFFFF;
     }
 
+    /** Texto con un color por letra, de la paleta celestial en movimiento (cada letra va un poco adelantada a la anterior). */
+    private static MutableComponent wave(String text, Style base) {
+        MutableComponent result = Component.empty();
+        for (int i = 0; i < text.length(); i++) {
+            result.append(Component.literal(String.valueOf(text.charAt(i))).withStyle(base.withColor(celestialColor(i * 6)).withBold(true)));
+        }
+        return result;
+    }
+
     @SubscribeEvent
     public static void onGather(RenderTooltipEvent.GatherComponents event) {
         if (!isDivine(event.getItemStack())) {
@@ -67,15 +76,20 @@ public final class DivineArmorTooltip {
         if (elements.isEmpty()) {
             return;
         }
-        int color = celestialColor();
-        Style style = Style.EMPTY.withColor(color).withBold(true);
+        // igual que las armas de Celestisynth: el nombre y la linea CELESTIAL GRADE cambian de color letra por letra y se mueven con el tiempo
         FormattedText first = elements.get(0).left().orElse(null);
-        if (first instanceof Component name) {
-            elements.set(0, Either.left(name.copy().withStyle(style)));
+        if (first != null) {
+            elements.set(0, Either.left(wave(first.getString(), first instanceof Component name ? name.getStyle() : Style.EMPTY)));
         }
-        if (elements.stream().noneMatch(e -> e.left().map(t -> t.getString().equals(Component.translatable("item.celestisynth.celestial_tier").getString())).orElse(false))) {
-            MutableComponent grade = Component.translatable("item.celestisynth.celestial_tier").withStyle(style);
-            elements.add(1, Either.left(grade));
+        String gradeText = Component.translatable("item.celestisynth.celestial_tier").getString();
+        if (elements.stream().noneMatch(e -> e.left().map(t -> t.getString().equals(gradeText)).orElse(false))) {
+            elements.add(1, Either.left(wave(gradeText, Style.EMPTY)));
+        } else {
+            for (int i = 0; i < elements.size(); i++) {
+                if (elements.get(i).left().map(t -> t.getString().equals(gradeText)).orElse(false)) {
+                    elements.set(i, Either.left(wave(gradeText, Style.EMPTY)));
+                }
+            }
         }
     }
 }

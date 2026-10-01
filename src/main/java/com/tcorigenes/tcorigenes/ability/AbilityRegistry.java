@@ -169,10 +169,9 @@ public final class AbilityRegistry {
     }
 
     /**
-     * "Espíritu Ánima" (Guerrero Ánima). Version simplificada: en vez de invocar un espiritu
-     * (entidad nueva, invulnerable, sin hitbox, atacando 15s — pendiente, es una entidad custom
-     * completa), hace un golpe de energia inmediato a los enemigos cercanos + un buff propio de
-     * 15s. Cooldown 4 minutos.
+     * "Espíritu Ánima" (Guerrero Ánima): invoca un genio de la lampara (ver AnimaSpiritEntity y AnimaSpiritTracker), de color segun
+     * la raza, que levita en el lugar durante 15s, es inmune a todo y no puede ser elegido de objetivo por los enemigos, y golpea a
+     * los mobs hostiles cercanos. Ademas da un buff propio de 15s. Cooldown 4 minutos.
      */
     private static void registerEspirituAnima() {
         register(new PlayerAbility() {

@@ -23,6 +23,8 @@ public final class ModModelLayers {
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_gears"), "main");
     public static final ModelLayerLocation AUTOMATA_CORE =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_core"), "main");
+    public static final ModelLayerLocation ANIMA_SPIRIT = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath("tcorigenes", "anima_spirit"), "main");
 
     private ModModelLayers() {
     }
@@ -33,6 +35,7 @@ public final class ModModelLayers {
         event.registerLayerDefinition(SIERVO_ANTENNAS, ModModelLayers::createAntennasLayer);
         event.registerLayerDefinition(AUTOMATA_GEARS, ModModelLayers::createGearsLayer);
         event.registerLayerDefinition(AUTOMATA_CORE, ModModelLayers::createCoreLayer);
+        event.registerLayerDefinition(ANIMA_SPIRIT, AnimaSpiritModel::createLayer);
     }
 
     /** Nucleo de energia en el pecho (pedido de alejandr0): brilla de verdad, ver RaceFeaturesLayer. */

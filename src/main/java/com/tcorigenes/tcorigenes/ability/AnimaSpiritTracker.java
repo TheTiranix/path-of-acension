@@ -1,64 +1,64 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.ability;
 
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.core.particles.ParticleTypes;
+import com.tcorigenes.tcorigenes.core.Race;
+import com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider;
+import com.tcorigenes.tcorigenes.faction.ModEntityTypes;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.decoration.ArmorStand;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 
 /**
- * Invocacion real del Guerrero Anima: un ArmorStand "marker" (sin hitbox, invulnerable,
- * invisible) que sigue existiendo 15s y golpea enemigos cercanos cada 10 ticks, en vez del
- * pulso instantaneo original. Se revisa desde ModEvents#onPlayerTick (throttled), no hace
- * falta un tick global nuevo.
+ * Invocacion real del Guerrero Anima (ver AnimaSpiritEntity): un genio de la lampara de color segun la raza del jugador que se
+ * queda levitando donde se lo invoco durante 15s, y que golpea a los mobs hostiles cercanos. Un jugador tiene un solo espiritu a la
+ * vez: invocar otro hace que el anterior se vaya con su animacion.
  */
 public final class AnimaSpiritTracker {
-    private record ActiveSpirit(ArmorStand entity, long expireAtGameTime) {
-    }
-
-    private static final List<ActiveSpirit> ACTIVE = new ArrayList<>();
+    public static final int DURATION_TICKS = 20 * 15;
+    private static final Map<UUID, AnimaSpiritEntity> ACTIVE = new HashMap<>();
 
     private AnimaSpiritTracker() {
+    }
+
+    /** Color del genio segun la raza (RGB). */
+    public static int colorOf(Race race) {
+        return switch (race) {
+            case DEMONIO -> 0xFF3B2F;
+            case ANGEL -> 0xBFEFFF;
+            case SIERVO_DE_LA_LUNA -> 0x9B5BFF;
+            case ENDER_WARRIOR -> 0xD84BFF;
+            case STONE_GIANT -> 0xC28B4A;
+            case AUTOMATA -> 0x33FFD0;
+            case HEREJE -> 0x5CFF6B;
+            case MALNACIDO -> 0xB3122B;
+            case DEVOTO -> 0xFFD24A;
+            default -> 0x55D6FF; // humano: celeste
+        };
     }
 
     public static void summon(Player player) {
         if (!(player.level() instanceof ServerLevel serverLevel)) {
             return;
         }
-        ArmorStand spirit = new ArmorStand(EntityType.ARMOR_STAND, serverLevel);
-        // setMarker(boolean) es privado: la unica forma publica de activarlo es via NBT.
-        net.minecraft.nbt.CompoundTag markerTag = new net.minecraft.nbt.CompoundTag();
-        markerTag.putBoolean("Marker", true);
-        spirit.load(markerTag);
-        spirit.setPos(player.getX(), player.getY(), player.getZ());
-        spirit.setInvisible(true);
-        spirit.setInvulnerable(true);
-        spirit.setNoGravity(true);
+        AnimaSpiritEntity previous = ACTIVE.remove(player.getUUID());
+        if (previous != null && previous.isAlive()) {
+            previous.dismiss();
+        }
+        Race race = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace()).orElse(Race.HUMANO);
+        AnimaSpiritEntity spirit = ModEntityTypes.ANIMA_SPIRIT.get().create(serverLevel);
+        if (spirit == null) {
+            return;
+        }
+        spirit.setup(colorOf(race), DURATION_TICKS);
+        spirit.moveTo(player.getX(), player.getY() + 0.1, player.getZ(), player.getYRot(), 0.0F);
         serverLevel.addFreshEntity(spirit);
-        ACTIVE.add(new ActiveSpirit(spirit, serverLevel.getGameTime() + 20 * 15));
+        ACTIVE.put(player.getUUID(), spirit);
     }
 
-    /** Llamar cada ~10 ticks (el costo es trivial: la lista tiene 0-4 elementos normalmente). */
+    /** Antes lo recorria el tick global; ahora el espiritu se maneja solo. Solo limpia los que ya no existen. */
     public static void tick(ServerLevel level) {
-        long now = level.getGameTime();
-        ACTIVE.removeIf(spirit -> {
-            if (now >= spirit.expireAtGameTime() || !spirit.entity().isAlive()) {
-                spirit.entity().discard();
-                return true;
-            }
-            AABB area = new AABB(spirit.entity().blockPosition()).inflate(4.0);
-            List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, area,
-                    e -> e instanceof Monster && e.isAlive());
-            enemies.forEach(e -> e.hurt(spirit.entity().damageSources().magic(), 4.0F));
-            level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, spirit.entity().getX(), spirit.entity().getY() + 1.0,
-                    spirit.entity().getZ(), 5, 0.4, 0.4, 0.4, 0.01);
-            return false;
-        });
+        ACTIVE.values().removeIf(spirit -> !spirit.isAlive());
     }
 }

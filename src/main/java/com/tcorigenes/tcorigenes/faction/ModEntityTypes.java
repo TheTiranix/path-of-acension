@@ -35,6 +35,14 @@ public final class ModEntityTypes {
                     .clientTrackingRange(10)
                     .build("damage_dummy"));
 
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.ability.AnimaSpiritEntity>> ANIMA_SPIRIT = ENTITY_TYPES.register("anima_spirit",
+            () -> EntityType.Builder.<com.tcorigenes.tcorigenes.ability.AnimaSpiritEntity>of(com.tcorigenes.tcorigenes.ability.AnimaSpiritEntity::new, MobCategory.MISC)
+                    .sized(0.7F, 1.9F)
+                    .clientTrackingRange(10)
+                    .noSave()
+                    .fireImmune()
+                    .build("anima_spirit"));
+
     private ModEntityTypes() {
     }
 

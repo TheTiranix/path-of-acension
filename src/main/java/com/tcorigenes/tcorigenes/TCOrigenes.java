@@ -75,12 +75,14 @@ public class TCOrigenes {
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.FACTION_NPC.get(), FactionNpcEntity.createAttributes().build());
+        event.put(ModEntityTypes.ANIMA_SPIRIT.get(), com.tcorigenes.tcorigenes.ability.AnimaSpiritEntity.createAttributes().build());
         event.put(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.core.DamageDummyEntity.createAttributes().build());
     }
 
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.FACTION_NPC.get(), com.tcorigenes.tcorigenes.faction.client.FactionNpcRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.WEAK_POINT.get(), com.tcorigenes.tcorigenes.client.WeakPointRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.ANIMA_SPIRIT.get(), com.tcorigenes.tcorigenes.client.AnimaSpiritRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.client.DamageDummyRenderer::new);
     }
 

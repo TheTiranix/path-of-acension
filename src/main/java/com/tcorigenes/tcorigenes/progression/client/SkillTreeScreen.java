@@ -48,9 +48,15 @@ public class SkillTreeScreen extends Screen {
     private boolean draggingStatsPanel;
 
     /** Camara: punto del MUNDO (coordenadas de nodo * CELL) que queda en el centro de la pagina. */
-    private double camX = 0;
+    private double camX = 4.0 * 44;
     private double camY = 0;
     private float zoom = 1.0F;
+
+    /** Fase (pagina) que se esta viendo: 1 a 3. Las fases todavia no alcanzadas estan bloqueadas y sus nodos no se muestran. */
+    private int page = 1;
+    private final Button[] pageButtons = new Button[3];
+    private static final String[] PAGE_NAMES = {"I · Despertar", "II · Ascenso", "III · Trascendencia"};
+    private static final int[] PAGE_X_RANGE = {0, 8, 9, 16, 17, 25};
 
     public SkillTreeScreen() {
         super(Component.literal("Árbol de Habilidades"));
@@ -63,7 +69,7 @@ public class SkillTreeScreen extends Screen {
     @Override
     protected void init() {
         int centerX = this.width / 2;
-        int y = this.height - 34;
+        int y = this.height - 54;
         confirmButton = this.addRenderableWidget(Button.builder(Component.literal("Confirmar"), button -> {
             if (!pending.isEmpty()) {
                 Networking.sendToServer(new UnlockNodesPacket(pending.stream().map(SkillNode::id).toList()));
@@ -74,6 +80,49 @@ public class SkillTreeScreen extends Screen {
                 button -> Networking.sendToServer(new BuyPointPacket())).bounds(this.width - 176, 8, 168, 20).build());
         cancelButton = this.addRenderableWidget(Button.builder(Component.literal("Cancelar"), button -> pending.clear())
                 .bounds(centerX + 5, y, 100, 20).build());
+        // abajo: una pestaña por fase
+        int pageY = this.height - 28;
+        for (int i = 0; i < 3; i++) {
+            final int target = i + 1;
+            pageButtons[i] = this.addRenderableWidget(Button.builder(Component.literal("Fase " + PAGE_NAMES[i]), button -> setPage(target))
+                    .bounds(centerX - 190 + i * 130, pageY, 126, 20).build());
+        }
+    }
+
+    private void setPage(int newPage) {
+        if (!isPhaseUnlocked(newPage)) {
+            return;
+        }
+        this.page = newPage;
+        this.camX = (PAGE_X_RANGE[(newPage - 1) * 2] + PAGE_X_RANGE[(newPage - 1) * 2 + 1]) / 2.0 * CELL;
+        this.camY = 0;
+    }
+
+    /** La fase 1 siempre esta; para entrar a una fase hay que haber llegado al ultimo nodo de la anterior (en cualquiera de los dos
+     *  caminos, contando los elegidos que esperan confirmacion). */
+    private boolean isPhaseUnlocked(int phase) {
+        if (phase <= 1) {
+            return true;
+        }
+        int gateX = PAGE_X_RANGE[(phase - 2) * 2 + 1];
+        for (SkillNode node : SkillTree.forClass(ClientSkillData.playerClass())) {
+            if (node.x() == gateX && (isUnlocked(node) || pending.contains(node))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void refreshPageButtons() {
+        if (!isPhaseUnlocked(page)) {
+            page = 1;
+        }
+        for (int i = 0; i < 3; i++) {
+            int phase = i + 1;
+            boolean unlocked = isPhaseUnlocked(phase);
+            pageButtons[i].setMessage(Component.literal((unlocked ? "" : "\uD83D\uDD12 ") + "Fase " + PAGE_NAMES[i]));
+            pageButtons[i].active = unlocked && phase != page;
+        }
     }
 
     @Override
@@ -138,7 +187,7 @@ public class SkillTreeScreen extends Screen {
         double wx = worldX(mouseX);
         double wy = worldY(mouseY);
         for (SkillNode node : SkillTree.forClass(ClientSkillData.playerClass())) {
-            if (Math.abs(wx - node.x() * CELL) <= HALF && Math.abs(wy - node.y() * CELL) <= HALF) {
+            if (node.phase() == page && Math.abs(wx - node.x() * CELL) <= HALF && Math.abs(wy - node.y() * CELL) <= HALF) {
                 return node;
             }
         }
@@ -255,7 +304,8 @@ public class SkillTreeScreen extends Screen {
         // se saco) se descartan solos.
         pending.removeIf(n -> isUnlocked(n) || !isReachable(n));
 
-        List<SkillNode> nodes = SkillTree.forClass(cls);
+        refreshPageButtons();
+        List<SkillNode> nodes = SkillTree.forClass(cls).stream().filter(n -> n.phase() == page).toList();
         g.pose().pushPose();
         g.pose().translate(this.width / 2.0, canvasCenterY(), 0);
         g.pose().scale(zoom, zoom, 1F);
@@ -264,7 +314,7 @@ public class SkillTreeScreen extends Screen {
         for (SkillNode node : nodes) {
             for (String parentId : node.parents()) {
                 SkillNode parent = SkillTree.get(parentId);
-                if (parent != null) {
+                if (parent != null && parent.phase() == page) {
                     drawLink(g, parent, node);
                 }
             }
@@ -291,7 +341,7 @@ public class SkillTreeScreen extends Screen {
             if (!confirmButton.active) {
                 question += "  (te faltan puntos)";
             }
-            g.drawCenteredString(this.font, question, this.width / 2, this.height - 48, confirmButton.active ? 0xFFFFFF : 0xFF7777);
+            g.drawCenteredString(this.font, question, this.width / 2, this.height - 68, confirmButton.active ? 0xFFFFFF : 0xFF7777);
         }
 
         SkillNode hovered = hoveredNode(mouseX, mouseY);
@@ -323,6 +373,9 @@ public class SkillTreeScreen extends Screen {
         int top = -3 * CELL;
         int bottom = 3 * CELL;
         for (int i = 0; i < ranges.length; i++) {
+            if (i != page - 1) {
+                continue;
+            }
             int left = ranges[i][0] * CELL - CELL / 2;
             int right = ranges[i][1] * CELL + CELL / 2;
             int color = accent[i] & 0x00FFFFFF;
