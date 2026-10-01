@@ -288,6 +288,11 @@ public class ModItems {
             "arcane_hoe", () -> new net.minecraft.world.item.HoeItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.ARCANE_TIER, -3, 0.0F, new Item.Properties().fireResistant()));
 
+    /** Cuchillo de carnicero de piedra (pedido de alejandr0): para descuartizar animales desde el principio, sin el cleaver de hierro. */
+    public static final RegistryObject<Item> STONE_BUTCHER_KNIFE = ITEMS.register(
+            "stone_butcher_knife", () -> new net.minecraft.world.item.AxeItem(net.minecraft.world.item.Tiers.STONE, 3.0F, -2.4F,
+                    new Item.Properties()));
+
     public static final RegistryObject<Item> SAPPHIRE_SWORD = ITEMS.register(
             "sapphire_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 3, -2.4F, new Item.Properties()));

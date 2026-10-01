@@ -13,3 +13,10 @@ ServerEvents.recipes(event => {
     event.remove({ output: output, type: 'minecraft:crafting_shaped' });
   });
 });
+
+// More Useful Copper: sin armadura, armas ni herramientas de cobre (pedido de alejandr0).
+ServerEvents.recipes(event => {
+  ["more_useful_copper:copper_axe", "more_useful_copper:copper_pickaxe", "more_useful_copper:copper_shovel", "more_useful_copper:copper_hoe", "more_useful_copper:copper_sword", "more_useful_copper:copper_helmet", "more_useful_copper:copper_chestplate", "more_useful_copper:copper_leggings", "more_useful_copper:copper_boots"].forEach(output => {
+    event.remove({ output: output });
+  });
+});

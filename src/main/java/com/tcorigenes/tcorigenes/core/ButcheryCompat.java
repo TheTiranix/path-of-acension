@@ -91,7 +91,7 @@ public final class ButcheryCompat {
             return;
         }
         if ((entity instanceof TamableAnimal tamable && tamable.isTame())
-                || (entity instanceof OwnableEntity ownable && ownable.getOwnerUUID() != null) || entity.getMaxHealth() >= 150.0F) {
+                || (entity instanceof OwnableEntity ownable && ownable.getOwnerUUID() != null) || entity.getMaxHealth() >= 450.0F) {
             return;
         }
         if (onlyKnife()) {

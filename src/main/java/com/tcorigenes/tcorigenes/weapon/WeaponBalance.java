@@ -300,7 +300,7 @@ public final class WeaponBalance {
         w("ars_nouveau:spell_crossbow").dmg(12).shot();
         w("alexscaves:dreadbow").dmg(100).shot().el(LUNAR, 50).note("Genera una lluvia de flechas");
         w("cataclysm:gauntlet_of_maelstrom").dmg(300).el(ENDER, 200);
-        w("mowziesmobs:axe_of_a_thousand_metals").two();
+        w("mowziesmobs:wrought_axe").two(); // el Axe of a Thousand Metals es la wrought_axe
         w("cataclysm:wrath_of_the_desert").dmg(25000).perProjectile().cycle(LUNAR, N, AIR);
         w("celestisynth:rainfall_serenity").dmg(120000).shot().cycle(AIR, LIGHT, N, N);
         w("celestisynth:aquaflora").dmg(180000).speed(3).cycle(NATURAL, WATER, N, N);
@@ -373,7 +373,7 @@ public final class WeaponBalance {
         w("mutantsbuff:charged_hammer").dmg(45).el(AIR, 20);
         w("mutantsbuff:upgraded_hulk_hammer").dmg(45).el(AIR, 20);
         w("naturesaura:depth_sword").dmg(14).el(LUNAR, 4);
-        w("mowziesmobs:wrought_axe").dmg(600).el(EARTH, 300);
+        SPECS.get(rl("mowziesmobs:wrought_axe")).dmg(600).el(EARTH, 300);
         w("irons_spellbooks:amethyst_rapier").dmg(30).reach(2.5);
         w("irons_spellbooks:claymore").dmg(15).el(EARTH, 3);
         w("irons_spellbooks:spellbreaker").dmg(53); // 39 x 30/22: proporcional al aumento de la rapier
@@ -470,7 +470,7 @@ public final class WeaponBalance {
         minDur(8000, "cataclysm:meat_shredder", "cataclysm:soul_render", "cataclysm:zweiender");
         minDur(5000, "cataclysm:gauntlet_of_bulwark", "cataclysm:gauntlet_of_guard", "cataclysm:gauntlet_of_maelstrom",
                 "mowziesmobs:earthrend_gauntlet", "alexscaves:galena_gauntlet");
-        minDur(6000, "alexscaves:extinction_spear", "mowziesmobs:axe_of_a_thousand_metals");
+        minDur(6000, "alexscaves:extinction_spear", "mowziesmobs:wrought_axe");
         minDur(5000, "eeeabsmobs:guardian_axe");
         minDur(4000, "scary_mobs:mallet");
         minDur(3000, "eeeabsmobs:immortal_sword", "eeeabsmobs:immortal_axe", "eeeabsmobs:netherworld_katana");

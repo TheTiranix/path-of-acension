@@ -25,6 +25,9 @@ public final class RemovedItems {
 
     static {
         String[] materials = {"wooden", "stone", "iron", "golden", "diamond", "netherite"};
+        for (String piece : new String[] {"more_useful_copper:copper_axe", "more_useful_copper:copper_pickaxe", "more_useful_copper:copper_shovel", "more_useful_copper:copper_hoe", "more_useful_copper:copper_sword", "more_useful_copper:copper_helmet", "more_useful_copper:copper_chestplate", "more_useful_copper:copper_leggings", "more_useful_copper:copper_boots"}) {
+            IDS.add(ResourceLocation.parse(piece));
+        }
         for (String material : materials) {
             for (String type : new String[] {"pike", "greataxe", "handaxe", "glaive"}) {
                 IDS.add(ResourceLocation.fromNamespaceAndPath("vtaw_mw", material + "_" + type));

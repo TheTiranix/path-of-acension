@@ -29,6 +29,12 @@ public final class PlainWeaponNames {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        // pedido de alejandr0: sin la linea "Legendary Weapon" en las armas de Ice and Fire
+        ResourceLocation iafId = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if (iafId != null && iafId.getNamespace().equals("iceandfire")) {
+            String legendary = Component.translatable("item.iceandfire.legendary_weapon.desc").getString();
+            event.getToolTip().removeIf(line -> line.getString().equals(legendary));
+        }
         var item = stack.getItem();
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
         boolean listed = com.tcorigenes.tcorigenes.weapon.PlainNameItems.matches(id);
