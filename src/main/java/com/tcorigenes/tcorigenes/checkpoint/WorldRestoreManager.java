@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -65,6 +66,19 @@ public final class WorldRestoreManager {
         boolean noBeds = CheckpointManager.active(server).isEmpty();
         writeMarker(server, server.getWorldPath(LevelResource.ROOT),
                 noBeds && Files.isDirectory(initial) ? initial : null, CheckpointSnapshotter.autosavePath(server), false);
+    }
+
+    /** El mundo ya se guardo y cerro: se restaura ACA, en el hilo del server, para que el cliente no pueda entrar antes de que termine. */
+    @SubscribeEvent
+    public static void onServerStopped(ServerStoppedEvent event) {
+        MinecraftServer server = event.getServer();
+        if (!server.isSingleplayer()) {
+            return;
+        }
+        Path marker = server.getServerDirectory().toPath().resolve(MARKER_FILE);
+        if (Files.isRegularFile(marker)) {
+            com.tcorigenes.tcorigenes.checkpoint.client.ClientWorldRestore.restoreNow(marker);
+        }
     }
 
     @SubscribeEvent

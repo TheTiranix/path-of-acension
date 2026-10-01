@@ -56,6 +56,19 @@ public final class ClientWorldRestore {
         thread.start();
     }
 
+    /**
+     * Restauracion sincronica desde el hilo del server, justo cuando termino de apagarse (ver WorldRestoreManager#onServerStopped): el
+     * cliente no puede volver a entrar al mundo hasta que el apagado termina, asi que no hay carrera. Antes la copia corria en un hilo
+     * aparte y, si se volvia a entrar rapido, el mundo se cargaba tal como habia quedado al respawnear, sin restaurar.
+     */
+    public static void restoreNow(Path marker) {
+        if (restoring || !Files.isRegularFile(marker)) {
+            return;
+        }
+        restoring = true;
+        doRestore(marker);
+    }
+
     private static void doRestore(Path marker) {
         try {
             Map<String, String> values = readMarker(marker);
