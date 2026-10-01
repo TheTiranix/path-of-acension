@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "celestisynth:solar_crystal_helmet",
+      "required": false
+    },
+    {
+      "id": "celestisynth:lunar_stone_helmet",
+      "required": false
+    },
+    {
+      "id": "twilightforest:yeti_helmet",
+      "required": false
+    },
+    {
+      "id": "cataclysm:ignitium_helmet",
+      "required": false
+    },
+    {
+      "id": "toughasnails:wool_helmet",
+      "required": false
+    }
+  ]
+}

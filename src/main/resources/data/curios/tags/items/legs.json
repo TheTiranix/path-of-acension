@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "celestisynth:solar_crystal_leggings",
+      "required": false
+    },
+    {
+      "id": "celestisynth:lunar_stone_leggings",
+      "required": false
+    },
+    {
+      "id": "twilightforest:yeti_leggings",
+      "required": false
+    },
+    {
+      "id": "cataclysm:ignitium_leggings",
+      "required": false
+    },
+    {
+      "id": "toughasnails:wool_leggings",
+      "required": false
+    }
+  ]
+}

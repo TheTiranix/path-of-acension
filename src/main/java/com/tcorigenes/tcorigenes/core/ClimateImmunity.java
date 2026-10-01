@@ -37,13 +37,29 @@ public final class ClimateImmunity {
 
     private static boolean wearsSet(Player player, String namespace, String prefix) {
         for (EquipmentSlot slot : ARMOR) {
-            ItemStack stack = player.getItemBySlot(slot);
-            ResourceLocation id = stack.isEmpty() ? null : ForgeRegistries.ITEMS.getKey(stack.getItem());
-            if (id == null || !id.getNamespace().equals(namespace) || !id.getPath().startsWith(prefix)) {
+            if (!matches(player.getItemBySlot(slot), namespace, prefix) && !matches(inCurios(player, slot), namespace, prefix)) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static boolean matches(ItemStack stack, String namespace, String prefix) {
+        ResourceLocation id = stack.isEmpty() ? null : ForgeRegistries.ITEMS.getKey(stack.getItem());
+        return id != null && id.getNamespace().equals(namespace) && id.getPath().startsWith(prefix);
+    }
+
+    /** Pedido de alejandr0: las piezas que protegen del clima tambien valen en los slots head/chest/legs/feet de Curios. */
+    public static ItemStack inCurios(Player player, EquipmentSlot slot) {
+        if (!net.minecraftforge.fml.ModList.get().isLoaded("curios")) {
+            return ItemStack.EMPTY;
+        }
+        return CuriosGloves.first(player, switch (slot) {
+            case HEAD -> "head";
+            case CHEST -> "chest";
+            case LEGS -> "legs";
+            default -> "feet";
+        });
     }
 
     public static boolean wearsSolarSet(Player player) {

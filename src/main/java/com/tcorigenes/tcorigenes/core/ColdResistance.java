@@ -28,7 +28,7 @@ public final class ColdResistance {
     public static double resistanceOf(Player player) {
         double resistance = 0.0;
         for (EquipmentSlot slot : ARMOR) {
-            if (!player.getItemBySlot(slot).isEmpty()) {
+            if (!player.getItemBySlot(slot).isEmpty() || !ClimateImmunity.inCurios(player, slot).isEmpty()) {
                 resistance += PER_PIECE;
             }
         }

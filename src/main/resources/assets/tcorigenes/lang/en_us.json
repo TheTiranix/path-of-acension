@@ -28,5 +28,13 @@
   "ability.tcorigenes.guardia_total.description": "Full invulnerability for 10s. 3 min cooldown.",
   "entity.tcorigenes.damage_dummy": "Damage Dummy",
   "item.tcorigenes.damage_dummy_spawn_egg": "Damage Dummy Spawn Egg",
-  "key.tcorigenes.toggle_keres_shadows": "Toggle Keres black spears"
+  "key.tcorigenes.toggle_keres_shadows": "Toggle Keres black spears",
+  "curios.identifier.chest": "Chest",
+  "curios.modifiers.chest": "Chest",
+  "curios.identifier.legs": "Legs",
+  "curios.modifiers.legs": "Legs",
+  "curios.identifier.feet": "Feet",
+  "curios.modifiers.feet": "Feet",
+  "curios.identifier.head": "Head",
+  "curios.modifiers.head": "Head"
 }

@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "celestisynth:solar_crystal_boots",
+      "required": false
+    },
+    {
+      "id": "celestisynth:lunar_stone_boots",
+      "required": false
+    },
+    {
+      "id": "twilightforest:yeti_boots",
+      "required": false
+    },
+    {
+      "id": "cataclysm:ignitium_boots",
+      "required": false
+    },
+    {
+      "id": "toughasnails:wool_boots",
+      "required": false
+    }
+  ]
+}

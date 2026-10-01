@@ -2,23 +2,30 @@
 package com.tcorigenes.tcorigenes.core;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 
-/** Acceso a Curios aislado en su propia clase para que ColdResistance no la cargue si Curios no esta instalado. */
+/** Acceso a Curios aislado en su propia clase para que ColdResistance y ClimateImmunity no la carguen si Curios no esta instalado. */
 final class CuriosGloves {
     private CuriosGloves() {
     }
 
     static boolean has(Player player) {
+        return !first(player, "hands").isEmpty();
+    }
+
+    /** Primer item no vacio del slot de Curios con ese id, o vacio. */
+    static ItemStack first(Player player, String slotId) {
         return CuriosApi.getCuriosInventory(player).resolve()
-                .flatMap(handler -> handler.getStacksHandler("hands"))
+                .flatMap(handler -> handler.getStacksHandler(slotId))
                 .map(stacks -> {
                     for (int i = 0; i < stacks.getStacks().getSlots(); i++) {
-                        if (!stacks.getStacks().getStackInSlot(i).isEmpty()) {
-                            return true;
+                        ItemStack stack = stacks.getStacks().getStackInSlot(i);
+                        if (!stack.isEmpty()) {
+                            return stack;
                         }
                     }
-                    return false;
-                }).orElse(false);
+                    return ItemStack.EMPTY;
+                }).orElse(ItemStack.EMPTY);
     }
 }
