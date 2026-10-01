@@ -33,8 +33,14 @@ public final class SoulboundItems {
         stack.getOrCreateTag().putBoolean(MARKER_TAG, true);
     }
 
-    public static boolean isSoulbound(ItemStack stack) {
+    /** Marcada a mano como soulbound (la copia del Ender Warrior). */
+    public static boolean hasMarker(ItemStack stack) {
         return stack.hasTag() && stack.getTag().getBoolean(MARKER_TAG);
+    }
+
+    /** Pedido de alejandr0: TODA arma ánima es indestructible, no se puede tirar, sacar del inventario ni perder al morir. */
+    public static boolean isSoulbound(ItemStack stack) {
+        return hasMarker(stack) || stack.getItem() instanceof com.tudominio.testamentodelacarne.AnimaSwordItem;
     }
 
     @SubscribeEvent
@@ -46,7 +52,7 @@ public final class SoulboundItems {
         Iterator<ItemEntity> it = event.getDrops().iterator();
         while (it.hasNext()) {
             ItemStack stack = it.next().getItem();
-            if (isSoulbound(stack)) {
+            if (isSoulbound(stack) && !com.tudominio.testamentodelacarne.DualScythe.isCopy(stack)) {
                 if (stash == null) {
                     stash = new ListTag();
                 }

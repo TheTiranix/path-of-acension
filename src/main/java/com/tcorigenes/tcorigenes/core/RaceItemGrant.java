@@ -24,7 +24,7 @@ public final class RaceItemGrant {
             return;
         }
         // Ya tiene la suya (marcada soulbound): no darle una segunda.
-        boolean alreadyHasOne = player.getInventory().items.stream().anyMatch(SoulboundItems::isSoulbound);
+        boolean alreadyHasOne = player.getInventory().items.stream().anyMatch(SoulboundItems::hasMarker);
         if (alreadyHasOne) {
             return;
         }

@@ -54,6 +54,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class CoinflipManager {
     public static final double CHANCE = 0.35;
     private static final String DONE_KEY = "tc_coinflip_done";
+    private static final String LOST_KEY = "tc_coinflip_lost";
     private static final int FLIP_TICKS = 62; // lo que dura la animacion en el cliente
     private static final int MAX_WAIT_TICKS = 20 * 45;
 
@@ -62,6 +63,7 @@ public final class CoinflipManager {
         BlockPos pos;
         BlockHitResult hit;
         ResourceLocation table;
+        String key;
         long createdAt;
         Boolean win; // null = esperando que elija
         long openAt;
@@ -87,11 +89,19 @@ public final class CoinflipManager {
         }
         ServerLevel level = (ServerLevel) event.getLevel();
         BlockPos pos = event.getPos();
+        String key = level.dimension().location() + "|" + pos.asLong();
+        if (isLost(player, key)) {
+            // Perdiste la moneda en este cofre: para vos queda vacio para siempre (antes, al reabrirlo, volvia a dar el botin).
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            player.displayClientMessage(Component.literal("La moneda cayó en tu contra: este cofre está vacío para vos.")
+                    .withStyle(ChatFormatting.DARK_RED), true);
+            return;
+        }
         LootInfo info = lootInfo(level, pos);
         if (info == null) {
             return;
         }
-        String key = level.dimension().location() + "|" + pos.asLong();
         if (isDone(player, key)) {
             return;
         }
@@ -104,6 +114,7 @@ public final class CoinflipManager {
         pending.pos = pos.immutable();
         pending.hit = event.getHitVec();
         pending.table = info.table();
+        pending.key = key;
         pending.createdAt = level.getGameTime();
         PENDING.put(player.getUUID(), pending);
         event.setCanceled(true);
@@ -156,10 +167,24 @@ public final class CoinflipManager {
     }
 
     private static void markDone(Player player, String key) {
+        mark(player, DONE_KEY, key);
+    }
+
+    private static boolean isLost(Player player, String key) {
+        ListTag list = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG).getList(LOST_KEY, Tag.TAG_STRING);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.getString(i).equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void mark(Player player, String listKey, String key) {
         CompoundTag persisted = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
-        ListTag list = persisted.getList(DONE_KEY, Tag.TAG_STRING);
+        ListTag list = persisted.getList(listKey, Tag.TAG_STRING);
         list.add(StringTag.valueOf(key));
-        persisted.put(DONE_KEY, list);
+        persisted.put(listKey, list);
         player.getPersistentData().put(Player.PERSISTED_NBT_TAG, persisted);
     }
 
@@ -264,6 +289,9 @@ public final class CoinflipManager {
             player.displayClientMessage(Component.literal("La moneda cayó de tu lado: el destino te sonríe.")
                     .withStyle(ChatFormatting.GOLD), true);
         } else {
+            if (pending.key != null) {
+                mark(player, LOST_KEY, pending.key);
+            }
             for (Slot slot : slots) {
                 slot.set(ItemStack.EMPTY);
             }

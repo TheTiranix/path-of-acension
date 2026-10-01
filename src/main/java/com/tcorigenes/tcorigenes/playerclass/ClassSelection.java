@@ -48,5 +48,7 @@ public final class ClassSelection {
                 player.getInventory().add(new ItemStack(sword));
             }
         }
+        // El arbol de habilidades (bonos, nodos y pantalla del cliente) depende de la clase: se reaplica y se manda al cliente.
+        com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(player);
     }
 }
