@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "D D",
+    "DOD"
+  ],
+  "key": {
+    "D": {
+      "item": "alexscaves:shadow_silk"
+    },
+    "O": {
+      "item": "alexscaves:occult_gem"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:darkness_boots"
+  }
+}

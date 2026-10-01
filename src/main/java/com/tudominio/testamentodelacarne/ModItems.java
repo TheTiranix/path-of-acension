@@ -293,6 +293,20 @@ public class ModItems {
             "stone_butcher_knife", () -> new net.minecraft.world.item.AxeItem(net.minecraft.world.item.Tiers.STONE, 3.0F, -2.4F,
                     new Item.Properties()));
 
+    public static final RegistryObject<Item> NAGA_HELMET = ITEMS.register(
+            "naga_helmet", () -> new NagaArmorItem(net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> NAGA_BOOTS = ITEMS.register(
+            "naga_boots", () -> new NagaArmorItem(net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    public static final RegistryObject<Item> DARKNESS_LEGGINGS = ITEMS.register(
+            "darkness_leggings", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.DARKNESS,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> DARKNESS_BOOTS = ITEMS.register(
+            "darkness_boots", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.DARKNESS,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
     public static final RegistryObject<Item> SAPPHIRE_SWORD = ITEMS.register(
             "sapphire_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.SAPPHIRE_TIER, 3, -2.4F, new Item.Properties()));

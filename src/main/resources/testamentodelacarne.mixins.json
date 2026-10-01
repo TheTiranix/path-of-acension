@@ -18,7 +18,8 @@
     "CelestisynthParticleUtilMixin",
     "WorldGenDragonCaveMixin",
     "WorldGenDragonRoostsMixin",
-    "CraftingMenuMixin"
+    "CraftingMenuMixin",
+    "KeresItemMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin"

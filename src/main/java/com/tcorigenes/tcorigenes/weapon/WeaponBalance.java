@@ -390,6 +390,10 @@ public final class WeaponBalance {
         group("mekanismtools:osmium_sword", 6.5, "mekanismtools:osmium_axe", "mekanismtools:osmium_pickaxe",
                 "mekanismtools:osmium_shovel", "mekanismtools:osmium_hoe", "mekanismtools:osmium_paxel");
 
+        // Flint Bow: un poco mas de usos que el arco vanilla (384); Dreadbow: 20000 usos.
+        TOOL_DURABILITY.put(rl("burnt:flint_bow"), 450);
+        TOOL_DURABILITY.put(rl("alexscaves:dreadbow"), 20000);
+
         // Netherite vanilla: espada 18 y el resto proporcional.
         w("minecraft:netherite_sword").dmg(18);
         group("minecraft:netherite_sword", 18, "minecraft:netherite_axe", "minecraft:netherite_pickaxe",
@@ -634,6 +638,19 @@ public final class WeaponBalance {
                 ARMOR_FIXED.put(rl("testamentodelacarne:" + set + "_" + piece),
                         new ArmorFixed(diamondDefenseOf(piece) * 4.0, 8, 60000, rl("minecraft:diamond_" + piece)));
                 EXACT_DURABILITY.add(rl("testamentodelacarne:" + set + "_" + piece));
+            }
+            // Wrought Helm (Mowzie's): 60 de proteccion y 15 de tenacidad (velocidades en WroughtHelmTweaks).
+            if (piece.equals("helmet")) {
+                ARMOR_FIXED.put(rl("mowziesmobs:wrought_helmet"), new ArmorFixed(60, 15, -1, rl("minecraft:diamond_helmet")));
+            }
+            // Naga Scale (Twilight Forest): tunica y pantalones iguales al diamante (casco y botas son nuestros, ver NagaArmorItem).
+            if (piece.equals("chestplate")) {
+                ARMOR_LIKE.put(rl("twilightforest:naga_chestplate"), rl("minecraft:diamond_chestplate"));
+                ARMOR_DURABILITY_LIKE.put(rl("twilightforest:naga_chestplate"), rl("minecraft:diamond_chestplate"));
+            }
+            if (piece.equals("leggings")) {
+                ARMOR_LIKE.put(rl("twilightforest:naga_leggings"), rl("minecraft:diamond_leggings"));
+                ARMOR_DURABILITY_LIKE.put(rl("twilightforest:naga_leggings"), rl("minecraft:diamond_leggings"));
             }
             // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
             double darkMetalDefense = switch (piece) {
