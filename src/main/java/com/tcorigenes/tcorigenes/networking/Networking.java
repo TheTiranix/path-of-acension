@@ -14,6 +14,7 @@ import com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCoinflipPacket;
 import com.tcorigenes.tcorigenes.networking.packet.PacifistSyncPacket;
 import com.tcorigenes.tcorigenes.networking.packet.TogglePacifistPacket;
+import com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket;
 import com.tcorigenes.tcorigenes.networking.packet.WeakPointAimPacket;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseRacePacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket;
@@ -172,6 +173,12 @@ public class Networking {
                 .decoder(TogglePacifistPacket::new)
                 .encoder(TogglePacifistPacket::toBytes)
                 .consumerMainThread(TogglePacifistPacket::handle)
+                .add();
+
+        net.messageBuilder(ToggleKeresShadowsPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleKeresShadowsPacket::new)
+                .encoder(ToggleKeresShadowsPacket::toBytes)
+                .consumerMainThread(ToggleKeresShadowsPacket::handle)
                 .add();
 
         net.messageBuilder(PacifistSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)

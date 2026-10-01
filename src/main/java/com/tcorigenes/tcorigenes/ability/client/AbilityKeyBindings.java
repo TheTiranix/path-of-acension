@@ -24,11 +24,18 @@ public class AbilityKeyBindings {
     public static final KeyMapping ACTIVATE_RACIAL = new KeyMapping(
             "key.tcorigenes.activate_racial", InputConstants.Type.KEYSYM, InputConstants.KEY_J, "key.categories.tcorigenes");
 
+    /** Apaga o prende las lanzas negras aereas de la Keres (ver KeresShadowControl). */
+    public static final KeyMapping TOGGLE_KERES_SHADOWS = new KeyMapping(
+            "key.tcorigenes.toggle_keres_shadows", InputConstants.Type.KEYSYM, InputConstants.KEY_K, "key.categories.tcorigenes");
+
+    private static boolean keresShadows = true;
+
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(ACTIVATE_ABILITY);
         event.register(OPEN_ABILITY_TREE);
         event.register(ACTIVATE_RACIAL);
+        event.register(TOGGLE_KERES_SHADOWS);
     }
 
     @SubscribeEvent
@@ -41,6 +48,15 @@ public class AbilityKeyBindings {
         }
         while (OPEN_ABILITY_TREE.consumeClick()) {
             SkillTreeScreen.open();
+        }
+        while (TOGGLE_KERES_SHADOWS.consumeClick()) {
+            keresShadows = !keresShadows;
+            Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(keresShadows));
+            var player = net.minecraft.client.Minecraft.getInstance().player;
+            if (player != null) {
+                player.displayClientMessage(net.minecraft.network.chat.Component.literal(keresShadows
+                        ? "Lanzas negras de la Keres: activadas (2 de vida cada una)" : "Lanzas negras de la Keres: desactivadas"), true);
+            }
         }
         while (ACTIVATE_RACIAL.consumeClick()) {
             Networking.sendToServer(new ActivateRacialAbilityPacket());

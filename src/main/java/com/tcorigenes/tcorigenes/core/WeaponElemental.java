@@ -118,7 +118,7 @@ public final class WeaponElemental {
         if (spec.cycle != null && !spec.cycle.isEmpty()) {
             ResourceKey<DamageType> slot = spec.perProjectile && shot
                     ? spec.cycle.get(projectileSlot(direct, attacker, id, spec.cycle.size()))
-                    : nextSlot(attacker, id, spec.cycle, !shot);
+                    : nextSlot(attacker, id, spec.cycle, !shot, isCelestisynthSkill(event) ? 1 : SWING_GROUP_TICKS);
             if (slot != null) {
                 if (converted != null) {
                     slot = converted; // el Prisma Convertidor manda: el golpe se transforma en ese elemento
@@ -181,19 +181,32 @@ public final class WeaponElemental {
      * repita la animacion de equipar). Todos los impactos de un mismo ataque (barrido, habilidades de varios
      * golpes) caen dentro de SWING_GROUP_TICKS y comparten elemento; recien el ataque siguiente avanza el ciclo.
      */
+    /**
+     * Los golpes de las habilidades de Celestisynth salen con tipos de daño propios del mod. Cada golpe de una habilidad de varios golpes
+     * tiene que avanzar el ciclo (pedido de alejandr0), asi que en esos casos solo se agrupan los que caen en el MISMO tick (un area que
+     * le pega a varios enemigos a la vez cuenta como un golpe); el barrido comun de la espada sigue agrupando toda la tanda.
+     */
+    private static boolean isCelestisynthSkill(LivingHurtEvent event) {
+        return event.getSource().typeHolder().unwrapKey().map(k -> k.location().getNamespace().equals("celestisynth")).orElse(false);
+    }
+
     private static ResourceKey<DamageType> nextSlot(Player attacker, ResourceLocation itemId, List<ResourceKey<DamageType>> cycle,
-            boolean groupSwing) {
-        return cycle.get(nextIndex(attacker, itemId, cycle.size(), groupSwing));
+            boolean groupSwing, int groupWindowTicks) {
+        return cycle.get(nextIndex(attacker, itemId, cycle.size(), groupSwing, groupWindowTicks));
     }
 
     private static int nextIndex(Player attacker, ResourceLocation itemId, int size, boolean groupSwing) {
+        return nextIndex(attacker, itemId, size, groupSwing, SWING_GROUP_TICKS);
+    }
+
+    private static int nextIndex(Player attacker, ResourceLocation itemId, int size, boolean groupSwing, int groupWindowTicks) {
         CompoundTag data = attacker.getPersistentData();
         CompoundTag all = data.getCompound(CYCLE_KEY);
         CompoundTag entry = all.getCompound(itemId.toString());
         long now = attacker.level().getGameTime();
         long since = now - entry.getLong("tick");
         int slot;
-        if (groupSwing && entry.contains("tick") && since >= 0 && since < SWING_GROUP_TICKS) {
+        if (groupSwing && entry.contains("tick") && since >= 0 && since < groupWindowTicks) {
             slot = Math.floorMod(entry.getInt("slot"), size);
         } else {
             slot = Math.floorMod(entry.getInt("next"), size);
