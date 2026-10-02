@@ -1,0 +1,362 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_1_tierras_heridas"
+	group: "67DF4E57D78C675C"
+	icon: "minecraft:compass"
+	id: "4EB3A90262FAD32C"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_1.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 2.5d
+	}]
+	order_index: 5
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["The gods fell and the sky went silent. What remains of them sleeps in the stone and in the souls of monsters.", "You woke up among the ruins. No one is coming to save you: the only real power is blood, steel and souls."]
+			id: "8A8BB7CD343AA2AD"
+			rewards: [
+				{
+					id: "4DE6C0EA3860757A"
+					type: "xp"
+					xp: 40
+				}
+				{
+					count: 8
+					id: "AB611F1AA2D9D977"
+					item: "minecraft:bread"
+					type: "item"
+				}
+			]
+			subtitle: "Everything begins with an empty sky"
+			tasks: [
+				{
+					id: "DB0D6B40CB01C29D"
+					title: "Everything begins with an empty sky"
+					type: "checkmark"
+				}
+			]
+			title: "The World After the Fall"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["8A8BB7CD343AA2AD"]
+			description: ["Before fighting gods you need a good blade. Iron and copper remain where the war left them, under layers of broken stone."]
+			id: "693A9FDD4C2FD070"
+			rewards: [
+				{
+					id: "0E46AD879CDC8F0D"
+					type: "xp"
+					xp: 60
+				}
+				{
+					count: 8
+					id: "DC50FFF5A63F5A77"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+			]
+			subtitle: "The first thing the earth offers"
+			tasks: [
+				{
+					count: 16L
+					id: "8B998D5365E5A65A"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "3CBE7FBBC9506F78"
+					item: "minecraft:copper_ingot"
+					type: "item"
+				}
+			]
+			title: "Iron and Copper"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["693A9FDD4C2FD070"]
+			description: ["When you mine stone, something sometimes glints inside: crystallized fragments of the memories of the fallen gods. Each one holds a different sorrow."]
+			id: "9D607A663F3E9B0A"
+			rewards: [
+				{
+					id: "2A4874E30C5B9C82"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "The stone remembers"
+			tasks: [
+				{
+					count: 8L
+					id: "4D67E3E98C647C4F"
+					item: "testamentodelacarne:fragmento_de_memoria"
+					type: "item"
+				}
+			]
+			title: "Memory Fragments"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9D607A663F3E9B0A"]
+			description: ["The souls of the gods never rested. They slipped into the bodies of zombies, skeletons and spiders. Tearing them out is dangerous, but it is the only currency the powers of this world value."]
+			id: "894F782A148B33AF"
+			rewards: [
+				{
+					id: "3517BC8255F34FA4"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "What dwells in monsters"
+			tasks: [
+				{
+					count: 4L
+					id: "A02F6B5D4214C1AC"
+					item: "testamentodelacarne:alma_corrupta"
+					type: "item"
+				}
+			]
+			title: "Corrupted Souls"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["894F782A148B33AF"]
+			description: ["Dungeons are scars left by the war. Enter one, open it carefully and leave with whatever you can carry."]
+			id: "32CFE6C19200B67A"
+			rewards: [
+				{
+					id: "BFDE7A51B787C073"
+					type: "xp"
+					xp: 90
+				}
+				{
+					id: "C8BF2FE34E941B40"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			subtitle: "Underground, silence weighs"
+			tasks: [
+				{
+					id: "052BAF998A2B3E0B"
+					structure: "betterdungeons:small_dungeon"
+					type: "structure"
+				}
+			]
+			title: "The First Dungeon"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["32CFE6C19200B67A"]
+			description: ["There are places where skeletons gather as if they still obeyed the orders of an army that no longer exists. Find one of those pits."]
+			id: "F74DD50CFEC0F854"
+			rewards: [
+				{
+					id: "3324DD887664DBE5"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "The dead do not sleep"
+			tasks: [
+				{
+					id: "9674584D54395BBF"
+					structure: "betterdungeons:skeleton_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Restless Bones"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["F74DD50CFEC0F854"]
+			description: ["After the Fall, some people learned to speak with what remained. A swamp witch keeps recipes no god would approve."]
+			id: "C692562238D8C12C"
+			rewards: [
+				{
+					id: "5A30879052FF0427"
+					type: "xp"
+					xp: 110
+				}
+				{
+					count: 4
+					id: "8688D3DFAA1FC34F"
+					item: "minecraft:experience_bottle"
+					type: "item"
+				}
+			]
+			subtitle: "Forbidden trades"
+			tasks: [
+				{
+					id: "A3AE93CDDC75532B"
+					structure: "betterwitchhuts:witch_hut"
+					type: "structure"
+				}
+			]
+			title: "The Witch's Hut"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C692562238D8C12C"]
+			description: ["A mother spider weaves her webs in the deep dungeons. If you kill her, her children will stop multiplying for a while."]
+			id: "68C42382C8B93FC2"
+			rewards: [
+				{
+					id: "0131BEA81B23A958"
+					type: "xp"
+					xp: 160
+				}
+				{
+					count: 2
+					id: "5FBA12F7C1550609"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A weave spreading beneath the world"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:mother_spider"
+					id: "2194E6492E576364"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Mother of Spiders"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["68C42382C8B93FC2"]
+			description: ["Some sorcerers claimed abandoned towers and practice a magic the gods never allowed. Their fortress can be seen from afar."]
+			id: "3D1E97D18E692CA5"
+			rewards: [
+				{
+					id: "A383620A39003F3E"
+					type: "xp"
+					xp: 140
+				}
+			]
+			subtitle: "Magic in the wrong hands"
+			tasks: [
+				{
+					id: "C5058A3B703DC724"
+					structure: "irons_spellbooks:evoker_fort"
+					type: "structure"
+				}
+			]
+			title: "The Evoker Fort"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3D1E97D18E692CA5"]
+			description: ["They say there was a knight in the service of a lesser god whose head was cut off for disobedience. He still rides, looking for the one he lost."]
+			id: "48881D728A96516E"
+			rewards: [
+				{
+					id: "38B9153B8638B262"
+					type: "xp"
+					xp: 220
+				}
+				{
+					count: 3
+					id: "7D179AF424BDAF0C"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A rider who needs no sight"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:lord_pumpkinhead"
+					id: "2395FC9F22CA51FF"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Headless Lord"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["48881D728A96516E"]
+			description: ["A diamond is the only thing that still shines like before the Fall. Gather enough to forge your first real weapons."]
+			id: "11340131FEEC68E7"
+			rewards: [
+				{
+					id: "5F8AA30D55845AA8"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "What a god could not break"
+			tasks: [
+				{
+					count: 12L
+					id: "D3521837FF0D3F5B"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			title: "Diamonds"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["11340131FEEC68E7"]
+			description: ["Among the ruins walks a summoner who raises bones on the orders of a god no one prays to anymore. Take him down to close this chapter."]
+			id: "ED20A959D410CCD8"
+			rewards: [
+				{
+					id: "ADD9E0D8175004DB"
+					type: "xp"
+					xp: 260
+				}
+				{
+					count: 4
+					id: "D99129868D66A553"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+				{
+					count: 2
+					id: "EE46DE5722D48434"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The first real boss"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:bonescaller"
+					id: "C6F7E55D184C67DA"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Preacher's Bones"
+			x: 3.8d
+			y: 5.0d
+		}
+	]
+	title: "I · Wounded Lands"
+}

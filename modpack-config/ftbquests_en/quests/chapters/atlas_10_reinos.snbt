@@ -1,0 +1,549 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_10_reinos"
+	group: "851BC1B6564B2B74"
+	icon: "minecraft:white_banner"
+	id: "6131970538EFF90A"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_10.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 6.2d
+	}]
+	order_index: 14
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["After the gods' abandonment, kingdoms of different races waged war for them. Learn to read their banners before crossing them."]
+			id: "7C92CF1EEE8D99CC"
+			rewards: [
+				{
+					id: "EBA4FF9042ACC68D"
+					type: "xp"
+					xp: 40
+				}
+			]
+			subtitle: "Races that kill each other for their gods"
+			tasks: [
+				{
+					id: "DD1751379C1080BA"
+					title: "Races that kill each other for their gods"
+					type: "checkmark"
+				}
+			]
+			title: "A World of Kingdoms"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7C92CF1EEE8D99CC"]
+			description: ["Humans are the neutral race: no god's favor, but no limits either. Walk their plains and watch them."]
+			id: "D279186428A75016"
+			rewards: [
+				{
+					id: "3A02A8C9C1178B1C"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Land of humans"
+			tasks: [
+				{
+					biome: "minecraft:plains"
+					id: "EE8D8EB60E59C717"
+					type: "biome"
+				}
+			]
+			title: "Plains"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["D279186428A75016"]
+			description: ["The forest is Meidris's domain. Among its trees faith in wild life is cultivated."]
+			id: "9D3E622DF914D8DE"
+			rewards: [
+				{
+					id: "DE53221FE0D696DE"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Living nature"
+			tasks: [
+				{
+					biome: "minecraft:forest"
+					id: "1CF85AFDCF832C9E"
+					type: "biome"
+				}
+			]
+			title: "The Forest"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9D3E622DF914D8DE"]
+			description: ["Deserts hold ruins of kingdoms that did not survive the war. The sun falls without mercy."]
+			id: "44379F2B1A5611F6"
+			rewards: [
+				{
+					id: "0E2F19498DEB4653"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Sand and ash"
+			tasks: [
+				{
+					biome: "minecraft:desert"
+					id: "8B297EB9BEC751B9"
+					type: "biome"
+				}
+			]
+			title: "The Desert"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["44379F2B1A5611F6"]
+			description: ["The savanna peoples live under open sky, always looking up, waiting for a sign."]
+			id: "ED84D589F231F3DC"
+			rewards: [
+				{
+					id: "DB6BDEFBD9899032"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Open sky"
+			tasks: [
+				{
+					biome: "minecraft:savanna"
+					id: "952B39E3A8B2D5BF"
+					type: "biome"
+				}
+			]
+			title: "The Savanna"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["ED84D589F231F3DC"]
+			description: ["The jungle is a living maze. There, forgotten temples still have owners."]
+			id: "C4A68DC959943CAF"
+			rewards: [
+				{
+					id: "4196E24178E23852"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Green and danger"
+			tasks: [
+				{
+					biome: "minecraft:jungle"
+					id: "DE378AA915F3F595"
+					type: "biome"
+				}
+			]
+			title: "The Jungle"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C4A68DC959943CAF"]
+			description: ["Swamps smell of witchcraft. It is the home of those who learned to speak with what remained after the Fall."]
+			id: "3D8ABFBB5128006D"
+			rewards: [
+				{
+					id: "59E327D49F5BE468"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Still waters"
+			tasks: [
+				{
+					biome: "minecraft:swamp"
+					id: "0ED6591E28796EF8"
+					type: "biome"
+				}
+			]
+			title: "The Swamp"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3D8ABFBB5128006D"]
+			description: ["The spruce forest keeps stories of kingdoms that fell covered in snow."]
+			id: "90A071D6A73F529D"
+			rewards: [
+				{
+					id: "FEF080611E0757A8"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Cold and silence"
+			tasks: [
+				{
+					biome: "minecraft:taiga"
+					id: "9D7A2250CC91BF09"
+					type: "biome"
+				}
+			]
+			title: "The Taiga"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["90A071D6A73F529D"]
+			description: ["There the climate kills before any monster. Dress warmly and do not trust the sun."]
+			id: "1E95EC65C03E06C5"
+			rewards: [
+				{
+					id: "7E066A861A47C740"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "The cold that kills"
+			tasks: [
+				{
+					biome: "minecraft:snowy_plains"
+					id: "5CC83EAC1F24283E"
+					type: "biome"
+				}
+			]
+			title: "Snowy Plains"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1E95EC65C03E06C5"]
+			description: ["The red mesas of the badlands hide abandoned mines and fortresses of other times."]
+			id: "A2A1F63D98E3755F"
+			rewards: [
+				{
+					id: "5C654DB4E043CD50"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "Red and dust"
+			tasks: [
+				{
+					biome: "minecraft:badlands"
+					id: "99EE26ADED9B27EC"
+					type: "biome"
+				}
+			]
+			title: "Badlands"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["A2A1F63D98E3755F"]
+			description: ["The trees are so tall they smother the light. Among them rise mansions of those who swore loyalty to the dark."]
+			id: "4678F5A997D3C425"
+			rewards: [
+				{
+					id: "D47AF86CC278884A"
+					type: "xp"
+					xp: 110
+				}
+			]
+			subtitle: "Where it never dawns"
+			tasks: [
+				{
+					biome: "minecraft:dark_forest"
+					id: "577CE456E1D89B73"
+					type: "biome"
+				}
+			]
+			title: "The Dark Forest"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["4678F5A997D3C425"]
+			description: ["Life goes on underground: caves full of moss, glowing berries and small creatures."]
+			id: "E249A6EBF2739172"
+			rewards: [
+				{
+					id: "97F70EAB27E9ED0D"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "A garden underground"
+			tasks: [
+				{
+					biome: "minecraft:lush_caves"
+					id: "1E8CD79047AEA8B4"
+					type: "biome"
+				}
+			]
+			title: "Lush Caves"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E249A6EBF2739172"]
+			description: ["The stone grows like teeth. It is a landscape that seems to watch whoever passes."]
+			id: "0839F88AE61EFAA3"
+			rewards: [
+				{
+					id: "48D084C32A482AD3"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Living stone"
+			tasks: [
+				{
+					biome: "minecraft:dripstone_caves"
+					id: "EF4534A568FA4E6D"
+					type: "biome"
+				}
+			]
+			title: "Dripstone Caves"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["0839F88AE61EFAA3"]
+			description: ["At the deepest point of the world an absolute silence covers everything. Mind where you step."]
+			id: "2D337E4372792A35"
+			rewards: [
+				{
+					id: "673F23CA18B9041B"
+					type: "xp"
+					xp: 250
+				}
+			]
+			subtitle: "What no one should see"
+			tasks: [
+				{
+					biome: "minecraft:deep_dark"
+					id: "334209BCCF03AF30"
+					type: "biome"
+				}
+			]
+			title: "The Deep Dark"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["2D337E4372792A35"]
+			description: ["The human is the base race: no bonuses or penalties. It can earn the favor of any god."]
+			id: "003A63AA0B2E193E"
+			rewards: [
+				{
+					id: "6EFA58176173B894"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "No favor, no limits"
+			tasks: [
+				{
+					id: "FC5B3C77D0DC85DA"
+					title: "No favor, no limits"
+					type: "checkmark"
+				}
+			]
+			title: "The Human"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["003A63AA0B2E193E"]
+			description: ["The gods ignore him. He learned to see where it hurts. A heretic seeks power to protect his family, even if that search marks him as an enemy of the order."]
+			id: "78E76241A599F90C"
+			rewards: [
+				{
+					id: "C6C58C955275DAB3"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "The gods ignore him"
+			tasks: [
+				{
+					id: "5384E371E5988173"
+					title: "The gods ignore him"
+					type: "checkmark"
+				}
+			]
+			title: "The Heretic"
+			x: -3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["78E76241A599F90C"]
+			description: ["Raised under the gaze of the creator gods. It heals itself and is healed better, at the price of living by the designs of the altars."]
+			id: "DCE93E39C7BFD0AD"
+			rewards: [
+				{
+					id: "AF9F7E1981E588BF"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Raised under the divine gaze"
+			tasks: [
+				{
+					id: "AC2EA31FEDB37226"
+					title: "Raised under the divine gaze"
+					type: "checkmark"
+				}
+			]
+			title: "The Devout"
+			x: -3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["DCE93E39C7BFD0AD"]
+			description: ["Fire blood and horns from the underworld. A descendant of Deiros's acolytes, it resists fire and lava like no one else."]
+			id: "55900F6043109D0C"
+			rewards: [
+				{
+					id: "71076381EA662B5C"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Fire blood"
+			tasks: [
+				{
+					id: "BEDDAD11AB406BB1"
+					title: "Fire blood"
+					type: "checkmark"
+				}
+			]
+			title: "The Demon"
+			x: -1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["55900F6043109D0C"]
+			description: ["Wings of light fallen from paradise. An angel takes no fall damage and its favor with the creator gods is greater, but its luck with the rebel is worse."]
+			id: "894E71A060267ADA"
+			rewards: [
+				{
+					id: "A522EC8258D9AD1B"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Wings of light"
+			tasks: [
+				{
+					id: "5B480C4E3DD18317"
+					title: "Wings of light"
+					type: "checkmark"
+				}
+			]
+			title: "The Angel"
+			x: 1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["894E71A060267ADA"]
+			description: ["It serves Luna. By day it weakens; at night, under open sky, it gains strength and armor. It does the dirty work Luna delegates."]
+			id: "9846F2D7E24272F3"
+			rewards: [
+				{
+					id: "9E5EA22D3AD6EDE8"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "The night is its kingdom"
+			tasks: [
+				{
+					id: "F35D9BB07AFE426F"
+					title: "The night is its kingdom"
+					type: "checkmark"
+				}
+			]
+			title: "The Servant of the Moon"
+			x: 3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["9846F2D7E24272F3"]
+			description: ["Endermen are humans transformed into monsters for defying the established order. The Ender Warrior is one who kept his sword and his pride, but fears water."]
+			id: "3489C055D1CAAFBF"
+			rewards: [
+				{
+					id: "8ECCFF8FE9D5AE55"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Humans transformed"
+			tasks: [
+				{
+					id: "C0C278A2B9023153"
+					title: "Humans transformed"
+					type: "checkmark"
+				}
+			]
+			title: "Endermen and the Ender Warrior"
+			x: 3.8d
+			y: 12.5d
+		}
+		{
+			dependencies: ["3489C055D1CAAFBF"]
+			description: ["Born cursed, deformed and hated by all. Poison heals it and it feels no hunger, but it is slower. It is the path of those who accept that no one will love them."]
+			id: "AD87B1EC5F6020F5"
+			rewards: [
+				{
+					id: "8C7A862E2B60F765"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Born cursed"
+			tasks: [
+				{
+					id: "AD8C8E7B0EF45744"
+					title: "Born cursed"
+					type: "checkmark"
+				}
+			]
+			title: "The Malnacido"
+			x: 1.2d
+			y: 12.5d
+		}
+		{
+			dependencies: ["AD87B1EC5F6020F5"]
+			description: ["The stone giant is slow but nearly unstoppable. The automaton is a machine in the service of Deiros, immune to magic. Both are secret paths."]
+			id: "EFABC30264BFC793"
+			rewards: [
+				{
+					id: "DC7138C83823C4F1"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Stone and gears"
+			tasks: [
+				{
+					id: "48049757F6C28FD3"
+					title: "Stone and gears"
+					type: "checkmark"
+				}
+			]
+			title: "The Stone Giant and the Automaton"
+			x: -1.2d
+			y: 12.5d
+		}
+	]
+	title: "Kingdoms and Races"
+}

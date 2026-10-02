@@ -1,0 +1,254 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_7_cielo"
+	group: "67DF4E57D78C675C"
+	icon: "aether:zanite_gemstone"
+	id: "58D01A8DB5385E6E"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_7.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 2.5d
+	}]
+	order_index: 11
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["To reach the Aether you do not need water but a consecrated tear forged from pure devotion. Cross the portal and see with your own eyes what remains of paradise."]
+			id: "0120A4F9196A5F9E"
+			rewards: [
+				{
+					id: "D8C209BC7C875532"
+					type: "xp"
+					xp: 800
+				}
+				{
+					count: 8
+					id: "532759F3EC35FF04"
+					item: "minecraft:golden_carrot"
+					type: "item"
+				}
+			]
+			subtitle: "A weeping that opens doors"
+			tasks: [
+				{
+					dimension: "aether:the_aether"
+					id: "7A045851FFAEF9BA"
+					type: "dimension"
+				}
+			]
+			title: "The Consecrated Tear"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0120A4F9196A5F9E"]
+			description: ["A blue gem found only on the floating islands. The Aether's inhabitants use it to forge tools that seem made of sky."]
+			id: "E1C80488853D86AB"
+			rewards: [
+				{
+					id: "C6A229FC3687E1D0"
+					type: "xp"
+					xp: 500
+				}
+			]
+			subtitle: "The stone of the sky"
+			tasks: [
+				{
+					count: 12L
+					id: "0511BAB5FCD64386"
+					item: "aether:zanite_gemstone"
+					type: "item"
+				}
+			]
+			title: "Zanite"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["E1C80488853D86AB"]
+			description: ["A labyrinth of floating stone where the first guardian awaits whoever dares. It is the door to a long road."]
+			id: "8A9FD7DFDA802921"
+			rewards: [
+				{
+					id: "F354E6A997C11067"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "The first of three"
+			tasks: [
+				{
+					id: "B7770E23823E8B67"
+					structure: "aether:bronze_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Bronze Dungeon"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["8A9FD7DFDA802921"]
+			description: ["A block of stone with eyes. It does not speak, does not negotiate: it only strikes. Its strength grows the more damage it takes."]
+			id: "B0B5C8F28AD7834E"
+			rewards: [
+				{
+					id: "3DE9F487AB0B3DBE"
+					type: "xp"
+					xp: 1100
+				}
+				{
+					id: "3DDEB642DFB0C1A2"
+					item: "aether:bronze_dungeon_key"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A guardian of stone"
+			tasks: [
+				{
+					entity: "aether:slider"
+					id: "E745BD7877774277"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Slider"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["B0B5C8F28AD7834E"]
+			description: ["A fortress of clouds and towers. Inside, the queen of the valkyries awaits a worthy challenger."]
+			id: "37C965A8D6D7BEC2"
+			rewards: [
+				{
+					id: "6459FD6245D9CFA1"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "The second of three"
+			tasks: [
+				{
+					id: "D2AE779B4CEA593A"
+					structure: "aether:silver_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Silver Dungeon"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["37C965A8D6D7BEC2"]
+			description: ["A winged warrior who has spent centuries defending a sky no one visits. She fights with honor and will ask the same of you."]
+			id: "4A4314EF967AAD20"
+			rewards: [
+				{
+					id: "ACB611F3F37CF829"
+					type: "xp"
+					xp: 1400
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The last defender of a kingdom"
+			tasks: [
+				{
+					entity: "aether:valkyrie_queen"
+					id: "930EFBE903B557A3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Valkyrie Queen"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["4A4314EF967AAD20"]
+			description: ["The highest dungeon in the sky. Nothing hides here: the traps are in plain sight and so is the challenge."]
+			id: "727BB92F57C3951D"
+			rewards: [
+				{
+					id: "0297B3339CD37ACB"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			subtitle: "The third and last"
+			tasks: [
+				{
+					id: "890201C304104210"
+					structure: "aether:gold_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Gold Dungeon"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["727BB92F57C3951D"]
+			description: ["A being of fire that lives in this sky's sun. When it falls, the light it gives is not lost, it becomes a treasure."]
+			id: "C98B82371573AFC0"
+			rewards: [
+				{
+					id: "9B0750094FBAA198"
+					type: "xp"
+					xp: 1800
+				}
+				{
+					id: "B99E9EDC647F576C"
+					item: "aether:gold_dungeon_key"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A flame that does not go out"
+			tasks: [
+				{
+					entity: "aether:sun_spirit"
+					id: "EF0648FCB97AE5C4"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Sun Spirit"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C98B82371573AFC0"]
+			description: ["A metal that rejects gravity. Whoever works it can forge armor that lets you fall like a feather and tools that float."]
+			id: "180D8336CA7A4776"
+			rewards: [
+				{
+					id: "BE2FA14BBC598BCF"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "A mineral that defies the ground"
+			tasks: [
+				{
+					count: 4L
+					id: "1ED64DB4DC07674B"
+					item: "aether:gravitite_ore"
+					type: "item"
+				}
+			]
+			title: "Gravitite"
+			x: -3.8d
+			y: 5.0d
+		}
+	]
+	title: "VII · The Kingdom of the Sky"
+}

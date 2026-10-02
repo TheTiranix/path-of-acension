@@ -1,0 +1,392 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_13_carne"
+	group: "851BC1B6564B2B74"
+	icon: "ars_nouveau:novice_spell_book"
+	id: "117A8E30377D6B7C"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_13.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 17
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["There is a third path: that of those who believe a well-spoken word is worth more than a blow. The path of flesh learns to order reality with will."]
+			id: "AE7BE26CDAA742CA"
+			rewards: [
+				{
+					id: "06415BBFA620C76C"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Between blood and steel"
+			tasks: [
+				{
+					id: "6CCC0A3ED32D9F9F"
+					title: "Between blood and steel"
+					type: "checkmark"
+				}
+			]
+			title: "The Word"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["AE7BE26CDAA742CA"]
+			description: ["An old notebook with notes from someone who dared to speak with magic."]
+			id: "AAF2F89992379705"
+			rewards: [
+				{
+					id: "D0A7D01885C5AF5B"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "The first reading"
+			tasks: [
+				{
+					id: "9044B45118C39B30"
+					item: "ars_nouveau:worn_notebook"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "DBD5808A28906376"
+					item: "minecraft:paper"
+					type: "item"
+				}
+			]
+			title: "A Worn Notebook"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["AAF2F89992379705"]
+			description: ["A flower that sprouts from magic itself. Without it almost nothing arcane gets made."]
+			id: "9678F7A7939F457F"
+			rewards: [
+				{
+					id: "E9D6B92FA79BAD3B"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "A flower that grows from air"
+			tasks: [
+				{
+					count: 16L
+					id: "EE05E0BFD350D4EF"
+					item: "ars_nouveau:magebloom"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "19812E334F717FE0"
+					item: "ars_nouveau:magebloom_fiber"
+					type: "item"
+				}
+			]
+			title: "Magebloom"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9678F7A7939F457F"]
+			description: ["A beginner's spell book. With it the world starts to obey you, sometimes too literally."]
+			id: "FD6B6FC9220B72D2"
+			rewards: [
+				{
+					id: "D8AD14C9BFDF63BB"
+					type: "xp"
+					xp: 140
+				}
+			]
+			subtitle: "Words that become fire"
+			tasks: [
+				{
+					id: "BE762017F14F1769"
+					item: "ars_nouveau:novice_spell_book"
+					type: "item"
+				}
+			]
+			title: "Your First Book"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["FD6B6FC9220B72D2"]
+			description: ["Source is the energy of magic. Source stones store it and give it back."]
+			id: "7B1F6DFF14D8C2DF"
+			rewards: [
+				{
+					id: "0D653A641948F71E"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Where the word concentrates"
+			tasks: [
+				{
+					count: 16L
+					id: "41C781C59DF9B75E"
+					item: "ars_nouveau:source_gem"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "AF9014C37334C718"
+					item: "ars_nouveau:sourcestone"
+					type: "item"
+				}
+			]
+			title: "Source Stone"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["7B1F6DFF14D8C2DF"]
+			description: ["A jar for storing source. The first luxury of a tidy mage."]
+			id: "36604411A85DB2BD"
+			rewards: [
+				{
+					id: "EE2D98CE9E24FD12"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "Reserves of power"
+			tasks: [
+				{
+					id: "452C8E59283142EA"
+					item: "ars_nouveau:source_jar"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "1BB5DC5AF9946086"
+					item: "ars_nouveau:relay"
+					type: "item"
+				}
+			]
+			title: "The Source Jar"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["36604411A85DB2BD"]
+			description: ["Here objects become magical. Whoever has one can do in an afternoon what takes others a lifetime."]
+			id: "0449904FBF32607B"
+			rewards: [
+				{
+					id: "BE2FC812438465DA"
+					type: "xp"
+					xp: 300
+				}
+			]
+			subtitle: "A table for impossible things"
+			tasks: [
+				{
+					id: "15849B6B6B47CC88"
+					item: "ars_nouveau:enchanting_apparatus"
+					type: "item"
+				}
+			]
+			title: "The Enchanting Apparatus"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["0449904FBF32607B"]
+			description: ["A chamber to infuse source into materials. What comes out has the shine of the living."]
+			id: "980B79C2A71B9BCC"
+			rewards: [
+				{
+					id: "E2A041C65F79B0CA"
+					type: "xp"
+					xp: 340
+				}
+			]
+			subtitle: "Giving life to the inert"
+			tasks: [
+				{
+					id: "E883BB87ABA6F267"
+					item: "ars_nouveau:imbuement_chamber"
+					type: "item"
+				}
+			]
+			title: "The Imbuement Chamber"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["980B79C2A71B9BCC"]
+			description: ["Wilden are guardians born of magic that has no owner. Visit their den and look closely at the creatures defending it."]
+			id: "5BBB291CC1E38A05"
+			rewards: [
+				{
+					id: "308B25B7DF21380D"
+					type: "xp"
+					xp: 380
+				}
+			]
+			subtitle: "Guardians of wild magic"
+			tasks: [
+				{
+					id: "42CDF85BE0F51E57"
+					structure: "ars_nouveau:hunter_wilden_den"
+					type: "structure"
+				}
+			]
+			title: "The Wilden Den"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5BBB291CC1E38A05"]
+			description: ["The wilden hunter fires arrows made of pure energy. Learn to dodge its rhythm."]
+			id: "E66050AA5D0A7E0E"
+			rewards: [
+				{
+					id: "00ED924A0E0CFE02"
+					type: "xp"
+					xp: 400
+				}
+			]
+			subtitle: "The one who guards the entrance"
+			tasks: [
+				{
+					entity: "ars_nouveau:wilden_hunter"
+					id: "B065AF14B33D1FA6"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Wilden Hunter"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E66050AA5D0A7E0E"]
+			description: ["A silent colossus that protects the center of the den. It hits hard, but moves slowly."]
+			id: "C4534FE0CA256B33"
+			rewards: [
+				{
+					id: "3EE905EDAF3CEDF2"
+					type: "xp"
+					xp: 450
+				}
+			]
+			subtitle: "The living wall"
+			tasks: [
+				{
+					entity: "ars_nouveau:wilden_guardian"
+					id: "F8FE6378B4AEA2A4"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Wilden Guardian"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["C4534FE0CA256B33"]
+			description: ["A book that lets you inscribe more complex spells, with more glyphs and more options."]
+			id: "ABECCF9AE147D854"
+			rewards: [
+				{
+					id: "7424B33E3548E4F1"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "A wider spell"
+			tasks: [
+				{
+					id: "7AEA8ED57E096C93"
+					item: "ars_nouveau:apprentice_spell_book"
+					type: "item"
+				}
+			]
+			title: "The Apprentice's Book"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["ABECCF9AE147D854"]
+			description: ["Whoever learns to fight with magic needs a robe that can take a hit or two."]
+			id: "01EEA3D08DE140D1"
+			rewards: [
+				{
+					id: "ED8B5C5E627098F0"
+					type: "xp"
+					xp: 1000
+				}
+			]
+			subtitle: "A mage who does not hide"
+			tasks: [
+				{
+					id: "9CB82A7F534EEE27"
+					item: "ars_nouveau:battlemage_hood"
+					type: "item"
+				}
+				{
+					id: "A0C4F62E0A9F42A3"
+					item: "ars_nouveau:battlemage_robes"
+					type: "item"
+				}
+				{
+					id: "4FEF9F22B514DC93"
+					item: "ars_nouveau:battlemage_leggings"
+					type: "item"
+				}
+				{
+					id: "AFC51A9D1946A9B8"
+					item: "ars_nouveau:battlemage_boots"
+					type: "item"
+				}
+			]
+			title: "Battlemage Robes"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["01EEA3D08DE140D1"]
+			description: ["The most powerful book a mortal can reach. With it, every word is an event."]
+			id: "29FF1CD562DBE3E0"
+			rewards: [
+				{
+					id: "4511A3B527C268F6"
+					type: "xp"
+					xp: 1500
+				}
+				{
+					id: "522A1C2A70E5DF6A"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The word in its final form"
+			tasks: [
+				{
+					id: "B38E3385413FD6FA"
+					item: "ars_nouveau:archmage_spell_book"
+					type: "item"
+				}
+			]
+			title: "The Archmage's Book"
+			x: 1.2d
+			y: 7.5d
+		}
+	]
+	title: "Path of Flesh"
+}

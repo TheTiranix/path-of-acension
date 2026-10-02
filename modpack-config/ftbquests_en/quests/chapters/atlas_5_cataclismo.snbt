@@ -1,0 +1,398 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_5_cataclismo"
+	group: "67DF4E57D78C675C"
+	icon: "cataclysm:ignitium_ingot"
+	id: "E2DC756D81742946"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_5.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 9
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["In the desert there is a pyramid that belongs to no god. Inside sleeps a guardian that has waited ages for visitors."]
+			id: "CD3DC8B6CFFB41E4"
+			rewards: [
+				{
+					id: "C0395045B55A62DE"
+					type: "xp"
+					xp: 500
+				}
+			]
+			subtitle: "A tomb that should not be opened"
+			tasks: [
+				{
+					id: "CDD15274F75B23A6"
+					structure: "cataclysm:cursed_pyramid"
+					type: "structure"
+				}
+			]
+			title: "The Cursed Pyramid"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["CD3DC8B6CFFB41E4"]
+			description: ["A suit of armor that moves by its own will guards the crypt. When it falls, its remains rise again."]
+			id: "68A9E49BBC88C020"
+			rewards: [
+				{
+					id: "5351FA8F14C43715"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "2D6EBF80DC796F69"
+					item: "minecraft:gold_block"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A pharaoh without a throne"
+			tasks: [
+				{
+					entity: "cataclysm:ancient_remnant"
+					id: "70CA0FA94B4545F0"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Ancient Remnant"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["68A9E49BBC88C020"]
+			description: ["Something big sank with its city, and the waters kept rising. Its dark streets hide creatures that are not human."]
+			id: "7ED21B04C0DCDE1C"
+			rewards: [
+				{
+					id: "0B839C31E7FA5985"
+					type: "xp"
+					xp: 560
+				}
+			]
+			subtitle: "A city beneath the sea"
+			tasks: [
+				{
+					id: "748BF9A19D42BE61"
+					structure: "cataclysm:sunken_city"
+					type: "structure"
+				}
+			]
+			title: "The Sunken City"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7ED21B04C0DCDE1C"]
+			description: ["A colossal creature with dull eyes that devours everything in its path. When it opens its jaws, the ocean trembles."]
+			id: "38DE3F7D221A2910"
+			rewards: [
+				{
+					id: "2E1225D9FB35E6B4"
+					type: "xp"
+					xp: 1200
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A monster that darkens the sea"
+			tasks: [
+				{
+					entity: "cataclysm:the_leviathan"
+					id: "BD591F5ED70A77DC"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Leviathan"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["38DE3F7D221A2910"]
+			description: ["In the Nether the flames never go out. An arena burns in the middle of a sea of lava and challenges whoever dares to fight in it."]
+			id: "72BAA9D520B127DD"
+			rewards: [
+				{
+					id: "7AFB8AD3EE1D7CEB"
+					type: "xp"
+					xp: 580
+				}
+			]
+			subtitle: "A coliseum in flames"
+			tasks: [
+				{
+					id: "E4435E080126CA3B"
+					structure: "cataclysm:burning_arena"
+					type: "structure"
+				}
+			]
+			title: "The Burning Arena"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["72BAA9D520B127DD"]
+			description: ["A burning warrior who commands fire with sword and shield. His armor heats up the more you hit him."]
+			id: "F38F5BF94EE2DE0B"
+			rewards: [
+				{
+					id: "1225544DD7DD4436"
+					type: "xp"
+					xp: 1300
+				}
+				{
+					count: 2
+					id: "7C968800F787386F"
+					item: "cataclysm:ignitium_ingot"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The knight of flames"
+			tasks: [
+				{
+					entity: "cataclysm:ignis"
+					id: "37AE8A145CFA8301"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Ignis"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["F38F5BF94EE2DE0B"]
+			description: ["His hammers never rest. He forges weapons for an army that never came. If you get past him, he may offer you something useful."]
+			id: "492585E49F078B06"
+			rewards: [
+				{
+					id: "0A742335DA5C7F4E"
+					type: "xp"
+					xp: 620
+				}
+			]
+			subtitle: "A smith who lost his gods"
+			tasks: [
+				{
+					id: "0A5D24699FE103DE"
+					structure: "cataclysm:soul_black_smith"
+					type: "structure"
+				}
+			]
+			title: "The Soul Black Smith"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["492585E49F078B06"]
+			description: ["A colossus of metal and fire whose arm launches explosions. Every blow of yours feels like hitting a mountain."]
+			id: "3A876E157F4F77FE"
+			rewards: [
+				{
+					id: "406919BABABDFA43"
+					type: "xp"
+					xp: 1400
+				}
+				{
+					count: 4
+					id: "2AF2E75B5CDDE9EB"
+					item: "minecraft:netherite_scrap"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A war machine of the Nether"
+			tasks: [
+				{
+					entity: "cataclysm:netherite_monstrosity"
+					id: "72DB2CCB5BE211AA"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Netherite Monstrosity"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3A876E157F4F77FE"]
+			description: ["A space of ice that holds what the gods decided not to kill. What sleeps there still murmurs."]
+			id: "1EFFB78D80BD8FC7"
+			rewards: [
+				{
+					id: "165A1CF4434BF989"
+					type: "xp"
+					xp: 640
+				}
+			]
+			subtitle: "A frozen punishment"
+			tasks: [
+				{
+					id: "2005580C32159875"
+					structure: "cataclysm:frosted_prison"
+					type: "structure"
+				}
+			]
+			title: "The Frosted Prison"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1EFFB78D80BD8FC7"]
+			description: ["A citadel at the end of the world keeps those who served the void. The guards are silent and do not stop."]
+			id: "30D69BA3457FBE63"
+			rewards: [
+				{
+					id: "ED565BC9E455454F"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The end of a kingdom"
+			tasks: [
+				{
+					id: "81519FC6E8EDB79A"
+					structure: "cataclysm:ruined_citadel"
+					type: "structure"
+				}
+				{
+					entity: "cataclysm:ender_guardian"
+					id: "35A51FF0FEC9D60D"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Ruined Citadel"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["30D69BA3457FBE63"]
+			description: ["A golem made of the matter of the End that walks without direction. It does not rest, does not speak, does not suffer. It only advances."]
+			id: "E1CDBDA92A8167C8"
+			rewards: [
+				{
+					id: "03CFF10222DBFC78"
+					type: "xp"
+					xp: 1300
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A colossus of the End"
+			tasks: [
+				{
+					entity: "cataclysm:ender_golem"
+					id: "AA6A98E9D46F21E4"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Ender Golem"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E1CDBDA92A8167C8"]
+			description: ["An apocalypse machine that floats and shoots from above. It activates in the deep Nether and launches missiles that erase rock."]
+			id: "5F48F418CBF9FF9A"
+			rewards: [
+				{
+					id: "DBF5D8A766C9C1B7"
+					type: "xp"
+					xp: 1600
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A rider of storms"
+			tasks: [
+				{
+					entity: "cataclysm:the_harbinger"
+					id: "AA2FF4D0858F9F9B"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Harbinger"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5F48F418CBF9FF9A"]
+			description: ["It is not a monster or a god: it is what happens when someone cannot die. Its wrath has no end and its spear pierces any defense."]
+			id: "3347D307C9F7F4A4"
+			rewards: [
+				{
+					id: "F5C22D163DC94BB8"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A curse that walks"
+			tasks: [
+				{
+					entity: "cataclysm:maledictus"
+					id: "2688AB3B7E880A05"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Accursed"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["3347D307C9F7F4A4"]
+			description: ["The last of the sea beasts. A trident, a thunder and a roar that splits the sea. Have your best armor and your allies ready."]
+			id: "FFE7388DD3C31655"
+			rewards: [
+				{
+					id: "A2BEB19FFBAA6B14"
+					type: "xp"
+					xp: 2000
+				}
+				{
+					count: 4
+					id: "9D053EF1450AF30F"
+					item: "cataclysm:witherite_ingot"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Queen of storms"
+			tasks: [
+				{
+					entity: "cataclysm:scylla"
+					id: "B8C15747E975A72E"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Scylla"
+			x: 1.2d
+			y: 7.5d
+		}
+	]
+	title: "V · The Twilight of the Ages"
+}

@@ -1,0 +1,413 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_11_sangre"
+	group: "851BC1B6564B2B74"
+	icon: "bloodmagic:altar"
+	id: "B044C215C8F104B4"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_11.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 15
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["The path of blood begins with a wound you make yourself. The texts say your own blood is the costliest coin and the only one that never runs out."]
+			id: "8DDF878039B70767"
+			rewards: [
+				{
+					id: "D62FE0CD32B455D1"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Blood that is offered"
+			tasks: [
+				{
+					id: "37F3DA46988FBBFC"
+					title: "Blood that is offered"
+					type: "checkmark"
+				}
+			]
+			title: "The First Cut"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["8DDF878039B70767"]
+			description: ["A ritual knife with which the ancients learned to separate flesh from spirit."]
+			id: "FAC989447CAD2EDB"
+			rewards: [
+				{
+					id: "054E5A5A6ECCCB91"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "A blade with history"
+			tasks: [
+				{
+					id: "5682947ABDCE57E4"
+					item: "occultism:butcher_knife"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "184C8CC254774A93"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+			]
+			title: "The Butcher's Knife"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["FAC989447CAD2EDB"]
+			description: ["This altar will be the focus of your power. Place it under open sky, where the gods can see you."]
+			id: "C0828E0381730BEF"
+			rewards: [
+				{
+					id: "57E7FA2F784F9225"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "84B4BB41246BE9B0"
+					item: "bloodmagic:weakbloodorb"
+					type: "item"
+				}
+			]
+			subtitle: "Where life becomes magic"
+			tasks: [
+				{
+					id: "010CC3B11CA52A2F"
+					item: "bloodmagic:altar"
+					type: "item"
+				}
+				{
+					id: "1A688D8F7D05C3D8"
+					item: "bloodmagic:sacrificialdagger"
+					type: "item"
+				}
+			]
+			title: "The Blood Altar"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["C0828E0381730BEF"]
+			description: ["An orb that keeps your essence. Every time you fill it you will feel less cold."]
+			id: "7E7CB6814B74D659"
+			rewards: [
+				{
+					id: "6244E97AB6945653"
+					type: "xp"
+					xp: 140
+				}
+			]
+			subtitle: "A vessel for your blood"
+			tasks: [
+				{
+					id: "2D4D8FDB125D90AF"
+					item: "bloodmagic:apprenticebloodorb"
+					type: "item"
+				}
+			]
+			title: "The Apprentice's Orb"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7E7CB6814B74D659"]
+			description: ["Blank slates, reinforced and infused with blood. They are the base of every ritual."]
+			id: "437F57809F82B9E2"
+			rewards: [
+				{
+					id: "EB1ACE1C0CB40DEA"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Stone to engrave the rite"
+			tasks: [
+				{
+					count: 4L
+					id: "A4873CA07C3EAF53"
+					item: "bloodmagic:blankslate"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "EB7479BC291672B4"
+					item: "bloodmagic:reinforcedslate"
+					type: "item"
+				}
+			]
+			title: "Slates"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["437F57809F82B9E2"]
+			description: ["Chalk circles concentrate the will of spirits. Drawing them wrong has consequences."]
+			id: "425DB905039F7A65"
+			rewards: [
+				{
+					id: "48B0FDAD4A053A60"
+					type: "xp"
+					xp: 150
+				}
+			]
+			subtitle: "Lines that open doors"
+			tasks: [
+				{
+					count: 2L
+					id: "E5B2B5D33E4BE2F8"
+					item: "occultism:chalk_white"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "AD7A534ACEE96D6A"
+					item: "occultism:chalk_gold"
+					type: "item"
+				}
+			]
+			title: "Ritual Chalk"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["425DB905039F7A65"]
+			description: ["An empty gem that can capture the soul of a living being. Use it with care: what is trapped weighs."]
+			id: "9D7115B42254D59B"
+			rewards: [
+				{
+					id: "83CC6CF78852A90D"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "A vessel for other people's souls"
+			tasks: [
+				{
+					id: "8B83BE1877D6E18A"
+					item: "occultism:soul_gem_empty"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "B14CD7B0FAE74F17"
+					item: "minecraft:amethyst_shard"
+					type: "item"
+				}
+			]
+			title: "The Soul Gem"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["9D7115B42254D59B"]
+			description: ["A metal found only on a different plane. Few return with it, and fewer with their sanity intact."]
+			id: "3E8D88FDD85D7153"
+			rewards: [
+				{
+					id: "FC9CD927AC710AF9"
+					type: "xp"
+					xp: 260
+				}
+			]
+			subtitle: "Metal from the other dimension"
+			tasks: [
+				{
+					count: 8L
+					id: "FC2C016FCC113B3A"
+					item: "occultism:iesnium_ingot"
+					type: "item"
+				}
+			]
+			title: "Iesnium"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3E8D88FDD85D7153"]
+			description: ["Each ritual stone channels a different element. Joined, they create a circle no god could undo."]
+			id: "03E04301B15A7969"
+			rewards: [
+				{
+					id: "81F278D55AB38B99"
+					type: "xp"
+					xp: 320
+				}
+			]
+			subtitle: "Concentrated power"
+			tasks: [
+				{
+					count: 8L
+					id: "2AB3E64A1A30021B"
+					item: "bloodmagic:ritualstone"
+					type: "item"
+				}
+				{
+					id: "17F9403345944015"
+					item: "bloodmagic:masterritualstone"
+					type: "item"
+				}
+			]
+			title: "Ritual Stones"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["03E04301B15A7969"]
+			description: ["The next step: a bigger orb, able to sustain greater spells and rituals."]
+			id: "2B3357D90B70EDB1"
+			rewards: [
+				{
+					id: "20EEF772E84FF94B"
+					type: "xp"
+					xp: 400
+				}
+			]
+			subtitle: "Much more than blood"
+			tasks: [
+				{
+					id: "395702B2290B37CD"
+					item: "bloodmagic:magicianbloodorb"
+					type: "item"
+				}
+			]
+			title: "The Magician's Orb"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["2B3357D90B70EDB1"]
+			description: ["Small engraved runes that do impossible things: walk on water, breathe lava, see through stone."]
+			id: "E744F97EB579BE2C"
+			rewards: [
+				{
+					id: "F60DE06FE22BA2AC"
+					type: "xp"
+					xp: 450
+				}
+			]
+			subtitle: "Marks that obey"
+			tasks: [
+				{
+					id: "74DA43C2CF2972E2"
+					item: "bloodmagic:airsigil"
+					type: "item"
+				}
+				{
+					id: "A9AC384BDF64FB31"
+					item: "bloodmagic:lavasigil"
+					type: "item"
+				}
+				{
+					id: "870DF63585517A42"
+					item: "bloodmagic:divinationsigil"
+					type: "item"
+				}
+			]
+			title: "Sigils"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E744F97EB579BE2C"]
+			description: ["With a chalk circle and patience, a lesser spirit will agree to serve you. It is not friendship, but it works."]
+			id: "3DFAE9D68590FEF9"
+			rewards: [
+				{
+					id: "4F70A20AF7B0CB2D"
+					type: "xp"
+					xp: 520
+				}
+			]
+			subtitle: "A soul that serves"
+			tasks: [
+				{
+					id: "4E0662CFC1AA4CBC"
+					item: "occultism:book_of_binding_empty"
+					type: "item"
+				}
+				{
+					id: "01E9065A0C568566"
+					item: "occultism:dimensional_matrix"
+					type: "item"
+				}
+			]
+			title: "The Trapped Spirit"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3DFAE9D68590FEF9"]
+			description: ["The power of demons condenses into crystals that glow with a sickly shine. Whoever touches them wants them close."]
+			id: "F38672FC0F5A142D"
+			rewards: [
+				{
+					id: "5239B64E3738A02E"
+					type: "xp"
+					xp: 650
+				}
+			]
+			subtitle: "Will made crystal"
+			tasks: [
+				{
+					count: 4L
+					id: "FECB86B3374D5230"
+					item: "bloodmagic:rawdemoncrystal"
+					type: "item"
+				}
+				{
+					id: "5F53106BF8C0CD7B"
+					item: "bloodmagic:demoncrucible"
+					type: "item"
+				}
+			]
+			title: "Demon Crystals"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["F38672FC0F5A142D"]
+			description: ["The most powerful orb a mortal can reach. There, the path of blood stops being a road and becomes an identity."]
+			id: "DF512B9CB3E7D8DE"
+			rewards: [
+				{
+					id: "7B746691E58BD17C"
+					type: "xp"
+					xp: 1000
+				}
+				{
+					id: "73FF932E58B18077"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Blood that never runs out"
+			tasks: [
+				{
+					id: "F486E9ADFD89BB39"
+					item: "bloodmagic:masterbloodorb"
+					type: "item"
+				}
+			]
+			title: "The Master's Orb"
+			x: 1.2d
+			y: 7.5d
+		}
+	]
+	title: "Path of Blood"
+}

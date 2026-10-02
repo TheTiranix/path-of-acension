@@ -1,0 +1,661 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_15_minerales"
+	group: "A1679646AA507048"
+	icon: "minecraft:diamond"
+	id: "EEC10E24928395DB"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_15.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 7.5d
+	}]
+	order_index: 19
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["When the gods fell, their remains mixed with the rock. Each ore keeps a fragment of what was: its hardness, its shine, its will."]
+			id: "F1584B995A477098"
+			rewards: [
+				{
+					id: "DF41C8EEB57E59F1"
+					type: "xp"
+					xp: 40
+				}
+			]
+			subtitle: "What the Fall buried"
+			tasks: [
+				{
+					id: "B0ADF626BE7425D2"
+					title: "What the Fall buried"
+					type: "checkmark"
+				}
+			]
+			title: "The Veins of the Earth"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["F1584B995A477098"]
+			description: ["Before any forging you need fire, and before fire, coal."]
+			id: "2D387AB98437E5F5"
+			rewards: [
+				{
+					id: "A7C47136B56075F2"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "The first fire"
+			tasks: [
+				{
+					count: 64L
+					id: "9CF8659CADE36035"
+					item: "minecraft:coal"
+					type: "item"
+				}
+			]
+			title: "Coal"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D387AB98437E5F5"]
+			description: ["More common than gold and so useful it built an empire."]
+			id: "417C4FA3B4135A6C"
+			rewards: [
+				{
+					id: "21C03B63C497FE1C"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "The metal of the poor"
+			tasks: [
+				{
+					count: 48L
+					id: "8271D450F2231687"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+			]
+			title: "Iron"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["417C4FA3B4135A6C"]
+			description: ["A malleable metal that oxidizes with pride."]
+			id: "500DBB501D3577B1"
+			rewards: [
+				{
+					id: "19B0AA682261CF6A"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Green and docile"
+			tasks: [
+				{
+					count: 48L
+					id: "9AE687416ED95913"
+					item: "minecraft:copper_ingot"
+					type: "item"
+				}
+			]
+			title: "Copper"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["500DBB501D3577B1"]
+			description: ["The gods used it as an ornament. Today it is currency and above all magic."]
+			id: "46FA5A234958DBA5"
+			rewards: [
+				{
+					id: "09A4EB2BFED8EAB2"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Shine with no practical value"
+			tasks: [
+				{
+					count: 32L
+					id: "668ED12334491071"
+					item: "minecraft:gold_ingot"
+					type: "item"
+				}
+			]
+			title: "Gold"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["46FA5A234958DBA5"]
+			description: ["A red dust that seems to have a pulse of its own."]
+			id: "39D987FD8304752B"
+			rewards: [
+				{
+					id: "D2305C1605A832DB"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Dust that beats"
+			tasks: [
+				{
+					count: 64L
+					id: "561320EC8569CB0F"
+					item: "minecraft:redstone"
+					type: "item"
+				}
+			]
+			title: "Redstone"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["39D987FD8304752B"]
+			description: ["The enchanters' stone. Its color recalls the eyes of those who are gone."]
+			id: "5E7494662EA04AD8"
+			rewards: [
+				{
+					id: "6A4588665CB1C8BB"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Temple blue"
+			tasks: [
+				{
+					count: 48L
+					id: "4A32865E112ED0A7"
+					item: "minecraft:lapis_lazuli"
+					type: "item"
+				}
+			]
+			title: "Lapis Lazuli"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["5E7494662EA04AD8"]
+			description: ["Pure crystal that grows in the Nether. Its light is hard."]
+			id: "6A4657045B013F0D"
+			rewards: [
+				{
+					id: "8C2DE548B82AFFFA"
+					type: "xp"
+					xp: 110
+				}
+			]
+			subtitle: "White and hard"
+			tasks: [
+				{
+					count: 48L
+					id: "E1326608BAA9C12D"
+					item: "minecraft:quartz"
+					type: "item"
+				}
+			]
+			title: "Quartz"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["6A4657045B013F0D"]
+			description: ["Amethysts resonate when someone approaches. Whoever carries them never walks alone."]
+			id: "AB0FD361FDE5C362"
+			rewards: [
+				{
+					id: "CCD43957C119BEFB"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Crystals that sing"
+			tasks: [
+				{
+					count: 32L
+					id: "57104A9DEF59CF64"
+					item: "minecraft:amethyst_shard"
+					type: "item"
+				}
+			]
+			title: "Amethyst"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AB0FD361FDE5C362"]
+			description: ["Diamonds still shine like before the Fall."]
+			id: "D98801486A65C815"
+			rewards: [
+				{
+					id: "B5D83CC27E1BCD51"
+					type: "xp"
+					xp: 200
+				}
+				{
+					count: 4
+					id: "1407352B51E8BE01"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			subtitle: "What a god did not break"
+			tasks: [
+				{
+					count: 24L
+					id: "FA149D4E188B84E8"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			title: "Diamonds"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["D98801486A65C815"]
+			description: ["Villages pay in emeralds. More value, less weight."]
+			id: "FD8004EC2F65CB08"
+			rewards: [
+				{
+					id: "144BDC81CB893065"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "Currency of villages"
+			tasks: [
+				{
+					count: 24L
+					id: "3ACFCD9DB99B6140"
+					item: "minecraft:emerald"
+					type: "item"
+				}
+			]
+			title: "Emeralds"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["FD8004EC2F65CB08"]
+			description: ["A blue-gray metal only machine people understand."]
+			id: "5143DFD77B3A79D1"
+			rewards: [
+				{
+					id: "761DEF7E1957E282"
+					type: "xp"
+					xp: 220
+				}
+			]
+			subtitle: "Engineers' metal"
+			tasks: [
+				{
+					count: 16L
+					id: "35DA0F6562BA0B6E"
+					item: "create:zinc_ingot"
+					type: "item"
+				}
+			]
+			title: "Zinc"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5143DFD77B3A79D1"]
+			description: ["Less noble, but without them there are no alloys or batteries."]
+			id: "6377DB573729F375"
+			rewards: [
+				{
+					id: "10D00CA9490E4AD6"
+					type: "xp"
+					xp: 240
+				}
+			]
+			subtitle: "Second-rate metals"
+			tasks: [
+				{
+					count: 16L
+					id: "E74A2062EE6C600F"
+					item: "mekanism:ingot_tin"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "9D1452602AC6881C"
+					item: "mekanism:ingot_lead"
+					type: "item"
+				}
+			]
+			title: "Tin and Lead"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["6377DB573729F375"]
+			description: ["A heavy metal that becomes essential in advanced industry."]
+			id: "5337EAAABE97FF33"
+			rewards: [
+				{
+					id: "1319AAA4A93287B1"
+					type: "xp"
+					xp: 260
+				}
+			]
+			subtitle: "Resistant like few"
+			tasks: [
+				{
+					count: 24L
+					id: "E10221ACC2668CD8"
+					item: "mekanism:ingot_osmium"
+					type: "item"
+				}
+			]
+			title: "Osmium"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["5337EAAABE97FF33"]
+			description: ["A greenish gem that serves as decoration and as a machine ingredient alike."]
+			id: "81B347CFB7C89FE6"
+			rewards: [
+				{
+					id: "31068276B433BDC1"
+					type: "xp"
+					xp: 280
+				}
+			]
+			subtitle: "An industrial gem"
+			tasks: [
+				{
+					count: 16L
+					id: "1EDAD921273DED9F"
+					item: "mekanism:fluorite_gem"
+					type: "item"
+				}
+			]
+			title: "Fluorite"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["81B347CFB7C89FE6"]
+			description: ["They say silver hurts what should not exist. Hunters value it highly."]
+			id: "4203F3F6E6983E0D"
+			rewards: [
+				{
+					id: "D1CD98D17502FB25"
+					type: "xp"
+					xp: 300
+				}
+			]
+			subtitle: "Metal of the dead"
+			tasks: [
+				{
+					count: 16L
+					id: "0B3517F019ABBD36"
+					item: "iceandfire:silver_ingot"
+					type: "item"
+				}
+			]
+			title: "Silver"
+			x: -3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["4203F3F6E6983E0D"]
+			description: ["A blue gem formed when an ice dragon stays still for too long."]
+			id: "C840D1E5F0063361"
+			rewards: [
+				{
+					id: "A48BDFB1E72FC929"
+					type: "xp"
+					xp: 320
+				}
+			]
+			subtitle: "Gem of ice"
+			tasks: [
+				{
+					count: 8L
+					id: "64DEC247E50B6843"
+					item: "iceandfire:sapphire_gem"
+					type: "item"
+				}
+			]
+			title: "Sapphire"
+			x: -3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["C840D1E5F0063361"]
+			description: ["Four gold ingots and four ancient debris scraps. A metal forged only with patience and luck."]
+			id: "F9ECCAE5D96C8A77"
+			rewards: [
+				{
+					id: "D60630095377241F"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "Metal of hell"
+			tasks: [
+				{
+					count: 4L
+					id: "E80CFADF2E045A8A"
+					item: "minecraft:netherite_ingot"
+					type: "item"
+				}
+			]
+			title: "Netherite"
+			x: -1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["F9ECCAE5D96C8A77"]
+			description: ["A blue-green metal that grows where the Sculk Horde has touched. It shines with a light that is not healthy."]
+			id: "E34EB88BE411B0F9"
+			rewards: [
+				{
+					id: "E219691C8E9D9362"
+					type: "xp"
+					xp: 520
+				}
+			]
+			subtitle: "Sick metal"
+			tasks: [
+				{
+					count: 12L
+					id: "A85F288111323F8A"
+					item: "sculkhorde:diascite"
+					type: "item"
+				}
+			]
+			title: "Diascite"
+			x: 1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["E34EB88BE411B0F9"]
+			description: ["A metal that only melts in the fires of a burning world."]
+			id: "4E77032FD6804BBA"
+			rewards: [
+				{
+					id: "A5FA29121E6E09BE"
+					type: "xp"
+					xp: 560
+				}
+			]
+			subtitle: "The forge of chaos"
+			tasks: [
+				{
+					count: 12L
+					id: "790D2A93B67FBF79"
+					item: "born_in_chaos_v1:dark_metal_ingot"
+					type: "item"
+				}
+			]
+			title: "Dark Metal"
+			x: 3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["4E77032FD6804BBA"]
+			description: ["Forged in the darkness of a forgotten king. It weighs more than it looks."]
+			id: "21FC81AF340B9551"
+			rewards: [
+				{
+					id: "9D8187C46712D45E"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "A metal for giants"
+			tasks: [
+				{
+					count: 8L
+					id: "C38EA5E8E6223155"
+					item: "cataclysm:black_steel_ingot"
+					type: "item"
+				}
+			]
+			title: "Black Steel"
+			x: 3.8d
+			y: 12.5d
+		}
+		{
+			dependencies: ["21FC81AF340B9551"]
+			description: ["A metal that never cools. Whoever wears it does not suffer from heat."]
+			id: "91A0F20D6A71793D"
+			rewards: [
+				{
+					id: "852347CABF55463A"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Solid fire"
+			tasks: [
+				{
+					count: 6L
+					id: "D2640425A0E3AADC"
+					item: "cataclysm:ignitium_ingot"
+					type: "item"
+				}
+			]
+			title: "Ignitium"
+			x: 1.2d
+			y: 12.5d
+		}
+		{
+			dependencies: ["91A0F20D6A71793D"]
+			description: ["The Wither's metal. Cold to the touch and heavy on the conscience."]
+			id: "3728BC7F0EB528CD"
+			rewards: [
+				{
+					id: "ADB0AB180E967677"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Death in an ingot"
+			tasks: [
+				{
+					count: 6L
+					id: "90DC0D1DDFE5FAAC"
+					item: "cataclysm:witherite_ingot"
+					type: "item"
+				}
+			]
+			title: "Witherite"
+			x: -1.2d
+			y: 12.5d
+		}
+		{
+			dependencies: ["3728BC7F0EB528CD"]
+			description: ["A radioactive mineral that powers the most dangerous machines in the world."]
+			id: "8015A26A760A986B"
+			rewards: [
+				{
+					id: "39D444F30A3CAD12"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "A green glow"
+			tasks: [
+				{
+					count: 8L
+					id: "E6A95794558EC882"
+					item: "alexscaves:uranium"
+					type: "item"
+				}
+			]
+			title: "Uranium"
+			x: -3.8d
+			y: 12.5d
+		}
+		{
+			dependencies: ["8015A26A760A986B"]
+			description: ["Found only in a pocket dimension. Whoever returns with it is not the same."]
+			id: "301BC20DCD03C32B"
+			rewards: [
+				{
+					id: "62FB057BE3DAC758"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Metal of another plane"
+			tasks: [
+				{
+					count: 8L
+					id: "438A398C6F604639"
+					item: "occultism:iesnium_ingot"
+					type: "item"
+				}
+			]
+			title: "Iesnium"
+			x: -3.8d
+			y: 15.0d
+		}
+		{
+			dependencies: ["301BC20DCD03C32B"]
+			description: ["The minerals of the Aether, which float and defy the fall."]
+			id: "240A98D9207A346B"
+			rewards: [
+				{
+					id: "89FAFF9234C4568A"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Metals of the sky"
+			tasks: [
+				{
+					count: 16L
+					id: "9A967C51B88BB30F"
+					item: "aether:zanite_gemstone"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "07A99EE8BEE3264A"
+					item: "aether:gravitite_ore"
+					type: "item"
+				}
+			]
+			title: "Zanite and Gravitite"
+			x: -1.2d
+			y: 15.0d
+		}
+	]
+	title: "Ores of the Fallen World"
+}

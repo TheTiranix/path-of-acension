@@ -1,0 +1,8 @@
+{
+	chapter_groups: [
+		{ id: "75FA889261D15232", title: "La Senda del Apóstata" }
+		{ id: "67DF4E57D78C675C", title: "Atlas of the Fallen World" }
+		{ id: "851BC1B6564B2B74", title: "Gods and Paths" }
+		{ id: "A1679646AA507048", title: "The World's Craft" }
+	]
+}

@@ -1,0 +1,440 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_12_acero"
+	group: "851BC1B6564B2B74"
+	icon: "create:mechanical_press"
+	id: "AB269B239F7BCC4C"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_12.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 16
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Steel does not pray: it calculates. The path begins with the idea that all movement can be tamed and any force chained to a wheel."]
+			id: "83F1535F99AB0BF4"
+			rewards: [
+				{
+					id: "84AFC5D862B33483"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "First gears"
+			tasks: [
+				{
+					id: "5689B195A20CC2D5"
+					title: "First gears"
+					type: "checkmark"
+				}
+			]
+			title: "Order and Wheel"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["83F1535F99AB0BF4"]
+			description: ["Stone and iron joined by a recipe no one remembers who invented. Without it there is no machinery."]
+			id: "0F826A89CF68C399"
+			rewards: [
+				{
+					id: "E73A98302329E0A3"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "The base of industry"
+			tasks: [
+				{
+					count: 16L
+					id: "9CF0945963A8E8A2"
+					item: "create:andesite_alloy"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "C8D8AB89EA89A0B9"
+					item: "create:shaft"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "41B17A70257B627C"
+					item: "create:cogwheel"
+					type: "item"
+				}
+			]
+			title: "Andesite Alloy"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0F826A89CF68C399"]
+			description: ["A well-used river is an army that never tires. Place the first wheel and let the world work for you."]
+			id: "0B8854AD38F0A6C6"
+			rewards: [
+				{
+					id: "94D2A230EAAA3012"
+					type: "xp"
+					xp: 110
+				}
+			]
+			subtitle: "Free power"
+			tasks: [
+				{
+					count: 2L
+					id: "63816F94874CFC2F"
+					item: "create:water_wheel"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "6D5C189790BE5CCE"
+					item: "create:large_cogwheel"
+					type: "item"
+				}
+			]
+			title: "The Water Wheel"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0B8854AD38F0A6C6"]
+			description: ["Everything that used to be broken by blows is now ground without effort."]
+			id: "1051527638B9DA6F"
+			rewards: [
+				{
+					id: "8F3D6ED1D2EBA632"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Grinding what used to be broken"
+			tasks: [
+				{
+					id: "F29719F523C73199"
+					item: "create:millstone"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "AE1AFF0919E2697D"
+					item: "create:crushed_raw_iron"
+					type: "item"
+				}
+			]
+			title: "The Millstone"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1051527638B9DA6F"]
+			description: ["A press that flattens metal into sheets, so you can begin making real things."]
+			id: "DF2184F4B46DE3DD"
+			rewards: [
+				{
+					id: "628122C10E70EE90"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Plates and sheets"
+			tasks: [
+				{
+					id: "307DC56763588275"
+					item: "create:mechanical_press"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "596190AE1803D9B6"
+					item: "create:brass_ingot"
+					type: "item"
+				}
+			]
+			title: "The Mechanical Press"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["DF2184F4B46DE3DD"]
+			description: ["A machine that does in a minute what used to take a day. Put it against a stone wall and forget about it."]
+			id: "A77CCA9BD375665B"
+			rewards: [
+				{
+					id: "05799335FA32C562"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Dig without sweating"
+			tasks: [
+				{
+					id: "75AB8AAC3A7F9A97"
+					item: "create:mechanical_drill"
+					type: "item"
+				}
+				{
+					id: "788011DD67DC4273"
+					item: "create:encased_fan"
+					type: "item"
+				}
+			]
+			title: "The Drill"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["A77CCA9BD375665B"]
+			description: ["Gears went from being force to being logic. This is the first step toward machines that decide."]
+			id: "3685708FD594A686"
+			rewards: [
+				{
+					id: "3D1B7DADD03E5F43"
+					type: "xp"
+					xp: 280
+				}
+			]
+			subtitle: "A machine's first thought"
+			tasks: [
+				{
+					count: 4L
+					id: "25CFC501C6DCEAC9"
+					item: "create:precision_mechanism"
+					type: "item"
+				}
+				{
+					id: "13B12223E2693B8B"
+					item: "create:deployer"
+					type: "item"
+				}
+			]
+			title: "Precision Mechanisms"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3685708FD594A686"]
+			description: ["Beyond the wheels there is another school: the one that processes metals in chains, multiplying each ore by three, by four, by five."]
+			id: "531A93A176DF5BDE"
+			rewards: [
+				{
+					id: "D61D5804064ED965"
+					type: "xp"
+					xp: 350
+				}
+			]
+			subtitle: "Another kind of industry"
+			tasks: [
+				{
+					count: 8L
+					id: "53AC34241DFE4C03"
+					item: "mekanism:enriched_iron"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "B97147B19AFB56FD"
+					item: "mekanism:ingot_steel"
+					type: "item"
+				}
+			]
+			title: "Mechanized Iron"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["531A93A176DF5BDE"]
+			description: ["A silvery-blue metal that resists what nothing else resists. Machines consider it a luxury."]
+			id: "82F696175C08FE04"
+			rewards: [
+				{
+					id: "F5B48CA99A3EE586"
+					type: "xp"
+					xp: 380
+				}
+			]
+			subtitle: "Metal of the new era"
+			tasks: [
+				{
+					count: 16L
+					id: "C252244D32EF6D48"
+					item: "mekanism:ingot_osmium"
+					type: "item"
+				}
+			]
+			title: "Osmium"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["82F696175C08FE04"]
+			description: ["Small circuits that shape more advanced machines. Whoever can make them commands industry."]
+			id: "AF7DA95E0BA5FF3C"
+			rewards: [
+				{
+					id: "D22306F8519D6ED2"
+					type: "xp"
+					xp: 420
+				}
+			]
+			subtitle: "A simple brain"
+			tasks: [
+				{
+					count: 4L
+					id: "7188255279BAB896"
+					item: "mekanism:basic_control_circuit"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "B6670FEF3C05A3DA"
+					item: "mekanism:advanced_control_circuit"
+					type: "item"
+				}
+			]
+			title: "Control Circuits"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AF7DA95E0BA5FF3C"]
+			description: ["A cube that stores energy for when you need it. Pater's industry is an industry with reserves."]
+			id: "4787FE8AE24C1298"
+			rewards: [
+				{
+					id: "A29F920F96869736"
+					type: "xp"
+					xp: 460
+				}
+			]
+			subtitle: "Stored power"
+			tasks: [
+				{
+					id: "2A1791366AA19590"
+					item: "mekanism:basic_energy_cube"
+					type: "item"
+				}
+				{
+					id: "E369306599660107"
+					item: "mekanism:metallurgic_infuser"
+					type: "item"
+				}
+			]
+			title: "The Energy Cube"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["4787FE8AE24C1298"]
+			description: ["The gods' machines are not just iron: what moves them is something else. Gears that obey a force no one understands."]
+			id: "A461D688D013E47C"
+			rewards: [
+				{
+					id: "241AB94A5462F53E"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "Machine and magic"
+			tasks: [
+				{
+					id: "427F2A1076311B3A"
+					item: "testamentodelacarne:engranaje_arcano"
+					type: "item"
+				}
+				{
+					id: "10D83EA4A3A87685"
+					item: "testamentodelacarne:chasis_engranaje"
+					type: "item"
+				}
+			]
+			title: "The Arcane Gear"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["A461D688D013E47C"]
+			description: ["A machine that excavates a whole area on its own. Those who use it never set foot in a mine again."]
+			id: "991924D4AC643FAC"
+			rewards: [
+				{
+					id: "2C677FF4AA1C34C2"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Dig without looking"
+			tasks: [
+				{
+					id: "B5DBF95153844209"
+					item: "mekanism:digital_miner"
+					type: "item"
+				}
+			]
+			title: "The Digital Miner"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["991924D4AC643FAC"]
+			description: ["A jetpack that burns fuel to lift you. What only angels could do before is now done by a device."]
+			id: "01993059F0F2EB1F"
+			rewards: [
+				{
+					id: "1C8552D46ADE3902"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Fly without divine permission"
+			tasks: [
+				{
+					id: "4B5AC32396DA5D17"
+					item: "mekanism:jetpack"
+					type: "item"
+				}
+			]
+			title: "Jetpack"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["01993059F0F2EB1F"]
+			description: ["Whoever wants to see the limit of the path must build the core of an automaton: a heart that beats through gears."]
+			id: "3F0F862B0C65D1B8"
+			rewards: [
+				{
+					id: "B7AB77E9BCBD7688"
+					type: "xp"
+					xp: 1200
+				}
+				{
+					id: "9B3FE1A22F219FD5"
+					item: "mekanism:atomic_disassembler"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A heart of gears"
+			tasks: [
+				{
+					id: "5111D376B783DD44"
+					item: "testamentodelacarne:nucleo_de_automata"
+					type: "item"
+				}
+			]
+			title: "The Automaton Core"
+			x: -1.2d
+			y: 7.5d
+		}
+	]
+	title: "Path of Steel"
+}

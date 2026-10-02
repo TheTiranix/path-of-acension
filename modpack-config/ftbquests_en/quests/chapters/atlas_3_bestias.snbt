@@ -1,0 +1,389 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_3_bestias"
+	group: "67DF4E57D78C675C"
+	icon: "mowziesmobs:wrought_axe"
+	id: "F5EF88C8C1967B21"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_3.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 7
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Foliaaths are carnivorous plants guarding the edges of old places. They look harmless until they open their mouths."]
+			id: "A9F7E97965D6CF79"
+			rewards: [
+				{
+					id: "78185FB3808EDF09"
+					type: "xp"
+					xp: 150
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A hungry bulb"
+			tasks: [
+				{
+					entity: "mowziesmobs:foliaath"
+					id: "63896B9526C06B62"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Gatekeeper"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["A9F7E97965D6CF79"]
+			description: ["The monks left when the gods fell silent. Their monastery still stands, with dusty halls and things you should not touch."]
+			id: "9AB62B5EF34A9854"
+			rewards: [
+				{
+					id: "D1DDF010446C822C"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Stone peace"
+			tasks: [
+				{
+					id: "178B633902666329"
+					structure: "mowziesmobs:monastery"
+					type: "structure"
+				}
+			]
+			title: "The Forgotten Monastery"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9AB62B5EF34A9854"]
+			description: ["Something pounds from the bottom of an underground chamber: an iron giant with axe and shield, guarding a treasure for centuries."]
+			id: "0A3D72134FB3D6C0"
+			rewards: [
+				{
+					id: "7245451068A85D78"
+					type: "xp"
+					xp: 360
+				}
+				{
+					count: 4
+					id: "85EAEF6B5552E090"
+					item: "minecraft:iron_block"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A guardian made of iron"
+			tasks: [
+				{
+					id: "E483772338364128"
+					structure: "mowziesmobs:wrought_chamber"
+					type: "structure"
+				}
+				{
+					entity: "mowziesmobs:ferrous_wroughtnaut"
+					id: "B9BD30E983FC5DDB"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Wroughtnaut Chamber"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0A3D72134FB3D6C0"]
+			description: ["The umvuthana tribes worship a sun of their own. Their masked chief commands fire and demands tribute."]
+			id: "CB7524D792327E4C"
+			rewards: [
+				{
+					id: "916725550843B8A0"
+					type: "xp"
+					xp: 420
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A lesser god among tribes"
+			tasks: [
+				{
+					id: "0AC0F6E639182B06"
+					structure: "mowziesmobs:umvuthana_grove"
+					type: "structure"
+				}
+				{
+					entity: "mowziesmobs:umvuthi"
+					id: "952B7FBD7A032DF5"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Great Sun Umvuthana"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["CB7524D792327E4C"]
+			description: ["In the snowy mountains a monster of ice roars on a throne of snow. His frost axe is heard before he is seen."]
+			id: "25EA1682E16466C0"
+			rewards: [
+				{
+					id: "9FA32D73E7364A79"
+					type: "xp"
+					xp: 480
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "King of the peaks"
+			tasks: [
+				{
+					id: "18752040D51601C1"
+					structure: "mowziesmobs:frostmaw_spawn"
+					type: "structure"
+				}
+				{
+					entity: "mowziesmobs:frostmaw"
+					id: "006F19325EFAEA1E"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Frozen Claw"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["25EA1682E16466C0"]
+			description: ["In forests and plains black towers grow where darkness has a will of its own. Whoever enters rarely leaves the same."]
+			id: "5A34D1EDAEA4E328"
+			rewards: [
+				{
+					id: "83B4ED3593946558"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "A tower of nightmares"
+			tasks: [
+				{
+					id: "BD4F4B5BDCAB5674"
+					structure: "born_in_chaos_v1:dark_tower_forest"
+					type: "structure"
+				}
+			]
+			title: "The Dark Tower of Chaos"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["5A34D1EDAEA4E328"]
+			description: ["It feeds on the life of others, and on dying it reveals a crueler second form. Keep your health high and do not lose your rhythm."]
+			id: "4D3A21D8C684C09C"
+			rewards: [
+				{
+					id: "FF7742A2FC0CBAE1"
+					type: "xp"
+					xp: 320
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A leech with two forms"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:lifestealer"
+					id: "2B15CB4E67F2437C"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Lifestealer"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["4D3A21D8C684C09C"]
+			description: ["A knight in black armor rides through the wastelands. Defeating him is not hard; what is hard is enduring his silence."]
+			id: "7CD1D2B54911B95B"
+			rewards: [
+				{
+					id: "550283769FBC5464"
+					type: "xp"
+					xp: 340
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A rider without rest"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:fallen_chaos_knight"
+					id: "93429C9BD3602E4A"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Fallen Knight's Steed"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["7CD1D2B54911B95B"]
+			description: ["A reddish stone altar still smells of sacrifice. Someone, or something, keeps it alive."]
+			id: "A3098322F75F2A3E"
+			rewards: [
+				{
+					id: "55C3575001345BD8"
+					type: "xp"
+					xp: 220
+				}
+			]
+			subtitle: "Offerings to a god that does not exist"
+			tasks: [
+				{
+					id: "D4845E25B9215245"
+					structure: "eeeabsmobs:bloody_altar"
+					type: "structure"
+				}
+			]
+			title: "The Bloody Altar"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["A3098322F75F2A3E"]
+			description: ["He has no name because those who knew him are not here to say it. He moves with the slowness of the eternal and his blow splits stone."]
+			id: "47CFC27C36F07700"
+			rewards: [
+				{
+					id: "BDAE50AEBFDACEAB"
+					type: "xp"
+					xp: 640
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "An immortal colossus"
+			tasks: [
+				{
+					id: "2688338719080D4D"
+					structure: "eeeabsmobs:guling"
+					type: "structure"
+				}
+				{
+					entity: "eeeabsmobs:nameless_guardian"
+					id: "7FA1F7DB4829A161"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Nameless Guardian"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["47CFC27C36F07700"]
+			description: ["Something spreads underground. A blue-green infection that feeds on sound and souls. Its heart is a tomb you have to find."]
+			id: "99C91B979D234058"
+			rewards: [
+				{
+					id: "93A4EB01A27F1BFD"
+					type: "xp"
+					xp: 400
+				}
+			]
+			subtitle: "An infection with no cure"
+			tasks: [
+				{
+					id: "B0942F2F9DEEE12F"
+					structure: "sculkhorde:sculk_tomb_main"
+					type: "structure"
+				}
+			]
+			title: "The Sculk Tomb"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["99C91B979D234058"]
+			description: ["In ancestral catacombs a restless king awaits whoever dares sit at his table. There is no negotiating with him."]
+			id: "5C385D6D334EA0A9"
+			rewards: [
+				{
+					id: "376DAAC22722A903"
+					type: "xp"
+					xp: 700
+				}
+				{
+					count: 8
+					id: "EB7889BA29F027B9"
+					item: "irons_spellbooks:arcane_salvage"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Catacombs of oblivion"
+			tasks: [
+				{
+					id: "940EDC95A922E43C"
+					structure: "irons_spellbooks:catacombs"
+					type: "structure"
+				}
+				{
+					entity: "irons_spellbooks:dead_king"
+					id: "4A3F0EA14C1E9925"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Dead King"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5C385D6D334EA0A9"]
+			description: ["The bone summoner had a bigger form he did not show. When in danger, he reveals it. It will be a long fight."]
+			id: "D0A4F1984F1EE1F7"
+			rewards: [
+				{
+					id: "DD3EC685EEF2CF33"
+					type: "xp"
+					xp: 600
+				}
+				{
+					count: 6
+					id: "8045C7A4DC0F4C00"
+					item: "born_in_chaos_v1:dark_metal_ingot"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A second phase of bones"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:supreme_bonescaller"
+					id: "F3ED0E6640DB6C8E"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Supreme Preacher"
+			x: 3.8d
+			y: 7.5d
+		}
+	]
+	title: "III · Beasts of the Ancient Age"
+}

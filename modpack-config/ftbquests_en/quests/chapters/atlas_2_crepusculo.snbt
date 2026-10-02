@@ -1,0 +1,463 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_2_crepusculo"
+	group: "67DF4E57D78C675C"
+	icon: "twilightforest:magic_map"
+	id: "C175D24C24B89F6B"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_2.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 6
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["The forest does not open with obsidian but with a diamond thrown into a pond ringed with flowers. Once across, the air turns ancient and the shadows seem to move."]
+			id: "EDBAB45572C72A5D"
+			rewards: [
+				{
+					id: "64A5C48399CC62A1"
+					type: "xp"
+					xp: 100
+				}
+				{
+					count: 8
+					id: "5ACCC64F2BF48184"
+					item: "minecraft:cooked_mutton"
+					type: "item"
+				}
+			]
+			subtitle: "A portal of water and flowers"
+			tasks: [
+				{
+					dimension: "twilightforest:twilight_forest"
+					id: "F4227B546ECCAD28"
+					type: "dimension"
+				}
+			]
+			title: "Crossing the Threshold"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["EDBAB45572C72A5D"]
+			description: ["The walls of a green courtyard hide the realm's first guardian. An ancient, coiled being that lets no one pass without testing their strength."]
+			id: "FBFBA2E45C2045DC"
+			rewards: [
+				{
+					id: "0241ECA25E556717"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "A boss that slithers"
+			tasks: [
+				{
+					id: "3CEB50F9097ED6DC"
+					structure: "twilightforest:naga_courtyard"
+					type: "structure"
+				}
+			]
+			title: "The Serpent's Courtyard"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["FBFBA2E45C2045DC"]
+			description: ["The Naga patrols her courtyard with cruel patience. Every lap of hers is a threat. Defeat her and her scale will serve you as armor."]
+			id: "7A6F150B83091CE2"
+			rewards: [
+				{
+					id: "A714156070BC8785"
+					type: "xp"
+					xp: 220
+				}
+				{
+					count: 6
+					id: "48EAF4D5CF071BA8"
+					item: "twilightforest:naga_scale"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The primordial guardian"
+			tasks: [
+				{
+					entity: "twilightforest:naga"
+					id: "A0AABD75BE18EB78"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Naga"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7A6F150B83091CE2"]
+			description: ["At the top of a tower an old king died and never accepted defeat. Climbing is a journey through traps and spirits."]
+			id: "3DFE563103AB11BE"
+			rewards: [
+				{
+					id: "C56438BF8CF9E62B"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "A necromancer who will not give in"
+			tasks: [
+				{
+					id: "A2871CEAB42B614D"
+					structure: "twilightforest:lich_tower"
+					type: "structure"
+				}
+			]
+			title: "The Lich Tower"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["3DFE563103AB11BE"]
+			description: ["He surrounds himself with clones and magic projectiles. Recognize him by his crown and return his own spells."]
+			id: "2283335D8D12B210"
+			rewards: [
+				{
+					id: "7D6424A74D47012F"
+					type: "xp"
+					xp: 320
+				}
+				{
+					count: 4
+					id: "15987B252E89A787"
+					item: "minecraft:ender_pearl"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The king who never left"
+			tasks: [
+				{
+					entity: "twilightforest:lich"
+					id: "6A221DCBE0A9FDF3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Lich"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["2283335D8D12B210"]
+			description: ["Someone designed this labyrinth so no one reaches the center. Do it anyway, following every turn and every false wall."]
+			id: "528953727EF3A4E1"
+			rewards: [
+				{
+					id: "742739E45675B6FE"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "A maze designed to get you lost"
+			tasks: [
+				{
+					id: "25CE70BA60813E0D"
+					structure: "twilightforest:labyrinth"
+					type: "structure"
+				}
+			]
+			title: "The Stone Labyrinth"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["528953727EF3A4E1"]
+			description: ["At the heart of the labyrinth lives a minotaur that feeds on mushrooms and nightmares. His axe has already split many who came before you."]
+			id: "D8708ECB9A1E7BA1"
+			rewards: [
+				{
+					id: "E0E2B1690D57421B"
+					type: "xp"
+					xp: 380
+				}
+				{
+					count: 4
+					id: "1C245C37ADC86431"
+					item: "twilightforest:meef_stroganoff"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The mushroom minotaur"
+			tasks: [
+				{
+					entity: "twilightforest:minoshroom"
+					id: "D804B4418813A26A"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Minoshroom"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["D8708ECB9A1E7BA1"]
+			description: ["Beneath a hill live trolls who speak with a voice of rock. They hide a heavy metal that only a dwarven forge could work."]
+			id: "75D99404A02E2BC9"
+			rewards: [
+				{
+					id: "0473DE3B49A305E0"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Giants of stone and bone"
+			tasks: [
+				{
+					id: "4743ACB3AE37DDC3"
+					structure: "twilightforest:troll_cave"
+					type: "structure"
+				}
+			]
+			title: "The Troll Cave"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["75D99404A02E2BC9"]
+			description: ["Smelt the pieces of the metal of the forest's knights. It is much harder than common iron."]
+			id: "37CC8552B35560A7"
+			rewards: [
+				{
+					id: "4A0EB9998ED4E37B"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "Steel that remembers who forged it"
+			tasks: [
+				{
+					count: 6L
+					id: "05D79C40B91E9C5D"
+					item: "twilightforest:knightmetal_ingot"
+					type: "item"
+				}
+			]
+			title: "Knightmetal"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["37CC8552B35560A7"]
+			description: ["In a cave flooded with embers lives a hydra: heads that regenerate and fire in every spit. Cut one and three more replace it."]
+			id: "E324AD8ED03E3A7B"
+			rewards: [
+				{
+					id: "D4C93C85952009AF"
+					type: "xp"
+					xp: 460
+				}
+				{
+					count: 3
+					id: "04C438E3AFD34E72"
+					item: "twilightforest:fiery_blood"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Three heads and a single hunger"
+			tasks: [
+				{
+					id: "B7CE83A24BB6F079"
+					structure: "twilightforest:hydra_lair"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:hydra"
+					id: "7ACE865116661CB2"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Hydra"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E324AD8ED03E3A7B"]
+			description: ["A fortress drags the specters of knights who swore loyalty to a god who no longer answers. Their leader, a phantom, still defends it."]
+			id: "14451DAA5C7F8135"
+			rewards: [
+				{
+					id: "B9F5DF4D978002F0"
+					type: "xp"
+					xp: 500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "An army without a body"
+			tasks: [
+				{
+					id: "C76161E7C4A63D43"
+					structure: "twilightforest:knight_stronghold"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:knight_phantom"
+					id: "D0C7EFEB10B5DDA0"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Phantom Knight"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["14451DAA5C7F8135"]
+			description: ["A tower of dark stone rises among the trees. At its top a being of fire still weeps for the gods who promised it a place."]
+			id: "2AFD410E2E5B23DA"
+			rewards: [
+				{
+					id: "A7B2025A57CB7639"
+					type: "xp"
+					xp: 580
+				}
+				{
+					count: 4
+					id: "48FE0C8B56A5601A"
+					item: "minecraft:ghast_tear"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A tower made of wrath"
+			tasks: [
+				{
+					id: "727EFBAA5BA071E2"
+					structure: "twilightforest:dark_tower"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:ur_ghast"
+					id: "2AFD467C6BAE0288"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Dark Tower"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["2AFD410E2E5B23DA"]
+			description: ["To the north the forest turns to eternal snow. An alpha yeti guards his cave and, higher up, a queen lives among auroras in a crystal palace."]
+			id: "9882D05CB24F7FD0"
+			rewards: [
+				{
+					id: "1D61D03B01ECE59E"
+					type: "xp"
+					xp: 620
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A frozen court"
+			tasks: [
+				{
+					id: "7B84B24D1F9F23EC"
+					structure: "twilightforest:yeti_cave"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:alpha_yeti"
+					id: "D35AD291F5D18CF3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Ice and Queen"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["9882D05CB24F7FD0"]
+			description: ["The auroras light a palace where nothing melts. Its owner wields ice with courteous cruelty. Defeat the queen to end this realm."]
+			id: "B304337A7930C3A7"
+			rewards: [
+				{
+					id: "4D9C1290C37B7308"
+					type: "xp"
+					xp: 700
+				}
+				{
+					count: 6
+					id: "8179B7DD5DE76B0E"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A palace outside of time"
+			tasks: [
+				{
+					id: "D3221342D4B74780"
+					structure: "twilightforest:aurora_palace"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:snow_queen"
+					id: "DFF880AD8CD6F75F"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Snow Queen"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["B304337A7930C3A7"]
+			description: ["Deep in the realm remains a castle that belongs to no one anymore. Cross it and keep what the forest saved for you."]
+			id: "C172A8CE69EEDE4A"
+			rewards: [
+				{
+					id: "2D71B3F7627C943B"
+					type: "xp"
+					xp: 800
+				}
+				{
+					count: 8
+					id: "6F1663B0F6627289"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			subtitle: "The forest's last echo"
+			tasks: [
+				{
+					id: "86AB1C9332AD81F5"
+					structure: "twilightforest:final_castle"
+					type: "structure"
+				}
+			]
+			title: "The Final Castle"
+			x: -1.2d
+			y: 7.5d
+		}
+	]
+	title: "II · The Twilight Realm"
+}

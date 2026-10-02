@@ -1,0 +1,468 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_9_dioses"
+	group: "851BC1B6564B2B74"
+	icon: "tcorigenes:altar_pater"
+	id: "CD1563479DEF00FD"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_9.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 13
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["It has been 3000 years since the gods abandoned humanity, yet they still receive offerings. The kingdoms, made of different races of hominids, fight each other in their name and the churches govern by their designs.", "The gods of the Earth can be prayed to and given offerings at their altar. Those that are not of the Earth do not listen."]
+			id: "EC6EF230F1828039"
+			rewards: [
+				{
+					id: "2A298FDD42D676A3"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "The churches rule the world"
+			tasks: [
+				{
+					id: "7E05F69AC1BFFA4E"
+					title: "The churches rule the world"
+					type: "checkmark"
+				}
+			]
+			title: "A World of Divine Totalitarianism"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["EC6EF230F1828039"]
+			description: ["Meidris created nature and life when she saw Pater's work empty. Her power is wild and instinctive.", "Her favor is won by breeding animals, farming and practicing white magic. Killing neutral angels or members of her faction lowers it. So does raising Deiros's favor."]
+			id: "1D665B9B1467944C"
+			rewards: [
+				{
+					id: "9A5A9AC473AA56E4"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Nature, life and white magic"
+			tasks: [
+				{
+					id: "6B43BF8F1D6CEE8B"
+					title: "Nature, life and white magic"
+					type: "checkmark"
+				}
+			]
+			title: "Meidris, the Primordial Goddess"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1D665B9B1467944C"]
+			description: ["Put the wheat in the ground and care for what is born. Meidris prefers hands that nurture to hands that command."]
+			id: "7BC3CA68769437CE"
+			rewards: [
+				{
+					id: "B9B6287B25B6DC4B"
+					type: "xp"
+					xp: 90
+				}
+				{
+					count: 16
+					id: "DB93EE923D05B029"
+					item: "minecraft:bone_meal"
+					type: "item"
+				}
+			]
+			subtitle: "Farm and breed"
+			tasks: [
+				{
+					count: 64L
+					id: "4C681D79E9E97CFD"
+					item: "minecraft:wheat"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "44D3C769D739ED9D"
+					item: "minecraft:honeycomb"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "B306306A6B94223A"
+					item: "minecraft:egg"
+					type: "item"
+				}
+			]
+			title: "Offering to Meidris"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7BC3CA68769437CE"]
+			description: ["Pater created the universe 3 million years ago. He is the god of the physical, the material and the mechanical. His power is rigid, authoritarian and dogmatic, and he hates weakness: he prefers to sacrifice it.", "His favor is won by building and crafting. Crafts that are quests give far more favor, about 20 times as much."]
+			id: "13207E3D5722030F"
+			rewards: [
+				{
+					id: "05B63B498857152A"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Order, civilization and dogma"
+			tasks: [
+				{
+					id: "92C89EBB946D30AB"
+					title: "Order, civilization and dogma"
+					type: "checkmark"
+				}
+			]
+			title: "Pater, God of Light"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["13207E3D5722030F"]
+			description: ["For Pater every workbench is an altar. Build one of the higher tables and you will have prayed without saying a word."]
+			id: "ED92EFF813A02A31"
+			rewards: [
+				{
+					id: "82AECF9786C71177"
+					type: "xp"
+					xp: 110
+				}
+				{
+					count: 16
+					id: "0EF552FF9BBBC16C"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+			]
+			subtitle: "To build is to pray"
+			tasks: [
+				{
+					id: "6A87B413815AC3EE"
+					item: "testamentodelacarne:tier2_crafting_table"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "4E99973D5BF1541A"
+					item: "minecraft:iron_block"
+					type: "item"
+				}
+			]
+			title: "Offering to Pater"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["ED92EFF813A02A31"]
+			description: ["Luna is not an antagonist of the pantheon: she is a parallel being who manages the balance between light and darkness. She is the child of Deiros and works for the creator pantheon, doing the dirty work of cleansing the weak.", "She commands dark magic and feeds on sacrifice. More so at her altar, and more still if animal body parts are offered. Killing Luna multiplies the spawns of her tag by five."]
+			id: "C6C27FC98633C825"
+			rewards: [
+				{
+					id: "65078276CE0A1F27"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "The hidden, the perverse, the night"
+			tasks: [
+				{
+					id: "79E4BFA575AEFC79"
+					title: "The hidden, the perverse, the night"
+					type: "checkmark"
+				}
+			]
+			title: "Luna, the Dark Balance"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C6C27FC98633C825"]
+			description: ["The night asks no permission. Prepare the blood altar and something to offer: Luna feeds on what others dare not look at."]
+			id: "46D46A759BF6CBED"
+			rewards: [
+				{
+					id: "D45DEC299C27F29A"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Blood on the altar"
+			tasks: [
+				{
+					id: "7BDF3BD99D8EF381"
+					item: "bloodmagic:altar"
+					type: "item"
+				}
+				{
+					id: "E17DDF26CB055782"
+					item: "bloodmagic:sacrificialdagger"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "DA56BAE6B9D87273"
+					item: "minecraft:bone"
+					type: "item"
+				}
+			]
+			title: "Offering to Luna"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["46D46A759BF6CBED"]
+			description: ["Filis is the human child of Meidris, born to win Pater's empathy. God of redemption through faith, of the earthly world, of healing and exploration.", "Exploring and looting raise his favor, as does completing the quests of his villages. His sacrifice and ascension finished uniting humanity with the divine."]
+			id: "2E3F209D4F2BB346"
+			rewards: [
+				{
+					id: "155C11F2B26CB7B6"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Faith, exploration and healing"
+			tasks: [
+				{
+					id: "E5A292684CC96453"
+					title: "Faith, exploration and healing"
+					type: "checkmark"
+				}
+			]
+			title: "Filis, the God of Redemption"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["2E3F209D4F2BB346"]
+			description: ["Whoever explores honors Filis. Equip yourself like a traveler and roam what others dare not."]
+			id: "D9A9D61EF9AC1FB4"
+			rewards: [
+				{
+					id: "A023533B8C1D1E80"
+					type: "xp"
+					xp: 100
+				}
+				{
+					count: 16
+					id: "DB61D556B0678C26"
+					item: "minecraft:bread"
+					type: "item"
+				}
+			]
+			subtitle: "Walk and look"
+			tasks: [
+				{
+					id: "349C5BC39A0375B1"
+					item: "minecraft:compass"
+					type: "item"
+				}
+				{
+					id: "3651B6534DD792D8"
+					item: "minecraft:spyglass"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "ECB98C17DA46E9E1"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			title: "Offering to Filis"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["D9A9D61EF9AC1FB4"]
+			description: ["Deiros is the god of selfishness, rebellion, defiance of authority and fire. For his attempt at rebellion he was confined to hell with his acolytes.", "His favor grows by killing hostile mobs, angels or members of the creator pantheon's factions."]
+			id: "AD304601E6638BF2"
+			rewards: [
+				{
+					id: "C9B34D34DE4EC8AE"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Selfishness, fire and defiance"
+			tasks: [
+				{
+					id: "B50EBCA2C71FFEB6"
+					title: "Selfishness, fire and defiance"
+					type: "checkmark"
+				}
+			]
+			title: "Deiros, the Rebel"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AD304601E6638BF2"]
+			description: ["Deiros asks no words: he asks blood from the established order. Clear the world of what the creator pantheon leaves walking."]
+			id: "52053048DECAA0CB"
+			rewards: [
+				{
+					id: "43FC7DEDD1D2661E"
+					type: "xp"
+					xp: 150
+				}
+				{
+					count: 8
+					id: "BAD43E03E5B9BC47"
+					item: "minecraft:blaze_powder"
+					type: "item"
+				}
+			]
+			subtitle: "To kill is his prayer"
+			tasks: [
+				{
+					entity: "minecraft:zombie"
+					id: "DD3D66636979EF22"
+					type: "kill"
+					value: 50L
+				}
+				{
+					entity: "minecraft:skeleton"
+					id: "E649ACFB9AAEAA2F"
+					type: "kill"
+					value: 50L
+				}
+				{
+					entity: "minecraft:creeper"
+					id: "E144747C1CDB4C43"
+					type: "kill"
+					value: 25L
+				}
+			]
+			title: "Offering to Deiros"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["52053048DECAA0CB"]
+			description: ["Each god of the Earth has an altar: Pater, Meidris, Filis, Luna, Deiros and, hidden, Tempo. There one prays, offers and measures favor.", "Favor belongs to the world, not the player: it is per server. What you do affects everyone and changes how villages and kingdoms treat you."]
+			id: "D3D078BF2FC1425E"
+			rewards: [
+				{
+					id: "0D6243515418FF7F"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Six places of worship"
+			tasks: [
+				{
+					id: "C4E5A472F6D2BC75"
+					title: "Six places of worship"
+					type: "checkmark"
+				}
+			]
+			title: "The Altars"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["D3D078BF2FC1425E"]
+			description: ["Deiros tried to rebel against the established order in the great war 100,000 years ago. He was defeated and confined to hell with his acolytes.", "From there he pulled his strings to keep Filis's message of redemption from being heard, and had him killed in his human form."]
+			id: "F4FC7371DBC6ABA6"
+			rewards: [
+				{
+					id: "A70191162F617DF7"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "100,000 years ago"
+			tasks: [
+				{
+					id: "27C50E9A47A736CF"
+					title: "100,000 years ago"
+					type: "checkmark"
+				}
+			]
+			title: "The Great War"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["F4FC7371DBC6ABA6"]
+			description: ["The death of Filis, child of Meidris, was what finished uniting humanity with the divine. 3000 years have passed since his ascension.", "The gods left, but they receive the offerings. The kingdoms fight in their name and the world was marked by those battles."]
+			id: "989AE4F0A2EA31DB"
+			rewards: [
+				{
+					id: "BAAA6F6BBEDF61C4"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Humanity and divinity, united"
+			tasks: [
+				{
+					id: "2A595B67B9F649DA"
+					title: "Humanity and divinity, united"
+					type: "checkmark"
+				}
+			]
+			title: "The Sacrifice of Filis"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["989AE4F0A2EA31DB"]
+			description: ["The creator pantheon's favor is inversely proportional to the rebel's. Your relationship with villages and kingdoms depends on it.", "Raising Deiros's favor lowers Meidris's, Pater's and Filis's."]
+			id: "A60812A268ABC3F1"
+			rewards: [
+				{
+					id: "6471F0270F37A86A"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "A favor that subtracts"
+			tasks: [
+				{
+					id: "88B14358B8FE2309"
+					title: "A favor that subtracts"
+					type: "checkmark"
+				}
+			]
+			title: "Creator Pantheon and Rebel Pantheon"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["A60812A268ABC3F1"]
+			description: ["There are three endings. Kill the rebel gods and defeat the creators as a trial, ascending as a divinity. Or the reverse: kill the creators and defeat the rebels.", "Or kill them all, which brings the end of the world. That ending is forced if there is a heretic or a malnacido on the team, unless you pass a ritual of forgiveness."]
+			id: "5E9AC5D787F7BDD0"
+			rewards: [
+				{
+					id: "181F6CEF9FAD1C02"
+					type: "xp"
+					xp: 150
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Ascend or end everything"
+			tasks: [
+				{
+					id: "F854F676981D04D3"
+					title: "Ascend or end everything"
+					type: "checkmark"
+				}
+			]
+			title: "The Three Endings"
+			x: -3.8d
+			y: 7.5d
+		}
+	]
+	title: "The Gods of the Pantheon"
+}

@@ -1,0 +1,358 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_8_umbral"
+	group: "67DF4E57D78C675C"
+	icon: "minecraft:dragon_head"
+	id: "22B1360AF66E35EC"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_8.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 12
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["When the gods fell, a part of the world opened and has burned ever since. Cross the portal and remember that not everything that burns is alive."]
+			id: "346B81A32E7007EC"
+			rewards: [
+				{
+					id: "AC9C6EEA1786B186"
+					type: "xp"
+					xp: 600
+				}
+				{
+					count: 2
+					id: "C36A0129F8706C5C"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			subtitle: "A hell with no owner"
+			tasks: [
+				{
+					dimension: "minecraft:the_nether"
+					id: "880C2910B456A517"
+					type: "dimension"
+				}
+			]
+			title: "The Nether"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["346B81A32E7007EC"]
+			description: ["A fortress rises in a sea of lava, guarded by skeletons that mock you. It is the gateway to the rarest materials of the Nether."]
+			id: "490B2834E65737C1"
+			rewards: [
+				{
+					id: "04F3A97B67E9B621"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "A castle of bones and embers"
+			tasks: [
+				{
+					id: "0073EE0616FB7DF8"
+					structure: "betterfortresses:fortress"
+					type: "structure"
+				}
+			]
+			title: "The Nether Fortress"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["490B2834E65737C1"]
+			description: ["A metal found only very deep in the Nether. Extracting it takes patience and a lot of gunpowder."]
+			id: "6F207F8B5DFE1EEB"
+			rewards: [
+				{
+					id: "4AE8776C904B80C1"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Metal from the depths"
+			tasks: [
+				{
+					count: 4L
+					id: "55CFFD76F1FF6387"
+					item: "minecraft:ancient_debris"
+					type: "item"
+				}
+			]
+			title: "Ancient Debris"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["6F207F8B5DFE1EEB"]
+			description: ["A bastion of piglins who still believe in a god that does not exist. Their gold is plentiful, but their pride is more so."]
+			id: "CE1B1E8CE920100D"
+			rewards: [
+				{
+					id: "E112B43A1A6CC86F"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Gold, pride and beasts"
+			tasks: [
+				{
+					id: "7407A5B28629A9DF"
+					structure: "minecraft:bastion_remnant"
+					type: "structure"
+				}
+			]
+			title: "The Bastion"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["CE1B1E8CE920100D"]
+			description: ["Three wither skeleton skulls and soul sand give shape to a being that knows only destruction. Its shadow kills slowly."]
+			id: "77230E94B5CD88D5"
+			rewards: [
+				{
+					id: "37EE23C5723F359E"
+					type: "xp"
+					xp: 1800
+				}
+				{
+					id: "479B790B446C9E86"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A god made of skulls"
+			tasks: [
+				{
+					entity: "minecraft:wither"
+					id: "35E7FF67726AF130"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Wither"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["77230E94B5CD88D5"]
+			description: ["Beneath the ground there is a city whose streets are full of guardians and sensors. A single noise will wake what protects it."]
+			id: "D8544BA1B053E413"
+			rewards: [
+				{
+					id: "C4C25ACD406B5CFD"
+					type: "xp"
+					xp: 1200
+				}
+			]
+			subtitle: "A silence that listens"
+			tasks: [
+				{
+					id: "245B303C1BF1CAF2"
+					structure: "minecraft:ancient_city"
+					type: "structure"
+				}
+			]
+			title: "The Ancient City"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["D8544BA1B053E413"]
+			description: ["A creature without eyes that hunts by vibrations. No weapon stops it easily; only stealth and a good blow."]
+			id: "F43B6183F30D3DF3"
+			rewards: [
+				{
+					id: "BE40BCBA6F3E0812"
+					type: "xp"
+					xp: 2500
+				}
+				{
+					count: 4
+					id: "D6168ACB04AB0EFD"
+					item: "minecraft:netherite_scrap"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "What hears but does not see"
+			tasks: [
+				{
+					entity: "minecraft:warden"
+					id: "45BCB9C2D87C68F9"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Blind Guardian"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["F43B6183F30D3DF3"]
+			description: ["The first gods made a portal underground, protected by a fortress. Find it and open the way to the end of the world."]
+			id: "B9A858D081461507"
+			rewards: [
+				{
+					id: "5CE042AD9B174E97"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			subtitle: "A forgotten portal"
+			tasks: [
+				{
+					id: "EA91A4910F83FEEB"
+					structure: "betterstrongholds:stronghold"
+					type: "structure"
+				}
+			]
+			title: "The Underground Fortress"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["B9A858D081461507"]
+			description: ["A world in which nothing remains of what it was. Only a dragon, a floating island and a bottomless void."]
+			id: "B54CEBAD3F4A471C"
+			rewards: [
+				{
+					id: "0D3F958261AF59CB"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			subtitle: "An island with no sky"
+			tasks: [
+				{
+					dimension: "minecraft:the_end"
+					id: "D01DB9C3B32692E1"
+					type: "dimension"
+				}
+			]
+			title: "The End"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["B54CEBAD3F4A471C"]
+			description: ["A black dragon with purple eyes that survived the war. It is not just any monster: it is the last thing left of an earlier order. Defeat it."]
+			id: "AA52598FDD6B42A1"
+			rewards: [
+				{
+					id: "C082D47D7FDC220C"
+					type: "xp"
+					xp: 3000
+				}
+				{
+					id: "DE611A7D6018A738"
+					item: "minecraft:dragon_egg"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A guardian that outlived the gods"
+			tasks: [
+				{
+					entity: "minecraft:ender_dragon"
+					id: "2DD135FB283B4507"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Dragon of the End"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AA52598FDD6B42A1"]
+			description: ["Floating in nothing there are cities made of purpur and stone. Inside, a flying ship and a treasure worthy of what it cost you to get here."]
+			id: "7F01968CC3AC372C"
+			rewards: [
+				{
+					id: "09693A2A0A598331"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			subtitle: "Ships of the void"
+			tasks: [
+				{
+					id: "C85CCB7EB1FF3912"
+					structure: "minecraft:end_city"
+					type: "structure"
+				}
+			]
+			title: "The End City"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["7F01968CC3AC372C"]
+			description: ["The wings of an End ship are the only way to fly without divine power. Use them with respect: the sky no longer forgives."]
+			id: "7D748A6E9F0CBA9F"
+			rewards: [
+				{
+					id: "DA91C3F31532782C"
+					type: "xp"
+					xp: 2000
+				}
+			]
+			subtitle: "Gliding over the world"
+			tasks: [
+				{
+					id: "C6D7DE2254F9F5C9"
+					item: "minecraft:elytra"
+					type: "item"
+				}
+			]
+			title: "Borrowed Wings"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["7D748A6E9F0CBA9F"]
+			description: ["You have crossed wounded lands, eternal realms, dragons, forgotten ages, skyless caves and floating kingdoms. The gods fell, but what remained of them recognized you at every door.", "There is no ending. Only the next door, the next boss and the next story. The Fall continues, and now you are part of it."]
+			id: "71ED249828DF0815"
+			rewards: [
+				{
+					id: "77F38270EDD6F0C2"
+					type: "xp"
+					xp: 5000
+				}
+				{
+					id: "BFBE8899C20015CE"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "And then you awaken"
+			tasks: [
+				{
+					id: "6E52E437C3F7EB27"
+					title: "And then you awaken"
+					type: "checkmark"
+				}
+			]
+			title: "The Ascension of the Apostate"
+			x: 3.8d
+			y: 7.5d
+		}
+	]
+	title: "VIII · The Last Threshold"
+}

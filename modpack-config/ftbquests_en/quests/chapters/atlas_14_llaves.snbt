@@ -1,0 +1,396 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_14_llaves"
+	group: "851BC1B6564B2B74"
+	icon: "endrem:old_eye"
+	id: "C482C5FF00C0FDC1"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_14.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 18
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["The player is an Apostate: a soul that woke without a pact with any god, with the dangerous capacity of free will. The goal is no longer to survive, but to transcend.", "To do so they must hunt the twelve keys of the End of the World, the Eyes of End Remastered. But that is only the beginning: Tempo will demand far more than killing the dragon."]
+			id: "B637B17AF08ACED8"
+			rewards: [
+				{
+					id: "4AE0094A621CAEFC"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "The end of the world has a lock"
+			tasks: [
+				{
+					id: "0BDE03FD039A6663"
+					title: "The end of the world has a lock"
+					type: "checkmark"
+				}
+			]
+			title: "The Twelve Keys"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["B637B17AF08ACED8"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "61620957A1443C94"
+			rewards: [
+				{
+					id: "3E2DB64E14492514"
+					type: "xp"
+					xp: 150
+				}
+			]
+			subtitle: "An eye that saw the world born"
+			tasks: [
+				{
+					id: "D7437618D3206287"
+					item: "endrem:old_eye"
+					type: "item"
+				}
+			]
+			title: "The Old Eye"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["61620957A1443C94"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "F7AB469D1DC79166"
+			rewards: [
+				{
+					id: "913CC4F7A3A5E8C3"
+					type: "xp"
+					xp: 190
+				}
+			]
+			subtitle: "An eye that forgot warmth"
+			tasks: [
+				{
+					id: "4E5E4646FB9EF0AB"
+					item: "endrem:cold_eye"
+					type: "item"
+				}
+			]
+			title: "The Cold Eye"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["F7AB469D1DC79166"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "C90B440E841A6B82"
+			rewards: [
+				{
+					id: "F94B64E8B0E40D5B"
+					type: "xp"
+					xp: 230
+				}
+			]
+			subtitle: "An eye still watching from the swamp"
+			tasks: [
+				{
+					id: "4717EF3BB4B6CB92"
+					item: "endrem:witch_eye"
+					type: "item"
+				}
+			]
+			title: "The Witch's Eye"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["C90B440E841A6B82"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "97B2F1EDF640580F"
+			rewards: [
+				{
+					id: "A553CA8BBFC1C0F9"
+					type: "xp"
+					xp: 270
+				}
+			]
+			subtitle: "An eye that burns without being consumed"
+			tasks: [
+				{
+					id: "82CE221DDBAFD6D4"
+					item: "endrem:nether_eye"
+					type: "item"
+				}
+			]
+			title: "The Nether Eye"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["97B2F1EDF640580F"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "4D693A8619963F77"
+			rewards: [
+				{
+					id: "767538B2EB9FC9CC"
+					type: "xp"
+					xp: 310
+				}
+			]
+			subtitle: "An eye that never stops watching"
+			tasks: [
+				{
+					id: "E587E8E6E0993382"
+					item: "endrem:undead_eye"
+					type: "item"
+				}
+			]
+			title: "The Dead Eye"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["4D693A8619963F77"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "0219E2F70FD95271"
+			rewards: [
+				{
+					id: "9E09C51781435D4D"
+					type: "xp"
+					xp: 350
+				}
+			]
+			subtitle: "An eye that brings bad luck"
+			tasks: [
+				{
+					id: "4CB3C7A20A93BA50"
+					item: "endrem:cursed_eye"
+					type: "item"
+				}
+			]
+			title: "The Cursed Eye"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["0219E2F70FD95271"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "0304E80268763562"
+			rewards: [
+				{
+					id: "C228E28C80D904F8"
+					type: "xp"
+					xp: 390
+				}
+			]
+			subtitle: "An eye that hates whoever holds it"
+			tasks: [
+				{
+					id: "5AC72E552ED0EB4C"
+					item: "endrem:evil_eye"
+					type: "item"
+				}
+			]
+			title: "The Evil Eye"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["0304E80268763562"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "533F4C9B5413D9EC"
+			rewards: [
+				{
+					id: "B8A5AF4E633FE6DC"
+					type: "xp"
+					xp: 430
+				}
+			]
+			subtitle: "An eye that guards what should not be seen"
+			tasks: [
+				{
+					id: "0EA1AF677BE8B55D"
+					item: "endrem:guardian_eye"
+					type: "item"
+				}
+			]
+			title: "The Guardian's Eye"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["533F4C9B5413D9EC"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "E2586F3A475714F9"
+			rewards: [
+				{
+					id: "A4C860DB5598357D"
+					type: "xp"
+					xp: 470
+				}
+			]
+			subtitle: "An eye no one remembers losing"
+			tasks: [
+				{
+					id: "9485AC6A9B15D918"
+					item: "endrem:lost_eye"
+					type: "item"
+				}
+			]
+			title: "The Lost Eye"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E2586F3A475714F9"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "FF5E2C3E7CFF28F4"
+			rewards: [
+				{
+					id: "D100DFE615C26449"
+					type: "xp"
+					xp: 510
+				}
+			]
+			subtitle: "An eye with the shine of a spell"
+			tasks: [
+				{
+					id: "A33B79BE9788C9EF"
+					item: "endrem:magical_eye"
+					type: "item"
+				}
+			]
+			title: "The Magical Eye"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["FF5E2C3E7CFF28F4"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "1904741EE54B3282"
+			rewards: [
+				{
+					id: "D0073A5ACD597AD9"
+					type: "xp"
+					xp: 550
+				}
+			]
+			subtitle: "An eye that dries what it looks at"
+			tasks: [
+				{
+					id: "0C5A00C4D1293905"
+					item: "endrem:wither_eye"
+					type: "item"
+				}
+			]
+			title: "The Withered Eye"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1904741EE54B3282"]
+			description: ["One of the twelve keys. Whoever gathers it gets one step closer to the portal at the end of the world; whoever gathers them all, to ascension."]
+			id: "A61C8204CA3EB98C"
+			rewards: [
+				{
+					id: "69EE8FDA418F0B34"
+					type: "xp"
+					xp: 590
+				}
+			]
+			subtitle: "An eye that never stays still"
+			tasks: [
+				{
+					id: "FB45E225F55EED37"
+					item: "endrem:rogue_eye"
+					type: "item"
+				}
+			]
+			title: "The Rogue's Eye"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["A61C8204CA3EB98C"]
+			description: ["Tempo is the sixth god of the pantheon, a millennial god who always existed, unlike the others. He is almost a god who creates other gods. He weaves the fabric of reality, of space-time, controls destiny and administers the dimension of the end.", "Xinkher, his counterpart, is the god of energy, movement and change. Both ignore and despise humanity."]
+			id: "1A65E083F88766C2"
+			rewards: [
+				{
+					id: "B0D20D0E976C0592"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "Tempo weaves the fabric of reality"
+			tasks: [
+				{
+					id: "AA41199B59717EBF"
+					title: "Tempo weaves the fabric of reality"
+					type: "checkmark"
+				}
+			]
+			title: "A Secret God"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["1A65E083F88766C2"]
+			description: ["The End is a trial orchestrated by Tempo to ascend to divinity. Endermen are humans transformed into monsters for defying the established order.", "Killing the Ender Dragon is not enough: Tempo will demand much more. Ascension is guaranteed in the End."]
+			id: "816104FE23F930B8"
+			rewards: [
+				{
+					id: "A50CEBEEAA0F8B1F"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "The End is a trial"
+			tasks: [
+				{
+					id: "9A7B0FDF7AA19CC0"
+					title: "The End is a trial"
+					type: "checkmark"
+				}
+			]
+			title: "Tempo's Trial"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["816104FE23F930B8"]
+			description: ["Ascension is no longer a dream. Defeat the End's guardian with the twelve keys in hand, and prove that your free will is enough to hold up the world."]
+			id: "0A77DD8E8D5E2158"
+			rewards: [
+				{
+					id: "ED64F85C1AE81788"
+					type: "xp"
+					xp: 3000
+				}
+				{
+					id: "5364361F63AD90F4"
+					item: "minecraft:elytra"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "More than a dragon"
+			tasks: [
+				{
+					entity: "minecraft:ender_dragon"
+					id: "A86AA96FA5E7BBC8"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Transcend"
+			x: -3.8d
+			y: 7.5d
+		}
+	]
+	title: "The Twelve Keys of the End of the World"
+}

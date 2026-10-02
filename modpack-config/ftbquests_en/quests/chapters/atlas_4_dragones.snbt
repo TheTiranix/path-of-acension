@@ -1,0 +1,374 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_4_dragones"
+	group: "67DF4E57D78C675C"
+	icon: "iceandfire:dragon_skull_fire"
+	id: "A48470CE3E687935"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_4.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 8
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["A woman with serpents for hair turned everyone who entered her temple to stone. Carry a mirror or close your eyes."]
+			id: "9948C645C0942477"
+			rewards: [
+				{
+					id: "6E9B767F060BE41A"
+					type: "xp"
+					xp: 380
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Do not look her in the eyes"
+			tasks: [
+				{
+					id: "EBDC3B7BB211A611"
+					structure: "iceandfire:gorgon_temple"
+					type: "structure"
+				}
+				{
+					entity: "iceandfire:gorgon"
+					id: "F637B866BAAB5382"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Gorgon's Temple"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9948C645C0942477"]
+			description: ["The tombs of an ancient cemetery open at night. A nearby mausoleum hides a guardian that does not fear the light."]
+			id: "B25B0651E4B6E887"
+			rewards: [
+				{
+					id: "10352949AE566290"
+					type: "xp"
+					xp: 300
+				}
+			]
+			subtitle: "Something watches the tombs"
+			tasks: [
+				{
+					id: "ACB962E3A41052D1"
+					structure: "iceandfire:graveyard"
+					type: "structure"
+				}
+			]
+			title: "The Dead Cemetery"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["B25B0651E4B6E887"]
+			description: ["The mausoleum holds treasures of a former kingdom. The dead do not give them up without a fight."]
+			id: "E531252758544024"
+			rewards: [
+				{
+					id: "A072E7766DA17A67"
+					type: "xp"
+					xp: 320
+				}
+			]
+			subtitle: "A place of forgotten kings"
+			tasks: [
+				{
+					id: "5C29AB619FEE53A3"
+					structure: "iceandfire:mausoleum"
+					type: "structure"
+				}
+			]
+			title: "The Mausoleum"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["E531252758544024"]
+			description: ["Giant insects weave tunnels under the sand and the jungle, ruled by a queen. Every egg she protects is a future soldier."]
+			id: "AE11976937537E4C"
+			rewards: [
+				{
+					id: "659F5F7058495B72"
+					type: "xp"
+					xp: 520
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "A queen who never rests"
+			tasks: [
+				{
+					entity: "iceandfire:myrmex_queen"
+					id: "9324FDC25318D7A3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Myrmex Hive"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["AE11976937537E4C"]
+			description: ["A one-eyed giant roams the hills hurling rocks and dragging herds. His eye is his weak spot, but also his greatest fury."]
+			id: "B9884D9C846186C2"
+			rewards: [
+				{
+					id: "554D559594E47487"
+					type: "xp"
+					xp: 540
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "One eye against the world"
+			tasks: [
+				{
+					entity: "iceandfire:cyclops"
+					id: "428D47847CCF1606"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Cyclops"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["B9884D9C846186C2"]
+			description: ["One lash of its tail sinks ships. Sea serpents are the dragons of the ocean and show no mercy to the unprepared."]
+			id: "45F9901D0370BC0F"
+			rewards: [
+				{
+					id: "C45695265289021A"
+					type: "xp"
+					xp: 560
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Something enormous beneath the waves"
+			tasks: [
+				{
+					entity: "iceandfire:sea_serpent"
+					id: "28B26BAED988DD62"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Sea Serpent"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["45F9901D0370BC0F"]
+			description: ["A flock of birds with bronze feathers and iron beaks lives in old swamps. Killing one is a job; killing several is a trial."]
+			id: "FA56B8FC724C2A68"
+			rewards: [
+				{
+					id: "9DE401E9254EEC3A"
+					type: "xp"
+					xp: 420
+				}
+			]
+			subtitle: "Feathers like blades"
+			tasks: [
+				{
+					entity: "iceandfire:stymphalian_bird"
+					id: "7A803E4CD95F45D5"
+					type: "kill"
+					value: 3L
+				}
+			]
+			title: "Stymphalian Birds"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["FA56B8FC724C2A68"]
+			description: ["Dragons are not the end of stories: they are their midpoint. A fire dragon sleeps on its hoard and spits flames that melt iron. Bring armor, water and patience."]
+			id: "83C2D09A5DD1D1C5"
+			rewards: [
+				{
+					id: "0222FB68405250AF"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "16E96A89FDDCA14B"
+					item: "iceandfire:dragonscale_red"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The first of the three"
+			tasks: [
+				{
+					entity: "iceandfire:fire_dragon"
+					id: "B1D64AF105E21578"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Fire Dragon"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["83C2D09A5DD1D1C5"]
+			description: ["In the white peaks lives a dragon that breathes frost. It freezes the air around it and the ground beneath your feet."]
+			id: "87DE66479AEA0306"
+			rewards: [
+				{
+					id: "74E0A37FE479A793"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "F4E0AC7642477F85"
+					item: "iceandfire:dragonscale_blue"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The second of the three"
+			tasks: [
+				{
+					entity: "iceandfire:ice_dragon"
+					id: "D592267AA4B6D917"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Ice Dragon"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["87DE66479AEA0306"]
+			description: ["A creature of storm that lives on the plains. Its breath is lightning and its roar, thunder. It is the fastest of the three."]
+			id: "1F7737302A7894EE"
+			rewards: [
+				{
+					id: "C9DA8A7314F2534D"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "2A2EEA7C10C038BA"
+					item: "iceandfire:dragonscale_electric"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "The third of the three"
+			tasks: [
+				{
+					entity: "iceandfire:lightning_dragon"
+					id: "CC8AB69A758FE437"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Lightning Dragon"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1F7737302A7894EE"]
+			description: ["Forge the metal with dragon blood and get weapons with the hardness of a titan. It is the best armor this world offers."]
+			id: "41012DDDE9234032"
+			rewards: [
+				{
+					id: "A72D30380954CE1F"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "An alloy that does not break"
+			tasks: [
+				{
+					count: 4L
+					id: "F24B782F28AB4F66"
+					item: "iceandfire:dragonsteel_fire_ingot"
+					type: "item"
+				}
+			]
+			title: "Dragon Steel"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["41012DDDE9234032"]
+			description: ["A mage learned to throw fire from his hand and left his tower to anyone willing to read him. Enter the pyromancer tower and discover the secrets of arcane magic."]
+			id: "209014EF5D519D8F"
+			rewards: [
+				{
+					id: "9E45B6ACFE22872E"
+					type: "xp"
+					xp: 420
+				}
+				{
+					count: 6
+					id: "867DF2DFD38C3986"
+					item: "irons_spellbooks:arcane_essence"
+					type: "item"
+				}
+			]
+			subtitle: "Who learns, commands"
+			tasks: [
+				{
+					id: "C1DE6D616F93A499"
+					structure: "irons_spellbooks:pyromancer_tower"
+					type: "structure"
+				}
+			]
+			title: "Spells of the Tower"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["209014EF5D519D8F"]
+			description: ["There are beings of pure magic with no fixed form, guardians of the lands where energy is born. If one crosses your path, face it with whatever spells you have."]
+			id: "5099DBB9BCE2AA85"
+			rewards: [
+				{
+					id: "FE054AE41E11F045"
+					type: "xp"
+					xp: 800
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Wild magic"
+			tasks: [
+				{
+					entity: "ars_nouveau:wilden_boss"
+					id: "26335951DC471EA3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "The Beast of Ars"
+			x: 3.8d
+			y: 7.5d
+		}
+	]
+	title: "IV · Dragons and Spells"
+}
