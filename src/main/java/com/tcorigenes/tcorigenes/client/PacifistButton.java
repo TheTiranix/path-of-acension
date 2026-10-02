@@ -25,7 +25,7 @@ public final class PacifistButton {
     }
 
     private static Component label() {
-        return Component.literal(active ? "Pacífico: Sí" : "Pacífico: No");
+        return Component.translatable(active ? "pa.m.pacifist_yes" : "pa.m.pacifist_no");
     }
 
     @SubscribeEvent

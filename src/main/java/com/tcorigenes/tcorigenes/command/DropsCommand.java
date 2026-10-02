@@ -34,7 +34,7 @@ public class DropsCommand {
     private int run(CommandSourceStack source, String itemArg) {
         ResourceLocation itemId = ResourceLocation.tryParse(itemArg);
         if (itemId == null || !ForgeRegistries.ITEMS.containsKey(itemId)) {
-            source.sendFailure(Component.literal("Item desconocido: " + itemArg));
+            source.sendFailure(Component.translatable("pa.msg.11594c3c18", itemArg));
             return 0;
         }
         var gson = Deserializers.createLootTableSerializer().create();
@@ -61,7 +61,7 @@ public class DropsCommand {
             com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
                     new com.tcorigenes.tcorigenes.networking.packet.DropsResultPacket(itemId, entityIds));
         } else {
-            source.sendSuccess(() -> Component.literal("Sueltan " + needle + ": " + entityIds), false);
+            source.sendSuccess(() -> Component.translatable("pa.msg.43e909b458", needle, entityIds), false);
         }
         return entityIds.size();
     }

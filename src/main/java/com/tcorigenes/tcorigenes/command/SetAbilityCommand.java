@@ -37,14 +37,14 @@ public class SetAbilityCommand {
 
                                     PlayerAbility ability = AbilityRegistry.get(abilityId);
                                     if (ability == null) {
-                                        context.getSource().sendFailure(Component.literal("La habilidad '" + abilityName + "' no existe."));
+                                        context.getSource().sendFailure(Component.translatable("pa.msg.48c6004bac", abilityName));
                                         return 0;
                                     }
 
                                     player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY)
                                             .ifPresent(loadout -> loadout.setEquippedAbilityId(abilityId));
 
-                                    context.getSource().sendSuccess(() -> Component.literal("Habilidad equipada: " + abilityId), true);
+                                    context.getSource().sendSuccess(() -> Component.translatable("pa.msg.1d0814388b", abilityId), true);
                                     return 1;
                                 })
                         )

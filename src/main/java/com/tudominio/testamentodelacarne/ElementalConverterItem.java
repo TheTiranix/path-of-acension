@@ -24,6 +24,10 @@ public class ElementalConverterItem extends Item {
             "ice", "earth", "air", "natural"};
     public static final String[] NAMES = {"Ninguno", "Fuego", "Agua", "Luz", "Lunar", "Ender", "Hielo", "Tierra", "Aire", "Natural"};
 
+    public static Component nameOf(int index) {
+        return Component.translatable("pa.el." + index);
+    }
+
     public ElementalConverterItem(Properties properties) {
         super(properties);
     }
@@ -49,8 +53,7 @@ public class ElementalConverterItem extends Item {
             } else {
                 tag.putString("tc_convert_element", ELEMENTS[next]);
             }
-            player.displayClientMessage(Component.literal("Prisma Convertidor: " + (next == 0 ? "sin conversion"
-                    : "todo tu daño elemental se convierte a " + NAMES[next])).withStyle(ChatFormatting.LIGHT_PURPLE), true);
+            player.displayClientMessage((next == 0 ? Component.translatable("pa.m.conv_none") : Component.translatable("pa.m.conv_to", nameOf(next))).withStyle(ChatFormatting.LIGHT_PURPLE), true);
         }
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
@@ -62,8 +65,8 @@ public class ElementalConverterItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Convierte el daño elemental de tu equipo a un solo elemento.").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("Elemento actual: " + NAMES[indexOf(stack)]).withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltip.add(Component.literal("Click derecho para cambiar. Activo mientras lo llevás en el inventario.").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.translatable("pa.msg.1b1bf05506").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("pa.msg.18d3d5336c", nameOf(indexOf(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
+        tooltip.add(Component.translatable("pa.msg.a171150609").withStyle(ChatFormatting.DARK_GRAY));
     }
 }

@@ -37,7 +37,7 @@ public class CoinflipScreen extends Screen {
     private Button tailsButton;
 
     public CoinflipScreen() {
-        super(Component.literal("Cara o Cruz"));
+        super(Component.translatable("pa.msg.e0217b7fc1"));
     }
 
     /** Llamado desde CoinflipResultPacket con el resultado que decidio el servidor. */
@@ -66,11 +66,11 @@ public class CoinflipScreen extends Screen {
     protected void init() {
         int cx = this.width / 2;
         int y = this.height / 2 + 62;
-        this.headsButton = this.addRenderableWidget(Button.builder(Component.literal("Cara"), b -> choose(true))
+        this.headsButton = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.18b24a8b75"), b -> choose(true))
                 .bounds(cx - 105, y, 100, 20).build());
-        this.tailsButton = this.addRenderableWidget(Button.builder(Component.literal("Cruz"), b -> choose(false))
+        this.tailsButton = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.fa00359704"), b -> choose(false))
                 .bounds(cx + 5, y, 100, 20).build());
-        this.closeButton = this.addRenderableWidget(Button.builder(Component.literal("Cerrar"), b -> this.onClose())
+        this.closeButton = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.4b0816bbd5"), b -> this.onClose())
                 .bounds(cx - 50, y, 100, 20).build());
         this.closeButton.visible = false;
     }
@@ -125,8 +125,8 @@ public class CoinflipScreen extends Screen {
         int cx = this.width / 2;
         int cy = this.height / 2 - 20;
 
-        g.drawCenteredString(this.font, Component.literal("CARA O CRUZ"), cx, cy - 92, 0xD4AF37);
-        g.drawCenteredString(this.font, Component.literal("El cofre exige una apuesta: lo mejor... o nada."), cx, cy - 78, 0x998888);
+        g.drawCenteredString(this.font, Component.translatable("pa.msg.1e7b99bf6e"), cx, cy - 92, 0xD4AF37);
+        g.drawCenteredString(this.font, Component.translatable("pa.msg.d2ac22da04"), cx, cy - 78, 0x998888);
 
         // moneda
         float scaleX = 1.0F;
@@ -158,17 +158,17 @@ public class CoinflipScreen extends Screen {
         g.fill(cx - 30, cy + COIN / 2 + 8, cx + 30, cy + COIN / 2 + 10, 0x66000000);
 
         switch (this.phase) {
-            case CHOOSE -> g.drawCenteredString(this.font, Component.literal("¿Cara o cruz?"), cx, cy + COIN / 2 + 22, 0xFFFFFF);
-            case WAITING -> g.drawCenteredString(this.font, Component.literal("Elegiste " + (this.choseHeads ? "CARA" : "CRUZ") + "..."),
+            case CHOOSE -> g.drawCenteredString(this.font, Component.translatable("pa.msg.fc3c24d2ad"), cx, cy + COIN / 2 + 22, 0xFFFFFF);
+            case WAITING -> g.drawCenteredString(this.font, Component.translatable("pa.m.coin_chose", Component.translatable(this.choseHeads ? "pa.m.coin_heads" : "pa.m.coin_tails")),
                     cx, cy + COIN / 2 + 22, 0xAAAAAA);
-            case FLIPPING -> g.drawCenteredString(this.font, Component.literal("Elegiste " + (this.choseHeads ? "CARA" : "CRUZ") + "..."),
+            case FLIPPING -> g.drawCenteredString(this.font, Component.translatable("pa.m.coin_chose", Component.translatable(this.choseHeads ? "pa.m.coin_heads" : "pa.m.coin_tails")),
                     cx, cy + COIN / 2 + 22, 0xAAAAAA);
             case RESULT -> {
-                g.drawCenteredString(this.font, Component.literal("Salió " + (this.landedHeads ? "CARA" : "CRUZ")), cx, cy + COIN / 2 + 22, 0xFFFFFF);
+                g.drawCenteredString(this.font, Component.translatable("pa.m.coin_landed", Component.translatable(this.landedHeads ? "pa.m.coin_heads" : "pa.m.coin_tails")), cx, cy + COIN / 2 + 22, 0xFFFFFF);
                 if (this.won) {
-                    g.drawCenteredString(this.font, Component.literal("El destino te sonríe."), cx, cy + COIN / 2 + 36, 0x55FF55);
+                    g.drawCenteredString(this.font, Component.translatable("pa.msg.1f866d1de6"), cx, cy + COIN / 2 + 36, 0x55FF55);
                 } else {
-                    g.drawCenteredString(this.font, Component.literal("El cofre no te dará nada."), cx, cy + COIN / 2 + 36, 0xFF4444);
+                    g.drawCenteredString(this.font, Component.translatable("pa.msg.9eb777e07e"), cx, cy + COIN / 2 + 36, 0xFF4444);
                 }
             }
         }

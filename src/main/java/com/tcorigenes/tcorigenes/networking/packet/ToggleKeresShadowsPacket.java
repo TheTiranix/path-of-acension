@@ -35,13 +35,12 @@ public class ToggleKeresShadowsPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null && !holdsKeres(player)) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal("Tenés que tener la Keres en la mano."), true);
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.a2df899162"), true);
             } else if (player != null) {
                 // el servidor alterna su propio estado (asi nunca quedan desfasados cliente y servidor) y avisa cual quedo
                 boolean now = !KeresShadowControl.enabled(player);
                 KeresShadowControl.set(player, now);
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal(now
-                        ? "Lanzas negras de la Keres: activadas (2 de vida cada una)" : "Lanzas negras de la Keres: desactivadas"), true);
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable(now ? "pa.m.keres_on" : "pa.m.keres_off"), true);
             }
         });
         return true;

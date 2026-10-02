@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.client;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
@@ -29,7 +31,7 @@ public class DropsScreen extends Screen {
     private int scrollRow;
 
     public DropsScreen(ResourceLocation itemId, List<ResourceLocation> entityIds) {
-        super(Component.literal("Drops"));
+        super(Component.translatable("pa.msg.02b008d6af"));
         Item item = ForgeRegistries.ITEMS.getValue(itemId);
         this.searched = new ItemStack(item == null ? Items.BARRIER : item);
         for (ResourceLocation id : entityIds) {
@@ -68,7 +70,7 @@ public class DropsScreen extends Screen {
 
         g.fill(left - 6, top - 26, left + COLUMNS * CELL + 6, top + VISIBLE_ROWS * CELL + 6, 0xE0101010);
         g.renderItem(searched, left, top - 22);
-        g.drawString(this.font, Component.literal("Lo sueltan (" + cells.size() + " mobs): ").append(searched.getHoverName()),
+        g.drawString(this.font, Component.translatable("pa.msg.deb050c514", cells.size()).append(searched.getHoverName()),
                 left + 22, top - 18, 0xFFFFFF);
 
         List<Component> hovered = null;
@@ -87,10 +89,10 @@ public class DropsScreen extends Screen {
             }
         }
         if (cells.isEmpty()) {
-            g.drawCenteredString(this.font, "Ningun mob suelta este item.", this.width / 2, top + 20, 0xAAAAAA);
+            g.drawCenteredString(this.font, Tr.s("Ningun mob suelta este item."), this.width / 2, top + 20, 0xAAAAAA);
         }
         if (totalRows() > VISIBLE_ROWS) {
-            g.drawCenteredString(this.font, "Rueda del mouse para desplazar (" + (scrollRow + 1) + "/" + (totalRows() - VISIBLE_ROWS + 1) + ")",
+            g.drawCenteredString(this.font, Tr.f("Rueda del mouse para desplazar (%s/%s)", scrollRow + 1, totalRows() - VISIBLE_ROWS + 1),
                     this.width / 2, top + VISIBLE_ROWS * CELL + 10, 0x888888);
         }
         super.render(g, mouseX, mouseY, partialTick);

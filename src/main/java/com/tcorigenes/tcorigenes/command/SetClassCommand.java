@@ -30,10 +30,10 @@ public class SetClassCommand {
                                         PlayerClass selectedClass = PlayerClass.valueOf(className);
                                         com.tcorigenes.tcorigenes.playerclass.ClassSelection.apply(player, selectedClass);
                                         context.getSource().sendSuccess(
-                                                () -> Component.literal("Tu clase ha sido establecida a: " + selectedClass.getDisplayName()), true);
+                                                () -> Component.translatable("pa.msg.b653946d17", selectedClass.getDisplayName()), true);
                                         return 1;
                                     } catch (IllegalArgumentException e) {
-                                        context.getSource().sendFailure(Component.literal("La clase '" + className + "' no existe."));
+                                        context.getSource().sendFailure(Component.translatable("pa.msg.60e2d8b10d", className));
                                         return 0;
                                     }
                                 })

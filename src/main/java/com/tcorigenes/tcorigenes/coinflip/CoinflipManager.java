@@ -94,7 +94,7 @@ public final class CoinflipManager {
             // Perdiste la moneda en este cofre: para vos queda vacio para siempre (antes, al reabrirlo, volvia a dar el botin).
             event.setCanceled(true);
             event.setCancellationResult(InteractionResult.SUCCESS);
-            player.displayClientMessage(Component.literal("La moneda cayó en tu contra: este cofre está vacío para vos.")
+            player.displayClientMessage(Component.translatable("pa.msg.2e579b9ca7")
                     .withStyle(ChatFormatting.DARK_RED), true);
             return;
         }
@@ -286,7 +286,7 @@ public final class CoinflipManager {
                 }
                 slots.get(order.get(next++)).set(stack);
             }
-            player.displayClientMessage(Component.literal("La moneda cayó de tu lado: el destino te sonríe.")
+            player.displayClientMessage(Component.translatable("pa.msg.2d7720e124")
                     .withStyle(ChatFormatting.GOLD), true);
         } else {
             if (pending.key != null) {
@@ -295,7 +295,7 @@ public final class CoinflipManager {
             for (Slot slot : slots) {
                 slot.set(ItemStack.EMPTY);
             }
-            player.displayClientMessage(Component.literal("La moneda cayó en tu contra: el cofre está vacío.")
+            player.displayClientMessage(Component.translatable("pa.msg.d7cd991689")
                     .withStyle(ChatFormatting.DARK_RED), true);
         }
         for (Slot slot : slots) {

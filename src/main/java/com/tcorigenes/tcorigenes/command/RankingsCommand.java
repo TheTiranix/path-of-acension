@@ -65,7 +65,7 @@ public class RankingsCommand {
             entries = ItemStatRanking.armorRanking(categoryOf(stat));
             label = "Armadura - " + categoryOf(stat).label();
         } else {
-            source.sendFailure(Component.literal("Usa /rankings damage, armor, helmets, chestplates, leggings, boots u others"));
+            source.sendFailure(Component.translatable("pa.msg.632c4832bd"));
             return 0;
         }
 
@@ -74,8 +74,7 @@ public class RankingsCommand {
         int from = (clampedPage - 1) * PAGE_SIZE;
         int to = Math.min(from + PAGE_SIZE, entries.size());
 
-        source.sendSuccess(() -> Component.literal(
-                "== " + label + " (pagina " + clampedPage + "/" + totalPages + ", " + entries.size() + " items, menor a mayor) =="), false);
+        source.sendSuccess(() -> Component.translatable("pa.msg.ecbcc565a9", label, clampedPage, totalPages, entries.size()), false);
         for (int i = from; i < to; i++) {
             StatEntry entry = entries.get(i);
             int rank = i + 1;
@@ -84,8 +83,7 @@ public class RankingsCommand {
         }
         if (clampedPage < totalPages) {
             int nextPage = clampedPage + 1;
-            source.sendSuccess(() -> Component.literal(
-                    "Usa /rankings " + stat + " " + nextPage + " para ver la siguiente pagina."), false);
+            source.sendSuccess(() -> Component.translatable("pa.msg.bcba9203e5", stat, nextPage), false);
         }
         return 1;
     }

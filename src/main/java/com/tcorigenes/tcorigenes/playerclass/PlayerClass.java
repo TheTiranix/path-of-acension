@@ -16,6 +16,6 @@ public enum PlayerClass {
     }
 
     public String getDisplayName() {
-        return this.displayName;
+        return com.tcorigenes.tcorigenes.core.Tr.s(this.displayName);
     }
 }

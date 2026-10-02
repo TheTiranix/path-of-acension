@@ -33,9 +33,7 @@ public final class PacifistMode {
         boolean now = !isPacifist(player);
         player.getPersistentData().putBoolean(KEY, now);
         sync(player);
-        player.displayClientMessage(Component.literal(now
-                ? "Modo pacífico activado: no podés hacer daño."
-                : "Modo pacífico desactivado."), true);
+        player.displayClientMessage(Component.translatable(now ? "pa.m.pacifist_on" : "pa.m.pacifist_off"), true);
     }
 
     public static void sync(ServerPlayer player) {

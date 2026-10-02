@@ -53,7 +53,7 @@ public final class AnimaBinding {
             if (!player.getInventory().add(stack.copy())) {
                 player.drop(stack.copy(), false); // inventario lleno: no queda otra (el stash de la muerte lo recupera igual)
             }
-            player.displayClientMessage(Component.literal("El arma ánima está atada a tu alma: no se puede tirar."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.e47d6a62b2"), true);
         }
     }
 

@@ -39,14 +39,14 @@ public final class FactionNpcCommand {
     private static int spawn(com.mojang.brigadier.context.CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack source = ctx.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("Solo un jugador puede usar este comando."));
+            source.sendFailure(Component.translatable("pa.msg.a5e680cd8a"));
             return 0;
         }
         Faction faction;
         try {
             faction = parseFaction(source, ctx);
         } catch (IllegalArgumentException e) {
-            source.sendFailure(Component.literal("Faccion invalida. Usa: pater, filis, meidris, luna, deiros, tempo"));
+            source.sendFailure(Component.translatable("pa.msg.5cb1475034"));
             return 0;
         }
         FactionNpcEntity npc = ModEntityTypes.FACTION_NPC.get().create(player.serverLevel());
@@ -54,7 +54,7 @@ public final class FactionNpcCommand {
             npc.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), 0.0F);
             npc.setFaction(faction);
             player.serverLevel().addFreshEntity(npc);
-            source.sendSuccess(() -> Component.literal("NPC de " + faction.getDisplayName() + " invocado."), true);
+            source.sendSuccess(() -> Component.translatable("pa.msg.210d93594f", faction.getDisplayName()), true);
         }
         return 1;
     }
@@ -62,27 +62,24 @@ public final class FactionNpcCommand {
     private static int locate(com.mojang.brigadier.context.CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack source = ctx.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("Solo un jugador puede usar este comando."));
+            source.sendFailure(Component.translatable("pa.msg.a5e680cd8a"));
             return 0;
         }
         Faction faction;
         try {
             faction = parseFaction(source, ctx);
         } catch (IllegalArgumentException e) {
-            source.sendFailure(Component.literal("Faccion invalida. Usa: pater, filis, meidris, luna, deiros, tempo"));
+            source.sendFailure(Component.translatable("pa.msg.5cb1475034"));
             return 0;
         }
         FactionCampSavedData data = FactionCampSavedData.get(player.serverLevel());
         BlockPos nearest = data.findNearest(faction, player.blockPosition());
         if (nearest == null) {
-            source.sendFailure(Component.literal("No se conoce ningun campamento de " + faction.getDisplayName()
-                    + " en esta dimension todavia (solo se registran los generados en chunks nuevos)."));
+            source.sendFailure(Component.translatable("pa.msg.b9254e6979", faction.getDisplayName()));
             return 0;
         }
         double distance = Math.sqrt(player.blockPosition().distSqr(nearest));
-        source.sendSuccess(() -> Component.literal(String.format(java.util.Locale.ROOT,
-                "Campamento de %s mas cercano: %d, %d, %d (a %.0f bloques)",
-                faction.getDisplayName(), nearest.getX(), nearest.getY(), nearest.getZ(), distance)), false);
+        source.sendSuccess(() -> Component.translatable("pa.m.camp_nearest", faction.getDisplayName(), nearest.getX(), nearest.getY(), nearest.getZ(), String.format(java.util.Locale.ROOT, "%.0f", distance)), false);
         return 1;
     }
 }

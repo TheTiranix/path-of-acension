@@ -29,11 +29,11 @@ public class AnilloPurificacionItem extends Item {
         }
         return player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(raceInfo -> {
             if (raceInfo.getRace() != Race.MALNACIDO) {
-                player.displayClientMessage(Component.literal("Este anillo solo responde a los malditos."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.f95ada8e64"), true);
                 return InteractionResultHolder.fail(player.getItemInHand(hand));
             }
             if (player.getPersistentData().getBoolean("malnacido_purificado")) {
-                player.displayClientMessage(Component.literal("Tu maldición ya fue contrarrestada."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.7b5f7508db"), true);
                 return InteractionResultHolder.fail(player.getItemInHand(hand));
             }
             player.getPersistentData().putBoolean("malnacido_purificado", true);
@@ -42,7 +42,7 @@ public class AnilloPurificacionItem extends Item {
             if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
                 com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(serverPlayer, Race.MALNACIDO);
             }
-            player.displayClientMessage(Component.literal("Tu maldición se disipa. Sos libre."), false);
+            player.displayClientMessage(Component.translatable("pa.msg.3ebcfad529"), false);
             ItemStack stack = player.getItemInHand(hand);
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);

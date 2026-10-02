@@ -45,7 +45,7 @@ public class BateriaLunarItem extends Item {
         }
         int charge = getCharge(stack);
         if (charge <= 0) {
-            player.displayClientMessage(Component.literal("La batería está descargada."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.e89fa800a9"), true);
             return InteractionResultHolder.fail(stack);
         }
         int durationTicks = charge; // 1 tick de carga = 1 tick de buff
@@ -53,12 +53,12 @@ public class BateriaLunarItem extends Item {
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, durationTicks, amplifier, false, true, true));
         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, durationTicks, amplifier, false, true, true));
         setCharge(stack, 0);
-        player.displayClientMessage(Component.literal("La energía lunar recorre tu cuerpo."), true);
+        player.displayClientMessage(Component.translatable("pa.msg.13bada95fb"), true);
         return InteractionResultHolder.success(stack);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Carga: " + getCharge(stack) + " / " + MAX_CHARGE).withStyle(ChatFormatting.AQUA));
+        tooltip.add(Component.translatable("pa.msg.57fd538207", getCharge(stack), MAX_CHARGE).withStyle(ChatFormatting.AQUA));
     }
 }

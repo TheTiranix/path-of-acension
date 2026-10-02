@@ -46,8 +46,7 @@ public final class ItemTooltipPages {
             noticeShown = false;
         } else if (!noticeShown && player.tickCount > 40) {
             noticeShown = true;
-            player.sendSystemMessage(Component.literal(
-                    "Tip: en la descripción de los ítems mantené Shift y usá el 4 y el 6 del numpad para cambiar de página.")
+            player.sendSystemMessage(Component.translatable("pa.msg.2267cae7f6")
                     .withStyle(ChatFormatting.GOLD));
         }
     }
@@ -101,12 +100,9 @@ public final class ItemTooltipPages {
         return false;
     }
 
-    private static boolean isOurStatLine(String text) {
-        String trimmed = text.trim();
-        return trimmed.startsWith("Ciclo de golpes") || trimmed.startsWith("Set completo")
-                || trimmed.startsWith("Ciclo de impactos") || trimmed.startsWith("Torbellinos") || trimmed.startsWith("Daño por impacto")
-                || trimmed.startsWith("Daño total") || trimmed.startsWith("When in Hand")
-                || (trimmed.startsWith("+") && (trimmed.contains("Daño Elemental de ") || trimmed.contains("Daño por impacto")));
+    /** Linea propia del pack: se reconoce por su clave de traduccion (pa.stat.*), asi funciona en cualquier idioma. */
+    private static boolean isOurStatLine(Component line, String text) {
+        return has(line, "pa.stat.") || has(line, "pa.msg.d1f3c7176e") || has(line, "pa.msg.88aabf3bcb") || text.trim().startsWith("When in Hand");
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -147,10 +143,10 @@ public final class ItemTooltipPages {
                 hasAttributeLines = true;
                 stats.add(line);
             } else if (inAttributeBlock || has(line, "attribute.modifier.") || has(line, "item.durability")
-                    || isOurStatLine(text)) {
+                    || isOurStatLine(line, text)) {
                 stats.add(line);
                 hasAttributeLines |= has(line, "attribute.modifier.");
-            } else if (has(line, "enchantment.") || text.startsWith("Destreza requerida")) {
+            } else if (has(line, "enchantment.") || has(line, "pa.msg.1a5219fcbb")) {
                 requirements.add(line);
             } else {
                 lore.add(line);
@@ -182,9 +178,7 @@ public final class ItemTooltipPages {
         original.add(name);
         original.addAll(pages.get(shown));
         if (total > 1) {
-            original.add(Component.literal(Screen.hasShiftDown()
-                    ? "Página " + (shown + 1) + "/" + total + "  (Shift + Numpad 4 / 6)"
-                    : "Mantené Shift para ver más páginas (" + total + ")").withStyle(ChatFormatting.DARK_GRAY));
+            original.add((Screen.hasShiftDown() ? Component.translatable("pa.m.page_n", shown + 1, total) : Component.translatable("pa.m.shift_more", total)).withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

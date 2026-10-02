@@ -1,0 +1,12 @@
+{
+  "item.celestisynth.solar_crystal_helmet": "Casco Solar Divino",
+  "item.celestisynth.lunar_stone_helmet": "Casco Lunar Divino",
+  "item.celestisynth.solar_crystal_chestplate": "Peto Solar Divino",
+  "item.celestisynth.lunar_stone_chestplate": "Peto Lunar Divino",
+  "item.celestisynth.solar_crystal_leggings": "Pantalones Solar Divino",
+  "item.celestisynth.lunar_stone_leggings": "Pantalones Lunar Divino",
+  "item.celestisynth.solar_crystal_boots": "Botas Solar Divino",
+  "item.celestisynth.lunar_stone_boots": "Botas Lunar Divino",
+  "item.celestisynth.solar_crystal_armor_bonus": "Al recibir daño, la armadura estalla en un circulo de llamas, hiriendo con fuego y prendiendo fuego a los mobs hostiles cercanos. Cada pieza aumenta el daño de la explosion y la duracion del fuego.",
+  "item.celestisynth.lunar_stone_armor_bonus": "Al recibir daño, la armadura estalla en una onda violeta de energia lunar, hiriendo con daño lunar a los mobs hostiles cercanos. Cada pieza aumenta el daño de la explosion."
+}

@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.client.gui;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import com.tcorigenes.tcorigenes.networking.Networking;
 import com.tcorigenes.tcorigenes.networking.packet.ChooseCheckpointPacket;
 import com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket.CheckpointEntry;
@@ -24,7 +26,7 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
     private final boolean loadMode;
 
     public CheckpointScreen(List<CheckpointEntry> entries, boolean loadMode) {
-        super(Component.literal(loadMode ? "Cargar Punto de Guardado" : "Punto de Guardado"), buildOptions(entries, loadMode));
+        super(Component.translatable(loadMode ? "pa.m.ck_title_load" : "pa.m.ck_title"), buildOptions(entries, loadMode));
         this.loadMode = loadMode;
     }
 
@@ -41,8 +43,8 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
 
     @Override
     protected Component nameOf(Option option) {
-        return option.entry() == null ? Component.literal(this.loadMode ? "Continuar" : "Guardar acá")
-                : Component.literal((option.entry().preferred() ? "★ " : "") + "Save " + option.entry().number());
+        return option.entry() == null ? Component.translatable(this.loadMode ? "pa.m.ck_continue" : "pa.m.ck_save_here")
+                : Component.translatable("pa.msg.f127d0024c", (option.entry().preferred() ? "★ " : ""), option.entry().number());
     }
 
     @Override
@@ -52,30 +54,30 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
 
     @Override
     protected String taglineOf(Option option) {
-        return option.entry() == null ? (this.loadMode ? "Seguir donde saliste" : "Nuevo punto de guardado, acá")
-                : "Día " + option.entry().day() + (option.entry().preferred() ? " · tu punto preferido ahora mismo" : " · punto de guardado compartido");
+        return option.entry() == null ? (this.loadMode ? Tr.s("Seguir donde saliste") : Tr.s("Nuevo punto de guardado, acá"))
+                : Tr.f("Día %s", option.entry().day()) + (option.entry().preferred() ? Tr.s(" · tu punto preferido ahora mismo") : Tr.s(" · punto de guardado compartido"));
     }
 
     @Override
     protected List<Component> linesOf(Option option) {
         if (option.entry() == null && this.loadMode) {
-            return List.of(Component.literal("Seguís en el mundo tal como lo dejaste al salir (tu último Guardar y salir)."),
-                    Component.literal("Elegí cualquier punto de cama de la lista para volver a ese momento: el mundo se restaura y volvés a entrar."));
+            return List.of(Component.translatable("pa.msg.d93c85f320"),
+                    Component.translatable("pa.msg.ca12c4e1c8"));
         }
         if (option.entry() == null) {
             return List.of(
-                    Component.literal("Crea un punto de guardado nuevo en esta cama."),
-                    Component.literal("Se guarda una copia entera del mundo tal como está ahora: si más tarde cae el grupo entero, el mundo puede volver a este momento."),
-                    Component.literal("Tus puntos de guardado anteriores siguen valiendo un día entero más.")
+                    Component.translatable("pa.msg.7ac1d44cb9"),
+                    Component.translatable("pa.msg.f14cdba75c"),
+                    Component.translatable("pa.msg.4cfefd81cb")
             );
         }
         CheckpointEntry entry = option.entry();
         return List.of(
-                Component.literal("Save " + entry.number() + ", guardado el día " + entry.day() + " de juego."),
-                Component.literal("Colocado por " + entry.ownerName() + "."),
-                Component.literal("Ubicación: " + entry.pos().toShortString() + " en " + entry.dimensionLabel() + "."),
-                Component.literal(this.loadMode ? "Elegilo para cargar el mundo tal como estaba cuando lo guardaste. Lo hecho después se pierde."
-                        : "Elegilo para SOBRESCRIBIRLO con esta cama y el mundo de ahora (reemplaza ese save).")
+                Component.translatable("pa.msg.b063f12557", entry.number(), entry.day()),
+                Component.translatable("pa.msg.2815cbc6f8", entry.ownerName()),
+                Component.translatable("pa.msg.efa0dc763f", entry.pos().toShortString(), entry.dimensionLabel()),
+                Component.literal(this.loadMode ? Tr.s("Elegilo para cargar el mundo tal como estaba cuando lo guardaste. Lo hecho después se pierde.")
+                        : Tr.s("Elegilo para SOBRESCRIBIRLO con esta cama y el mundo de ahora (reemplaza ese save)."))
         );
     }
 

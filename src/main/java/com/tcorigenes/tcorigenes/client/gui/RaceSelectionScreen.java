@@ -14,7 +14,7 @@ public class RaceSelectionScreen extends OriginSelectionScreen<Race> {
     private final InteractionHand hand;
 
     public RaceSelectionScreen(InteractionHand hand) {
-        super(Component.literal("Elige tu Origen"), List.of(Race.values()));
+        super(Component.translatable("pa.msg.b94c366234"), List.of(Race.values()));
         this.hand = hand;
     }
 

@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.progression.client;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import com.tudominio.elementaldamage.ModAttributes;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -119,7 +121,7 @@ public final class PlayerStatsPanel {
         for (Row row : ROWS.values()) {
             AttributeInstance instance = player.getAttribute(row.attribute().get());
             if (instance != null) {
-                g.drawString(font, row.label(), x, rowY, 0xBBBBBB, false);
+                g.drawString(font, Tr.s(row.label()), x, rowY, 0xBBBBBB, false);
                 String shown = value(instance.getValue(), row.percent());
                 g.drawString(font, shown, x + WIDTH - 6 - font.width(shown), rowY, 0xFFFFFF, false);
                 if (mouseX >= x - 3 && mouseX <= x + WIDTH && mouseY >= rowY - 1 && mouseY < rowY + ROW_HEIGHT - 1) {
@@ -133,8 +135,8 @@ public final class PlayerStatsPanel {
 
     private static List<Component> breakdown(Row row, AttributeInstance instance) {
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.literal(row.label() + ": " + value(instance.getValue(), row.percent())).withStyle(ChatFormatting.GOLD));
-        lines.add(Component.literal("Base: " + value(instance.getBaseValue(), row.percent())).withStyle(ChatFormatting.GRAY));
+        lines.add(Component.literal(Tr.s(row.label()) + ": " + value(instance.getValue(), row.percent())).withStyle(ChatFormatting.GOLD));
+        lines.add(Component.translatable("pa.msg.389a80ba02", value(instance.getBaseValue(), row.percent())).withStyle(ChatFormatting.GRAY));
         for (AttributeModifier.Operation operation : AttributeModifier.Operation.values()) {
             for (AttributeModifier modifier : instance.getModifiers(operation)) {
                 double amount = modifier.getAmount();

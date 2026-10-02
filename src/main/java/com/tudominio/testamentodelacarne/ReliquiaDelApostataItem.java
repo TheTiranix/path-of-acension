@@ -27,7 +27,7 @@ public class ReliquiaDelApostataItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (pPlayer.getPersistentData().getBoolean("pacto_elegido")) {
-            pPlayer.displayClientMessage(Component.literal("Tu destino ya ha sido sellado."), false);
+            pPlayer.displayClientMessage(Component.translatable("pa.msg.9906bbc12a"), false);
             return InteractionResultHolder.fail(pPlayer.getItemInHand(pUsedHand));
         }
 
@@ -40,6 +40,6 @@ public class ReliquiaDelApostataItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.literal("Un fragmento de poder neutro, esperando un propósito."));
+        pTooltip.add(Component.translatable("pa.msg.5e8387dfc0"));
     }
 }

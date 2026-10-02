@@ -66,7 +66,7 @@ public class ChooseCheckpointPacket {
                 CheckpointManager.setPreferred(player, checkpoint.id);
                 if (player.getServer().isSingleplayer()) {
                     boolean started = com.tcorigenes.tcorigenes.checkpoint.WorldRestoreManager.beginRestore(player.getServer(), checkpoint,
-                            "Cargando el Save " + checkpoint.number() + ": la partida se corta en 5 segundos, se restaura y podés volver a entrar.");
+                            net.minecraft.network.chat.Component.translatable("pa.m.loading_save", checkpoint.number()));
                     if (started) {
                         com.tcorigenes.tcorigenes.checkpoint.WorldRestoreManager.markSkipNextLoadScreen(player.getServer());
                     }

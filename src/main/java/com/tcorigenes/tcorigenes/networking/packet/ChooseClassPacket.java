@@ -39,11 +39,11 @@ public class ChooseClassPacket {
             if (this.playerClass == PlayerClass.RITUALISTA_ARCANO
                     && player.getCapability(com.tcorigenes.tcorigenes.core.capability.PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
                             .map(info -> info.getRace() == com.tcorigenes.tcorigenes.core.Race.AUTOMATA).orElse(false)) {
-                player.displayClientMessage(Component.literal("El Autómata tiene prohibido usar magia: no puede ser Ritualista Arcano."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.b8167b3040"), true);
                 return;
             }
             ClassSelection.apply(player, this.playerClass);
-            player.displayClientMessage(Component.literal("Has elegido la clase: " + this.playerClass.getDisplayName()), false);
+            player.displayClientMessage(Component.translatable("pa.msg.15e747ed85", this.playerClass.getDisplayName()), false);
         });
         return true;
     }

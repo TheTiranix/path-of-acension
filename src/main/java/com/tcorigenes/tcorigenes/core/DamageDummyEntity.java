@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.core;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -90,8 +92,7 @@ public class DamageDummyEntity extends Mob {
             }
             DamageSource source = event.getSource();
             if (source.getEntity() instanceof Player player) {
-                player.sendSystemMessage(Component.literal(String.format(Locale.ROOT, "Dummy » %,.1f de daño (%s)", event.getAmount(),
-                        elementLabel(source))).withStyle(ChatFormatting.GREEN));
+                player.sendSystemMessage(Component.translatable("pa.m.dummy_hit", String.format(Locale.ROOT, "%,.1f", event.getAmount()), Tr.s(elementLabel(source))).withStyle(ChatFormatting.GREEN));
             }
             event.setCanceled(true); // no recibe daño de verdad
             dummy.setHealth(dummy.getMaxHealth());

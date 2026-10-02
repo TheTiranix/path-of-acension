@@ -86,7 +86,7 @@ abstract class OriginSelectionScreen<T> extends Screen {
                 .bounds(cx - 110, by, 24, 20).build());
         this.addRenderableWidget(Button.builder(Component.literal(">"), b -> select(this.index + 1))
                 .bounds(cx + 86, by, 24, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("Seleccionar"), b -> {
+        this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.2b83192b81"), b -> {
             choose(this.options.get(this.index));
             this.onClose();
         }).bounds(cx - 80, by, 160, 20).build());

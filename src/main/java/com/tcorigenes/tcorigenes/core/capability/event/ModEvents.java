@@ -267,14 +267,12 @@ public class ModEvents {
                 .map(classInfo -> {
                     PlayerClass playerClass = classInfo.getPlayerClass();
                     if (playerClass == PlayerClass.GUERRERO_ANIMA && !(weapon.getItem() instanceof AnimaSwordItem)) {
-                        player.displayClientMessage(net.minecraft.network.chat.Component.literal(
-                                "Tu alma solo reconoce a tu Espada Ánima."), true);
+                        player.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.4ede08be07"), true);
                         return true;
                     }
                     if (playerClass == PlayerClass.RITUALISTA_ARCANO
                             && (weapon.getItem() instanceof AxeItem || weapon.getItem() instanceof TridentItem)) {
-                        player.displayClientMessage(net.minecraft.network.chat.Component.literal(
-                                "Tus brazos de erudito no pueden con armas tan pesadas."), true);
+                        player.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.a0522d7652"), true);
                         return true;
                     }
                     return false;
@@ -288,7 +286,7 @@ public class ModEvents {
         // Malnacido: 35% de errar el golpe por sus manos deformes.
         player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(raceInfo -> {
             if (raceInfo.getRace() == Race.MALNACIDO && player.getRandom().nextFloat() < 0.35F) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal("Tu golpe falla."), true);
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.02a96c9dbf"), true);
                 event.setCanceled(true);
             }
         });

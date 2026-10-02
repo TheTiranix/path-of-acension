@@ -28,7 +28,7 @@ public final class Insomnia {
     public static void onSleep(PlayerSleepInBedEvent event) {
         if (event.getEntity() instanceof ServerPlayer player && !player.isCreative() && hasInsomnia(player)) {
             event.setResult(Player.BedSleepingProblem.OTHER_PROBLEM);
-            player.displayClientMessage(Component.literal("Tenés insomnio: las pesadillas no te dejan dormir hoy."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.cd05d77f2a"), true);
         }
     }
 }

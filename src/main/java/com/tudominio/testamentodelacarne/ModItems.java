@@ -119,7 +119,7 @@ public class ModItems {
             "nucleo_de_automata", () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {
                 @Override
                 public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-                    tooltip.add(Component.literal("El corazón de una máquina ancestral. Zumba con un poder inimaginable.")
+                    tooltip.add(Component.translatable("pa.msg.d8687668ee")
                             .withStyle(ChatFormatting.DARK_AQUA));
                 }
             });

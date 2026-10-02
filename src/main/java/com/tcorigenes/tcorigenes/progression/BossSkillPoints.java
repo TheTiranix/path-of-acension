@@ -30,6 +30,6 @@ public final class BossSkillPoints {
         }
         int points = type == EntityType.ENDER_DRAGON || type == EntityType.WITHER ? 3 : 2;
         SkillTreeManager.addPoints(killer, points);
-        killer.displayClientMessage(Component.literal("Jefe derrotado: +" + points + " puntos de habilidad."), false);
+        killer.displayClientMessage(Component.translatable("pa.msg.5f732d6c64", points), false);
     }
 }

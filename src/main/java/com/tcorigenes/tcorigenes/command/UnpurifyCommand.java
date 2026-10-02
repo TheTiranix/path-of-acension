@@ -32,11 +32,11 @@ public class UnpurifyCommand {
         boolean isMalnacido = target.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY)
                 .map(info -> info.getRace() == Race.MALNACIDO).orElse(false);
         if (!isMalnacido) {
-            source.sendFailure(Component.literal(target.getName().getString() + " no es Malnacido."));
+            source.sendFailure(Component.translatable("pa.msg.885d4b5672", target.getName().getString()));
             return 0;
         }
         if (!target.getPersistentData().getBoolean("malnacido_purificado")) {
-            source.sendFailure(Component.literal(target.getName().getString() + " ya es un Malnacido sin purificar."));
+            source.sendFailure(Component.translatable("pa.msg.1b811dc9ba", target.getName().getString()));
             return 0;
         }
         target.getPersistentData().remove("malnacido_purificado");
@@ -47,8 +47,8 @@ public class UnpurifyCommand {
         }
         RaceAttributeManager.updateAttributes(target, Race.MALNACIDO);
         RaceSync.broadcast(target, Race.MALNACIDO);
-        target.displayClientMessage(Component.literal("La maldición vuelve a ti."), false);
-        source.sendSuccess(() -> Component.literal(target.getName().getString() + " volvió a ser un Malnacido maldito."), true);
+        target.displayClientMessage(Component.translatable("pa.msg.3e89cec008"), false);
+        source.sendSuccess(() -> Component.translatable("pa.msg.48f4fe2e09", target.getName().getString()), true);
         return 1;
     }
 }

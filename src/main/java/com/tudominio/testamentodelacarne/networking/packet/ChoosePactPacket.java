@@ -46,24 +46,24 @@ public class ChoosePactPacket {
                     player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getMaxHealth() - 4.0);
                     player.getServer().getCommands().performPrefixedCommand(source,
                             "advancement grant " + playerName + " only testamentodelacarne:otorgar_pacto_sangre");
-                    player.displayClientMessage(Component.literal("§cHas sellado el pacto de sangre. Un nuevo poder fluye a través de ti."), false);
+                    player.displayClientMessage(Component.translatable("pa.msg.69f6d41f6f"), false);
                     player.getPersistentData().putBoolean("pacto_elegido", true);
                     player.getPersistentData().putString(com.tcorigenes.tcorigenes.progression.SkillTreeManager.PACT_KEY, "sangre");
                     com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(player);
                 } else {
-                    player.displayClientMessage(Component.literal("§4No tienes suficiente vitalidad para soportar este pacto."), false);
+                    player.displayClientMessage(Component.translatable("pa.msg.a9f5d3f530"), false);
                 }
             } else if (this.pactId.equals("acero")) {
                 if (player.experienceLevel >= 32) {
                     player.giveExperienceLevels(-32);
                     player.getServer().getCommands().performPrefixedCommand(source,
                             "advancement grant " + playerName + " only testamentodelacarne:otorgar_pacto_acero");
-                    player.displayClientMessage(Component.literal("§bHas aceptado el dogma de acero. Has alcanzado una nueva fuerza."), false);
+                    player.displayClientMessage(Component.translatable("pa.msg.70cd1af99f"), false);
                     player.getPersistentData().putBoolean("pacto_elegido", true);
                     player.getPersistentData().putString(com.tcorigenes.tcorigenes.progression.SkillTreeManager.PACT_KEY, "acero");
                     com.tcorigenes.tcorigenes.progression.SkillTreeManager.refresh(player);
                 } else {
-                    player.displayClientMessage(Component.literal("§3No tienes suficiente experiencia para comprender este dogma."), false);
+                    player.displayClientMessage(Component.translatable("pa.msg.38f0dd27d1"), false);
                 }
             }
         });

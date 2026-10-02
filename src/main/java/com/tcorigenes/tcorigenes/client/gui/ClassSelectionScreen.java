@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
  *  El Autómata no puede ser Ritualista Arcano (tiene prohibido usar magia), asi que ni se muestra. */
 public class ClassSelectionScreen extends OriginSelectionScreen<PlayerClass> {
     public ClassSelectionScreen() {
-        super(Component.literal("Elige tu Clase"), options());
+        super(Component.translatable("pa.msg.bc10b05221"), options());
     }
 
     private static List<PlayerClass> options() {

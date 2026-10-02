@@ -34,13 +34,12 @@ public class PlayerRespawnBlock extends Block {
             return InteractionResult.SUCCESS;
         }
         if (!PlayerReviveBridge.isLoaded()) {
-            reviver.displayClientMessage(Component.literal("Falta el mod PlayerRevive para que esto funcione.")
+            reviver.displayClientMessage(Component.translatable("pa.msg.bac494f885")
                     .withStyle(ChatFormatting.RED), true);
             return InteractionResult.FAIL;
         }
         int revived = PlayerReviveBridge.reviveAllDown(reviver.getServer());
-        reviver.displayClientMessage(Component.literal(revived > 0
-                ? "Revivís a " + revived + " compañero(s) caído(s)." : "No hay nadie caído ahora mismo.")
+        reviver.displayClientMessage((revived > 0 ? Component.translatable("pa.m.revived", revived) : Component.translatable("pa.m.nobody_down"))
                 .withStyle(revived > 0 ? ChatFormatting.GREEN : ChatFormatting.GRAY), true);
         return InteractionResult.CONSUME;
     }

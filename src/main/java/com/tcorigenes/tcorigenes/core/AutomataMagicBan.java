@@ -46,7 +46,7 @@ public final class AutomataMagicBan {
         if (!event.getEntity().level().isClientSide() && isAutomata(event.getEntity()) && isMagicItem(event.getItemStack())) {
             event.setCanceled(true);
             event.getEntity().displayClientMessage(
-                    net.minecraft.network.chat.Component.literal("Los Autómatas no pueden usar magia."), true);
+                    net.minecraft.network.chat.Component.translatable("pa.msg.b7d930a5f8"), true);
         }
     }
 

@@ -66,7 +66,7 @@ public final class MobLevelDisplay {
         ChatFormatting color = level >= 20 ? ChatFormatting.DARK_RED : level >= 10 ? ChatFormatting.GOLD : ChatFormatting.YELLOW;
         Component content = monster.hasCustomName() ? monster.getCustomName() : monster.getType().getDescription();
         event.setContent(Component.empty().append(content).append(" ")
-                .append(Component.literal("[Nv. " + level + "]").withStyle(color)));
+                .append(Component.translatable("pa.m.mob_level", level).withStyle(color)));
         event.setResult(Event.Result.ALLOW);
     }
 }

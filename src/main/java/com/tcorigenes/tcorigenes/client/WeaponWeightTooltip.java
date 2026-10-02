@@ -16,7 +16,7 @@ public final class WeaponWeightTooltip {
     public static void onTooltip(ItemTooltipEvent event) {
         int weight = WeaponWeights.weightOf(event.getItemStack());
         if (weight > 0) {
-            event.getToolTip().add(Component.literal("Destreza requerida: " + weight).withStyle(
+            event.getToolTip().add(Component.translatable("pa.msg.1a5219fcbb", weight).withStyle(
                     weight > 75 ? ChatFormatting.RED : ChatFormatting.GOLD));
         }
     }

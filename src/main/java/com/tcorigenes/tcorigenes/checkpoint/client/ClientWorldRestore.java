@@ -91,8 +91,7 @@ public final class ClientWorldRestore {
             if (worldRootStr != null && "true".equals(values.get("regenerate"))) {
                 boolean ok = regenerate(Path.of(worldRootStr));
                 Files.deleteIfExists(marker);
-                notify(ok ? "Mundo regenerado desde cero con la misma seed. Ya podés volver a entrar."
-                        : "No se pudo regenerar el mundo del todo (ver log).");
+                notify(ok ? "pa.m.rest_regen_ok" : "pa.m.rest_regen_fail");
                 return;
             }
             if (worldRootStr == null || snapshotStr == null) {
@@ -105,17 +104,17 @@ public final class ClientWorldRestore {
             if (!Files.isDirectory(snapshot)) {
                 LOGGER.error("[tcorigenes] No encuentro la copia del punto de guardado: {}", snapshot);
                 Files.deleteIfExists(marker);
-                notify("No se pudo restaurar el mundo: no encontré la copia del punto de guardado. Revisá el log.");
+                notify("pa.m.rest_missing");
                 return;
             }
             IOException lastError = tryRestore(worldRoot, snapshot);
             Files.deleteIfExists(marker);
             if (lastError == null) {
                 LOGGER.info("[tcorigenes] Mundo restaurado a {}", snapshot);
-                notify("Mundo restaurado a tu último punto de guardado. Ya podés volver a entrar.");
+                notify("pa.m.rest_ok");
             } else {
                 LOGGER.error("[tcorigenes] No se pudo restaurar el mundo tras varios intentos", lastError);
-                notify("No se pudo restaurar el mundo automáticamente (ver log). No entres a la partida sin revisarlo.");
+                notify("pa.m.rest_fail");
             }
         } catch (IOException e) {
             LOGGER.error("[tcorigenes] Error leyendo el marcador de restauración", e);
@@ -196,6 +195,6 @@ public final class ClientWorldRestore {
     private static void notify(String message) {
         Minecraft mc = Minecraft.getInstance();
         mc.execute(() -> SystemToast.add(mc.getToasts(), SystemToast.SystemToastIds.WORLD_BACKUP,
-                Component.literal("Path of Ascension"), Component.literal(message)));
+                Component.translatable("pa.msg.76423f4aeb"), Component.translatable(message)));
     }
 }

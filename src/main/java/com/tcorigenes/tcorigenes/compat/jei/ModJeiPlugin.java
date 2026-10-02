@@ -129,15 +129,15 @@ public class ModJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         var guiHelper = registration.getJeiHelpers().getGuiHelper();
-        registration.addRecipeCategories(new StatSortCategory(DAMAGE_SORT, Component.literal("Ordenado por daño"),
+        registration.addRecipeCategories(new StatSortCategory(DAMAGE_SORT, Component.translatable("pa.msg.cb5ca8a8aa"),
                 new ItemStack(Items.NETHERITE_SWORD), guiHelper));
         for (ArmorCategory category : ArmorCategory.values()) {
             registration.addRecipeCategories(new StatSortCategory(ARMOR_SORT.get(category),
-                    Component.literal("Armadura: " + category.label()), new ItemStack(iconOf(category)), guiHelper));
+                    Component.translatable("pa.msg.6174639ae2", category.label()), new ItemStack(iconOf(category)), guiHelper));
         }
-        registration.addRecipeCategories(new TieredCraftingCategory(TIER2_CRAFTING, Component.literal("Mesa de crafteo tier 2"),
+        registration.addRecipeCategories(new TieredCraftingCategory(TIER2_CRAFTING, Component.translatable("pa.msg.13e24d7260"),
                 new ItemStack(com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER2_TABLE_ITEM.get()), 3, guiHelper));
-        registration.addRecipeCategories(new TieredCraftingCategory(TIER3_CRAFTING, Component.literal("Mesa de crafteo tier 3"),
+        registration.addRecipeCategories(new TieredCraftingCategory(TIER3_CRAFTING, Component.translatable("pa.msg.230719fc3d"),
                 new ItemStack(com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER3_TABLE_ITEM.get()), 5, guiHelper));
     }
 

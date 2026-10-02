@@ -37,6 +37,11 @@ public record SkillNode(
         return x <= 8 ? 1 : x <= 16 ? 2 : 3;
     }
 
+    /** Titulo en el idioma del juego (los titulos estan escritos en español en SkillTree). */
+    public String title() {
+        return com.tcorigenes.tcorigenes.core.Tr.s(title);
+    }
+
     public UUID modifierId() {
         return UUID.nameUUIDFromBytes(("tcorigenes:skill:" + id).getBytes(java.nio.charset.StandardCharsets.UTF_8));
     }

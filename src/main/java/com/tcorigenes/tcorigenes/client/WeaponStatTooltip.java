@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.client;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import com.tcorigenes.tcorigenes.weapon.ArmorSetBonus;
 import com.tcorigenes.tcorigenes.weapon.WeaponBalance;
 import java.util.ArrayList;
@@ -27,18 +29,18 @@ public final class WeaponStatTooltip {
 
     public static String elementName(ResourceKey<DamageType> element) {
         if (element == null) {
-            return "Normal";
+            return Tr.s("Normal");
         }
         return switch (element.location().getPath()) {
-            case "light" -> "Luz";
-            case "fire_elemental" -> "Fuego";
-            case "water_elemental" -> "Agua";
-            case "lunar" -> "Lunar";
-            case "ender_elemental" -> "Ender";
-            case "ice" -> "Hielo";
-            case "earth" -> "Tierra";
-            case "air" -> "Aire";
-            case "natural" -> "Natural";
+            case "light" -> Tr.s("Luz");
+            case "fire_elemental" -> Tr.s("Fuego");
+            case "water_elemental" -> Tr.s("Agua");
+            case "lunar" -> Tr.s("Lunar");
+            case "ender_elemental" -> Tr.s("Ender");
+            case "ice" -> Tr.s("Hielo");
+            case "earth" -> Tr.s("Tierra");
+            case "air" -> Tr.s("Aire");
+            case "natural" -> Tr.s("Natural");
             default -> element.location().getPath();
         };
     }
@@ -77,20 +79,20 @@ public final class WeaponStatTooltip {
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
         if (spec != null) {
             if (spec.note != null) {
-                lines.add(attributeLine(spec.note));
+                lines.add(statLine("pa.stat.note", Tr.s(spec.note)));
             }
             if (spec.cycle != null && !spec.cycle.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
                 for (ResourceKey<DamageType> slot : spec.cycle) {
                     sb.append(sb.length() == 0 ? "" : " → ").append(elementName(slot));
                 }
-                lines.add(attributeLine((spec.perProjectile ? "Torbellinos: " : spec.ranged ? "Ciclo de impactos: " : "Ciclo de golpes: ") + sb));
+                lines.add(statLine(spec.perProjectile ? "pa.stat.cycle_swirl" : spec.ranged ? "pa.stat.cycle_impacts" : "pa.stat.cycle_hits", sb.toString()));
             }
         }
         // el bonus de set completo es solo de la armadura, no de las armas ni herramientas de la misma linea
         for (var entry : ArmorSetBonus.SETS.entrySet()) {
             if (stack.getItem() instanceof net.minecraft.world.item.ArmorItem && id.toString().startsWith(entry.getKey())) {
-                lines.add(attributeLine("Set completo: +" + (int) (ArmorSetBonus.AMPLIFICATION * 100) + "% Daño de " + elementName(entry.getValue())));
+                lines.add(statLine("pa.stat.set", (int) (ArmorSetBonus.AMPLIFICATION * 100), elementName(entry.getValue())));
             }
         }
         return lines;
@@ -111,14 +113,14 @@ public final class WeaponStatTooltip {
             return lines;
         }
         if (id.toString().equals("minecraft:bow")) {
-            lines.add(attributeLine("+9 Daño por impacto"));
+            lines.add(statLine("pa.stat.impact", "9"));
         }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
         if (spec == null) {
             return lines;
         }
         if (spec.ranged && spec.damage != null) {
-            lines.add(attributeLine("+" + trim(spec.damage.floatValue()) + " Daño por impacto"));
+            lines.add(statLine("pa.stat.impact", trim(spec.damage.floatValue())));
         }
         for (WeaponBalance.Extra extra : spec.extras) {
             lines.add(elementLine(extra.amount(), elementName(extra.element()), elementColor(extra.element())));
@@ -133,14 +135,14 @@ public final class WeaponStatTooltip {
             }
             if (normal > 0.0) {
                 normal += 1.0; // el daño base del jugador: el total real de un golpe cargado
-                lines.add(Component.literal(" Daño total: " + trim((float) (normal + spec.extrasTotal()))).withStyle(ChatFormatting.RED));
+                lines.add(Component.translatable("pa.msg.d1f3c7176e", trim((float) (normal + spec.extrasTotal()))).withStyle(ChatFormatting.RED));
             }
         }
         return lines;
     }
 
     private static Component elementLine(float amount, String elementName, ChatFormatting color) {
-        return Component.literal(" +" + trim(amount) + " Daño Elemental de " + elementName).withStyle(color);
+        return Component.translatable("pa.msg.88aabf3bcb", trim(amount), elementName).withStyle(color);
     }
 
     private static boolean isAttackDamageLine(Component line) {
@@ -158,6 +160,10 @@ public final class WeaponStatTooltip {
             }
         }
         return false;
+    }
+
+    private static Component statLine(String key, Object... args) {
+        return Component.translatable(key, args).withStyle(ChatFormatting.BLUE);
     }
 
     private static Component attributeLine(String text) {
@@ -198,7 +204,7 @@ public final class WeaponStatTooltip {
         if (header < 0) {
             // el item no trae ese bloque: se crea uno (con linea en blanco arriba, como el de vanilla) al final
             tooltip.add(Component.empty());
-            tooltip.add(glove ? Component.literal("When in Hand:").withStyle(ChatFormatting.GRAY)
+            tooltip.add(glove ? Component.translatable("pa.msg.e77925344c").withStyle(ChatFormatting.GRAY)
                     : Component.translatable(key).withStyle(ChatFormatting.GRAY));
             tooltip.addAll(damage);
             tooltip.addAll(lines);

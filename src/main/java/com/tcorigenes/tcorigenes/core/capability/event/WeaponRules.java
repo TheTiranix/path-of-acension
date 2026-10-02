@@ -76,11 +76,10 @@ public final class WeaponRules {
             return;
         }
         if (blockedByWeight(player)) {
-            player.displayClientMessage(Component.literal("Tu equipo pide más de " + hardCap(player)
-                    + " de destreza (" + WeaponWeights.totalWeight(player) + "): es inusable."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.d38355af50", hardCap(player), WeaponWeights.totalWeight(player)), true);
             event.setCanceled(true);
         } else if (blockedByAnimaRule(player)) {
-            player.displayClientMessage(Component.literal("El Guerrero Ánima solo puede usar su espada ánima."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.ee14e29bdb"), true);
             event.setCanceled(true);
         }
     }
@@ -93,10 +92,10 @@ public final class WeaponRules {
         var item = event.getItem().getItem();
         boolean ranged = item instanceof BowItem || item instanceof CrossbowItem;
         if (classOf(player) == PlayerClass.GUERRERO_ANIMA && ranged) {
-            player.displayClientMessage(Component.literal("El Guerrero Ánima no puede usar arcos ni ballestas."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.264effe136"), true);
             event.setCanceled(true);
         } else if ((ranged || item instanceof ShieldItem) && blockedByWeight(player)) {
-            player.displayClientMessage(Component.literal("Tu equipo pide más de " + hardCap(player) + " de destreza."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.be901d2f54", hardCap(player)), true);
             event.setCanceled(true);
         }
     }

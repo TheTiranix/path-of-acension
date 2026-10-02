@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
  */
 public class PactSelectionScreen extends Screen {
     public PactSelectionScreen() {
-        super(Component.literal("Forja tu Destino"));
+        super(Component.translatable("pa.msg.ee30e3bf5a"));
     }
 
     @Override
@@ -22,12 +22,12 @@ public class PactSelectionScreen extends Screen {
         int centerX = this.width / 2;
         int centerY = this.height / 2;
 
-        this.addRenderableWidget(Button.builder(Component.literal("Pacto de Sangre"), button -> {
+        this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.539ba0cdeb"), button -> {
             Networking.sendToServer(new ChoosePactPacket("sangre"));
             this.onClose();
         }).bounds(centerX - 100, centerY - 30, 200, 20).build());
 
-        this.addRenderableWidget(Button.builder(Component.literal("Dogma de Acero"), button -> {
+        this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.8d0ae5c9b7"), button -> {
             Networking.sendToServer(new ChoosePactPacket("acero"));
             this.onClose();
         }).bounds(centerX - 100, centerY, 200, 20).build());

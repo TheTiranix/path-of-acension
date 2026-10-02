@@ -112,37 +112,33 @@ public final class WorldRestoreManager {
 
     private static void triggerWipe(MinecraftServer server) {
         if (server.isDedicatedServer()) {
-            server.getPlayerList().broadcastSystemMessage(Component.literal(
-                    "El grupo cayó entero. Alguien va a tener que reviviros a mano.").withStyle(ChatFormatting.DARK_RED), false);
+            server.getPlayerList().broadcastSystemMessage(Component.translatable("pa.msg.f7469cc66c").withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         if (!CheckpointManager.active(server).isEmpty()) {
             // Con saves de cama solo se los saca al menu: al volver a entrar se elige uno de la lista.
             restoring = true;
             countdown = COUNTDOWN_TICKS;
-            server.getPlayerList().broadcastSystemMessage(Component.literal(
-                    "El grupo cayó entero: en 5 segundos volvés al menú. Al entrar de nuevo elegí uno de tus saves de cama.")
+            server.getPlayerList().broadcastSystemMessage(Component.translatable("pa.msg.5ded94455b")
                     .withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         Path initial = CheckpointSnapshotter.snapshotPathFor(server, CheckpointSnapshotter.INITIAL_ID);
         if (Files.isDirectory(initial)) {
-            beginRestore(server, initial, "El grupo cayó entero sin haber guardado en ninguna cama: "
-                    + "en 5 segundos volvés al menú y el mundo vuelve al principio. Se pierde todo el progreso.");
+            beginRestore(server, initial, Component.translatable("pa.m.wipe_no_bed"));
             return;
         }
-        beginRestore(server, (Path) null, "El grupo cayó entero y no había ningún save: "
-                + "el mundo se regenera desde cero con la misma seed en 5 segundos.");
+        beginRestore(server, (Path) null, Component.translatable("pa.m.wipe_no_save"));
     }
 
     /** Pedido de cargar un punto de guardado (caida de grupo, o elegido a mano al entrar al mundo):
      *  escribe el marcador, avisa y en 5 segundos frena el server; ClientWorldRestore hace la copia. */
-    public static boolean beginRestore(MinecraftServer server, Checkpoint target, String message) {
+    public static boolean beginRestore(MinecraftServer server, Checkpoint target, Component message) {
         return beginRestore(server, target == null ? null : CheckpointSnapshotter.snapshotPathFor(server, target.id), message);
     }
 
     /** snapshot == null: regenerar el mundo de cero con la misma seed (ultimo recurso si no hay save inicial). */
-    public static boolean beginRestore(MinecraftServer server, Path snapshot, String message) {
+    public static boolean beginRestore(MinecraftServer server, Path snapshot, Component message) {
         if (restoring) {
             return false;
         }
@@ -152,7 +148,7 @@ public final class WorldRestoreManager {
         writeMarker(server, server.getWorldPath(LevelResource.ROOT), snapshot, null, snapshot == null);
         restoring = true;
         countdown = COUNTDOWN_TICKS;
-        server.getPlayerList().broadcastSystemMessage(Component.literal(message).withStyle(ChatFormatting.DARK_RED), false);
+        server.getPlayerList().broadcastSystemMessage(message.copy().withStyle(ChatFormatting.DARK_RED), false);
         return true;
     }
 

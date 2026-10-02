@@ -37,7 +37,7 @@ public class ChooseRacePacket {
             if (race == Race.HEREJE) {
                 com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);
             }
-            player.displayClientMessage(Component.literal("Has elegido el origen: " + race.getDisplayName()), false);
+            player.displayClientMessage(Component.translatable("pa.msg.e0a0c531f3", race.getDisplayName()), false);
             markRaceChosen(player);
             // Cambiar de origen reinicia la clase: se vuelve a elegir.
             com.tcorigenes.tcorigenes.playerclass.ClassSelection.apply(player, com.tcorigenes.tcorigenes.playerclass.PlayerClass.NINGUNA);

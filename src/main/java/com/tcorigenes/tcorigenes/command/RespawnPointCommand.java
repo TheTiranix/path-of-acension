@@ -37,11 +37,11 @@ public class RespawnPointCommand {
     private static void list(CommandSourceStack source) {
         List<Checkpoint> active = CheckpointManager.active(source.getServer());
         if (active.isEmpty()) {
-            source.sendSuccess(() -> Component.literal("No hay ningún punto de guardado activo todavía: coloca una cama.")
+            source.sendSuccess(() -> Component.translatable("pa.msg.3d4d9c4164")
                     .withStyle(ChatFormatting.GRAY), false);
             return;
         }
-        source.sendSuccess(() -> Component.literal("Puntos de guardado activos:").withStyle(ChatFormatting.GOLD), false);
+        source.sendSuccess(() -> Component.translatable("pa.msg.0cc65234d0").withStyle(ChatFormatting.GOLD), false);
         for (int i = 0; i < active.size(); i++) {
             Checkpoint checkpoint = active.get(i);
             String owner = source.getServer().getPlayerList().getPlayers().stream()
@@ -57,12 +57,12 @@ public class RespawnPointCommand {
         ServerPlayer player = source.getPlayerOrException();
         List<Checkpoint> active = CheckpointManager.active(source.getServer());
         if (number < 1 || number > active.size()) {
-            source.sendFailure(Component.literal("No existe ese número: usa /respawnpoint list."));
+            source.sendFailure(Component.translatable("pa.msg.d2c60d5e0b"));
             return;
         }
         Checkpoint checkpoint = active.get(number - 1);
         CheckpointManager.setPreferred(player, checkpoint.id);
-        source.sendSuccess(() -> Component.literal("Tu punto de guardado preferido ahora es el " + number + ".")
+        source.sendSuccess(() -> Component.translatable("pa.msg.b49106f4be", number)
                 .withStyle(ChatFormatting.GREEN), false);
     }
 }

@@ -48,15 +48,14 @@ public class AltarBlock extends Block {
 
         Integer favorAmount = AltarOfferings.getFavorValue(deity, stack.getItem());
         if (favorAmount == null) {
-            player.displayClientMessage(Component.literal("El altar de " + deity.getDisplayName() + " no acepta esta ofrenda."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.40d33a4470", deity.getDisplayName()), true);
             return InteractionResult.FAIL;
         }
 
         stack.shrink(1);
         FavorManager.addFavor(serverPlayer, deity, favorAmount);
         int newValue = FavorManager.getFavor(serverPlayer, deity);
-        player.displayClientMessage(Component.literal(
-                deity.getDisplayName() + " acepta tu ofrenda. (+" + favorAmount + ", ahora " + newValue + ")"), true);
+        player.displayClientMessage(Component.translatable("pa.msg.3eda8ab547", deity.getDisplayName(), favorAmount, newValue), true);
 
         ServerLevel serverLevel = (ServerLevel) level;
         serverLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -66,19 +65,18 @@ public class AltarBlock extends Block {
 
     private InteractionResult handlePrayer(ServerPlayer player, Level level, BlockPos pos) {
         if (deity != Deity.PATER) {
-            player.displayClientMessage(Component.literal("Solo se reza en el altar de Pater."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.b2a079170a"), true);
             return InteractionResult.FAIL;
         }
         long now = level.getGameTime();
         Long last = LAST_PRAYER.get(player.getUUID());
         if (last != null && now - last < PRAYER_COOLDOWN_TICKS) {
-            player.displayClientMessage(Component.literal("Pater ya escuchó tu plegaria por ahora."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.a41af62637"), true);
             return InteractionResult.FAIL;
         }
         LAST_PRAYER.put(player.getUUID(), now);
         FavorManager.addFavor(player, Deity.PATER, PRAYER_FAVOR);
-        player.displayClientMessage(Component.literal(
-                "Pater escucha tu plegaria. (+" + PRAYER_FAVOR + " favor)"), true);
+        player.displayClientMessage(Component.translatable("pa.msg.51b5ed7871", PRAYER_FAVOR), true);
         ServerLevel serverLevel = (ServerLevel) level;
         serverLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1.0F, 0.8F);
         serverLevel.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 6, 0.2, 0.3, 0.2, 0.01);

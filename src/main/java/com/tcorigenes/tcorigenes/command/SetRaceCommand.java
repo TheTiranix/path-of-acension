@@ -48,10 +48,10 @@ public class SetRaceCommand {
                                             System.out.println("[TCOrigenes Command] ¡FALLO! La capacidad de raza NO está presente en el jugador: " + player.getName().getString());
                                         }
 
-                                        context.getSource().sendSuccess(() -> Component.literal("Tu raza ha sido establecida a: " + selectedRace.getDisplayName()), true);
+                                        context.getSource().sendSuccess(() -> Component.translatable("pa.msg.fa3160c597", selectedRace.getDisplayName()), true);
                                         return 1;
                                     } catch (IllegalArgumentException e) {
-                                        context.getSource().sendFailure(Component.literal("La raza '" + raceName + "' no existe."));
+                                        context.getSource().sendFailure(Component.translatable("pa.msg.d23de612cb", raceName));
                                         return 0;
                                     }
                                 })

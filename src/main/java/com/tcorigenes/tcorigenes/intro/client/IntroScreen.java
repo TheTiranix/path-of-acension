@@ -1,6 +1,7 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.intro.client;
 
+import com.tcorigenes.tcorigenes.core.Tr;
 import com.tcorigenes.tcorigenes.client.gui.OriginInfo;
 import com.tcorigenes.tcorigenes.core.Race;
 import com.tcorigenes.tcorigenes.intro.IntroAnswersPacket;
@@ -34,7 +35,7 @@ public class IntroScreen extends Screen {
         }
 
         static Step ask(int question) {
-            return new Step(List.of(IntroContent.QUESTIONS.get(question).prompt()), null, question);
+            return new Step(List.of(Tr.s(IntroContent.QUESTIONS.get(question).prompt())), null, question);
         }
     }
 
@@ -71,7 +72,7 @@ public class IntroScreen extends Screen {
     private boolean prevHideGui;
 
     public IntroScreen() {
-        super(Component.literal("Introducción"));
+        super(Component.translatable("pa.msg.e3772977d1"));
         buildSteps();
     }
 
@@ -79,27 +80,27 @@ public class IntroScreen extends Screen {
     private void buildSteps() {
         boolean moonVisible = moonElevation() > 0;
         steps.add(Step.story(Cam.SKY,
-                "Hubo un tiempo en que el cielo tenía dueños.",
-                "Los dioses caminaban sobre las nubes, y la carne del mundo les pertenecía."));
+                Tr.s("Hubo un tiempo en que el cielo tenía dueños."),
+                Tr.s("Los dioses caminaban sobre las nubes, y la carne del mundo les pertenecía.")));
         steps.add(Step.ask(0));
         steps.add(Step.story(Cam.MOON,
-                moonVisible ? "Luna sigue ahí arriba. Pálida, constante: la única que no abandonó su puesto."
-                        : "Aunque ahora no la veas, Luna sigue ahí arriba. Pálida, constante: la única que no abandonó su puesto.",
-                "Dicen que su luz recuerda a todos los que alguna vez la sirvieron."));
+                moonVisible ? Tr.s("Luna sigue ahí arriba. Pálida, constante: la única que no abandonó su puesto.")
+                        : Tr.s("Aunque ahora no la veas, Luna sigue ahí arriba. Pálida, constante: la única que no abandonó su puesto."),
+                Tr.s("Dicen que su luz recuerda a todos los que alguna vez la sirvieron.")));
         steps.add(Step.ask(1));
         steps.add(Step.story(Cam.WORLD,
-                "Entonces vino la Caída.",
-                "Una guerra entre dioses desgarró los cielos, y lo que cayó, cayó sobre el mundo.",
-                "Sus recuerdos se cristalizaron en la piedra. Sus almas, corruptas, habitan ahora en los monstruos."));
+                Tr.s("Entonces vino la Caída."),
+                Tr.s("Una guerra entre dioses desgarró los cielos, y lo que cayó, cayó sobre el mundo."),
+                Tr.s("Sus recuerdos se cristalizaron en la piedra. Sus almas, corruptas, habitan ahora en los monstruos.")));
         steps.add(Step.ask(2));
         steps.add(Step.story(Cam.AETHER,
-                "Muy arriba, más allá de las nubes, el Aether todavía flota: el paraíso que el Padre de la Carne construyó y al que ya nadie llega.",
-                "Pater, Meidris, Filis, Luna. Los dioses menores aún exigen ofrendas a quien quiera escucharlos."));
+                Tr.s("Muy arriba, más allá de las nubes, el Aether todavía flota: el paraíso que el Padre de la Carne construyó y al que ya nadie llega."),
+                Tr.s("Pater, Meidris, Filis, Luna. Los dioses menores aún exigen ofrendas a quien quiera escucharlos.")));
         steps.add(Step.ask(3));
         steps.add(Step.ask(4));
         steps.add(Step.story(Cam.GROUND,
-                "Pero los dioses importan cada vez menos. Lo que importa es cómo vas a sobrevivir.",
-                "El único poder real es la sangre, el acero y las almas."));
+                Tr.s("Pero los dioses importan cada vez menos. Lo que importa es cómo vas a sobrevivir."),
+                Tr.s("El único poder real es la sangre, el acero y las almas.")));
         for (int q = IntroContent.RACE_QUESTIONS; q < IntroContent.QUESTIONS.size(); q++) {
             steps.add(Step.ask(q));
         }
@@ -325,10 +326,10 @@ public class IntroScreen extends Screen {
     private void showResult(Race race, PlayerClass playerClass) {
         steps.clear();
         steps.add(new Step(List.of(
-                "Despertás como " + race.getDisplayName() + ".",
+                Tr.f("Despertás como %s.", race.getDisplayName()),
                 OriginInfo.tagline(race),
-                "Tu camino es el del " + playerClass.getDisplayName() + ". " + OriginInfo.tagline(playerClass),
-                "Que los dioses, o su ausencia, te acompañen."), Cam.SKY, -1));
+                Tr.f("Tu camino es el del %s. %s", playerClass.getDisplayName(), OriginInfo.tagline(playerClass)),
+                Tr.s("Que los dioses, o su ausencia, te acompañen.")), Cam.SKY, -1));
         idx = 0;
         finishing = true;
         waitingResult = false;
@@ -472,7 +473,7 @@ public class IntroScreen extends Screen {
                 y += font.lineHeight + 2;
             }
             if (typingDone && (stepTicks / 12) % 2 == 0) {
-                g.drawCenteredString(font, finishing ? "[ clic para empezar ]" : "[ clic para continuar ]", width / 2, height - bar + 6, 0xFF8F8878);
+                g.drawCenteredString(font, finishing ? Tr.s("[ clic para empezar ]") : Tr.s("[ clic para continuar ]"), width / 2, height - bar + 6, 0xFF8F8878);
             }
         }
 
@@ -501,7 +502,7 @@ public class IntroScreen extends Screen {
         int promptLines = wrap(step.paragraphs().get(0), tw).size();
         int total = promptLines * (font.lineHeight + 2) + 18;
         for (int i = 0; i < options.size(); i++) {
-            List<String> lines = wrap((i + 1) + ".  " + options.get(i).text(), tw - 16);
+            List<String> lines = wrap((i + 1) + ".  " + Tr.s(options.get(i).text()), tw - 16);
             optionLines.add(lines);
             optionHeights[i] = lines.size() * (font.lineHeight + 2) + 10;
             total += optionHeights[i] + 4;

@@ -20,7 +20,7 @@ public class FavorHudOverlay implements IGuiOverlay {
         Minecraft mc = Minecraft.getInstance();
         int x = 4;
         int y = 4;
-        guiGraphics.drawString(mc.font, "Favor de los dioses", x, y, 0xC0C0C0);
+        guiGraphics.drawString(mc.font, com.tcorigenes.tcorigenes.core.Tr.s("Favor de los dioses"), x, y, 0xC0C0C0);
         y += 10;
         for (Deity deity : Deity.values()) {
             int value = ClientFavorData.getFavor(deity);

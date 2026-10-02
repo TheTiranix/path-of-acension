@@ -92,8 +92,7 @@ public final class CheckpointManager {
     private static void openCheckpointScreen(ServerPlayer player) {
         if (player.getServer() != null && player.getSleepingPos().isPresent()
                 && !isSaveBed(player, player.getSleepingPos().get())) {
-            player.displayClientMessage(Component.literal(
-                    "Esta cama ya no es tu punto de guardado (solo sirve la última que colocaste).")
+            player.displayClientMessage(Component.translatable("pa.msg.69a3cef623")
                     .withStyle(ChatFormatting.RED), true);
             return;
         }
@@ -118,13 +117,11 @@ public final class CheckpointManager {
             CheckpointSnapshotter.takeSnapshotAsync(server, CheckpointSnapshotter.INITIAL_ID);
         }
         if (WorldRestoreManager.consumeSkipNextLoadScreen(server)) {
-            player.sendSystemMessage(Component.literal("Save cargado: el mundo está como estaba cuando lo guardaste.").withStyle(ChatFormatting.GOLD));
+            player.sendSystemMessage(Component.translatable("pa.msg.0b34a60545").withStyle(ChatFormatting.GOLD));
         } else if (!active(server).isEmpty()) {
             sendCheckpointScreen(player, true);
         } else {
-            player.sendSystemMessage(Component.literal(
-                    "No hay ningún save de cama: empezás de cero (el save inicial de este mundo). "
-                            + "Dormí en una cama para crear tu primer punto de guardado.").withStyle(ChatFormatting.GOLD));
+            player.sendSystemMessage(Component.translatable("pa.msg.d18417f369").withStyle(ChatFormatting.GOLD));
         }
     }
 
@@ -171,10 +168,7 @@ public final class CheckpointManager {
         data.bedPlacedAt.put(bedKey(player.level().dimension(), event.getPos()), player.level().getGameTime());
         String previous = data.saveBed.put(player.getUUID(), bedKey(player.level().dimension(), event.getPos()));
         data.setDirty();
-        player.displayClientMessage(Component.literal(previous != null
-                ? "Cama nueva: pasa a ser tu punto de guardado y la anterior deja de serlo (tus saves se conservan). "
-                        + "Tenés que esperar 10 minutos (medio día) para poder guardar en esta."
-                : "Cama nueva: es tu punto de guardado, pero tenés que esperar 10 minutos (medio día) para poder guardar en ella.")
+        player.displayClientMessage(Component.translatable(previous != null ? "pa.m.newbed_replace" : "pa.m.newbed")
                 .withStyle(ChatFormatting.GOLD), false);
     }
 
@@ -220,7 +214,7 @@ public final class CheckpointManager {
         CheckpointSavedData data = CheckpointSavedData.get(server);
         long now = server.overworld().getGameTime();
         if (!force && data.lastSaveTick != Long.MIN_VALUE && now - data.lastSaveTick < SAVE_COOLDOWN_TICKS) {
-            player.displayClientMessage(Component.literal("Todavía no podés guardar: tenés que esperar 10 minutos (medio día) desde el último guardado y que sea de noche.")
+            player.displayClientMessage(Component.translatable("pa.msg.33d9d9cfa9")
                     .withStyle(ChatFormatting.RED), false);
             return;
         }
@@ -231,8 +225,7 @@ public final class CheckpointManager {
             }
             BlockPos placed = BlockPos.of(Long.parseLong(entry.getKey().substring(prefix.length())));
             if (placed.distManhattan(bedPos) <= 1 && now - entry.getValue() < NEW_BED_WAIT_TICKS) {
-                player.displayClientMessage(Component.literal("Esta cama es nueva: falta esperar "
-                        + describeTicks(NEW_BED_WAIT_TICKS - (now - entry.getValue())) + " para poder guardar en ella.")
+                player.displayClientMessage(Component.translatable("pa.msg.6f210f3e3a", describeTicks(NEW_BED_WAIT_TICKS - (now - entry.getValue())))
                         .withStyle(ChatFormatting.RED), false);
                 return;
             }
@@ -249,9 +242,7 @@ public final class CheckpointManager {
         data.setDirty();
         CheckpointSnapshotter.takeSnapshotAsync(server, created.id);
         setPreferred(player, created.id); // el que acabas de crear pasa a ser tu preferido
-        player.displayClientMessage(Component.literal(
-                (replaceId != null ? "Punto de guardado sobrescrito." : "Nuevo punto de guardado.")
-                        + " Guardando una copia del mundo...").withStyle(ChatFormatting.GOLD), false);
+        player.displayClientMessage(Component.translatable(replaceId != null ? "pa.m.save_overwritten" : "pa.m.save_new").withStyle(ChatFormatting.GOLD), false);
     }
 
     private static String describeTicks(long ticks) {
@@ -272,8 +263,7 @@ public final class CheckpointManager {
         if (!hasActiveNear(server, player.level().dimension(), event.getPos(),
                 com.tcorigenes.tcorigenes.block.PlayerRespawnBlock.MAX_RANGE_TO_CHECKPOINT)) {
             event.setCanceled(true);
-            player.displayClientMessage(Component.literal(
-                    "Necesita un punto de guardado activo a 30 bloques o menos.").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("pa.msg.ec90370c1e").withStyle(ChatFormatting.RED), true);
         }
     }
 

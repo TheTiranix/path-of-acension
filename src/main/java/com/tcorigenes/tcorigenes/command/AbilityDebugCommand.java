@@ -17,7 +17,7 @@ public class AbilityDebugCommand {
                             ServerPlayer player = context.getSource().getPlayerOrException();
                             boolean nowOn = AbilityCooldownManager.toggleDebugNoCooldown(player);
                             context.getSource().sendSuccess(
-                                    () -> Component.literal(nowOn ? "Cooldowns de habilidades DESACTIVADOS (modo prueba)." : "Cooldowns de habilidades reactivados."),
+                                    () -> Component.translatable(nowOn ? "pa.m.dbg_cd_off" : "pa.m.dbg_cd_on"),
                                     true);
                             return 1;
                         })

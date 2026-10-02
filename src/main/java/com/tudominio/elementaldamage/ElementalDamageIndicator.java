@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tudominio.elementaldamage;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
@@ -32,7 +34,7 @@ public final class ElementalDamageIndicator {
 
     /** Cartel del golpe critico fisico (punto debil). */
     public static void showCritical(LivingEntity target, float amount) {
-        spawn(target, Component.literal("Daño crítico -" + String.format("%.1f", amount)).withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
+        spawn(target, Component.translatable("pa.msg.ab72b220cd", String.format("%.1f", amount)).withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
     }
 
     public static void show(LivingEntity target, ResourceKey<DamageType> element, float amount) {
@@ -68,28 +70,28 @@ public final class ElementalDamageIndicator {
         String name;
         ChatFormatting color;
         if (element.equals(ModDamageTypes.FIRE_ELEMENTAL)) {
-            name = "Fuego"; color = ChatFormatting.RED;
+            name = Tr.s("Fuego"); color = ChatFormatting.RED;
         } else if (element.equals(ModDamageTypes.ICE)) {
-            name = "Hielo"; color = ChatFormatting.AQUA;
+            name = Tr.s("Hielo"); color = ChatFormatting.AQUA;
         } else if (element.equals(ModDamageTypes.WATER_ELEMENTAL)) {
-            name = "Agua"; color = ChatFormatting.BLUE;
+            name = Tr.s("Agua"); color = ChatFormatting.BLUE;
         } else if (element.equals(ModDamageTypes.LIGHT)) {
-            name = "Luz"; color = ChatFormatting.YELLOW;
+            name = Tr.s("Luz"); color = ChatFormatting.YELLOW;
         } else if (element.equals(ModDamageTypes.ENDER_ELEMENTAL)) {
-            name = "Ender"; color = ChatFormatting.DARK_PURPLE;
+            name = Tr.s("Ender"); color = ChatFormatting.DARK_PURPLE;
         } else if (element.equals(ModDamageTypes.LUNAR)) {
-            name = "Lunar"; color = ChatFormatting.LIGHT_PURPLE;
+            name = Tr.s("Lunar"); color = ChatFormatting.LIGHT_PURPLE;
         } else if (element.equals(ModDamageTypes.EARTH)) {
-            name = "Tierra"; color = ChatFormatting.GOLD;
+            name = Tr.s("Tierra"); color = ChatFormatting.GOLD;
         } else if (element.equals(ModDamageTypes.AIR)) {
-            name = "Aire"; color = ChatFormatting.WHITE;
+            name = Tr.s("Aire"); color = ChatFormatting.WHITE;
         } else if (element.equals(ModDamageTypes.NATURAL)) {
-            name = "Natural"; color = ChatFormatting.GREEN;
+            name = Tr.s("Natural"); color = ChatFormatting.GREEN;
         } else {
-            name = "Elemental"; color = ChatFormatting.GRAY;
+            name = Tr.s("Elemental"); color = ChatFormatting.GRAY;
         }
         if (critical) {
-            return Component.literal(name + " crítico -" + String.format("%.1f", amount)).withStyle(color, ChatFormatting.BOLD);
+            return Component.translatable("pa.msg.41b8214b63", name, String.format("%.1f", amount)).withStyle(color, ChatFormatting.BOLD);
         }
         return Component.literal(name + " -" + String.format("%.1f", amount)).withStyle(color);
     }

@@ -193,15 +193,13 @@ public final class SkillTreeManager {
         player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
             long price = pointPrice(loadout.getPointsBought());
             if (loadout.getSkillXp() < price) {
-                player.displayClientMessage(Component.literal("Te falta XP: el próximo punto cuesta " + price
-                        + " XP y tenés " + loadout.getSkillXp() + "."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.eae9eff3da", price, loadout.getSkillXp()), true);
                 return;
             }
             loadout.setSkillXp(loadout.getSkillXp() - price);
             loadout.setPointsBought(loadout.getPointsBought() + 1);
             loadout.setSkillPoints(loadout.getSkillPoints() + 1);
-            player.displayClientMessage(Component.literal("Compraste 1 punto de habilidad por " + price
-                    + " XP. El próximo cuesta " + pointPrice(loadout.getPointsBought()) + " XP."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.45cb1c2c70", price, pointPrice(loadout.getPointsBought())), true);
         });
         sync(player);
     }
@@ -266,11 +264,11 @@ public final class SkillTreeManager {
         }
         player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
             if (!isAvailable(node, currentClass(player), loadout.getUnlockedAbilityIds())) {
-                player.displayClientMessage(Component.literal("Ese nodo no está disponible."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.a0f4e87ea1"), true);
                 return;
             }
             if (loadout.getSkillPoints() < node.cost()) {
-                player.displayClientMessage(Component.literal("No tenés suficientes puntos (" + node.cost() + " necesarios)."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.a927af2749", node.cost()), true);
                 return;
             }
             loadout.setSkillPoints(loadout.getSkillPoints() - node.cost());
@@ -278,7 +276,7 @@ public final class SkillTreeManager {
             if (node.abilityId() != null) {
                 loadout.unlockAbility(node.abilityId());
             }
-            player.displayClientMessage(Component.literal("¡Desbloqueaste " + node.title() + "!"), true);
+            player.displayClientMessage(Component.translatable("pa.msg.1071f377bf", node.title()), true);
         });
         refresh(player);
     }
@@ -315,10 +313,10 @@ public final class SkillTreeManager {
                 }
             }
             if (applied > 0) {
-                player.displayClientMessage(Component.literal("Desbloqueaste " + applied + " nodo(s)."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.d48455ccb8", applied), true);
             }
             if (!pending.isEmpty()) {
-                player.displayClientMessage(Component.literal(pending.size() + " nodo(s) no se pudieron desbloquear (puntos insuficientes o ya no disponibles)."), true);
+                player.displayClientMessage(Component.translatable("pa.msg.f3d48c6c04", pending.size()), true);
             }
         });
         refresh(player);

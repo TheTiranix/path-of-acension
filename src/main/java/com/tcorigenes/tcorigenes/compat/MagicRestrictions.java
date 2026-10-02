@@ -30,7 +30,7 @@ public final class MagicRestrictions {
             hook(IRONS_EVENT, event -> {
                 Player player = playerOf(event);
                 if (player != null && !isMage(player) && spellLevel(event) > 1) {
-                    deny(player, "Solo el Ritualista Arcano puede lanzar hechizos de nivel 2 o mas.");
+                    deny(player, "pa.m.mage_lvl2");
                     event.setCanceled(true);
                 }
             });
@@ -39,7 +39,7 @@ public final class MagicRestrictions {
             hook(ARS_EVENT, event -> {
                 Player player = playerOf(event);
                 if (player != null && !isMage(player)) {
-                    deny(player, "Solo el Ritualista Arcano puede usar magia de Ars Nouveau.");
+                    deny(player, "pa.m.mage_ars");
                     event.setCanceled(true);
                 }
             });
@@ -81,7 +81,7 @@ public final class MagicRestrictions {
 
     private static void deny(Player player, String message) {
         if (!player.level().isClientSide()) {
-            player.displayClientMessage(Component.literal(message), true);
+            player.displayClientMessage(Component.translatable(message), true);
         }
     }
 }

@@ -157,7 +157,7 @@ public class TestamentoDeLaCarne {
             event.addRepositorySource(packConsumer -> {
                 Pack pack = Pack.readMetaAndCreate(
                         "builtin/" + MODID,
-                        Component.literal("Recursos de El Testamento"),
+                        Component.translatable("pa.msg.99a11a9619"),
                         true,
                         path -> new PathPackResources(modFile.getFileName() + ":" + path, modFile.findResource(path), true),
                         PackType.SERVER_DATA,

@@ -33,8 +33,7 @@ public class FavorCommand {
                                                             int amount = IntegerArgumentType.getInteger(context, "amount");
                                                             FavorManager.addFavor(target, deity, amount);
                                                             int newValue = FavorManager.getFavor(target, deity);
-                                                            context.getSource().sendSuccess(() -> Component.literal(
-                                                                    target.getName().getString() + " ahora tiene " + newValue + " de favor de " + deity.getDisplayName()), true);
+                                                            context.getSource().sendSuccess(() -> Component.translatable("pa.msg.61391e99e1", target.getName().getString(), newValue, deity.getDisplayName()), true);
                                                             return 1;
                                                         })))))
                         .then(Commands.literal("get")

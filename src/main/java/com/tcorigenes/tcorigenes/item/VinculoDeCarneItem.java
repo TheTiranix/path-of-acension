@@ -47,7 +47,7 @@ public class VinculoDeCarneItem extends Item {
                 .map(raceInfo -> raceInfo.getRace() == Race.MALNACIDO)
                 .orElse(false);
         if (isMalnacido) {
-            player.displayClientMessage(Component.literal("Tu maldición te hizo sexualmente incapaz. No podés consagrar este ritual."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.3515ab959f"), true);
             return InteractionResultHolder.fail(stack);
         }
 
@@ -56,7 +56,7 @@ public class VinculoDeCarneItem extends Item {
 
         if (partnerId == null) {
             PENDING.put(player.getUUID(), now);
-            player.displayClientMessage(Component.literal("Esperando a tu compañero espiritual..."), true);
+            player.displayClientMessage(Component.translatable("pa.msg.34e40f7e36"), true);
             return InteractionResultHolder.success(stack);
         }
 
@@ -67,9 +67,9 @@ public class VinculoDeCarneItem extends Item {
         consecrate(player);
         if (partner != null) {
             consecrate(partner);
-            partner.displayClientMessage(Component.literal("El Matrimonio de Carne ha sido consagrado."), false);
+            partner.displayClientMessage(Component.translatable("pa.msg.a2465ec6dc"), false);
         }
-        player.displayClientMessage(Component.literal("El Matrimonio de Carne ha sido consagrado."), false);
+        player.displayClientMessage(Component.translatable("pa.msg.a2465ec6dc"), false);
         return InteractionResultHolder.success(stack);
     }
 

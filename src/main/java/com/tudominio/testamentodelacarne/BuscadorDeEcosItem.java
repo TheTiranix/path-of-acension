@@ -42,7 +42,7 @@ public class BuscadorDeEcosItem extends Item {
         if (!player.getInventory().contains(fragmento)) {
             if (level.isClientSide()) {
                 player.displayClientMessage(
-                        Component.literal("El Buscador de Ecos permanece en silencio. Necesita un Fragmento de Memoria.").withStyle(ChatFormatting.RED), false);
+                        Component.translatable("pa.msg.0980491f85").withStyle(ChatFormatting.RED), false);
                 level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 0.5F, 1.0F, false);
             }
             return InteractionResultHolder.fail(heldStack);
@@ -57,12 +57,10 @@ public class BuscadorDeEcosItem extends Item {
                 ServerLevel serverLevel = (ServerLevel) level;
                 BlockPos structurePos = serverLevel.findNearestMapStructure(StructureTags.ON_TREASURE_MAPS, player.blockPosition(), 100, false);
                 if (structurePos != null) {
-                    player.displayClientMessage(Component.literal(
-                            "El buscador resuena con una estructura ancestral en las coordenadas: X=" + structurePos.getX() + ", Z=" + structurePos.getZ()
-                    ).withStyle(ChatFormatting.LIGHT_PURPLE), false);
+                    player.displayClientMessage(Component.translatable("pa.msg.27652c0211", structurePos.getX(), structurePos.getZ()).withStyle(ChatFormatting.LIGHT_PURPLE), false);
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 1.0F, 1.0F);
                 } else {
-                    player.displayClientMessage(Component.literal("El buscador no detecta ninguna estructura de poder cercano.").withStyle(ChatFormatting.GRAY), false);
+                    player.displayClientMessage(Component.translatable("pa.msg.5635bf722a").withStyle(ChatFormatting.GRAY), false);
                     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_DEACTIVATE, SoundSource.PLAYERS, 1.0F, 1.0F);
                 }
             }
@@ -70,9 +68,7 @@ public class BuscadorDeEcosItem extends Item {
             AABB area = new AABB(player.blockPosition()).inflate(32.0);
             List<LivingEntity> entidades = level.getEntitiesOfClass(LivingEntity.class, area, entity -> entity instanceof Monster && entity.isAlive());
             entidades.forEach(monstruo -> monstruo.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0, false, true)));
-            player.displayClientMessage(Component.literal(
-                    "El Buscador emite un pulso etéreo, revelando " + entidades.size() + " ecos hostiles cercanos."
-            ).withStyle(ChatFormatting.DARK_PURPLE), false);
+            player.displayClientMessage(Component.translatable("pa.msg.f14409eaf7", entidades.size()).withStyle(ChatFormatting.DARK_PURPLE), false);
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.WARDEN_TENDRIL_CLICKS, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
 
@@ -87,7 +83,7 @@ public class BuscadorDeEcosItem extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("tooltip.testamentodelacarne.buscador_de_ecos").withStyle(ChatFormatting.GOLD));
-        pTooltipComponents.add(Component.literal("Clic Derecho: Revela enemigos.").withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(Component.literal("Shift + Clic Derecho: Busca estructuras.").withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(Component.translatable("pa.msg.55906ac788").withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(Component.translatable("pa.msg.fa79da9bab").withStyle(ChatFormatting.GRAY));
     }
 }

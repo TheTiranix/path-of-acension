@@ -37,6 +37,6 @@ public class GrantSkillPointsCommand {
 
     private static void grant(CommandSourceStack source, ServerPlayer target, int amount) {
         SkillTreeManager.addPoints(target, amount);
-        source.sendSuccess(() -> Component.literal("Puntos de habilidad otorgados a " + target.getName().getString() + ": " + amount), true);
+        source.sendSuccess(() -> Component.translatable("pa.msg.81eaaea28a", target.getName().getString(), amount), true);
     }
 }

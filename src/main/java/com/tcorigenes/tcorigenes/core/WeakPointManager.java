@@ -153,8 +153,7 @@ public final class WeakPointManager {
         if (misses >= ARCHER_MISS_LIMIT) {
             ARCHER_MISSES.remove(attacker.getUUID());
             clearOwner(attacker.getUUID(), true);
-            attacker.displayClientMessage(net.minecraft.network.chat.Component.literal(
-                    "Fallaste " + ARCHER_MISS_LIMIT + " flechazos: Ojo de Halcón se cancela.")
+            attacker.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.fe64193ec8", ARCHER_MISS_LIMIT)
                     .withStyle(net.minecraft.ChatFormatting.DARK_RED), true);
         }
     }
@@ -260,8 +259,7 @@ public final class WeakPointManager {
                 if (mark.consumedAt < 0 && !elemental && !aimedAtPoint(attacker, mark, event.getSource())) {
                     if (now - mark.lastMissHint > 15) {
                         mark.lastMissHint = now;
-                        attacker.displayClientMessage(net.minecraft.network.chat.Component.literal(
-                                "Fallaste el punto débil: apuntá a la marca roja.").withStyle(net.minecraft.ChatFormatting.DARK_RED), true);
+                        attacker.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.805c29a495").withStyle(net.minecraft.ChatFormatting.DARK_RED), true);
                     }
                 } else if (mark.consumedAt < 0 && !elemental) {
                     // Primer golpe: acierta el punto, desaparece el marcador, la ventana queda abierta

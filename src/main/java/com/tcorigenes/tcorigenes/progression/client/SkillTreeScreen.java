@@ -1,6 +1,8 @@
 // Copyright (c) 2026 Agustin (TheTiranix). All rights reserved. See LICENSE.txt.
 package com.tcorigenes.tcorigenes.progression.client;
 
+import com.tcorigenes.tcorigenes.core.Tr;
+
 import com.tcorigenes.tcorigenes.networking.Networking;
 import com.tcorigenes.tcorigenes.playerclass.PlayerClass;
 import com.tcorigenes.tcorigenes.progression.SkillNode;
@@ -59,7 +61,7 @@ public class SkillTreeScreen extends Screen {
     private static final int[] PAGE_X_RANGE = {0, 8, 9, 16, 17, 25};
 
     public SkillTreeScreen() {
-        super(Component.literal("Árbol de Habilidades"));
+        super(Component.translatable("pa.msg.a29d060190"));
     }
 
     public static void open() {
@@ -70,21 +72,21 @@ public class SkillTreeScreen extends Screen {
     protected void init() {
         int centerX = this.width / 2;
         int y = this.height - 54;
-        confirmButton = this.addRenderableWidget(Button.builder(Component.literal("Confirmar"), button -> {
+        confirmButton = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.81b4b67ff8"), button -> {
             if (!pending.isEmpty()) {
                 Networking.sendToServer(new UnlockNodesPacket(pending.stream().map(SkillNode::id).toList()));
             }
             pending.clear();
         }).bounds(centerX - 105, y, 100, 20).build());
-        buyButton = this.addRenderableWidget(Button.builder(Component.literal("Comprar punto"),
+        buyButton = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.7f526a02de"),
                 button -> Networking.sendToServer(new BuyPointPacket())).bounds(this.width - 176, 8, 168, 20).build());
-        cancelButton = this.addRenderableWidget(Button.builder(Component.literal("Cancelar"), button -> pending.clear())
+        cancelButton = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.c111e0ab9d"), button -> pending.clear())
                 .bounds(centerX + 5, y, 100, 20).build());
         // abajo: una pestaña por fase
         int pageY = this.height - 28;
         for (int i = 0; i < 3; i++) {
             final int target = i + 1;
-            pageButtons[i] = this.addRenderableWidget(Button.builder(Component.literal("Fase " + PAGE_NAMES[i]), button -> setPage(target))
+            pageButtons[i] = this.addRenderableWidget(Button.builder(Component.translatable("pa.msg.fa1beb4896", PAGE_NAMES[i]), button -> setPage(target))
                     .bounds(centerX - 190 + i * 130, pageY, 126, 20).build());
         }
     }
@@ -120,7 +122,7 @@ public class SkillTreeScreen extends Screen {
         for (int i = 0; i < 3; i++) {
             int phase = i + 1;
             boolean unlocked = isPhaseUnlocked(phase);
-            pageButtons[i].setMessage(Component.literal((unlocked ? "" : "\uD83D\uDD12 ") + "Fase " + PAGE_NAMES[i]));
+            pageButtons[i].setMessage(Component.literal((unlocked ? "" : "\uD83D\uDD12 ") + Tr.s("Fase ") + PAGE_NAMES[i]));
             pageButtons[i].active = unlocked && phase != page;
         }
     }
@@ -280,16 +282,14 @@ public class SkillTreeScreen extends Screen {
         g.fill(0, 43, this.width, 44, 0xFF5A0A0A);
         PlayerClass cls = ClientSkillData.playerClass();
         g.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
-        g.drawCenteredString(this.font, Component.literal(
-                "Clase: " + cls.getDisplayName() + "   |   Puntos: " + ClientSkillData.points()
-                        + "   |   XP: " + ClientSkillData.xp()), this.width / 2, 26, 0xFFD700);
+        g.drawCenteredString(this.font, Component.translatable("pa.msg.89f3a8977a", cls.getDisplayName(), ClientSkillData.points(), ClientSkillData.xp()), this.width / 2, 26, 0xFFD700);
         long price = SkillTreeManager.pointPrice(ClientSkillData.bought());
-        buyButton.setMessage(Component.literal("Comprar punto (" + price + " XP)"));
+        buyButton.setMessage(Component.translatable("pa.msg.d9957f3eac", price));
         buyButton.active = ClientSkillData.xp() >= price;
-        g.drawCenteredString(this.font, "Arrastrá para mover la página, rueda para zoom", this.width / 2, 38, 0x888888);
+        g.drawCenteredString(this.font, Tr.s("Arrastrá para mover la página, rueda para zoom"), this.width / 2, 38, 0x888888);
 
         if (cls == PlayerClass.NINGUNA) {
-            g.drawCenteredString(this.font, "Elegí una clase para ver tu árbol de habilidades.", this.width / 2, this.height / 2, 0xAAAAAA);
+            g.drawCenteredString(this.font, Tr.s("Elegí una clase para ver tu árbol de habilidades."), this.width / 2, this.height / 2, 0xAAAAAA);
             confirmButton.visible = false;
             cancelButton.visible = false;
             super.render(g, mouseX, mouseY, partialTick);
@@ -336,10 +336,10 @@ public class SkillTreeScreen extends Screen {
             int cost = pendingCost();
             confirmButton.active = ClientSkillData.points() >= cost;
             String question = pending.size() == 1
-                    ? "¿Desbloquear \"" + pending.iterator().next().title() + "\" por " + cost + " punto(s)?"
-                    : "¿Desbloquear " + pending.size() + " nodos por " + cost + " punto(s) en total?";
+                    ? Tr.f("¿Desbloquear \"%s\" por %s punto(s)?", pending.iterator().next().title(), cost)
+                    : Tr.f("¿Desbloquear %s nodos por %s punto(s) en total?", pending.size(), cost);
             if (!confirmButton.active) {
-                question += "  (te faltan puntos)";
+                question += Tr.s("  (te faltan puntos)");
             }
             g.drawCenteredString(this.font, question, this.width / 2, this.height - 68, confirmButton.active ? 0xFFFFFF : 0xFF7777);
         }
@@ -368,8 +368,8 @@ public class SkillTreeScreen extends Screen {
     private void drawPhaseBands(GuiGraphics g) {
         int[][] ranges = {{0, 8}, {9, 16}, {17, 25}};
         int[] accent = {0xFF55B8FF, 0xFFFFD24A, 0xFFFF5A4A};
-        String[] titles = {"I \u00b7 DESPERTAR", "II \u00b7 ASCENSO", "III \u00b7 TRASCENDENCIA"};
-        String[] subtitles = {"los primeros pasos de tu camino", "el poder se afianza", "la cumbre de la clase"};
+        String[] titles = {Tr.s("I \u00b7 DESPERTAR"), Tr.s("II \u00b7 ASCENSO"), Tr.s("III \u00b7 TRASCENDENCIA")};
+        String[] subtitles = {Tr.s("los primeros pasos de tu camino"), Tr.s("el poder se afianza"), Tr.s("la cumbre de la clase")};
         int top = -3 * CELL;
         int bottom = 3 * CELL;
         for (int i = 0; i < ranges.length; i++) {
@@ -425,12 +425,12 @@ public class SkillTreeScreen extends Screen {
     private List<Component> tooltipFor(SkillNode node) {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(node.title()).withStyle(ChatFormatting.GOLD));
-        lines.add(Component.literal("Fase " + node.phase() + " de 3").withStyle(ChatFormatting.DARK_AQUA));
+        lines.add(Component.translatable("pa.msg.a8560a918d", node.phase()).withStyle(ChatFormatting.DARK_AQUA));
         if (node.attribute() != null && node.attribute().get() == com.tudominio.elementaldamage.ModAttributes.ELEMENT_ABSORB.get()) {
-            lines.add(Component.literal("Tus golpes convierten los daños elementales que no son el de tu raza en el de tu raza.")
+            lines.add(Component.translatable("pa.msg.17021bac90")
                     .withStyle(ChatFormatting.GREEN));
-            lines.add(Component.literal("Sin elemento racial, todo se absorbe en el elemento mayor del arma.").withStyle(ChatFormatting.GREEN));
-            lines.add(Component.literal("El efecto especial solo usa el daño base del elemento que absorbe.").withStyle(ChatFormatting.GREEN));
+            lines.add(Component.translatable("pa.msg.3effbd9ca1").withStyle(ChatFormatting.GREEN));
+            lines.add(Component.translatable("pa.msg.15474e4c4d").withStyle(ChatFormatting.GREEN));
         } else if (node.attribute() != null) {
             String value = node.operation() == AttributeModifier.Operation.ADDITION
                     ? "+" + FORMAT.format(node.amount())
@@ -439,17 +439,17 @@ public class SkillTreeScreen extends Screen {
                     .withStyle(ChatFormatting.GREEN));
         }
         if (node.abilityId() != null) {
-            lines.add(Component.literal("Desbloquea la habilidad activa de tu clase").withStyle(ChatFormatting.AQUA));
+            lines.add(Component.translatable("pa.msg.121297af80").withStyle(ChatFormatting.AQUA));
         }
         int color = colorOf(node);
         if (color == COLOR_UNLOCKED) {
-            lines.add(Component.literal("Desbloqueado").withStyle(ChatFormatting.GREEN));
+            lines.add(Component.translatable("pa.msg.6cea108677").withStyle(ChatFormatting.GREEN));
         } else if (color == COLOR_PENDING) {
-            lines.add(Component.literal("Elegido (click para sacarlo) - costo " + node.cost() + " punto(s)").withStyle(ChatFormatting.AQUA));
+            lines.add(Component.translatable("pa.msg.9ff975e204", node.cost()).withStyle(ChatFormatting.AQUA));
         } else if (color == COLOR_AVAILABLE) {
-            lines.add(Component.literal("Costo: " + node.cost() + " punto(s) - click para elegirlo").withStyle(ChatFormatting.YELLOW));
+            lines.add(Component.translatable("pa.msg.811cbcfbcc", node.cost()).withStyle(ChatFormatting.YELLOW));
         } else {
-            lines.add(Component.literal("Bloqueado: desbloqueá un nodo anterior (costo " + node.cost() + ")").withStyle(ChatFormatting.GRAY));
+            lines.add(Component.translatable("pa.msg.59bbbba193", node.cost()).withStyle(ChatFormatting.GRAY));
         }
         return lines;
     }

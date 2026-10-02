@@ -71,8 +71,7 @@ public class FavorEvents {
     public static void onBabyEntitySpawn(BabyEntitySpawnEvent event) {
         if (event.getCausedByPlayer() instanceof ServerPlayer breeder) {
             FavorManager.addFavor(breeder, Deity.MEIDRIS, MEIDRIS_FAVOR_PER_BREEDING);
-            breeder.displayClientMessage(Component.literal(
-                    "Meidris sonríe ante la nueva vida. (+" + MEIDRIS_FAVOR_PER_BREEDING + " favor)"), true);
+            breeder.displayClientMessage(Component.translatable("pa.msg.6f91aaee19", MEIDRIS_FAVOR_PER_BREEDING), true);
         }
     }
 
@@ -89,8 +88,7 @@ public class FavorEvents {
         // Provisorio: asignado a Luna (magia oculta/arcana) hasta confirmar con el usuario a que
         // dios corresponde de verdad "encontrar objetos de encantamiento" en el lore real.
         FavorManager.addFavor(serverPlayer, Deity.LUNA, enchantmentCount);
-        serverPlayer.displayClientMessage(Component.literal(
-                "Luna valora tu hallazgo arcano. (+" + enchantmentCount + " favor)"), true);
+        serverPlayer.displayClientMessage(Component.translatable("pa.msg.f5a297c322", enchantmentCount), true);
     }
 
     @SubscribeEvent
@@ -135,20 +133,17 @@ public class FavorEvents {
         }
         if (event.getEntity() instanceof IronGolem) {
             FavorManager.addFavor(killer, Deity.DEIROS, DEIROS_FAVOR_PER_GOLEM_KILL);
-            killer.displayClientMessage(Component.literal(
-                    "Deiros aplaude tu desafío al orden establecido. (+" + DEIROS_FAVOR_PER_GOLEM_KILL + " favor)"), true);
+            killer.displayClientMessage(Component.translatable("pa.msg.89717f52e8", DEIROS_FAVOR_PER_GOLEM_KILL), true);
         } else if (event.getEntity() instanceof Monster) {
             FavorManager.addFavor(killer, Deity.DEIROS, DEIROS_FAVOR_PER_MOB_KILL);
         }
 
         if (event.getEntity() instanceof EnderMan) {
             FavorManager.addFavor(killer, Deity.TEMPO, TEMPO_FAVOR_PER_ENDERMAN_KILL);
-            killer.displayClientMessage(Component.literal(
-                    "Algo ajeno a este mundo toma nota. (+" + TEMPO_FAVOR_PER_ENDERMAN_KILL + " favor)"), true);
+            killer.displayClientMessage(Component.translatable("pa.msg.c12ce2f607", TEMPO_FAVOR_PER_ENDERMAN_KILL), true);
         } else if (event.getEntity() instanceof EnderDragon) {
             FavorManager.addFavor(killer, Deity.TEMPO, TEMPO_FAVOR_PER_DRAGON_KILL);
-            killer.displayClientMessage(Component.literal(
-                    "Has superado la prueba del Fin. (+" + TEMPO_FAVOR_PER_DRAGON_KILL + " favor)"), true);
+            killer.displayClientMessage(Component.translatable("pa.msg.e0baa33c02", TEMPO_FAVOR_PER_DRAGON_KILL), true);
         }
     }
 

@@ -57,7 +57,7 @@ public final class ElementalDamageTestCommand {
     private static int runOnSelf(CommandContext<CommandSourceStack> ctx) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
         CommandSourceStack source = ctx.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("Solo un jugador puede usar este comando sin especificar objetivo."));
+            source.sendFailure(Component.translatable("pa.msg.28163eb641"));
             return 0;
         }
         return apply(ctx, player, player);
@@ -67,7 +67,7 @@ public final class ElementalDamageTestCommand {
         CommandSourceStack source = ctx.getSource();
         Entity targetEntity = EntityArgument.getEntity(ctx, "objetivo");
         if (!(targetEntity instanceof LivingEntity target)) {
-            source.sendFailure(Component.literal("El objetivo tiene que ser una entidad viva."));
+            source.sendFailure(Component.translatable("pa.msg.55aadde0b8"));
             return 0;
         }
         Entity attacker = source.getEntity() != null ? source.getEntity() : target;
@@ -79,17 +79,16 @@ public final class ElementalDamageTestCommand {
         String elementName = StringArgumentType.getString(ctx, "elemento").toLowerCase(Locale.ROOT);
         ResourceKey<DamageType> element = ELEMENTS.get(elementName);
         if (element == null) {
-            source.sendFailure(Component.literal("Elemento invalido. Usa: " + String.join(", ", ELEMENTS.keySet())));
+            source.sendFailure(Component.translatable("pa.msg.973e3ae0a7", String.join(", ", ELEMENTS.keySet())));
             return 0;
         }
         float amount = FloatArgumentType.getFloat(ctx, "cantidad");
         boolean hurt = ElementalDamageSource.hurt(target, element, attacker, amount);
         if (hurt) {
-            source.sendSuccess(() -> Component.literal(
-                    "Aplicado " + amount + " de daño " + elementName + " a " + target.getName().getString() + "."), true);
+            source.sendSuccess(() -> Component.translatable("pa.msg.6c40dca275", amount, elementName, target.getName().getString()), true);
             return 1;
         }
-        source.sendFailure(Component.literal("No se pudo aplicar el daño (¿objetivo invulnerable?)."));
+        source.sendFailure(Component.translatable("pa.msg.564c7e893f"));
         return 0;
     }
 }

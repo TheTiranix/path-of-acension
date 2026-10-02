@@ -32,8 +32,7 @@ public class ActivateAbilityPacket {
             player.getCapability(PlayerAbilityLoadoutProvider.ABILITY_LOADOUT_CAPABILITY).ifPresent(loadout -> {
                 PlayerAbility ability = AbilityRegistry.get(loadout.getEquippedAbilityId());
                 if (ability == null) {
-                    player.displayClientMessage(net.minecraft.network.chat.Component.literal(
-                            "No tenés ninguna habilidad equipada: desbloqueá la de tu clase en el árbol (tecla H)."), true);
+                    player.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.b1939808d2"), true);
                     return;
                 }
 

@@ -32,10 +32,9 @@ public class ResetSkillTreeCommand {
 
     private static void reset(CommandSourceStack source, ServerPlayer target) {
         int refunded = SkillTreeManager.resetAll(target);
-        target.displayClientMessage(Component.literal("Árbol de habilidades reiniciado: recuperaste " + refunded + " punto(s)."), false);
+        target.displayClientMessage(Component.translatable("pa.msg.904f1d699d", refunded), false);
         if (source.getEntity() != target) {
-            source.sendSuccess(() -> Component.literal("Árbol reiniciado para " + target.getName().getString()
-                    + " (" + refunded + " punto(s) devueltos)."), true);
+            source.sendSuccess(() -> Component.translatable("pa.msg.adb703969f", target.getName().getString(), refunded), true);
         }
     }
 }

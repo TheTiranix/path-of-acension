@@ -30,14 +30,14 @@ public final class EnderGloveExclusion {
         String slot = event.getSlotContext().identifier();
         String message = null;
         if (slot.equals(HANDS) && CuriosCompat.hasAnyInSlot(player, AETHER_GLOVES)) {
-            message = "Ya llevás los guantes del Aether: no podés equipar otro par de guantes.";
+            message = "pa.m.glove_have_aether";
         } else if (slot.equals(AETHER_GLOVES) && CuriosCompat.hasAnyInSlot(player, HANDS)) {
-            message = "Ya llevás un par de guantes: sacalos antes de equipar los del Aether.";
+            message = "pa.m.glove_have_pair";
         }
         if (message != null) {
             event.setResult(Event.Result.DENY);
             if (!player.level().isClientSide()) {
-                player.displayClientMessage(Component.literal(message), true);
+                player.displayClientMessage(Component.translatable(message), true);
             }
         }
     }

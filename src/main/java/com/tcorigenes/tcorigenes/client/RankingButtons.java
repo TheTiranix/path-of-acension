@@ -47,10 +47,10 @@ public final class RankingButtons {
             return;
         }
         Rect2i area = area((AbstractContainerScreen<?>) event.getScreen());
-        event.addListener(Button.builder(Component.literal("Orden de daño"),
+        event.addListener(Button.builder(Component.translatable("pa.msg.760506f841"),
                 button -> com.tcorigenes.tcorigenes.compat.jei.ModJeiPlugin.showDamage())
                 .bounds(area.getX(), area.getY(), WIDTH, HEIGHT).build());
-        event.addListener(Button.builder(Component.literal("Orden de armadura"),
+        event.addListener(Button.builder(Component.translatable("pa.msg.21dbaa5cb3"),
                 button -> com.tcorigenes.tcorigenes.compat.jei.ModJeiPlugin.showArmor())
                 .bounds(area.getX(), area.getY() + HEIGHT + 4, WIDTH, HEIGHT).build());
     }
