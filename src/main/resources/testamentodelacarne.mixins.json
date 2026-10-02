@@ -20,6 +20,8 @@
     "WorldGenDragonRoostsMixin",
     "CraftingMenuMixin",
     "KeresItemMixin",
+    "CursiumSetEventsMixin",
+    "CursiumKeyMixin",
     "DarkMetalArmorTickMixin",
     "CombatRulesMixin"
   ],

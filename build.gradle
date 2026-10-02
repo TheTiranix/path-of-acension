@@ -153,6 +153,7 @@ dependencies {
 
     // Solo para los Mixin de los procedimientos de Krampus (Born in Chaos). No se empaqueta.
     compileOnly files('libs/born_in_chaos_v1-1.7.jar')
+    compileOnly files('libs/L_Enders_Cataclysm-3.07.jar')
 
     // Mixin annotation processor (genera el refmap para que Forge remapee en runtime)
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'

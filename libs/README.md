@@ -13,3 +13,4 @@ copialos en esta carpeta con estos nombres exactos si queres compilar el mod:
 - iceandfire-2.1.13-1.20.1-beta-5.jar
 - citadel-2.6.2-1.20.1.jar
 - born_in_chaos_v1-1.7.jar (el jar de Born in Chaos 1.7 renombrado)
+- L_Enders_Cataclysm-3.07.jar (Cataclysm, para los mixins de la armadura de cursium)

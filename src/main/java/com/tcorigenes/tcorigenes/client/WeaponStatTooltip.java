@@ -72,20 +72,10 @@ public final class WeaponStatTooltip {
             return lines;
         }
         if (id.equals(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ITEM_ID)) {
-            lines.add(attributeLine("+" + trim(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE) + " Daño Elemental de Ender"));
             return lines;
-        }
-        if (id.toString().equals("minecraft:bow")) {
-            lines.add(attributeLine("+9 Daño por impacto"));
         }
         WeaponBalance.Spec spec = WeaponBalance.spec(id);
         if (spec != null) {
-            if (spec.ranged && spec.damage != null) {
-                lines.add(attributeLine("+" + trim(spec.damage.floatValue()) + " Daño por impacto"));
-            }
-            for (WeaponBalance.Extra extra : spec.extras) {
-                lines.add(attributeLine("+" + trim(extra.amount()) + " Daño Elemental de " + elementName(extra.element())));
-            }
             if (spec.note != null) {
                 lines.add(attributeLine(spec.note));
             }
@@ -104,6 +94,70 @@ public final class WeaponStatTooltip {
             }
         }
         return lines;
+    }
+
+    /**
+     * Lineas de daño que van JUSTO despues del daño normal (antes del alcance y demas): el daño por impacto de los arcos, cada daño elemental
+     * fijo con el color de su elemento, y el "Daño total" en rojo (normal + elementales) para no tener que sumar a mano.
+     */
+    public static List<Component> damageLines(net.minecraft.world.item.ItemStack stack) {
+        List<Component> lines = new ArrayList<>();
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if (id == null) {
+            return lines;
+        }
+        if (id.equals(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ITEM_ID)) {
+            lines.add(elementLine(com.tcorigenes.tcorigenes.compat.EndersoulGlove.ENDER_DAMAGE, "Ender", ChatFormatting.LIGHT_PURPLE));
+            return lines;
+        }
+        if (id.toString().equals("minecraft:bow")) {
+            lines.add(attributeLine("+9 Daño por impacto"));
+        }
+        WeaponBalance.Spec spec = WeaponBalance.spec(id);
+        if (spec == null) {
+            return lines;
+        }
+        if (spec.ranged && spec.damage != null) {
+            lines.add(attributeLine("+" + trim(spec.damage.floatValue()) + " Daño por impacto"));
+        }
+        for (WeaponBalance.Extra extra : spec.extras) {
+            lines.add(elementLine(extra.amount(), elementName(extra.element()), elementColor(extra.element())));
+        }
+        if (!spec.ranged && spec.extrasTotal() > 0.0F) {
+            double normal = 0.0;
+            for (var modifier : stack.getAttributeModifiers(net.minecraft.world.entity.EquipmentSlot.MAINHAND)
+                    .get(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE)) {
+                if (modifier.getOperation() == net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION) {
+                    normal += modifier.getAmount();
+                }
+            }
+            if (normal > 0.0) {
+                normal += 1.0; // el daño base del jugador: el total real de un golpe cargado
+                lines.add(Component.literal(" Daño total: " + trim((float) (normal + spec.extrasTotal()))).withStyle(ChatFormatting.RED));
+            }
+        }
+        return lines;
+    }
+
+    private static Component elementLine(float amount, String elementName, ChatFormatting color) {
+        return Component.literal(" +" + trim(amount) + " Daño Elemental de " + elementName).withStyle(color);
+    }
+
+    private static boolean isAttackDamageLine(Component line) {
+        if (line.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents translatable) {
+            for (Object arg : translatable.getArgs()) {
+                if (arg instanceof Component inner && inner.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t2
+                        && t2.getKey().equals("attribute.name.generic.attack_damage")) {
+                    return true;
+                }
+            }
+        }
+        for (Component sibling : line.getSiblings()) {
+            if (isAttackDamageLine(sibling)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static Component attributeLine(String text) {
@@ -125,7 +179,8 @@ public final class WeaponStatTooltip {
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         List<Component> lines = linesFor(event.getItemStack());
-        if (lines.isEmpty()) {
+        List<Component> damage = damageLines(event.getItemStack());
+        if (lines.isEmpty() && damage.isEmpty()) {
             return;
         }
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem());
@@ -145,10 +200,21 @@ public final class WeaponStatTooltip {
             tooltip.add(Component.empty());
             tooltip.add(glove ? Component.literal("When in Hand:").withStyle(ChatFormatting.GRAY)
                     : Component.translatable(key).withStyle(ChatFormatting.GRAY));
+            tooltip.addAll(damage);
             tooltip.addAll(lines);
             return;
         }
-        int end = header + 1;
+        // los daños elementales y el total van justo despues del daño normal (si el item no lo muestra, al principio del bloque)
+        int damageAt = header + 1;
+        for (int i = header + 1; i < tooltip.size() && !tooltip.get(i).getString().isEmpty(); i++) {
+            if (isAttackDamageLine(tooltip.get(i))) {
+                damageAt = i + 1;
+                break;
+            }
+        }
+        tooltip.addAll(damageAt, damage);
+        header += 0;
+        int end = header + 1 + damage.size();
         while (end < tooltip.size() && !tooltip.get(end).getString().isEmpty()
                 && (tooltip.get(end).getString().startsWith(" ") || tooltip.get(end).getString().startsWith("+")
                 || tooltip.get(end).getString().startsWith("-") || tooltip.get(end).getString().startsWith("\u00a7"))) {

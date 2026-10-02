@@ -48,7 +48,12 @@ public class AbilityKeyBindings {
             SkillTreeScreen.open();
         }
         while (TOGGLE_KERES_SHADOWS.consumeClick()) {
-            Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(true));
+            var self = net.minecraft.client.Minecraft.getInstance().player;
+            if (self != null && !com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket.holdsKeres(self)) {
+                self.displayClientMessage(net.minecraft.network.chat.Component.literal("Tenés que tener la Keres en la mano."), true);
+            } else {
+                Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(true));
+            }
         }
         while (ACTIVATE_RACIAL.consumeClick()) {
             Networking.sendToServer(new ActivateRacialAbilityPacket());

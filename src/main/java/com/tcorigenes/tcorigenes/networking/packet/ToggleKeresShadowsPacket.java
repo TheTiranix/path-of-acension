@@ -23,11 +23,20 @@ public class ToggleKeresShadowsPacket {
         buf.writeBoolean(this.enabled);
     }
 
+    /** Solo se puede usar con la Keres en alguna de las manos. */
+    public static boolean holdsKeres(net.minecraft.world.entity.player.Player player) {
+        var keres = net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("celestisynth", "keres");
+        return keres.equals(net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(player.getMainHandItem().getItem()))
+                || keres.equals(net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(player.getOffhandItem().getItem()));
+    }
+
     public boolean handle(Supplier<Context> supplier) {
         Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (player != null) {
+            if (player != null && !holdsKeres(player)) {
+                player.displayClientMessage(net.minecraft.network.chat.Component.literal("Tenés que tener la Keres en la mano."), true);
+            } else if (player != null) {
                 // el servidor alterna su propio estado (asi nunca quedan desfasados cliente y servidor) y avisa cual quedo
                 boolean now = !KeresShadowControl.enabled(player);
                 KeresShadowControl.set(player, now);
