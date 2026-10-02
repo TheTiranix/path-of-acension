@@ -1,0 +1,398 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_5_cataclismo"
+	group: "67DF4E57D78C675C"
+	icon: "cataclysm:ignitium_ingot"
+	id: "E2DC756D81742946"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_5.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 9
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["En el desierto hay una pirámide que no pertenece a ningún dios. Dentro duerme un guardián que lleva eras esperando visitas."]
+			id: "CD3DC8B6CFFB41E4"
+			rewards: [
+				{
+					id: "C0395045B55A62DE"
+					type: "xp"
+					xp: 500
+				}
+			]
+			subtitle: "Una tumba que no debía abrirse"
+			tasks: [
+				{
+					id: "CDD15274F75B23A6"
+					structure: "cataclysm:cursed_pyramid"
+					type: "structure"
+				}
+			]
+			title: "La Pirámide Maldita"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["CD3DC8B6CFFB41E4"]
+			description: ["Una armadura que se mueve por voluntad propia custodia la cripta. Cuando cae, sus restos se levantan de nuevo."]
+			id: "68A9E49BBC88C020"
+			rewards: [
+				{
+					id: "5351FA8F14C43715"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "2D6EBF80DC796F69"
+					item: "minecraft:gold_block"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un faraón sin trono"
+			tasks: [
+				{
+					entity: "cataclysm:ancient_remnant"
+					id: "70CA0FA94B4545F0"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Remanente Antiguo"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["68A9E49BBC88C020"]
+			description: ["Algo grande se hundió con su ciudad, y las aguas siguieron. Sus calles oscuras esconden criaturas que no son humanas."]
+			id: "7ED21B04C0DCDE1C"
+			rewards: [
+				{
+					id: "0B839C31E7FA5985"
+					type: "xp"
+					xp: 560
+				}
+			]
+			subtitle: "Una urbe bajo el mar"
+			tasks: [
+				{
+					id: "748BF9A19D42BE61"
+					structure: "cataclysm:sunken_city"
+					type: "structure"
+				}
+			]
+			title: "La Ciudad Hundida"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7ED21B04C0DCDE1C"]
+			description: ["Una criatura colosal de ojos apagados que devora todo lo que encuentra en su camino. Cuando abre las fauces, el océano tiembla."]
+			id: "38DE3F7D221A2910"
+			rewards: [
+				{
+					id: "2E1225D9FB35E6B4"
+					type: "xp"
+					xp: 1200
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un monstruo que ensombrece el mar"
+			tasks: [
+				{
+					entity: "cataclysm:the_leviathan"
+					id: "BD591F5ED70A77DC"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Leviatán"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["38DE3F7D221A2910"]
+			description: ["En el Nether las llamas no se apagan nunca. Una arena arde en el centro de un mar de lava y desafía a quien se atreva a pelear en ella."]
+			id: "72BAA9D520B127DD"
+			rewards: [
+				{
+					id: "7AFB8AD3EE1D7CEB"
+					type: "xp"
+					xp: 580
+				}
+			]
+			subtitle: "Un coliseo en llamas"
+			tasks: [
+				{
+					id: "E4435E080126CA3B"
+					structure: "cataclysm:burning_arena"
+					type: "structure"
+				}
+			]
+			title: "La Arena Ardiente"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["72BAA9D520B127DD"]
+			description: ["Un guerrero ardiente que domina el fuego con espada y escudo. Su armadura se calienta cuanto más lo golpeas."]
+			id: "F38F5BF94EE2DE0B"
+			rewards: [
+				{
+					id: "1225544DD7DD4436"
+					type: "xp"
+					xp: 1300
+				}
+				{
+					count: 2
+					id: "7C968800F787386F"
+					item: "cataclysm:ignitium_ingot"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El caballero de las llamas"
+			tasks: [
+				{
+					entity: "cataclysm:ignis"
+					id: "37AE8A145CFA8301"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Ignis"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["F38F5BF94EE2DE0B"]
+			description: ["Sus martillos no descansan. Forja armas para un ejército que nunca llegó. Si logras pasar, quizá te ofrezca algo útil."]
+			id: "492585E49F078B06"
+			rewards: [
+				{
+					id: "0A742335DA5C7F4E"
+					type: "xp"
+					xp: 620
+				}
+			]
+			subtitle: "Un forjador que perdió a sus dioses"
+			tasks: [
+				{
+					id: "0A5D24699FE103DE"
+					structure: "cataclysm:soul_black_smith"
+					type: "structure"
+				}
+			]
+			title: "La Herrería del Alma Negra"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["492585E49F078B06"]
+			description: ["Un coloso de metal y fuego cuyo brazo lanza explosiones. Cada golpe tuyo se siente como pegarle a una montaña."]
+			id: "3A876E157F4F77FE"
+			rewards: [
+				{
+					id: "406919BABABDFA43"
+					type: "xp"
+					xp: 1400
+				}
+				{
+					count: 4
+					id: "2AF2E75B5CDDE9EB"
+					item: "minecraft:netherite_scrap"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una máquina de guerra del Nether"
+			tasks: [
+				{
+					entity: "cataclysm:netherite_monstrosity"
+					id: "72DB2CCB5BE211AA"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Monstruosidad de Netherita"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3A876E157F4F77FE"]
+			description: ["Un espacio de hielo que encierra a lo que los dioses decidieron no matar. Lo que duerme allí murmura aún."]
+			id: "1EFFB78D80BD8FC7"
+			rewards: [
+				{
+					id: "165A1CF4434BF989"
+					type: "xp"
+					xp: 640
+				}
+			]
+			subtitle: "Un castigo congelado"
+			tasks: [
+				{
+					id: "2005580C32159875"
+					structure: "cataclysm:frosted_prison"
+					type: "structure"
+				}
+			]
+			title: "La Prisión Helada"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1EFFB78D80BD8FC7"]
+			description: ["Una ciudadela en el fin del mundo guarda a quienes sirvieron al vacío. Los guardias son silenciosos y no se detienen."]
+			id: "30D69BA3457FBE63"
+			rewards: [
+				{
+					id: "ED565BC9E455454F"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El fin de un reino"
+			tasks: [
+				{
+					id: "81519FC6E8EDB79A"
+					structure: "cataclysm:ruined_citadel"
+					type: "structure"
+				}
+				{
+					entity: "cataclysm:ender_guardian"
+					id: "35A51FF0FEC9D60D"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Ciudadela en Ruinas"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["30D69BA3457FBE63"]
+			description: ["Un gólem hecho de la materia del End que camina sin rumbo. No descansa, no habla, no sufre. Sólo avanza."]
+			id: "E1CDBDA92A8167C8"
+			rewards: [
+				{
+					id: "03CFF10222DBFC78"
+					type: "xp"
+					xp: 1300
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un coloso del End"
+			tasks: [
+				{
+					entity: "cataclysm:ender_golem"
+					id: "AA6A98E9D46F21E4"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Gólem del Vacío"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E1CDBDA92A8167C8"]
+			description: ["Una máquina del apocalipsis que flota y dispara desde las alturas. Se activa en el Nether profundo y lanza misiles que borran la roca."]
+			id: "5F48F418CBF9FF9A"
+			rewards: [
+				{
+					id: "DBF5D8A766C9C1B7"
+					type: "xp"
+					xp: 1600
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un jinete de tormentas"
+			tasks: [
+				{
+					entity: "cataclysm:the_harbinger"
+					id: "AA2FF4D0858F9F9B"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Heraldo"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5F48F418CBF9FF9A"]
+			description: ["No es un monstruo ni un dios: es lo que ocurre cuando alguien no puede morir. Su ira no tiene fin y su lanza traspasa cualquier defensa."]
+			id: "3347D307C9F7F4A4"
+			rewards: [
+				{
+					id: "F5C22D163DC94BB8"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una maldición que camina"
+			tasks: [
+				{
+					entity: "cataclysm:maledictus"
+					id: "2688AB3B7E880A05"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Maldito"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["3347D307C9F7F4A4"]
+			description: ["La última de las bestias marinas. Un tridente, un trueno y un rugido que parte el mar. Ten preparada tu mejor armadura y a tus aliados."]
+			id: "FFE7388DD3C31655"
+			rewards: [
+				{
+					id: "A2BEB19FFBAA6B14"
+					type: "xp"
+					xp: 2000
+				}
+				{
+					count: 4
+					id: "9D053EF1450AF30F"
+					item: "cataclysm:witherite_ingot"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "La reina de las tormentas"
+			tasks: [
+				{
+					entity: "cataclysm:scylla"
+					id: "B8C15747E975A72E"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Scylla"
+			x: 1.2d
+			y: 7.5d
+		}
+	]
+	title: "V · El Ocaso de las Eras"
+}

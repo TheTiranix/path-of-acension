@@ -1,0 +1,374 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_4_dragones"
+	group: "67DF4E57D78C675C"
+	icon: "iceandfire:dragon_skull_fire"
+	id: "A48470CE3E687935"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_4.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 8
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Una mujer con serpientes por cabellera convirtió en estatua a todo el que entró en su templo. Lleva un espejo o ciérrate los ojos."]
+			id: "9948C645C0942477"
+			rewards: [
+				{
+					id: "6E9B767F060BE41A"
+					type: "xp"
+					xp: 380
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "No la mires a los ojos"
+			tasks: [
+				{
+					id: "EBDC3B7BB211A611"
+					structure: "iceandfire:gorgon_temple"
+					type: "structure"
+				}
+				{
+					entity: "iceandfire:gorgon"
+					id: "F637B866BAAB5382"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Templo de la Gorgona"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9948C645C0942477"]
+			description: ["Las tumbas de un cementerio antiguo se abren de noche. Un mausoleo cercano oculta un guardián que no teme a la luz."]
+			id: "B25B0651E4B6E887"
+			rewards: [
+				{
+					id: "10352949AE566290"
+					type: "xp"
+					xp: 300
+				}
+			]
+			subtitle: "Algo vigila las tumbas"
+			tasks: [
+				{
+					id: "ACB962E3A41052D1"
+					structure: "iceandfire:graveyard"
+					type: "structure"
+				}
+			]
+			title: "El Cementerio Muerto"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["B25B0651E4B6E887"]
+			description: ["El mausoleo guarda tesoros de un reino anterior. Los muertos no los dan sin pelear."]
+			id: "E531252758544024"
+			rewards: [
+				{
+					id: "A072E7766DA17A67"
+					type: "xp"
+					xp: 320
+				}
+			]
+			subtitle: "Un lugar de reyes olvidados"
+			tasks: [
+				{
+					id: "5C29AB619FEE53A3"
+					structure: "iceandfire:mausoleum"
+					type: "structure"
+				}
+			]
+			title: "El Mausoleo"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["E531252758544024"]
+			description: ["Insectos gigantes tejen túneles bajo la arena y la jungla, gobernados por una reina. Cada huevo que protege es un futuro soldado."]
+			id: "AE11976937537E4C"
+			rewards: [
+				{
+					id: "659F5F7058495B72"
+					type: "xp"
+					xp: 520
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una reina que no descansa"
+			tasks: [
+				{
+					entity: "iceandfire:myrmex_queen"
+					id: "9324FDC25318D7A3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Colmena de las Myrmex"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["AE11976937537E4C"]
+			description: ["Un gigante de un solo ojo recorre las colinas lanzando piedras y arrastrando rebaños. Su ojo es su punto débil, pero también su mayor furia."]
+			id: "B9884D9C846186C2"
+			rewards: [
+				{
+					id: "554D559594E47487"
+					type: "xp"
+					xp: 540
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un ojo contra el mundo"
+			tasks: [
+				{
+					entity: "iceandfire:cyclops"
+					id: "428D47847CCF1606"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Cíclope"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["B9884D9C846186C2"]
+			description: ["Un coletazo hunde barcos enteros. Las serpientes marinas son los dragones del océano y no tienen piedad con quien se aventura sin preparación."]
+			id: "45F9901D0370BC0F"
+			rewards: [
+				{
+					id: "C45695265289021A"
+					type: "xp"
+					xp: 560
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Algo enorme bajo las olas"
+			tasks: [
+				{
+					entity: "iceandfire:sea_serpent"
+					id: "28B26BAED988DD62"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Serpiente Marina"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["45F9901D0370BC0F"]
+			description: ["Una bandada de aves con plumas de bronce y picos de hierro vive en pantanos viejos. Matar a una es un trabajo; matar a varias es una prueba."]
+			id: "FA56B8FC724C2A68"
+			rewards: [
+				{
+					id: "9DE401E9254EEC3A"
+					type: "xp"
+					xp: 420
+				}
+			]
+			subtitle: "Plumas como cuchillas"
+			tasks: [
+				{
+					entity: "iceandfire:stymphalian_bird"
+					id: "7A803E4CD95F45D5"
+					type: "kill"
+					value: 3L
+				}
+			]
+			title: "Pájaros Estinfálidos"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["FA56B8FC724C2A68"]
+			description: ["Los dragones no son el fin de las historias: son su punto medio. Un dragón de fuego duerme sobre su tesoro y escupe llamas que derriten el hierro. Prepara armadura, agua y paciencia."]
+			id: "83C2D09A5DD1D1C5"
+			rewards: [
+				{
+					id: "0222FB68405250AF"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "16E96A89FDDCA14B"
+					item: "iceandfire:dragonscale_red"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El primero de los tres"
+			tasks: [
+				{
+					entity: "iceandfire:fire_dragon"
+					id: "B1D64AF105E21578"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Dragón de Fuego"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["83C2D09A5DD1D1C5"]
+			description: ["En las cumbres blancas vive un dragón que respira escarcha. Congela el aire que lo rodea y el suelo bajo tus pies."]
+			id: "87DE66479AEA0306"
+			rewards: [
+				{
+					id: "74E0A37FE479A793"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "F4E0AC7642477F85"
+					item: "iceandfire:dragonscale_blue"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El segundo de los tres"
+			tasks: [
+				{
+					entity: "iceandfire:ice_dragon"
+					id: "D592267AA4B6D917"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Dragón de Hielo"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["87DE66479AEA0306"]
+			description: ["Una criatura de tormenta que vive en las llanuras. Su aliento es relámpago y su rugido, trueno. Es la más rápida de las tres."]
+			id: "1F7737302A7894EE"
+			rewards: [
+				{
+					id: "C9DA8A7314F2534D"
+					type: "xp"
+					xp: 900
+				}
+				{
+					count: 4
+					id: "2A2EEA7C10C038BA"
+					item: "iceandfire:dragonscale_electric"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El tercero de los tres"
+			tasks: [
+				{
+					entity: "iceandfire:lightning_dragon"
+					id: "CC8AB69A758FE437"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Dragón de Rayo"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1F7737302A7894EE"]
+			description: ["Forja el metal con sangre de dragón y obtén armas con la dureza de un titán. Es la mejor armadura que ofrece este mundo."]
+			id: "41012DDDE9234032"
+			rewards: [
+				{
+					id: "A72D30380954CE1F"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "Una aleación que no se rompe"
+			tasks: [
+				{
+					count: 4L
+					id: "F24B782F28AB4F66"
+					item: "iceandfire:dragonsteel_fire_ingot"
+					type: "item"
+				}
+			]
+			title: "El Acero del Dragón"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["41012DDDE9234032"]
+			description: ["Un mago aprendió a lanzar fuego con la mano y dejó su torre a quien quisiera leerlo. Entra en la torre de piromancia y descubre los secretos de la magia arcana."]
+			id: "209014EF5D519D8F"
+			rewards: [
+				{
+					id: "9E45B6ACFE22872E"
+					type: "xp"
+					xp: 420
+				}
+				{
+					count: 6
+					id: "867DF2DFD38C3986"
+					item: "irons_spellbooks:arcane_essence"
+					type: "item"
+				}
+			]
+			subtitle: "Quien aprende, manda"
+			tasks: [
+				{
+					id: "C1DE6D616F93A499"
+					structure: "irons_spellbooks:pyromancer_tower"
+					type: "structure"
+				}
+			]
+			title: "Hechizos de la Torre"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["209014EF5D519D8F"]
+			description: ["Hay seres de pura magia sin forma fija, guardianes de las tierras donde nace la energía. Si alguno cruza tu camino, enfréntalo con los hechizos que tengas."]
+			id: "5099DBB9BCE2AA85"
+			rewards: [
+				{
+					id: "FE054AE41E11F045"
+					type: "xp"
+					xp: 800
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Magia salvaje"
+			tasks: [
+				{
+					entity: "ars_nouveau:wilden_boss"
+					id: "26335951DC471EA3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Bestia de Ars"
+			x: 3.8d
+			y: 7.5d
+		}
+	]
+	title: "IV · Dragones y Hechizos"
+}

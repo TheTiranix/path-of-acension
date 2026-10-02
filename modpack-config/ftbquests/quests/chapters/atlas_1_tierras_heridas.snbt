@@ -1,0 +1,362 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_1_tierras_heridas"
+	group: "67DF4E57D78C675C"
+	icon: "minecraft:compass"
+	id: "4EB3A90262FAD32C"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_1.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 2.5d
+	}]
+	order_index: 5
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Los dioses cayeron y el cielo quedó mudo. Lo que queda de ellos duerme en la piedra y en el alma de los monstruos.", "Tú despertaste en medio de las ruinas. Nadie vendrá a salvarte: el único poder real es la sangre, el acero y las almas."]
+			id: "8A8BB7CD343AA2AD"
+			rewards: [
+				{
+					id: "4DE6C0EA3860757A"
+					type: "xp"
+					xp: 40
+				}
+				{
+					count: 8
+					id: "AB611F1AA2D9D977"
+					item: "minecraft:bread"
+					type: "item"
+				}
+			]
+			subtitle: "Todo empieza con un cielo vacío"
+			tasks: [
+				{
+					id: "DB0D6B40CB01C29D"
+					title: "Mirar el cielo vacío y seguir adelante"
+					type: "checkmark"
+				}
+			]
+			title: "El Mundo Después de la Caída"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["8A8BB7CD343AA2AD"]
+			description: ["Antes de pelear contra dioses hace falta un buen filo. El hierro y el cobre siguen donde los dejó la guerra, bajo capas de piedra rota."]
+			id: "693A9FDD4C2FD070"
+			rewards: [
+				{
+					id: "0E46AD879CDC8F0D"
+					type: "xp"
+					xp: 60
+				}
+				{
+					count: 8
+					id: "DC50FFF5A63F5A77"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+			]
+			subtitle: "Lo primero que ofrece la tierra"
+			tasks: [
+				{
+					count: 16L
+					id: "8B998D5365E5A65A"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "3CBE7FBBC9506F78"
+					item: "minecraft:copper_ingot"
+					type: "item"
+				}
+			]
+			title: "Hierro y Cobre"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["693A9FDD4C2FD070"]
+			description: ["Cuando picas piedra a veces brilla algo dentro: fragmentos cristalizados de los recuerdos de los dioses caídos. Cada uno guarda una pena distinta."]
+			id: "9D607A663F3E9B0A"
+			rewards: [
+				{
+					id: "2A4874E30C5B9C82"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "La piedra recuerda"
+			tasks: [
+				{
+					count: 8L
+					id: "4D67E3E98C647C4F"
+					item: "testamentodelacarne:fragmento_de_memoria"
+					type: "item"
+				}
+			]
+			title: "Fragmentos de Memoria"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9D607A663F3E9B0A"]
+			description: ["Las almas de los dioses no descansaron. Se metieron en los cuerpos de zombis, esqueletos y arañas. Arrancarlas es peligroso, pero es la única moneda que valoran los poderes de este mundo."]
+			id: "894F782A148B33AF"
+			rewards: [
+				{
+					id: "3517BC8255F34FA4"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Lo que habita en los monstruos"
+			tasks: [
+				{
+					count: 4L
+					id: "A02F6B5D4214C1AC"
+					item: "testamentodelacarne:alma_corrupta"
+					type: "item"
+				}
+			]
+			title: "Almas Corruptas"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["894F782A148B33AF"]
+			description: ["Las mazmorras son cicatrices que dejó la guerra. Entra en una, ábrela con cuidado y sal con lo que puedas cargar."]
+			id: "32CFE6C19200B67A"
+			rewards: [
+				{
+					id: "BFDE7A51B787C073"
+					type: "xp"
+					xp: 90
+				}
+				{
+					id: "C8BF2FE34E941B40"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			subtitle: "Bajo tierra el silencio pesa"
+			tasks: [
+				{
+					id: "052BAF998A2B3E0B"
+					structure: "betterdungeons:small_dungeon"
+					type: "structure"
+				}
+			]
+			title: "La Primera Mazmorra"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["32CFE6C19200B67A"]
+			description: ["Hay lugares donde los esqueletos se agrupan como si aún obedecieran órdenes de un ejército que ya no existe. Encuentra uno de esos fosos."]
+			id: "F74DD50CFEC0F854"
+			rewards: [
+				{
+					id: "3324DD887664DBE5"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "Los muertos no duermen"
+			tasks: [
+				{
+					id: "9674584D54395BBF"
+					structure: "betterdungeons:skeleton_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Huesos Inquietos"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["F74DD50CFEC0F854"]
+			description: ["Tras la Caída, algunas personas aprendieron a hablar con lo que quedó. Una bruja del pantano guarda recetas que ningún dios aprobaría."]
+			id: "C692562238D8C12C"
+			rewards: [
+				{
+					id: "5A30879052FF0427"
+					type: "xp"
+					xp: 110
+				}
+				{
+					count: 4
+					id: "8688D3DFAA1FC34F"
+					item: "minecraft:experience_bottle"
+					type: "item"
+				}
+			]
+			subtitle: "Oficios prohibidos"
+			tasks: [
+				{
+					id: "A3AE93CDDC75532B"
+					structure: "betterwitchhuts:witch_hut"
+					type: "structure"
+				}
+			]
+			title: "La Cabaña de la Bruja"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C692562238D8C12C"]
+			description: ["Una madre araña teje sus redes en las mazmorras profundas. Si la matas, sus hijos dejarán de multiplicarse por un tiempo."]
+			id: "68C42382C8B93FC2"
+			rewards: [
+				{
+					id: "0131BEA81B23A958"
+					type: "xp"
+					xp: 160
+				}
+				{
+					count: 2
+					id: "5FBA12F7C1550609"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un tejido que se extiende bajo el mundo"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:mother_spider"
+					id: "2194E6492E576364"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Madre de las Arañas"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["68C42382C8B93FC2"]
+			description: ["Algunos hechiceros reclamaron torres abandonadas y practican una magia que los dioses nunca permitieron. Su fortaleza se ve desde lejos."]
+			id: "3D1E97D18E692CA5"
+			rewards: [
+				{
+					id: "A383620A39003F3E"
+					type: "xp"
+					xp: 140
+				}
+			]
+			subtitle: "Magia en manos equivocadas"
+			tasks: [
+				{
+					id: "C5058A3B703DC724"
+					structure: "irons_spellbooks:evoker_fort"
+					type: "structure"
+				}
+			]
+			title: "El Fuerte de los Evocadores"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3D1E97D18E692CA5"]
+			description: ["Dicen que existió un caballero al servicio de un dios menor al que le cortaron la cabeza por desobediencia. Aún cabalga buscando la que perdió."]
+			id: "48881D728A96516E"
+			rewards: [
+				{
+					id: "38B9153B8638B262"
+					type: "xp"
+					xp: 220
+				}
+				{
+					count: 3
+					id: "7D179AF424BDAF0C"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un jinete que no necesita vista"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:lord_pumpkinhead"
+					id: "2395FC9F22CA51FF"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Señor Sin Cabeza"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["48881D728A96516E"]
+			description: ["Un diamante es lo único que sigue brillando como antes de la Caída. Reúne suficientes para forjar tus primeras armas de verdad."]
+			id: "11340131FEEC68E7"
+			rewards: [
+				{
+					id: "5F8AA30D55845AA8"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Lo que un dios no pudo quebrar"
+			tasks: [
+				{
+					count: 12L
+					id: "D3521837FF0D3F5B"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			title: "Diamantes"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["11340131FEEC68E7"]
+			description: ["Entre las ruinas camina un invocador que levanta huesos por orden de un dios al que nadie ya rezó. Acaba con él para cerrar este capítulo."]
+			id: "ED20A959D410CCD8"
+			rewards: [
+				{
+					id: "ADD9E0D8175004DB"
+					type: "xp"
+					xp: 260
+				}
+				{
+					count: 4
+					id: "D99129868D66A553"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+				{
+					count: 2
+					id: "EE46DE5722D48434"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El primer jefe de verdad"
+			tasks: [
+				{
+					entity: "born_in_chaos_v1:bonescaller"
+					id: "C6F7E55D184C67DA"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Los Huesos del Predicador"
+			x: 3.8d
+			y: 5.0d
+		}
+	]
+	title: "I · Tierras Heridas"
+}

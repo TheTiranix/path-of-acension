@@ -1,0 +1,254 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_7_cielo"
+	group: "67DF4E57D78C675C"
+	icon: "aether:zanite_gemstone"
+	id: "58D01A8DB5385E6E"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_7.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 2.5d
+	}]
+	order_index: 11
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Para llegar al Aether no hace falta agua sino una lágrima consagrada, forjada con pura devoción. Atraviesa el portal y mira con tus propios ojos lo que quedó del paraíso."]
+			id: "0120A4F9196A5F9E"
+			rewards: [
+				{
+					id: "D8C209BC7C875532"
+					type: "xp"
+					xp: 800
+				}
+				{
+					count: 8
+					id: "532759F3EC35FF04"
+					item: "minecraft:golden_carrot"
+					type: "item"
+				}
+			]
+			subtitle: "Un llanto que abre puertas"
+			tasks: [
+				{
+					dimension: "aether:the_aether"
+					id: "7A045851FFAEF9BA"
+					type: "dimension"
+				}
+			]
+			title: "La Lágrima Consagrada"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0120A4F9196A5F9E"]
+			description: ["Una gema azul que sólo se encuentra en las islas flotantes. Los habitantes del Aether la usan para forjar herramientas que parecen hechas de cielo."]
+			id: "E1C80488853D86AB"
+			rewards: [
+				{
+					id: "C6A229FC3687E1D0"
+					type: "xp"
+					xp: 500
+				}
+			]
+			subtitle: "La piedra del cielo"
+			tasks: [
+				{
+					count: 12L
+					id: "0511BAB5FCD64386"
+					item: "aether:zanite_gemstone"
+					type: "item"
+				}
+			]
+			title: "Zanita"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["E1C80488853D86AB"]
+			description: ["Un laberinto de piedra flotante donde el primer guardián aguarda a quien se atreva. Es la puerta de un largo camino."]
+			id: "8A9FD7DFDA802921"
+			rewards: [
+				{
+					id: "F354E6A997C11067"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "Primera de las tres"
+			tasks: [
+				{
+					id: "B7770E23823E8B67"
+					structure: "aether:bronze_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Mazmorra de Bronce"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["8A9FD7DFDA802921"]
+			description: ["Un bloque de piedra con ojos. No habla, no negocia: sólo golpea. Su fuerza crece cuanto más daño recibe."]
+			id: "B0B5C8F28AD7834E"
+			rewards: [
+				{
+					id: "3DE9F487AB0B3DBE"
+					type: "xp"
+					xp: 1100
+				}
+				{
+					id: "3DDEB642DFB0C1A2"
+					item: "aether:bronze_dungeon_key"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un guardián de piedra"
+			tasks: [
+				{
+					entity: "aether:slider"
+					id: "E745BD7877774277"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Deslizador"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["B0B5C8F28AD7834E"]
+			description: ["Una fortaleza de nubes y torres. Dentro, la reina de las valquirias espera a un retador digno."]
+			id: "37C965A8D6D7BEC2"
+			rewards: [
+				{
+					id: "6459FD6245D9CFA1"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Segunda de las tres"
+			tasks: [
+				{
+					id: "D2AE779B4CEA593A"
+					structure: "aether:silver_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Mazmorra de Plata"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["37C965A8D6D7BEC2"]
+			description: ["Una guerrera con alas que lleva siglos defendiendo un cielo que ya nadie visita. Lucha con honor y te pedirá lo mismo."]
+			id: "4A4314EF967AAD20"
+			rewards: [
+				{
+					id: "ACB611F3F37CF829"
+					type: "xp"
+					xp: 1400
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "La última defensora de un reino"
+			tasks: [
+				{
+					entity: "aether:valkyrie_queen"
+					id: "930EFBE903B557A3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Reina Valquiria"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["4A4314EF967AAD20"]
+			description: ["La mazmorra más alta del cielo. Aquí nada se esconde: las trampas están a la vista y el desafío también."]
+			id: "727BB92F57C3951D"
+			rewards: [
+				{
+					id: "0297B3339CD37ACB"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			subtitle: "Tercera y última"
+			tasks: [
+				{
+					id: "890201C304104210"
+					structure: "aether:gold_dungeon"
+					type: "structure"
+				}
+			]
+			title: "Mazmorra de Oro"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["727BB92F57C3951D"]
+			description: ["Un ser de fuego que habita el sol de este cielo. Cuando cae, la luz que da no se pierde, se vuelve un tesoro."]
+			id: "C98B82371573AFC0"
+			rewards: [
+				{
+					id: "9B0750094FBAA198"
+					type: "xp"
+					xp: 1800
+				}
+				{
+					id: "B99E9EDC647F576C"
+					item: "aether:gold_dungeon_key"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una llama que no se apaga"
+			tasks: [
+				{
+					entity: "aether:sun_spirit"
+					id: "EF0648FCB97AE5C4"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Espíritu del Sol"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C98B82371573AFC0"]
+			description: ["Un metal que rechaza la gravedad. Quien lo trabaje podrá forjar armaduras que dejan caer como una pluma y herramientas que flotan."]
+			id: "180D8336CA7A4776"
+			rewards: [
+				{
+					id: "BE2FA14BBC598BCF"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Un mineral que desafía al suelo"
+			tasks: [
+				{
+					count: 4L
+					id: "1ED64DB4DC07674B"
+					item: "aether:gravitite_ore"
+					type: "item"
+				}
+			]
+			title: "Gravitita"
+			x: -3.8d
+			y: 5.0d
+		}
+	]
+	title: "VII · El Reino del Cielo"
+}

@@ -1,0 +1,318 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_6_profundidades"
+	group: "67DF4E57D78C675C"
+	icon: "alexscaves:uranium"
+	id: "383FDFEAFF289C1E"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_6.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 2.5d
+	}]
+	order_index: 10
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Existen cuevas tan profundas que tienen su propio clima y sus propias reglas. Atraviesa el portal y baja a un reino que los dioses nunca vieron."]
+			id: "BD19836DDB62C11C"
+			rewards: [
+				{
+					id: "C2062C374EBD3106"
+					type: "xp"
+					xp: 400
+				}
+				{
+					count: 8
+					id: "BFDE8001AE4ACEB5"
+					item: "minecraft:glow_berries"
+					type: "item"
+				}
+			]
+			subtitle: "Un mundo bajo el mundo"
+			tasks: [
+				{
+					dimension: "testamentodelacarne:alex_caves"
+					id: "7BC1F6198EB9D0E3"
+					type: "dimension"
+				}
+			]
+			title: "Descender"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["BD19836DDB62C11C"]
+			description: ["Un puente cuelga sobre una caída sin fondo. Quienes cruzaron antes ya no responden. Atraviésalo con calma."]
+			id: "3667F6A0C9749075"
+			rewards: [
+				{
+					id: "990429BB610B6A91"
+					type: "xp"
+					xp: 420
+				}
+			]
+			subtitle: "Un puente sobre nada"
+			tasks: [
+				{
+					id: "E49FD9750E6E0C22"
+					structure: "alexscaves:forlorn_canyon"
+					type: "structure"
+				}
+			]
+			title: "El Cañón del Olvido"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["3667F6A0C9749075"]
+			description: ["En una cueva cerrada, bajo un cráter, aún pastan bestias de una era anterior a los dioses. Observa de lejos y sólo ataca si lo necesitas."]
+			id: "1779CF3AA50C413A"
+			rewards: [
+				{
+					id: "8C5CD120F62B2C85"
+					type: "xp"
+					xp: 440
+				}
+			]
+			subtitle: "Un cráter lleno de vida antigua"
+			tasks: [
+				{
+					id: "28002BBA211228A1"
+					structure: "alexscaves:dino_bowl"
+					type: "structure"
+				}
+			]
+			title: "La Cueva de los Dinosaurios"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1779CF3AA50C413A"]
+			description: ["Un dinosaurio gigantesco, con la piel de piedra y el corazón de lava. Ninguna bestia se atreve a mirarlo."]
+			id: "6E1FCD704528AD8B"
+			rewards: [
+				{
+					id: "A070911B592BE5F0"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un coloso con corazón de roca"
+			tasks: [
+				{
+					entity: "alexscaves:luxtructosaurus"
+					id: "221717C5001CA280"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Luxtructosaurus"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["6E1FCD704528AD8B"]
+			description: ["Un titán herbívoro que camina sobre los huesos de otros. No quiere pelear, pero ante una amenaza lo hace con toda su masa."]
+			id: "74CE2E1A498F2FA2"
+			rewards: [
+				{
+					id: "15ACEAD6EB319500"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El gigante de los valles"
+			tasks: [
+				{
+					entity: "alexscaves:atlatitan"
+					id: "0B119F839CDF9069"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Atlatitan"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["74CE2E1A498F2FA2"]
+			description: ["Bajo la tierra hay un monstruo que se alimenta de uranio. Cuando lo despiertas, el suelo tiembla y su rugido brilla en verde."]
+			id: "64E4CDA19B3F3EA4"
+			rewards: [
+				{
+					id: "F398ACCACC93C721"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una amenaza radiactiva"
+			tasks: [
+				{
+					entity: "alexscaves:tremorzilla"
+					id: "AE348D08C1754783"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Tremorzilla"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["64E4CDA19B3F3EA4"]
+			description: ["Un fragmento verde que brilla en la oscuridad. Es la fuente de energía de las máquinas más peligrosas y el combustible de los monstruos más antiguos."]
+			id: "6C664EEED34D9C29"
+			rewards: [
+				{
+					id: "48EB1D9F4C75EAEB"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "Un mineral que no debería existir"
+			tasks: [
+				{
+					count: 4L
+					id: "2839563B80EA237C"
+					item: "alexscaves:uranium"
+					type: "item"
+				}
+			]
+			title: "Uranio"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["6C664EEED34D9C29"]
+			description: ["Un pueblo hecho de caramelo y pan de jengibre donde todo es hermoso a menos que le des la espalda. Una bruja de golosinas manda aquí."]
+			id: "581C3010417303E1"
+			rewards: [
+				{
+					id: "AEB61D38FB26A4E9"
+					type: "xp"
+					xp: 500
+				}
+			]
+			subtitle: "Dulzura envenenada"
+			tasks: [
+				{
+					id: "D1E4CFECF44D8F80"
+					structure: "alexscaves:gingerbread_town"
+					type: "structure"
+				}
+			]
+			title: "El Pueblo de Jengibre"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["581C3010417303E1"]
+			description: ["Un laberinto metálico donde los imanes mueven la pared bajo tus pies. Los robots que viven aquí no dejan pasar a nadie."]
+			id: "6506F0388343A1F0"
+			rewards: [
+				{
+					id: "E9DDB4093869C58C"
+					type: "xp"
+					xp: 520
+				}
+			]
+			subtitle: "Una fortaleza de imanes"
+			tasks: [
+				{
+					id: "876C329BAF19C7C9"
+					structure: "alexscaves:ferrocave"
+					type: "structure"
+				}
+			]
+			title: "La Ferrocueva"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["6506F0388343A1F0"]
+			description: ["En el fondo del mar hay una fosa tan honda que los peces tienen luz propia. Un casco vacío flota allá abajo: el de un navío que no debería existir."]
+			id: "82B5F6802B727B0D"
+			rewards: [
+				{
+					id: "442C04CA7FF064B4"
+					type: "xp"
+					xp: 560
+				}
+			]
+			subtitle: "Allí donde no llega la luz"
+			tasks: [
+				{
+					id: "AF031427AC815A93"
+					structure: "alexscaves:ocean_trench"
+					type: "structure"
+				}
+			]
+			title: "La Fosa Abisal"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["82B5F6802B727B0D"]
+			description: ["Un depredador marino de dientes de metal que embiste los barcos como un martillo. Nada resiste su mordisco."]
+			id: "F344A40A52A94AB7"
+			rewards: [
+				{
+					id: "600F6984067E2783"
+					type: "xp"
+					xp: 1200
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un pez con apetito de acero"
+			tasks: [
+				{
+					entity: "alexscaves:hullbreaker"
+					id: "69E6B189BADA0284"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Rompecascos"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["F344A40A52A94AB7"]
+			description: ["En el punto más oscuro del mundo habita un ser que lleva eras sin ver la luz. Dicen que es lo que quedó del primer dios que cayó."]
+			id: "8039B4E0E6FE78BE"
+			rewards: [
+				{
+					id: "7A0879371B76B55F"
+					type: "xp"
+					xp: 1600
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Lo último del abismo"
+			tasks: [
+				{
+					entity: "alexscaves:forsaken"
+					id: "0864AA67C55DCB30"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Abandonado"
+			x: 3.8d
+			y: 5.0d
+		}
+	]
+	title: "VI · Las Profundidades de Alex"
+}

@@ -1,0 +1,463 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_2_crepusculo"
+	group: "67DF4E57D78C675C"
+	icon: "twilightforest:magic_map"
+	id: "C175D24C24B89F6B"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_2.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 6
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["El bosque no se abre con obsidiana sino con un diamante lanzado a un estanque rodeado de flores. Al cruzar, el aire se vuelve antiguo y las sombras parecen moverse."]
+			id: "EDBAB45572C72A5D"
+			rewards: [
+				{
+					id: "64A5C48399CC62A1"
+					type: "xp"
+					xp: 100
+				}
+				{
+					count: 8
+					id: "5ACCC64F2BF48184"
+					item: "minecraft:cooked_mutton"
+					type: "item"
+				}
+			]
+			subtitle: "Un portal de agua y flores"
+			tasks: [
+				{
+					dimension: "twilightforest:twilight_forest"
+					id: "F4227B546ECCAD28"
+					type: "dimension"
+				}
+			]
+			title: "Cruzar el Umbral"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["EDBAB45572C72A5D"]
+			description: ["Los muros de un patio verde esconden a la primera guardiana del dominio. Un ser antiguo, enroscado, que no deja pasar a nadie sin probar su fuerza."]
+			id: "FBFBA2E45C2045DC"
+			rewards: [
+				{
+					id: "0241ECA25E556717"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Un jefe que serpentea"
+			tasks: [
+				{
+					id: "3CEB50F9097ED6DC"
+					structure: "twilightforest:naga_courtyard"
+					type: "structure"
+				}
+			]
+			title: "El Patio de la Serpiente"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["FBFBA2E45C2045DC"]
+			description: ["La Naga recorre su patio con una paciencia cruel. Cada vuelta suya es una amenaza. Derrótala y su escama te servirá de armadura."]
+			id: "7A6F150B83091CE2"
+			rewards: [
+				{
+					id: "A714156070BC8785"
+					type: "xp"
+					xp: 220
+				}
+				{
+					count: 6
+					id: "48EAF4D5CF071BA8"
+					item: "twilightforest:naga_scale"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "La guardiana primordial"
+			tasks: [
+				{
+					entity: "twilightforest:naga"
+					id: "A0AABD75BE18EB78"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Naga"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7A6F150B83091CE2"]
+			description: ["En lo alto de una torre un viejo rey murió y nunca aceptó la derrota. Subir es un viaje por trampas y espíritus."]
+			id: "3DFE563103AB11BE"
+			rewards: [
+				{
+					id: "C56438BF8CF9E62B"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Un nigromante que no se resigna"
+			tasks: [
+				{
+					id: "A2871CEAB42B614D"
+					structure: "twilightforest:lich_tower"
+					type: "structure"
+				}
+			]
+			title: "La Torre del Lich"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["3DFE563103AB11BE"]
+			description: ["Se rodea de clones y proyectiles de magia. Reconócelo por su corona y devuélvele sus propios hechizos."]
+			id: "2283335D8D12B210"
+			rewards: [
+				{
+					id: "7D6424A74D47012F"
+					type: "xp"
+					xp: 320
+				}
+				{
+					count: 4
+					id: "15987B252E89A787"
+					item: "minecraft:ender_pearl"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El rey que no se fue"
+			tasks: [
+				{
+					entity: "twilightforest:lich"
+					id: "6A221DCBE0A9FDF3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Lich"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["2283335D8D12B210"]
+			description: ["Alguien diseñó este laberinto para que nadie llegue al centro. Hazlo de todos modos, siguiendo cada giro y cada pared falsa."]
+			id: "528953727EF3A4E1"
+			rewards: [
+				{
+					id: "742739E45675B6FE"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Un laberinto pensado para perderte"
+			tasks: [
+				{
+					id: "25CE70BA60813E0D"
+					structure: "twilightforest:labyrinth"
+					type: "structure"
+				}
+			]
+			title: "El Laberinto de Piedra"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["528953727EF3A4E1"]
+			description: ["En el corazón del laberinto vive un minotauro que se alimenta de hongos y pesadillas. Su hacha ya partió a muchos que llegaron antes que tú."]
+			id: "D8708ECB9A1E7BA1"
+			rewards: [
+				{
+					id: "E0E2B1690D57421B"
+					type: "xp"
+					xp: 380
+				}
+				{
+					count: 4
+					id: "1C245C37ADC86431"
+					item: "twilightforest:meef_stroganoff"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El minotauro del hongo"
+			tasks: [
+				{
+					entity: "twilightforest:minoshroom"
+					id: "D804B4418813A26A"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Minoshroom"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["D8708ECB9A1E7BA1"]
+			description: ["Bajo una colina viven trolls que hablan con voz de roca. Esconden un metal pesado que sólo una forja de enanos sabría trabajar."]
+			id: "75D99404A02E2BC9"
+			rewards: [
+				{
+					id: "0473DE3B49A305E0"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Gigantes de piedra y hueso"
+			tasks: [
+				{
+					id: "4743ACB3AE37DDC3"
+					structure: "twilightforest:troll_cave"
+					type: "structure"
+				}
+			]
+			title: "La Cueva de los Trolls"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["75D99404A02E2BC9"]
+			description: ["Funde las piezas del metal de los caballeros del bosque. Es mucho más duro que el hierro común."]
+			id: "37CC8552B35560A7"
+			rewards: [
+				{
+					id: "4A0EB9998ED4E37B"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "Acero que recuerda a quien lo forjó"
+			tasks: [
+				{
+					count: 6L
+					id: "05D79C40B91E9C5D"
+					item: "twilightforest:knightmetal_ingot"
+					type: "item"
+				}
+			]
+			title: "Metal de Caballero"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["37CC8552B35560A7"]
+			description: ["En una cueva inundada de brasas vive una hidra: cabezas que se regeneran y fuego en cada escupitajo. Corta una y tres más la reemplazan."]
+			id: "E324AD8ED03E3A7B"
+			rewards: [
+				{
+					id: "D4C93C85952009AF"
+					type: "xp"
+					xp: 460
+				}
+				{
+					count: 3
+					id: "04C438E3AFD34E72"
+					item: "twilightforest:fiery_blood"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Tres cabezas y una sola hambre"
+			tasks: [
+				{
+					id: "B7CE83A24BB6F079"
+					structure: "twilightforest:hydra_lair"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:hydra"
+					id: "7ACE865116661CB2"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Hidra"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E324AD8ED03E3A7B"]
+			description: ["Una fortaleza arrastra espectros de caballeros que juraron lealtad a un dios que ya no responde. Su líder, un fantasma, sigue defendiéndola."]
+			id: "14451DAA5C7F8135"
+			rewards: [
+				{
+					id: "B9F5DF4D978002F0"
+					type: "xp"
+					xp: 500
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un ejército sin cuerpo"
+			tasks: [
+				{
+					id: "C76161E7C4A63D43"
+					structure: "twilightforest:knight_stronghold"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:knight_phantom"
+					id: "D0C7EFEB10B5DDA0"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Fantasma Caballero"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["14451DAA5C7F8135"]
+			description: ["Una torre de piedra oscura se levanta entre los árboles. En su cima un ser de fuego aún llora a los dioses que le prometieron un lugar."]
+			id: "2AFD410E2E5B23DA"
+			rewards: [
+				{
+					id: "A7B2025A57CB7639"
+					type: "xp"
+					xp: 580
+				}
+				{
+					count: 4
+					id: "48FE0C8B56A5601A"
+					item: "minecraft:ghast_tear"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una torre hecha de ira"
+			tasks: [
+				{
+					id: "727EFBAA5BA071E2"
+					structure: "twilightforest:dark_tower"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:ur_ghast"
+					id: "2AFD467C6BAE0288"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Torre Oscura"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["2AFD410E2E5B23DA"]
+			description: ["Al norte el bosque se vuelve nieve eterna. Un yeti alfa cuida su cueva y, más arriba, una reina vive entre auroras en un palacio de cristal."]
+			id: "9882D05CB24F7FD0"
+			rewards: [
+				{
+					id: "1D61D03B01ECE59E"
+					type: "xp"
+					xp: 620
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Una corte congelada"
+			tasks: [
+				{
+					id: "7B84B24D1F9F23EC"
+					structure: "twilightforest:yeti_cave"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:alpha_yeti"
+					id: "D35AD291F5D18CF3"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Hielo y Reina"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["9882D05CB24F7FD0"]
+			description: ["Las auroras iluminan un palacio donde nada se derrite. Su dueña maneja el hielo con crueldad cortés. Vence a la reina para terminar este dominio."]
+			id: "B304337A7930C3A7"
+			rewards: [
+				{
+					id: "4D9C1290C37B7308"
+					type: "xp"
+					xp: 700
+				}
+				{
+					count: 6
+					id: "8179B7DD5DE76B0E"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un palacio sin tiempo"
+			tasks: [
+				{
+					id: "D3221342D4B74780"
+					structure: "twilightforest:aurora_palace"
+					type: "structure"
+				}
+				{
+					entity: "twilightforest:snow_queen"
+					id: "DFF880AD8CD6F75F"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "La Reina de las Nieves"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["B304337A7930C3A7"]
+			description: ["En lo más profundo del dominio queda un castillo que ya no pertenece a nadie. Atraviésalo y quédate con lo que el bosque guardaba para ti."]
+			id: "C172A8CE69EEDE4A"
+			rewards: [
+				{
+					id: "2D71B3F7627C943B"
+					type: "xp"
+					xp: 800
+				}
+				{
+					count: 8
+					id: "6F1663B0F6627289"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			subtitle: "El último eco del bosque"
+			tasks: [
+				{
+					id: "86AB1C9332AD81F5"
+					structure: "twilightforest:final_castle"
+					type: "structure"
+				}
+			]
+			title: "El Castillo Final"
+			x: -1.2d
+			y: 7.5d
+		}
+	]
+	title: "II · El Dominio Crepuscular"
+}

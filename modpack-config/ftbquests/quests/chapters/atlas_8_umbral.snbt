@@ -1,0 +1,358 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_8_umbral"
+	group: "67DF4E57D78C675C"
+	icon: "minecraft:dragon_head"
+	id: "22B1360AF66E35EC"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_8.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 12
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Cuando cayeron los dioses, una parte del mundo se abrió y arde desde entonces. Cruza el portal y recuerda que no todo lo que arde está vivo."]
+			id: "346B81A32E7007EC"
+			rewards: [
+				{
+					id: "AC9C6EEA1786B186"
+					type: "xp"
+					xp: 600
+				}
+				{
+					count: 2
+					id: "C36A0129F8706C5C"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			subtitle: "Un infierno sin dueño"
+			tasks: [
+				{
+					dimension: "minecraft:the_nether"
+					id: "880C2910B456A517"
+					type: "dimension"
+				}
+			]
+			title: "El Nether"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["346B81A32E7007EC"]
+			description: ["Una fortaleza se alza en un mar de lava, guardada por esqueletos que se burlan de ti. Es la puerta hacia los materiales más raros del Nether."]
+			id: "490B2834E65737C1"
+			rewards: [
+				{
+					id: "04F3A97B67E9B621"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "Un castillo de huesos y brasas"
+			tasks: [
+				{
+					id: "0073EE0616FB7DF8"
+					structure: "betterfortresses:fortress"
+					type: "structure"
+				}
+			]
+			title: "La Fortaleza del Nether"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["490B2834E65737C1"]
+			description: ["Un metal que sólo se encuentra a mucha profundidad en el Nether. Arrancarlo exige paciencia y mucha pólvora."]
+			id: "6F207F8B5DFE1EEB"
+			rewards: [
+				{
+					id: "4AE8776C904B80C1"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Metal de las profundidades"
+			tasks: [
+				{
+					count: 4L
+					id: "55CFFD76F1FF6387"
+					item: "minecraft:ancient_debris"
+					type: "item"
+				}
+			]
+			title: "Escombros Antiguos"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["6F207F8B5DFE1EEB"]
+			description: ["Un bastión de piglins que aún cree en un dios que no existe. Su oro es abundante, pero su orgullo, más."]
+			id: "CE1B1E8CE920100D"
+			rewards: [
+				{
+					id: "E112B43A1A6CC86F"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Oro, orgullo y bestias"
+			tasks: [
+				{
+					id: "7407A5B28629A9DF"
+					structure: "minecraft:bastion_remnant"
+					type: "structure"
+				}
+			]
+			title: "El Bastión"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["CE1B1E8CE920100D"]
+			description: ["Tres calaveras de wither esquelético y arena de almas dan forma a un ser que sólo conoce la destrucción. Su sombra mata lentamente."]
+			id: "77230E94B5CD88D5"
+			rewards: [
+				{
+					id: "37EE23C5723F359E"
+					type: "xp"
+					xp: 1800
+				}
+				{
+					id: "479B790B446C9E86"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un dios hecho de calaveras"
+			tasks: [
+				{
+					entity: "minecraft:wither"
+					id: "35E7FF67726AF130"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Wither"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["77230E94B5CD88D5"]
+			description: ["Bajo la tierra hay una ciudad cuyas calles están llenas de guardianes y sensores. Un solo ruido bastará para despertar lo que la cuida."]
+			id: "D8544BA1B053E413"
+			rewards: [
+				{
+					id: "C4C25ACD406B5CFD"
+					type: "xp"
+					xp: 1200
+				}
+			]
+			subtitle: "Un silencio que escucha"
+			tasks: [
+				{
+					id: "245B303C1BF1CAF2"
+					structure: "minecraft:ancient_city"
+					type: "structure"
+				}
+			]
+			title: "La Ciudad Antigua"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["D8544BA1B053E413"]
+			description: ["Una criatura sin ojos que persigue por vibraciones. No hay arma que lo detenga fácilmente; sólo el sigilo y un buen golpe."]
+			id: "F43B6183F30D3DF3"
+			rewards: [
+				{
+					id: "BE40BCBA6F3E0812"
+					type: "xp"
+					xp: 2500
+				}
+				{
+					count: 4
+					id: "D6168ACB04AB0EFD"
+					item: "minecraft:netherite_scrap"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Lo que oye pero no ve"
+			tasks: [
+				{
+					entity: "minecraft:warden"
+					id: "45BCB9C2D87C68F9"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Guardián Ciego"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["F43B6183F30D3DF3"]
+			description: ["Los primeros dioses hicieron un portal bajo tierra, protegido por una fortaleza. Encuéntralo y abre el camino al fin del mundo."]
+			id: "B9A858D081461507"
+			rewards: [
+				{
+					id: "5CE042AD9B174E97"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			subtitle: "Un portal olvidado"
+			tasks: [
+				{
+					id: "EA91A4910F83FEEB"
+					structure: "betterstrongholds:stronghold"
+					type: "structure"
+				}
+			]
+			title: "La Fortaleza Subterránea"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["B9A858D081461507"]
+			description: ["Un mundo en el que ya no queda nada de lo que era. Sólo un dragón, una isla flotante y un vacío sin fondo."]
+			id: "B54CEBAD3F4A471C"
+			rewards: [
+				{
+					id: "0D3F958261AF59CB"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			subtitle: "Una isla sin cielo"
+			tasks: [
+				{
+					dimension: "minecraft:the_end"
+					id: "D01DB9C3B32692E1"
+					type: "dimension"
+				}
+			]
+			title: "El End"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["B54CEBAD3F4A471C"]
+			description: ["Un dragón negro de ojos púrpura que sobrevivió a la guerra. No es un monstruo cualquiera: es lo último que queda de un orden anterior. Derrótalo."]
+			id: "AA52598FDD6B42A1"
+			rewards: [
+				{
+					id: "C082D47D7FDC220C"
+					type: "xp"
+					xp: 3000
+				}
+				{
+					id: "DE611A7D6018A738"
+					item: "minecraft:dragon_egg"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un guardián que sobrevivió a los dioses"
+			tasks: [
+				{
+					entity: "minecraft:ender_dragon"
+					id: "2DD135FB283B4507"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "El Dragón del End"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AA52598FDD6B42A1"]
+			description: ["Flotando en la nada hay ciudades hechas de purpurina y piedra. Dentro, un barco volador y un tesoro a la altura de lo que te costó llegar."]
+			id: "7F01968CC3AC372C"
+			rewards: [
+				{
+					id: "09693A2A0A598331"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			subtitle: "Naves del vacío"
+			tasks: [
+				{
+					id: "C85CCB7EB1FF3912"
+					structure: "minecraft:end_city"
+					type: "structure"
+				}
+			]
+			title: "La Ciudad del End"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["7F01968CC3AC372C"]
+			description: ["Las alas de un barco del End son el único modo de volar sin poder divino. Úsalas con respeto: el cielo ya no perdona."]
+			id: "7D748A6E9F0CBA9F"
+			rewards: [
+				{
+					id: "DA91C3F31532782C"
+					type: "xp"
+					xp: 2000
+				}
+			]
+			subtitle: "Planear sobre el mundo"
+			tasks: [
+				{
+					id: "C6D7DE2254F9F5C9"
+					item: "minecraft:elytra"
+					type: "item"
+				}
+			]
+			title: "Alas Prestadas"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["7D748A6E9F0CBA9F"]
+			description: ["Has recorrido tierras heridas, dominios eternos, dragones, eras olvidadas, cuevas sin cielo y reinos flotantes. Los dioses cayeron, pero lo que quedó de ellos te reconoció en cada puerta.", "No hay un final. Sólo la próxima puerta, el próximo jefe y la próxima historia. La Caída continúa, y ahora tú formas parte de ella."]
+			id: "71ED249828DF0815"
+			rewards: [
+				{
+					id: "77F38270EDD6F0C2"
+					type: "xp"
+					xp: 5000
+				}
+				{
+					id: "BFBE8899C20015CE"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Y entonces despiertas"
+			tasks: [
+				{
+					id: "6E52E437C3F7EB27"
+					title: "Aceptar tu lugar en el mundo caído"
+					type: "checkmark"
+				}
+			]
+			title: "El Testamento de la Carne"
+			x: 3.8d
+			y: 7.5d
+		}
+	]
+	title: "VIII · El Último Umbral"
+}
