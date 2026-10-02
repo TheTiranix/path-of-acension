@@ -23,6 +23,7 @@ public class ModCommands {
     public static void onCommandsRegister(RegisterCommandsEvent event) {
         new SetRaceCommand(event.getDispatcher());
         new SetClassCommand(event.getDispatcher());
+        new com.tcorigenes.tcorigenes.command.IntroCommand(event.getDispatcher());
         new SetAbilityCommand(event.getDispatcher());
         new GrantSkillPointsCommand(event.getDispatcher());
         new ResetSkillTreeCommand(event.getDispatcher());

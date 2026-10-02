@@ -115,6 +115,24 @@ public class Networking {
                 .consumerMainThread(ChooseClassPacket::handle)
                 .add();
 
+        net.messageBuilder(com.tcorigenes.tcorigenes.intro.StartIntroPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(com.tcorigenes.tcorigenes.intro.StartIntroPacket::new)
+                .encoder(com.tcorigenes.tcorigenes.intro.StartIntroPacket::toBytes)
+                .consumerMainThread(com.tcorigenes.tcorigenes.intro.StartIntroPacket::handle)
+                .add();
+
+        net.messageBuilder(com.tcorigenes.tcorigenes.intro.IntroAnswersPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(com.tcorigenes.tcorigenes.intro.IntroAnswersPacket::new)
+                .encoder(com.tcorigenes.tcorigenes.intro.IntroAnswersPacket::toBytes)
+                .consumerMainThread(com.tcorigenes.tcorigenes.intro.IntroAnswersPacket::handle)
+                .add();
+
+        net.messageBuilder(com.tcorigenes.tcorigenes.intro.IntroResultPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(com.tcorigenes.tcorigenes.intro.IntroResultPacket::new)
+                .encoder(com.tcorigenes.tcorigenes.intro.IntroResultPacket::toBytes)
+                .consumerMainThread(com.tcorigenes.tcorigenes.intro.IntroResultPacket::handle)
+                .add();
+
         net.messageBuilder(OpenClassScreenPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(OpenClassScreenPacket::new)
                 .encoder(OpenClassScreenPacket::toBytes)

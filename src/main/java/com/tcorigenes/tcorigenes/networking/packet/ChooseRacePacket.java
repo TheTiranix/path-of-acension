@@ -25,8 +25,31 @@ public class ChooseRacePacket {
         player.getPersistentData().put(net.minecraft.world.entity.player.Player.PERSISTED_NBT_TAG, persisted);
     }
 
+    /** Fija la raza de un jugador (la usan el Orbe y la introduccion); openClassScreen = abrir la pantalla de clase al terminar. */
+    public static void applyRace(ServerPlayer player, Race race, boolean openClassScreen) {
+        player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(playerRace -> {
+            playerRace.setRace(race);
+            RaceAttributeManager.updateAttributes(player, race);
+            com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(player, race);
+            RaceSkillGrant.grant(player, race);
+            com.tcorigenes.tcorigenes.core.RaceItemGrant.grant(player, race);
+            com.tcorigenes.tcorigenes.favor.FavorManager.grantRaceStartingFavor(player, race);
+            if (race == Race.HEREJE) {
+                com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);
+            }
+            player.displayClientMessage(Component.literal("Has elegido el origen: " + race.getDisplayName()), false);
+            markRaceChosen(player);
+            // Cambiar de origen reinicia la clase: se vuelve a elegir.
+            com.tcorigenes.tcorigenes.playerclass.ClassSelection.apply(player, com.tcorigenes.tcorigenes.playerclass.PlayerClass.NINGUNA);
+            if (openClassScreen) {
+                com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
+                        new com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket());
+            }
+        });
+    }
+
     /** Saca 1 Orbe de Origenes del inventario; false si no tenia ninguno. */
-    private static boolean consumeOrb(ServerPlayer player) {
+    public static boolean consumeOrb(ServerPlayer player) {
         for (net.minecraft.world.item.ItemStack stack : player.getInventory().items) {
             if (stack.is(com.tcorigenes.tcorigenes.item.ModItems.ORBE_DE_ORIGENES.get())) {
                 stack.shrink(1);
@@ -55,25 +78,7 @@ public class ChooseRacePacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null && consumeOrb(player)) {
-                player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).ifPresent(playerRace -> {
-                    playerRace.setRace(this.race);
-                    RaceAttributeManager.updateAttributes(player, this.race);
-                    com.tcorigenes.tcorigenes.core.capability.RaceSync.broadcast(player, this.race);
-                    RaceSkillGrant.grant(player, this.race);
-                    com.tcorigenes.tcorigenes.core.RaceItemGrant.grant(player, this.race);
-                    com.tcorigenes.tcorigenes.favor.FavorManager.grantRaceStartingFavor(player, this.race);
- if (this.race == Race.HEREJE) {
-                        com.tcorigenes.tcorigenes.favor.FavorManager.clampHerejeFavor(player);
-                    }
-                    player.displayClientMessage(Component.literal("Has elegido el origen: " + this.race.getDisplayName()), false);
-                    markRaceChosen(player);
-                    // Cambiar de origen reinicia la clase: se vuelve a elegir en la pantalla que se abre
-                    // ahora (antes la eleccion se rechazaba en silencio si ya habia una clase y quedaba la vieja).
-                    com.tcorigenes.tcorigenes.playerclass.ClassSelection.apply(player,
-                            com.tcorigenes.tcorigenes.playerclass.PlayerClass.NINGUNA);
-                    com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
-                            new com.tcorigenes.tcorigenes.networking.packet.OpenClassScreenPacket());
-                });
+                applyRace(player, this.race, true);
             }
         });
         return true;
