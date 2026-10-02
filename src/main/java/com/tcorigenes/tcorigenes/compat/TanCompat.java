@@ -17,6 +17,34 @@ public final class TanCompat {
         return ModList.get().isLoaded("toughasnails");
     }
 
+    /**
+     * Registra el modificador de temperatura del jugador (esfuerzo, abrigo y ropa de hielo; ver ClimateTuning). Va despues de que TAN calcula
+     * el nivel por bioma, hora y bloques cercanos.
+     */
+    public static void registerClimate() {
+        TemperatureHelper.registerPlayerTemperatureModifier((player, level) -> {
+            TemperatureLevel result = level;
+            double exertion = com.tcorigenes.tcorigenes.core.ClimateTuning.exertion(player);
+            if (exertion >= 0.09 && result.ordinal() < TemperatureLevel.HOT.ordinal()) {
+                result = result.increment(1); // el esfuerzo sostenido entra en calor
+            }
+            if (result.ordinal() < TemperatureLevel.NEUTRAL.ordinal()) {
+                double warmth = com.tcorigenes.tcorigenes.core.ClimateTuning.warmth(player);
+                int steps = warmth >= 0.65 ? 2 : warmth >= 0.30 ? 1 : 0;
+                for (int i = 0; i < steps && result.ordinal() < TemperatureLevel.NEUTRAL.ordinal(); i++) {
+                    result = result.increment(1);
+                }
+            } else if (result.ordinal() > TemperatureLevel.NEUTRAL.ordinal()) {
+                double cool = com.tcorigenes.tcorigenes.core.ClimateTuning.coolness(player);
+                int steps = cool >= 0.9 ? 2 : cool >= 0.5 ? 1 : 0;
+                for (int i = 0; i < steps && result.ordinal() > TemperatureLevel.NEUTRAL.ordinal(); i++) {
+                    result = result.decrement(1);
+                }
+            }
+            return result;
+        });
+    }
+
     /** Calor extremo segun Tough As Nails (nivel HOT). */
     public static boolean isExtremeHeat(Player player) {
         return TemperatureHelper.isTemperatureEnabled()

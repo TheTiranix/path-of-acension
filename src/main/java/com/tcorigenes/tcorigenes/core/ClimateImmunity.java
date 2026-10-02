@@ -55,10 +55,10 @@ public final class ClimateImmunity {
             return ItemStack.EMPTY;
         }
         return CuriosGloves.first(player, switch (slot) {
-            case HEAD -> "head";
-            case CHEST -> "chest";
-            case LEGS -> "legs";
-            default -> "feet";
+            case HEAD -> "head_clothes";
+            case CHEST -> "chest_clothes";
+            case LEGS -> "legs_clothes";
+            default -> "feet_clothes";
         });
     }
 

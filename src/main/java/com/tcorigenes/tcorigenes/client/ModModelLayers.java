@@ -29,7 +29,19 @@ public final class ModModelLayers {
     private ModModelLayers() {
     }
 
+    /** Modelo de la ropa de hielo (humanoide un poco inflado, por debajo de la armadura). */
+    public static final ModelLayerLocation ICE_CLOTH =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "ice_cloth"), "main");
+
+    /** Modelo de los guantes individuales (brazos un poco inflados). */
+    public static final ModelLayerLocation GLOVE =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "glove"), "main");
+
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(GLOVE, () -> net.minecraft.client.model.geom.builders.LayerDefinition.create(
+                net.minecraft.client.model.HumanoidModel.createMesh(new net.minecraft.client.model.geom.builders.CubeDeformation(0.35F), 0.0F), 64, 32));
+        event.registerLayerDefinition(ICE_CLOTH, () -> net.minecraft.client.model.geom.builders.LayerDefinition.create(
+                net.minecraft.client.model.HumanoidModel.createMesh(new net.minecraft.client.model.geom.builders.CubeDeformation(0.7F), 0.0F), 64, 32));
         event.registerLayerDefinition(DEMON_HORNS, ModModelLayers::createHornsLayer);
         event.registerLayerDefinition(ANGEL_WINGS, ModModelLayers::createWingsLayer);
         event.registerLayerDefinition(SIERVO_ANTENNAS, ModModelLayers::createAntennasLayer);

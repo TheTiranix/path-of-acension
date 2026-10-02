@@ -88,6 +88,9 @@ public class TCOrigenes {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(Networking::register);
+        if (net.minecraftforge.fml.ModList.get().isLoaded("toughasnails")) {
+            event.enqueueWork(com.tcorigenes.tcorigenes.compat.TanCompat::registerClimate);
+        }
         // Pocion de Enzima Acuatica: pocion rara (awkward) + cristales de prismarina.
         event.enqueueWork(() -> net.minecraftforge.common.brewing.BrewingRecipeRegistry.addRecipe(
                 net.minecraftforge.common.crafting.StrictNBTIngredient.of(net.minecraft.world.item.alchemy.PotionUtils.setPotion(

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:leather"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:leather_glove",
+    "count": 2
+  }
+}

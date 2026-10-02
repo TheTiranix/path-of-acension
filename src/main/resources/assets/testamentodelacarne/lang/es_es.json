@@ -195,5 +195,22 @@
   "item.testamentodelacarne.naga_boots": "Botas de Escamas de Naga",
   "item.testamentodelacarne.wrought_chestplate": "Peto Forjado",
   "item.testamentodelacarne.wrought_leggings": "Pantalones Forjados",
-  "item.testamentodelacarne.wrought_boots": "Botas Forjadas"
+  "item.testamentodelacarne.wrought_boots": "Botas Forjadas",
+  "item.testamentodelacarne.ice_cloth_hood": "Capucha de Tela de Hielo",
+  "item.testamentodelacarne.ice_cloth_tunic": "Túnica de Tela de Hielo",
+  "item.testamentodelacarne.ice_cloth_leggings": "Pantalones de Tela de Hielo",
+  "item.testamentodelacarne.ice_cloth_boots": "Botas de Tela de Hielo",
+  "tooltip.testamentodelacarne.ice_cloth": "Ropa de hielo: se lleva en los slots de ropa de Curios y enfría muchísimo.",
+  "item.testamentodelacarne.leather_glove": "Guante de Cuero",
+  "item.testamentodelacarne.chainmail_glove": "Guante de Malla",
+  "item.testamentodelacarne.iron_glove": "Guante de Hierro",
+  "item.testamentodelacarne.golden_glove": "Guante de Oro",
+  "item.testamentodelacarne.diamond_glove": "Guante de Diamante",
+  "item.testamentodelacarne.netherite_glove": "Guante de Netherita",
+  "item.testamentodelacarne.zanite_glove": "Guante de Zanita",
+  "item.testamentodelacarne.gravitite_glove": "Guante de Gravitita",
+  "item.testamentodelacarne.valkyrie_glove": "Guante de Valquiria",
+  "item.testamentodelacarne.neptune_glove": "Guante de Neptuno",
+  "item.testamentodelacarne.obsidian_glove": "Guante de Obsidiana",
+  "item.testamentodelacarne.phoenix_glove": "Guante de Fénix"
 }

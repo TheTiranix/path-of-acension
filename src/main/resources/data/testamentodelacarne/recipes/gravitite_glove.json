@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "aether:processed/gravitite"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:gravitite_glove",
+    "count": 2
+  }
+}

@@ -5,9 +5,9 @@
   "slots": [
     "bracelet",
     "hands",
-    "head",
-    "chest",
-    "legs",
-    "feet"
+    "head_clothes",
+    "chest_clothes",
+    "legs_clothes",
+    "feet_clothes"
   ]
 }

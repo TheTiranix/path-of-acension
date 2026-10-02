@@ -20,6 +20,10 @@
     {
       "id": "toughasnails:wool_boots",
       "required": false
+    },
+    {
+      "id": "testamentodelacarne:ice_cloth_boots",
+      "required": false
     }
   ]
 }

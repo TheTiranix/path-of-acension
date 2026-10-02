@@ -18,6 +18,41 @@ import org.jetbrains.annotations.Nullable;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TestamentoDeLaCarne.MODID);
 
+
+    /** Ropa de hielo (pedido de alejandr0): va en los 4 slots de ropa de Curios y enfria muchisimo (ver ClimateTuning). */
+    private static RegistryObject<Item> iceCloth(String suffix) {
+        return ITEMS.register("ice_cloth_" + suffix, () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)) {
+            @Override
+            public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+                tooltip.add(Component.translatable("tooltip.testamentodelacarne.ice_cloth").withStyle(ChatFormatting.AQUA));
+            }
+        });
+    }
+
+    public static final RegistryObject<Item> ICE_CLOTH_HOOD = iceCloth("hood");
+    public static final RegistryObject<Item> ICE_CLOTH_TUNIC = iceCloth("tunic");
+    public static final RegistryObject<Item> ICE_CLOTH_LEGGINGS = iceCloth("leggings");
+    public static final RegistryObject<Item> ICE_CLOTH_BOOTS = iceCloth("boots");
+
+
+    /** Guantes individuales (pedido de alejandr0): reemplazan a los del Aether, de a uno, en los slots "hands" de Curios. Ver GloveBonuses. */
+    private static RegistryObject<Item> glove(String material) {
+        return ITEMS.register(material + "_glove", () -> new Item(new Item.Properties().stacksTo(1)));
+    }
+
+    public static final RegistryObject<Item> LEATHER_GLOVE = glove("leather");
+    public static final RegistryObject<Item> CHAINMAIL_GLOVE = glove("chainmail");
+    public static final RegistryObject<Item> IRON_GLOVE = glove("iron");
+    public static final RegistryObject<Item> GOLDEN_GLOVE = glove("golden");
+    public static final RegistryObject<Item> DIAMOND_GLOVE = glove("diamond");
+    public static final RegistryObject<Item> NETHERITE_GLOVE = glove("netherite");
+    public static final RegistryObject<Item> ZANITE_GLOVE = glove("zanite");
+    public static final RegistryObject<Item> GRAVITITE_GLOVE = glove("gravitite");
+    public static final RegistryObject<Item> VALKYRIE_GLOVE = glove("valkyrie");
+    public static final RegistryObject<Item> NEPTUNE_GLOVE = glove("neptune");
+    public static final RegistryObject<Item> OBSIDIAN_GLOVE = glove("obsidian");
+    public static final RegistryObject<Item> PHOENIX_GLOVE = glove("phoenix");
+
     public static final RegistryObject<Item> FRAGMENTO_DE_MEMORIA = ITEMS.register(
             "fragmento_de_memoria", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override

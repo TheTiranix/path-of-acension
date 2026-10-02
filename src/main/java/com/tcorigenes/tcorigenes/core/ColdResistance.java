@@ -26,6 +26,9 @@ public final class ColdResistance {
     }
 
     public static double resistanceOf(Player player) {
+        if (true) {
+            return ClimateTuning.warmth(player); // armadura ligera, ropa y guantes de Curios mucho mas (ver ClimateTuning)
+        }
         double resistance = 0.0;
         for (EquipmentSlot slot : ARMOR) {
             if (!player.getItemBySlot(slot).isEmpty() || !ClimateImmunity.inCurios(player, slot).isEmpty()) {

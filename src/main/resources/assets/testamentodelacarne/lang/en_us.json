@@ -195,5 +195,22 @@
   "item.testamentodelacarne.naga_boots": "Naga Scale Boots",
   "item.testamentodelacarne.wrought_chestplate": "Wrought Chestplate",
   "item.testamentodelacarne.wrought_leggings": "Wrought Leggings",
-  "item.testamentodelacarne.wrought_boots": "Wrought Boots"
+  "item.testamentodelacarne.wrought_boots": "Wrought Boots",
+  "item.testamentodelacarne.ice_cloth_hood": "Ice Cloth Hood",
+  "item.testamentodelacarne.ice_cloth_tunic": "Ice Cloth Tunic",
+  "item.testamentodelacarne.ice_cloth_leggings": "Ice Cloth Leggings",
+  "item.testamentodelacarne.ice_cloth_boots": "Ice Cloth Boots",
+  "tooltip.testamentodelacarne.ice_cloth": "Ropa de hielo: se lleva en los slots de ropa de Curios y enfría muchísimo.",
+  "item.testamentodelacarne.leather_glove": "Leather Glove",
+  "item.testamentodelacarne.chainmail_glove": "Chainmail Glove",
+  "item.testamentodelacarne.iron_glove": "Iron Glove",
+  "item.testamentodelacarne.golden_glove": "Golden Glove",
+  "item.testamentodelacarne.diamond_glove": "Diamond Glove",
+  "item.testamentodelacarne.netherite_glove": "Netherite Glove",
+  "item.testamentodelacarne.zanite_glove": "Zanite Glove",
+  "item.testamentodelacarne.gravitite_glove": "Gravitite Glove",
+  "item.testamentodelacarne.valkyrie_glove": "Valkyrie Glove",
+  "item.testamentodelacarne.neptune_glove": "Neptune Glove",
+  "item.testamentodelacarne.obsidian_glove": "Obsidian Glove",
+  "item.testamentodelacarne.phoenix_glove": "Phoenix Glove"
 }

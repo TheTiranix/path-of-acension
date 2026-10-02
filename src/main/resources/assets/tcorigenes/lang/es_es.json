@@ -29,12 +29,12 @@
   "entity.tcorigenes.damage_dummy": "Dummy de daño",
   "item.tcorigenes.damage_dummy_spawn_egg": "Huevo generador de Dummy de daño",
   "key.tcorigenes.toggle_keres_shadows": "Activar/desactivar lanzas negras de la Keres",
-  "curios.identifier.chest": "Pecho",
-  "curios.modifiers.chest": "Pecho",
-  "curios.identifier.legs": "Piernas",
-  "curios.modifiers.legs": "Piernas",
-  "curios.identifier.feet": "Pies",
-  "curios.modifiers.feet": "Pies",
-  "curios.identifier.head": "Cabeza",
-  "curios.modifiers.head": "Cabeza"
+  "curios.identifier.head_clothes": "Head Clothes",
+  "curios.modifiers.head_clothes": "Head Clothes",
+  "curios.identifier.chest_clothes": "Chest Clothes",
+  "curios.modifiers.chest_clothes": "Chest Clothes",
+  "curios.identifier.legs_clothes": "Legs Clothes",
+  "curios.modifiers.legs_clothes": "Legs Clothes",
+  "curios.identifier.feet_clothes": "Feet Clothes",
+  "curios.modifiers.feet_clothes": "Feet Clothes"
 }

@@ -1,6 +1,57 @@
 {
   "replace": false,
   "values": [
-    {"id": "mutantmonsters:endersoul_hand", "required": false}
+    {
+      "id": "mutantmonsters:endersoul_hand",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:leather_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:chainmail_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:iron_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:golden_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:diamond_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:netherite_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:zanite_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:gravitite_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:valkyrie_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:neptune_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:obsidian_glove",
+      "required": false
+    },
+    {
+      "id": "testamentodelacarne:phoenix_glove",
+      "required": false
+    }
   ]
 }

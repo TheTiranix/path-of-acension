@@ -20,6 +20,10 @@
     {
       "id": "toughasnails:wool_leggings",
       "required": false
+    },
+    {
+      "id": "testamentodelacarne:ice_cloth_leggings",
+      "required": false
     }
   ]
 }

@@ -14,6 +14,20 @@ final class CuriosGloves {
         return !first(player, "hands").isEmpty();
     }
 
+    /** Todos los items no vacios del slot de Curios con ese id. */
+    static java.util.List<ItemStack> all(Player player, String slotId) {
+        java.util.List<ItemStack> out = new java.util.ArrayList<>();
+        CuriosApi.getCuriosInventory(player).resolve().flatMap(handler -> handler.getStacksHandler(slotId)).ifPresent(stacks -> {
+            for (int i = 0; i < stacks.getStacks().getSlots(); i++) {
+                ItemStack stack = stacks.getStacks().getStackInSlot(i);
+                if (!stack.isEmpty()) {
+                    out.add(stack);
+                }
+            }
+        });
+        return out;
+    }
+
     /** Primer item no vacio del slot de Curios con ese id, o vacio. */
     static ItemStack first(Player player, String slotId) {
         return CuriosApi.getCuriosInventory(player).resolve()

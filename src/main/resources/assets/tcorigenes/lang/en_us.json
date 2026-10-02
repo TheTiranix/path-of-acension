@@ -29,12 +29,12 @@
   "entity.tcorigenes.damage_dummy": "Damage Dummy",
   "item.tcorigenes.damage_dummy_spawn_egg": "Damage Dummy Spawn Egg",
   "key.tcorigenes.toggle_keres_shadows": "Toggle Keres black spears",
-  "curios.identifier.chest": "Chest",
-  "curios.modifiers.chest": "Chest",
-  "curios.identifier.legs": "Legs",
-  "curios.modifiers.legs": "Legs",
-  "curios.identifier.feet": "Feet",
-  "curios.modifiers.feet": "Feet",
-  "curios.identifier.head": "Head",
-  "curios.modifiers.head": "Head"
+  "curios.identifier.head_clothes": "Head Clothes",
+  "curios.modifiers.head_clothes": "Head Clothes",
+  "curios.identifier.chest_clothes": "Chest Clothes",
+  "curios.modifiers.chest_clothes": "Chest Clothes",
+  "curios.identifier.legs_clothes": "Legs Clothes",
+  "curios.modifiers.legs_clothes": "Legs Clothes",
+  "curios.identifier.feet_clothes": "Feet Clothes",
+  "curios.modifiers.feet_clothes": "Feet Clothes"
 }
