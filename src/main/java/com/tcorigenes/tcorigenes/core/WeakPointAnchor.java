@@ -22,10 +22,12 @@ public final class WeakPointAnchor {
     private WeakPointAnchor() {
     }
 
-    /** Un punto del modelo solo vale si cae cerca de la hitbox del mob (margen proporcional a su tamaño); si no, el modelo esta mal leido. */
+    /**
+     * Un punto del modelo solo vale si cae dentro de la hitbox del mob (con apenas margen): si queda afuera no se le puede pegar al mob
+     * apuntandole (el golpe nunca lo alcanza) y el marcador se vería flotando lejos del cuerpo. Si no pasa, se usa el punto por hitbox.
+     */
     public static boolean isNearHitbox(LivingEntity target, Vec3 point) {
-        double reach = Math.max(target.getBbHeight(), target.getBbWidth());
-        return target.getBoundingBox().inflate(0.5 + 0.35 * reach).contains(point);
+        return target.getBoundingBox().inflate(0.15).contains(point);
     }
 
     public static Vec3 of(LivingEntity target) {
