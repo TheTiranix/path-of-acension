@@ -54,6 +54,9 @@ public class IntroScreen extends Screen {
     private boolean waitingResult = false;
     private int waitTicks = 0;
     private boolean finishing = false;
+    private boolean descending = false;
+    private int descentTick = 0;
+    private static final int DESCENT_TICKS = 130;
 
     // camara
     private float baseYaw;
@@ -154,6 +157,18 @@ public class IntroScreen extends Screen {
         if (player == null) {
             return;
         }
+        if (descending) {
+            // desde arriba (casi vertical) hasta quedar detras del personaje, girando lentamente
+            float t = Mth.clamp((descentTick + partial) / (DESCENT_TICKS - 14), 0.0F, 1.0F);
+            float e = 1.0F - (1.0F - t) * (1.0F - t) * (1.0F - t);
+            camYaw = baseYaw + (1.0F - e) * 160.0F;
+            camPitch = Mth.lerp(e, 89.0F, 14.0F);
+            player.setYRot(camYaw);
+            player.setXRot(camPitch);
+            player.yRotO = camYaw;
+            player.xRotO = camPitch;
+            return;
+        }
         float t = Mth.clamp((camTick + partial) / CAM_TICKS, 0.0F, 1.0F);
         float e = t * t * (3.0F - 2.0F * t);
         camYaw = Mth.lerp(e, fromYaw, toYaw);
@@ -186,6 +201,7 @@ public class IntroScreen extends Screen {
     public void removed() {
         Minecraft mc = Minecraft.getInstance();
         mc.options.hideGui = prevHideGui;
+        mc.options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON);
         LocalPlayer player = mc.player;
         if (player != null) {
             player.setYRot(baseYaw);
@@ -228,6 +244,19 @@ public class IntroScreen extends Screen {
     public void tick() {
         stepTicks++;
         camTick++;
+        if (descending) {
+            descentTick++;
+            if (fadeState == 2 && ++fadeTick >= fadeInLength) {
+                fadeState = 0;
+            } else if (fadeState == 1 && ++fadeTick >= 12) {
+                onClose(); // el fundido a negro termino: aparece en primera persona
+            }
+            if (descentTick == DESCENT_TICKS - 14 && fadeState == 0) {
+                fadeState = 1;
+                fadeTick = 0;
+            }
+            return;
+        }
         if (waitingResult) {
             waitTicks++;
             if (waitTicks > 20 * 12) {
@@ -261,7 +290,7 @@ public class IntroScreen extends Screen {
 
     private void advanceNow() {
         if (finishing) {
-            onClose();
+            startDescent();
             return;
         }
         idx++;
@@ -272,6 +301,18 @@ public class IntroScreen extends Screen {
             return;
         }
         beginStep();
+    }
+
+    /** Como al cambiar de personaje en GTA V: la camara baja desde el cielo en tercera persona hasta el personaje y se funde a primera persona. */
+    private void startDescent() {
+        Minecraft mc = Minecraft.getInstance();
+        descending = true;
+        descentTick = 0;
+        fadeState = 2;
+        fadeTick = 0;
+        fadeInLength = 30;
+        mc.options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_BACK);
+        play(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.5F);
     }
 
     /** Escena final con la raza y la clase asignadas por el servidor. */
@@ -370,6 +411,21 @@ public class IntroScreen extends Screen {
     @Override
     public void render(GuiGraphics g, int mouseX, int mouseY, float partial) {
         applyCamera(partial);
+        if (descending) {
+            float alphaD = 0;
+            if (fadeState == 1) {
+                alphaD = Mth.clamp((fadeTick + partial) / 12.0F, 0, 1);
+            } else if (fadeState == 2) {
+                alphaD = 1.0F - Mth.clamp((fadeTick + partial) / fadeInLength, 0, 1);
+            }
+            int barD = (int) (barHeight() * (1.0F - Mth.clamp(descentTick / 40.0F, 0, 1)));
+            g.fill(0, 0, width, barD, 0xFF000000);
+            g.fill(0, height - barD, width, height, 0xFF000000);
+            if (alphaD > 0) {
+                g.fill(0, 0, width, height, ((int) (alphaD * 255) << 24));
+            }
+            return;
+        }
         int bar = barHeight();
         g.fill(0, 0, width, bar, 0xFF000000);
         g.fill(0, height - bar, width, height, 0xFF000000);

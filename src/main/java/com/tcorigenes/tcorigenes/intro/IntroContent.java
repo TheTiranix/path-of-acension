@@ -81,30 +81,30 @@ public final class IntroContent {
                 race("Contra Luna, la de la noche.", "ANGEL:2,DEMONIO:1,ENDER_WARRIOR:1"),
                 race("Contra ninguno. Yo elijo con quién caminar.", "HUMANO:2,DEVOTO:2"))));
 
-        QUESTIONS.add(new Question("Empieza una pelea. ¿Qué hacés primero?", List.of(
-                cls("Me lanzo de frente. Que la sangre decida.", "BERSERKER:3"),
-                cls("Me planto delante de los demás con el escudo en alto.", "ESCUDERO:3"),
-                cls("Busco distancia: un punto alto, un buen ángulo.", "ARQUERO:3"),
-                cls("Trazo el círculo y pronuncio el primer verso.", "RITUALISTA_ARCANO:3"),
-                cls("Desenvaino mi única arma y dejo que su espíritu pelee conmigo.", "GUERRERO_ANIMA:3"))));
-        QUESTIONS.add(new Question("¿Qué llevarías encima?", List.of(
-                cls("Una sola arma, para siempre, atada a mi alma.", "GUERRERO_ANIMA:3"),
-                cls("Todo lo que pueda cargar: armaduras pesadas y escudo.", "ESCUDERO:3,BERSERKER:1"),
-                cls("Un arco ligero y lo justo para moverme.", "ARQUERO:3"),
-                cls("Poco: mis libros y mis ingredientes pesan más que el acero.", "RITUALISTA_ARCANO:3"),
-                cls("Un hacha pesada y casi nada de armadura.", "BERSERKER:3"))));
-        QUESTIONS.add(new Question("Estás herido y rodeado. ¿Qué hacés?", List.of(
-                cls("Me enfurezco. El dolor es combustible.", "BERSERKER:3"),
-                cls("Resisto y cubro a los míos.", "ESCUDERO:3"),
-                cls("Rompo la formación y disparo desde lejos.", "ARQUERO:3"),
-                cls("Invoco algo que pelee por mí.", "RITUALISTA_ARCANO:2,GUERRERO_ANIMA:2"),
-                cls("Concentro mi espíritu en un único golpe.", "GUERRERO_ANIMA:3"))));
-        QUESTIONS.add(new Question("Por último: ¿qué querés dominar?", List.of(
-                cls("La fuerza bruta.", "BERSERKER:2,ESCUDERO:1"),
-                cls("La resistencia: que nada me derribe.", "ESCUDERO:3"),
-                cls("La puntería.", "ARQUERO:3"),
-                cls("La magia y los rituales.", "RITUALISTA_ARCANO:3"),
-                cls("El vínculo con mi arma y mi alma.", "GUERRERO_ANIMA:3"))));
+        QUESTIONS.add(new Question("De noche, en un camino sin luz, oís pasos que no son los tuyos. ¿Qué hacés?", List.of(
+                cls("Salgo a su encuentro. Que sepan que estoy acá.", "BERSERKER:3"),
+                cls("Me quedo firme en mi lugar y dejo que vengan a mí.", "ESCUDERO:3,GUERRERO_ANIMA:1"),
+                cls("Busco un punto alto desde donde ver sin ser visto.", "ARQUERO:3"),
+                cls("Cierro los ojos y escucho. Alguien camina conmigo, aunque no lo vea.", "GUERRERO_ANIMA:3,RITUALISTA_ARCANO:1"),
+                cls("Marco el suelo con un trazo antes de que lleguen.", "RITUALISTA_ARCANO:3"))));
+        QUESTIONS.add(new Question("Un anciano te ofrece un regalo para el viaje. ¿Cuál aceptás?", List.of(
+                cls("Un hacha pesada, para abrir caminos.", "BERSERKER:3"),
+                cls("Un escudo viejo, abollado de tanto proteger a otros.", "ESCUDERO:3"),
+                cls("Un arco ligero y una docena de flechas.", "ARQUERO:3"),
+                cls("Un libro sin título, con páginas que nunca terminan.", "RITUALISTA_ARCANO:3"),
+                cls("Un nombre: el de alguien que ya no está, para repetirlo en cada paso.", "GUERRERO_ANIMA:3,RITUALISTA_ARCANO:1"))));
+        QUESTIONS.add(new Question("Perdés a un compañero en combate. ¿Cómo lo vivís?", List.of(
+                cls("Con furia. Alguien va a pagar.", "BERSERKER:3"),
+                cls("Me prometo ser el muro del próximo: nadie más cae delante de mí.", "ESCUDERO:3"),
+                cls("Lo repaso una y otra vez: debí haberlo visto venir desde más lejos.", "ARQUERO:3"),
+                cls("Busco la forma de traerlo de vuelta, cueste lo que cueste.", "RITUALISTA_ARCANO:3,GUERRERO_ANIMA:1"),
+                cls("Lo cargo conmigo. Cada día me pesa y cada día me hace más fuerte.", "GUERRERO_ANIMA:3"))));
+        QUESTIONS.add(new Question("¿Qué es lo que más te asusta de verdad?", List.of(
+                cls("Quedarme quieto mientras el mundo arde.", "BERSERKER:3"),
+                cls("Que alguien caiga por mi culpa.", "ESCUDERO:3"),
+                cls("Que me alcancen antes de poder responder.", "ARQUERO:3"),
+                cls("No entender lo que hay del otro lado.", "RITUALISTA_ARCANO:3"),
+                cls("Quedarme solo. Solo de verdad.", "GUERRERO_ANIMA:3"))));
     }
 
     /** Orden de preferencia ante empates (las razas secretas solo cuentan si superan el umbral). */
