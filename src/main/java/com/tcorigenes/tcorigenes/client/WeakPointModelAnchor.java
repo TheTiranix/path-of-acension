@@ -173,10 +173,12 @@ public final class WeakPointModelAnchor {
 
             // Red de seguridad: si el resultado se fue muy lejos del hitbox (modelo roto/mal leido), no se usa.
             // El margen es proporcional al tamaño del modelo, para no rechazar mobs grandes con hitbox chica.
-            Vec3 worldPoint = markerPos.add(offset);
-            double allowance = Math.max(1.0, overallSize * 0.9);
-            if (worldPoint.distanceTo(target.getBoundingBox().getCenter()) > allowance) {
+            if (!Double.isFinite(offset.x) || !Double.isFinite(offset.y) || !Double.isFinite(offset.z) || !Double.isFinite(overallSize)) {
                 return null;
+            }
+            Vec3 worldPoint = markerPos.add(offset);
+            if (!com.tcorigenes.tcorigenes.core.WeakPointAnchor.isNearHitbox(target, worldPoint)) {
+                return null; // el modelo no coincide con la hitbox (escala propia del mob, modelo raro): se usa el punto por hitbox
             }
 
             return new Result(offset, radiusFor(overallSize));

@@ -64,7 +64,7 @@ public class WeakPointAimPacket {
             }
             Vec3 point = new Vec3(this.x, this.y, this.z);
             double radius = Math.max(0.1, Math.min(MAX_RADIUS, this.radius));
-            if (target.getBoundingBox().inflate(3.0).contains(point)) {
+            if (com.tcorigenes.tcorigenes.core.WeakPointAnchor.isNearHitbox(target, point)) {
                 marker.setModelAim(point, radius, player.level().getGameTime());
             }
         });
