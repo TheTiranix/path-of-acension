@@ -30,8 +30,20 @@ public final class ElementalDamageIndicator {
     private ElementalDamageIndicator() {
     }
 
+    /** Cartel del golpe critico fisico (punto debil). */
+    public static void showCritical(LivingEntity target, float amount) {
+        spawn(target, Component.literal("Daño crítico -" + String.format("%.1f", amount)).withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
+    }
+
     public static void show(LivingEntity target, ResourceKey<DamageType> element, float amount) {
-        if (!(target.level() instanceof ServerLevel serverLevel) || amount <= 0.0F) {
+        if (amount <= 0.0F) {
+            return;
+        }
+        spawn(target, label(element, amount, com.tcorigenes.tcorigenes.core.WeakPointManager.isCriticalNow(target)));
+    }
+
+    private static void spawn(LivingEntity target, Component text) {
+        if (!(target.level() instanceof ServerLevel serverLevel)) {
             return;
         }
         ArmorStand indicator = new ArmorStand(EntityType.ARMOR_STAND, serverLevel);
@@ -46,13 +58,13 @@ public final class ElementalDamageIndicator {
         indicator.setInvulnerable(true);
         indicator.setNoGravity(true);
         indicator.setSilent(true);
-        indicator.setCustomName(label(element, amount));
+        indicator.setCustomName(text);
         indicator.setCustomNameVisible(true);
         serverLevel.addFreshEntity(indicator);
         ACTIVE.add(new ActiveIndicator(indicator, serverLevel.getGameTime() + LIFETIME_TICKS));
     }
 
-    private static Component label(ResourceKey<DamageType> element, float amount) {
+    private static Component label(ResourceKey<DamageType> element, float amount, boolean critical) {
         String name;
         ChatFormatting color;
         if (element.equals(ModDamageTypes.FIRE_ELEMENTAL)) {
@@ -75,6 +87,9 @@ public final class ElementalDamageIndicator {
             name = "Natural"; color = ChatFormatting.GREEN;
         } else {
             name = "Elemental"; color = ChatFormatting.GRAY;
+        }
+        if (critical) {
+            return Component.literal(name + " crítico -" + String.format("%.1f", amount)).withStyle(color, ChatFormatting.BOLD);
         }
         return Component.literal(name + " -" + String.format("%.1f", amount)).withStyle(color);
     }

@@ -57,24 +57,39 @@ public final class ButcheryCompat {
         return onlyKnifeDrops;
     }
 
-    private static String carcassFor(LivingEntity entity) {
-        double mass = entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight();
-        if (mass < 0.05) {
-            return null;
-        }
-        if (mass < 0.2) {
-            return "deadchiken";
-        }
-        if (mass < 0.9) {
-            return "deadpig";
-        }
-        if (mass < 1.4) {
-            return "dead_cow";
-        }
-        if (mass < 2.0) {
-            return "deadllama";
-        }
-        return "deadhoglin";
+    /**
+     * Pedido de alejandr0: solo los animales que tiene sentido comer dejan cadaver (los dragones, que se contaban como "animales" por ser
+     * TamableAnimal, ya no). Caso por caso: Alex's Mobs (los herbivoros y aves de caza), y otros mods con fauna comestible.
+     * entidad -> cadaver de Butcher's Delight que mas se le parece.
+     */
+    private static final java.util.Map<String, String> EDIBLE = new java.util.HashMap<>();
+
+    static {
+        // Alex's Mobs
+        EDIBLE.put("alexsmobs:bison", "dead_cow");
+        EDIBLE.put("alexsmobs:moose", "dead_cow");
+        EDIBLE.put("alexsmobs:tusklin", "dead_cow");
+        EDIBLE.put("alexsmobs:gazelle", "deadgoat");
+        EDIBLE.put("alexsmobs:kangaroo", "deadsheep");
+        EDIBLE.put("alexsmobs:emu", "deadllama");
+        EDIBLE.put("alexsmobs:roadrunner", "deadchiken");
+        // Twilight Forest
+        EDIBLE.put("twilightforest:boar", "deadpig");
+        EDIBLE.put("twilightforest:deer", "deadsheep");
+        EDIBLE.put("twilightforest:bighorn_sheep", "deadsheep");
+        EDIBLE.put("twilightforest:dwarf_rabbit", "deadrabbitwhite");
+        // Aether
+        EDIBLE.put("aether:phyg", "deadpig");
+        EDIBLE.put("aether:flying_cow", "dead_cow");
+        EDIBLE.put("aether:sheepuff", "deadsheep");
+        EDIBLE.put("aether:moa", "deadchiken");
+        // Alex's Caves
+        EDIBLE.put("alexscaves:sea_pig", "deadpig");
+        EDIBLE.put("alexscaves:grottoceratops", "dead_cow");
+    }
+
+    private static String carcassFor(LivingEntity entity, ResourceLocation typeId) {
+        return EDIBLE.get(typeId.toString());
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
@@ -87,7 +102,7 @@ public final class ButcheryCompat {
         if (typeId == null || typeId.getNamespace().equals("minecraft") || typeId.getNamespace().equals("tcorigenes")) {
             return; // los de vanilla ya los maneja el propio mod
         }
-        if (!(entity instanceof Animal) && entity.getType().getCategory() != MobCategory.CREATURE) {
+        if (!EDIBLE.containsKey(typeId.toString())) {
             return;
         }
         if ((entity instanceof TamableAnimal tamable && tamable.isTame())
@@ -100,7 +115,7 @@ public final class ButcheryCompat {
                 return;
             }
         }
-        String name = carcassFor(entity);
+        String name = carcassFor(entity, typeId);
         Item carcass = name == null ? null : ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("butchersdelight", name));
         if (carcass == null || carcass == net.minecraft.world.item.Items.AIR) {
             return;

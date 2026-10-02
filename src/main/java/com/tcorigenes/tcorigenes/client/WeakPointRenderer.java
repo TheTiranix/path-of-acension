@@ -21,7 +21,7 @@ import org.joml.Matrix4f;
  * Solo se dibuja para el jugador dueño del marcador.
  */
 public class WeakPointRenderer extends EntityRenderer<WeakPointEntity> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace("textures/item/fire_charge.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/entity/weak_point.png");
     /** Radio "normal" (por hitbox) al que corresponde el tamaño visual de siempre; el resto escala desde aca. */
     private static final float DEFAULT_RADIUS = 0.5F;
     private static final float DEFAULT_SIZE = 0.9F;
@@ -54,7 +54,7 @@ public class WeakPointRenderer extends EntityRenderer<WeakPointEntity> {
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
         PoseStack.Pose pose = poseStack.last();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(TEXTURE));
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE));
         vertex(consumer, pose.pose(), pose.normal(), 0, 0, 0, 1);
         vertex(consumer, pose.pose(), pose.normal(), 1, 0, 1, 1);
         vertex(consumer, pose.pose(), pose.normal(), 1, 1, 1, 0);
@@ -65,7 +65,7 @@ public class WeakPointRenderer extends EntityRenderer<WeakPointEntity> {
     private static void vertex(VertexConsumer consumer, Matrix4f pose, Matrix3f normal, int x, int y, int u, int v) {
         // Rojo puro, alfa 230/255 (~10% translucido).
         consumer.vertex(pose, x - 0.5F, y - 0.25F, 0.0F)
-                .color(255, 0, 0, 230)
+                .color(255, 255, 255, 255)
                 .uv((float) u, (float) v)
                 .overlayCoords(OverlayTexture.NO_OVERLAY)
                 .uv2(FULL_BRIGHT)

@@ -76,6 +76,14 @@ public final class WeakPointManager {
     private static final Map<Integer, List<Mark>> MARKS = new ConcurrentHashMap<>();
     /** Flechazos errados durante la habilidad de Arquero activa (se reinicia en cada activacion). */
     private static final Map<UUID, Integer> ARCHER_MISSES = new ConcurrentHashMap<>();
+    /** Ultimo tick en que un golpe recibio el bono del punto debil (critico), por id de victima: lo usa el cartel de daño para decir "critico". */
+    private static final Map<Integer, Long> CRIT_AT = new ConcurrentHashMap<>();
+
+    /** true si el daño que se esta procesando AHORA (este tick) es un golpe critico de punto debil. */
+    public static boolean isCriticalNow(LivingEntity target) {
+        Long at = CRIT_AT.get(target.getId());
+        return at != null && target.level().getGameTime() - at <= 1;
+    }
 
     private WeakPointManager() {
     }
@@ -291,6 +299,11 @@ public final class WeakPointManager {
         if (multiplier > 1.0F) {
             event.setAmount(base * multiplier);
             LivingEntity target = event.getEntity();
+            CRIT_AT.put(target.getId(), now);
+            if (!elemental) {
+                // pedido de alejandr0: el daño de un punto critico dice "Daño crítico" (los elementales dicen "Hielo crítico", etc.)
+                com.tudominio.elementaldamage.ElementalDamageIndicator.showCritical(target, base * multiplier);
+            }
             float extra = base * trueFraction;
             if (extra > 0.0F) {
                 target.setHealth(Math.max(0.5F, target.getHealth() - extra));
