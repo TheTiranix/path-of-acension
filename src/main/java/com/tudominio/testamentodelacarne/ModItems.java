@@ -264,42 +264,42 @@ public class ModItems {
             "blue_flint_and_steel", () -> new net.minecraft.world.item.FlintAndSteelItem(new Item.Properties().durability(256)));
 
     public static final RegistryObject<Item> ARCANE_HELMET = ITEMS.register(
-            "arcane_helmet", () -> new ArcaneArmorItem(
+            "arcane_helmet", () -> new IgnitiumStyleArmorItem("arcane", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> BLACK_STEEL_HELMET = ITEMS.register(
-            "black_steel_helmet", () -> new net.minecraft.world.item.ArmorItem(
+            "black_steel_helmet", () -> new IgnitiumStyleArmorItem("black_steel", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
                     net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ARCANE_CHESTPLATE = ITEMS.register(
-            "arcane_chestplate", () -> new ArcaneArmorItem(
+            "arcane_chestplate", () -> new IgnitiumStyleArmorItem("arcane", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> BLACK_STEEL_CHESTPLATE = ITEMS.register(
-            "black_steel_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+            "black_steel_chestplate", () -> new IgnitiumStyleArmorItem("black_steel", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
                     net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ARCANE_LEGGINGS = ITEMS.register(
-            "arcane_leggings", () -> new ArcaneArmorItem(
+            "arcane_leggings", () -> new IgnitiumStyleArmorItem("arcane", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> BLACK_STEEL_LEGGINGS = ITEMS.register(
-            "black_steel_leggings", () -> new net.minecraft.world.item.ArmorItem(
+            "black_steel_leggings", () -> new IgnitiumStyleArmorItem("black_steel", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
                     net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> ARCANE_BOOTS = ITEMS.register(
-            "arcane_boots", () -> new ArcaneArmorItem(
+            "arcane_boots", () -> new IgnitiumStyleArmorItem("arcane", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.ARCANE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> BLACK_STEEL_BOOTS = ITEMS.register(
-            "black_steel_boots", () -> new net.minecraft.world.item.ArmorItem(
+            "black_steel_boots", () -> new IgnitiumStyleArmorItem("black_steel", 
                     com.tudominio.testamentodelacarne.util.TierArmorMaterial.BLACK_STEEL,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 
