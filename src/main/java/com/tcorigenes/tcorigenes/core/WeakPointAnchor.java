@@ -30,7 +30,51 @@ public final class WeakPointAnchor {
         return target.getBoundingBox().inflate(0.15).contains(point);
     }
 
+    /** Dragones de Ice and Fire (fire_dragon, ice_dragon, lightning_dragon): su hitbox principal no es el cuerpo visible, hay partes (cabeza, cuello, cola). */
+    public static boolean isDragon(LivingEntity target) {
+        var id = net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES.getKey(target.getType());
+        return id != null && id.getNamespace().equals("iceandfire") && id.getPath().endsWith("_dragon");
+    }
+
+    private static java.lang.reflect.Method headMethod;
+    private static boolean headMethodLooked;
+
+    /** Posicion de la cabeza del dragon (EntityDragonBase#getHeadPosition, por reflexion para no depender del jar); null si no se pudo. */
+    private static Vec3 dragonHead(LivingEntity dragon) {
+        try {
+            if (!headMethodLooked) {
+                headMethodLooked = true;
+                headMethod = dragon.getClass().getMethod("getHeadPosition");
+            }
+            if (headMethod != null && headMethod.getDeclaringClass().isInstance(dragon)) {
+                Object v = headMethod.invoke(dragon);
+                if (v instanceof Vec3 vec && Double.isFinite(vec.x) && Double.isFinite(vec.y) && Double.isFinite(vec.z)) {
+                    return vec;
+                }
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            headMethod = null;
+        }
+        return null;
+    }
+
     public static Vec3 of(LivingEntity target) {
+        return of(target, true);
+    }
+
+    /**
+     * Punto debil. Para los dragones: en la cabeza (head = true) o en la panza/pecho (head = false), que es el centro del cuerpo un poco
+     * por debajo de la mitad; para el resto, la regla de siempre.
+     */
+    public static Vec3 of(LivingEntity target, boolean head) {
+        if (isDragon(target)) {
+            Vec3 headPos = head ? dragonHead(target) : null;
+            if (headPos != null) {
+                return headPos;
+            }
+            var box = target.getBoundingBox();
+            return new Vec3((box.minX + box.maxX) / 2.0, box.minY + (box.maxY - box.minY) * 0.4, (box.minZ + box.maxZ) / 2.0);
+        }
         double depth = target.getBbWidth();
         double height = target.getBbHeight();
         double forwardReach;

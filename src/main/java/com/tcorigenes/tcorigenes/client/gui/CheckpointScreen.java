@@ -42,7 +42,7 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
     @Override
     protected Component nameOf(Option option) {
         return option.entry() == null ? Component.literal(this.loadMode ? "Continuar" : "Guardar acá")
-                : Component.literal((option.entry().preferred() ? "★ " : "") + option.entry().ownerName());
+                : Component.literal((option.entry().preferred() ? "★ " : "") + "Save " + option.entry().number());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
     @Override
     protected String taglineOf(Option option) {
         return option.entry() == null ? (this.loadMode ? "Seguir donde saliste" : "Nuevo punto de guardado, acá")
-                : (option.entry().preferred() ? "Tu punto preferido ahora mismo" : "Punto de guardado compartido");
+                : "Día " + option.entry().day() + (option.entry().preferred() ? " · tu punto preferido ahora mismo" : " · punto de guardado compartido");
     }
 
     @Override
@@ -71,6 +71,7 @@ public class CheckpointScreen extends OriginSelectionScreen<CheckpointScreen.Opt
         }
         CheckpointEntry entry = option.entry();
         return List.of(
+                Component.literal("Save " + entry.number() + ", guardado el día " + entry.day() + " de juego."),
                 Component.literal("Colocado por " + entry.ownerName() + "."),
                 Component.literal("Ubicación: " + entry.pos().toShortString() + " en " + entry.dimensionLabel() + "."),
                 Component.literal(this.loadMode ? "Elegilo para cargar el mundo tal como estaba cuando lo guardaste. Lo hecho después se pierde."

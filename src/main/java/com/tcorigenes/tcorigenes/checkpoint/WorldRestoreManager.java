@@ -156,6 +156,31 @@ public final class WorldRestoreManager {
         return true;
     }
 
+    private static final String SKIP_FILE = "skip_load_screen.txt";
+
+    /** Se acaba de pedir cargar un save elegido a mano: al volver a entrar no hay que ofrecer la pantalla otra vez (si no, bucle infinito). */
+    public static void markSkipNextLoadScreen(MinecraftServer server) {
+        try {
+            Files.writeString(server.getServerDirectory().toPath().resolve(SKIP_FILE), "1", StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            LOGGER.error("[tcorigenes] No se pudo escribir la marca de carga", e);
+        }
+    }
+
+    /** true (y borra la marca) si el mundo se acaba de restaurar por una eleccion del jugador. */
+    public static boolean consumeSkipNextLoadScreen(MinecraftServer server) {
+        Path file = server.getServerDirectory().toPath().resolve(SKIP_FILE);
+        if (!Files.isRegularFile(file)) {
+            return false;
+        }
+        try {
+            Files.delete(file);
+        } catch (IOException ignored) {
+            // si no se puede borrar, peor es no mostrar nunca la pantalla: se vuelve a intentar la proxima
+        }
+        return true;
+    }
+
     private static void writeMarker(MinecraftServer server, Path worldRoot, Path snapshot, Path backup, boolean regenerate) {
         Path marker = server.getServerDirectory().toPath().resolve(MARKER_FILE);
         StringBuilder content = new StringBuilder("world_root=" + worldRoot.toAbsolutePath() + System.lineSeparator());

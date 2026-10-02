@@ -37,15 +37,15 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public final class CheckpointManager {
     /** 1 dia de Minecraft. */
     private static final long GRACE_PERIOD_TICKS = 24000;
-    /** Espera de una cama recien colocada: 1 dia de Minecraft. */
-    private static final long NEW_BED_WAIT_TICKS = 24000;
+    /** Espera de una cama recien colocada: 10 minutos (medio dia de Minecraft). */
+    private static final long NEW_BED_WAIT_TICKS = 12000;
     /**
      * Cooldown entre saves de cama (pedido de alejandr0): el minimo para que durmiendo en el ultimo tic de la noche
      * (tic 23459 del dia) se pueda guardar de nuevo en el primer tic de la noche siguiente (tic 12542 del dia que sigue):
      * 12542 + 24000 - 23459 = 13083 ticks, unos 11 minutos. Como solo se guarda durmiendo y solo se duerme de noche, en la
      * practica es "hay que esperar a la siguiente noche".
      */
-    private static final long SAVE_COOLDOWN_TICKS = 13083;
+    private static final long SAVE_COOLDOWN_TICKS = 12000;
     private static final String PREFERRED_KEY = "tc_preferred_checkpoint";
 
     /** Quien esta durmiendo AHORA MISMO (segun el ultimo tick chequeado), para detectar el momento
@@ -117,7 +117,9 @@ public final class CheckpointManager {
             data.setDirty();
             CheckpointSnapshotter.takeSnapshotAsync(server, CheckpointSnapshotter.INITIAL_ID);
         }
-        if (!active(server).isEmpty()) {
+        if (WorldRestoreManager.consumeSkipNextLoadScreen(server)) {
+            player.sendSystemMessage(Component.literal("Save cargado: el mundo está como estaba cuando lo guardaste.").withStyle(ChatFormatting.GOLD));
+        } else if (!active(server).isEmpty()) {
             sendCheckpointScreen(player, true);
         } else {
             player.sendSystemMessage(Component.literal(
@@ -140,7 +142,7 @@ public final class CheckpointManager {
                     .orElseGet(() -> checkpoint.owner.toString().substring(0, 8));
             entries.add(new com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket.CheckpointEntry(
                     checkpoint.id, ownerName, checkpoint.dimension.location().toString(), checkpoint.pos,
-                    checkpoint.id.equals(preferred)));
+                    checkpoint.id.equals(preferred), checkpoint.number(), checkpoint.day()));
         }
         com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
                 new com.tcorigenes.tcorigenes.networking.packet.OpenCheckpointScreenPacket(entries, loadMode));
@@ -171,8 +173,8 @@ public final class CheckpointManager {
         data.setDirty();
         player.displayClientMessage(Component.literal(previous != null
                 ? "Cama nueva: pasa a ser tu punto de guardado y la anterior deja de serlo (tus saves se conservan). "
-                        + "Tenés que esperar 1 día de Minecraft para poder guardar en esta."
-                : "Cama nueva: es tu punto de guardado, pero tenés que esperar 1 día de Minecraft para poder guardar en ella.")
+                        + "Tenés que esperar 10 minutos (medio día) para poder guardar en esta."
+                : "Cama nueva: es tu punto de guardado, pero tenés que esperar 10 minutos (medio día) para poder guardar en ella.")
                 .withStyle(ChatFormatting.GOLD), false);
     }
 
@@ -218,7 +220,7 @@ public final class CheckpointManager {
         CheckpointSavedData data = CheckpointSavedData.get(server);
         long now = server.overworld().getGameTime();
         if (!force && data.lastSaveTick != Long.MIN_VALUE && now - data.lastSaveTick < SAVE_COOLDOWN_TICKS) {
-            player.displayClientMessage(Component.literal("Todavía no podés guardar: tenés que esperar a la siguiente noche.")
+            player.displayClientMessage(Component.literal("Todavía no podés guardar: tenés que esperar 10 minutos (medio día) desde el último guardado y que sea de noche.")
                     .withStyle(ChatFormatting.RED), false);
             return;
         }
@@ -241,6 +243,7 @@ public final class CheckpointManager {
         }
         Checkpoint created = new Checkpoint(UUID.randomUUID(), player.getUUID(), player.level().dimension(),
                 bedPos.immutable(), now);
+        created.number = data.nextNumber++;
         data.checkpoints.add(created);
         data.lastSaveTick = now;
         data.setDirty();

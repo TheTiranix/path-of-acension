@@ -6,16 +6,13 @@
     "   S ",
     "  S  ",
     "  S  ",
-    "  E  "
+    "     "
   ],
   "key": {
     "M": {
       "item": "cataclysm:black_steel_ingot"
     },
     "S": {
-      "item": "iceandfire:sapphire_gem"
-    },
-    "E": {
       "item": "minecraft:diamond"
     }
   },

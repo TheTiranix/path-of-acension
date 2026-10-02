@@ -65,8 +65,11 @@ public class ChooseCheckpointPacket {
                 }
                 CheckpointManager.setPreferred(player, checkpoint.id);
                 if (player.getServer().isSingleplayer()) {
-                    com.tcorigenes.tcorigenes.checkpoint.WorldRestoreManager.beginRestore(player.getServer(), checkpoint,
-                            "Cargando el punto de guardado elegido: la partida se corta en 5 segundos, se restaura y podés volver a entrar.");
+                    boolean started = com.tcorigenes.tcorigenes.checkpoint.WorldRestoreManager.beginRestore(player.getServer(), checkpoint,
+                            "Cargando el Save " + checkpoint.number() + ": la partida se corta en 5 segundos, se restaura y podés volver a entrar.");
+                    if (started) {
+                        com.tcorigenes.tcorigenes.checkpoint.WorldRestoreManager.markSkipNextLoadScreen(player.getServer());
+                    }
                 }
             });
         });

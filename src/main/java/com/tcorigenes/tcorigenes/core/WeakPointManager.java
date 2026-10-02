@@ -82,7 +82,9 @@ public final class WeakPointManager {
 
     private static boolean isBoss(LivingEntity entity) {
         var type = entity.getType();
-        return type.is(Tags.EntityTypes.BOSSES) || type == EntityType.WARDEN;
+        // los dragones de Ice and Fire sin dueño cuentan como jefes (no son Enemy ni estan en el tag de jefes, por eso nunca tenian punto debil)
+        boolean wildDragon = WeakPointAnchor.isDragon(entity) && !(entity instanceof net.minecraft.world.entity.TamableAnimal tame && tame.isTame());
+        return type.is(Tags.EntityTypes.BOSSES) || type == EntityType.WARDEN || wildDragon;
     }
 
     private static void add(ServerPlayer owner, LivingEntity target, int ticks, boolean archer) {
@@ -185,6 +187,9 @@ public final class WeakPointManager {
 
     /** Radio de acierto por hitbox (respaldo cuando el modelo no se pudo leer): crece con el tamaño del mob. */
     static double fallbackAimRadius(LivingEntity target) {
+        if (WeakPointAnchor.isDragon(target)) {
+            return 1.1; // la cabeza/panza de un dragon es grande
+        }
         return Math.min(1.4, 0.45 + 0.1 * target.getBbHeight());
     }
 
@@ -196,7 +201,7 @@ public final class WeakPointManager {
     private static boolean aimedAtPoint(ServerPlayer attacker, Mark mark, DamageSource source) {
         LivingEntity target = mark.target;
         boolean hasMarker = mark.marker != null && !mark.marker.isRemoved();
-        Vec3 point = hasMarker ? mark.marker.getAimPoint(target) : WeakPointAnchor.of(target);
+        Vec3 point = hasMarker ? mark.marker.getAimPoint(target) : WeakPointAnchor.of(target, true);
         double radius = hasMarker ? mark.marker.getAimRadius(target) : fallbackAimRadius(target);
         var direct = source.getDirectEntity();
         if (direct instanceof Projectile projectile) {

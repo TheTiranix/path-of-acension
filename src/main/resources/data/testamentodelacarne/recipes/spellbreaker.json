@@ -2,10 +2,10 @@
   "type": "testamentodelacarne:tier3_shaped",
   "category": "equipment",
   "pattern": [
-    "    M",
     "   MM",
-    "  DMD",
-    " WDW ",
+    "  DMM",
+    " WDD ",
+    "  W  ",
     "W    "
   ],
   "key": {

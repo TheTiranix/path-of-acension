@@ -17,7 +17,7 @@ import net.minecraftforge.network.NetworkEvent.Context;
 public class OpenCheckpointScreenPacket {
     /** Un punto activo tal como se le muestra al cliente (nombre de dueño y dimension ya
      *  resueltos del lado server, no hace falta que el cliente sepa nada mas). */
-    public record CheckpointEntry(UUID id, String ownerName, String dimensionLabel, BlockPos pos, boolean preferred) {
+    public record CheckpointEntry(UUID id, String ownerName, String dimensionLabel, BlockPos pos, boolean preferred, int number, long day) {
     }
 
     private final List<CheckpointEntry> entries;
@@ -33,7 +33,7 @@ public class OpenCheckpointScreenPacket {
         int count = buf.readVarInt();
         List<CheckpointEntry> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            list.add(new CheckpointEntry(buf.readUUID(), buf.readUtf(), buf.readUtf(), buf.readBlockPos(), buf.readBoolean()));
+            list.add(new CheckpointEntry(buf.readUUID(), buf.readUtf(), buf.readUtf(), buf.readBlockPos(), buf.readBoolean(), buf.readVarInt(), buf.readVarLong()));
         }
         this.entries = list;
         this.loadMode = buf.readBoolean();
@@ -47,6 +47,8 @@ public class OpenCheckpointScreenPacket {
             buf.writeUtf(entry.dimensionLabel());
             buf.writeBlockPos(entry.pos());
             buf.writeBoolean(entry.preferred());
+            buf.writeVarInt(entry.number());
+            buf.writeVarLong(entry.day());
         }
         buf.writeBoolean(this.loadMode);
     }

@@ -48,7 +48,7 @@ public class WeakPointEntity extends Entity {
         this.entityData.set(TARGET, target.getId());
         this.entityData.set(PRIORITIZE_HEIGHT, target.getRandom().nextBoolean());
         this.maxAge = lifetimeTicks;
-        this.setPos(WeakPointAnchor.of(target));
+        this.setPos(WeakPointAnchor.of(target, isPriorityHeight()));
     }
 
     public boolean isPriorityHeight() {
@@ -71,7 +71,7 @@ public class WeakPointEntity extends Entity {
         if (hasFreshModelAim()) {
             return this.modelAim;
         }
-        return WeakPointAnchor.of(target);
+        return WeakPointAnchor.of(target, isPriorityHeight());
     }
 
     /** Radio de acierto: el que calculo el modelo (proporcional a su tamaño) si esta fresco, si no el de respaldo. */
@@ -107,7 +107,7 @@ public class WeakPointEntity extends Entity {
             }
             return;
         }
-        Vec3 anchor = WeakPointAnchor.of(living);
+        Vec3 anchor = WeakPointAnchor.of(living, isPriorityHeight());
         this.setPos(anchor);
         if (!this.level().isClientSide() && this.tickCount > this.maxAge) {
             this.discard();

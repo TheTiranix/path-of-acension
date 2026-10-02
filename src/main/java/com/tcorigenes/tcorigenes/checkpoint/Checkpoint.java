@@ -23,6 +23,8 @@ public final class Checkpoint {
     long supersededAtTick = -1;
     /** false = la cama de este save ya no sirve como punto de reaparicion (el jugador puso otra), pero el save sigue en la lista y se puede cargar. */
     boolean respawnEnabled = true;
+    /** Numero de save por orden de creacion (Save 1, Save 2...); no cambia aunque otros saves se borren. 0 = todavia sin asignar. */
+    int number = 0;
 
     Checkpoint(UUID id, UUID owner, ResourceKey<Level> dimension, BlockPos pos, long placedAtTick) {
         this.id = id;
@@ -30,6 +32,15 @@ public final class Checkpoint {
         this.dimension = dimension;
         this.pos = pos;
         this.placedAtTick = placedAtTick;
+    }
+
+    public int number() {
+        return this.number;
+    }
+
+    /** Dia de juego (empezando en 1) en que se creo el save. */
+    public long day() {
+        return this.placedAtTick / 24000L + 1L;
     }
 
     public boolean isActive(long now) {
@@ -44,6 +55,7 @@ public final class Checkpoint {
         tag.putLong("placedAt", this.placedAtTick);
         tag.putLong("supersededAt", this.supersededAtTick);
         tag.putBoolean("respawn", this.respawnEnabled);
+        tag.putInt("number", this.number);
         return tag;
     }
 
@@ -55,6 +67,7 @@ public final class Checkpoint {
                 BlockPos.of(tag.getLong("pos")), tag.getLong("placedAt"));
         checkpoint.supersededAtTick = tag.contains("supersededAt") ? tag.getLong("supersededAt") : -1;
         checkpoint.respawnEnabled = !tag.contains("respawn") || tag.getBoolean("respawn");
+        checkpoint.number = tag.getInt("number");
         return checkpoint;
     }
 }

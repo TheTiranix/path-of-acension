@@ -16,6 +16,8 @@ public final class CheckpointSavedData extends SavedData {
     final List<Checkpoint> checkpoints = new ArrayList<>();
     /** Ya se tomo el save inicial automatico de este mundo (ver CheckpointManager#onLogin). */
     boolean initialSnapshotTaken = false;
+    /** Proximo numero de save que se le asigna a un punto de guardado nuevo. */
+    int nextNumber = 1;
     /** Tick (overworld) del ultimo save de cama creado: cooldown de 1 dia entre saves. Long.MIN_VALUE = ninguno. */
     long lastSaveTick = Long.MIN_VALUE;
     /** Camas recien colocadas ("dim|pos" -> tick): hay que esperar 1 dia para poder guardar en ellas. */
@@ -34,6 +36,20 @@ public final class CheckpointSavedData extends SavedData {
             data.checkpoints.add(Checkpoint.load(list.getCompound(i)));
         }
         data.initialSnapshotTaken = tag.getBoolean("initial_snapshot");
+        data.nextNumber = Math.max(1, tag.getInt("next_number"));
+        // saves de antes de que existiera la numeracion: se numeran por orden de creacion
+        List<Checkpoint> unnumbered = new ArrayList<>();
+        for (Checkpoint checkpoint : data.checkpoints) {
+            if (checkpoint.number > 0) {
+                data.nextNumber = Math.max(data.nextNumber, checkpoint.number + 1);
+            } else {
+                unnumbered.add(checkpoint);
+            }
+        }
+        unnumbered.sort(java.util.Comparator.comparingLong(c -> c.placedAtTick));
+        for (Checkpoint checkpoint : unnumbered) {
+            checkpoint.number = data.nextNumber++;
+        }
         if (tag.contains("last_save")) {
             data.lastSaveTick = tag.getLong("last_save");
         }
@@ -56,6 +72,7 @@ public final class CheckpointSavedData extends SavedData {
         }
         tag.put("checkpoints", list);
         tag.putBoolean("initial_snapshot", this.initialSnapshotTaken);
+        tag.putInt("next_number", this.nextNumber);
         if (this.lastSaveTick != Long.MIN_VALUE) {
             tag.putLong("last_save", this.lastSaveTick);
         }
