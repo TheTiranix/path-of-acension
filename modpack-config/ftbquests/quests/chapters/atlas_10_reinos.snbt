@@ -1,0 +1,549 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_10_reinos"
+	group: "851BC1B6564B2B74"
+	icon: "minecraft:white_banner"
+	id: "6131970538EFF90A"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_10.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 6.2d
+	}]
+	order_index: 14
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Tras el abandono de los dioses, los reinos de distintas razas se hicieron la guerra por ellos. Aprende a leer sus banderas antes de cruzarlos."]
+			id: "7C92CF1EEE8D99CC"
+			rewards: [
+				{
+					id: "EBA4FF9042ACC68D"
+					type: "xp"
+					xp: 40
+				}
+			]
+			subtitle: "Razas que se matan por sus dioses"
+			tasks: [
+				{
+					id: "DD1751379C1080BA"
+					title: "Razas que se matan por sus dioses"
+					type: "checkmark"
+				}
+			]
+			title: "Un Mundo de Reinos"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7C92CF1EEE8D99CC"]
+			description: ["Los humanos son la raza neutra: no tienen el favor de ningún dios, pero tampoco límites. Camina por sus praderas y obsérvalos."]
+			id: "D279186428A75016"
+			rewards: [
+				{
+					id: "3A02A8C9C1178B1C"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Tierra de los humanos"
+			tasks: [
+				{
+					biome: "minecraft:plains"
+					id: "EE8D8EB60E59C717"
+					type: "biome"
+				}
+			]
+			title: "Praderas"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["D279186428A75016"]
+			description: ["El bosque es dominio de Meidris. Entre sus árboles se cultiva la fe en la vida salvaje."]
+			id: "9D3E622DF914D8DE"
+			rewards: [
+				{
+					id: "DE53221FE0D696DE"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Naturaleza viva"
+			tasks: [
+				{
+					biome: "minecraft:forest"
+					id: "1CF85AFDCF832C9E"
+					type: "biome"
+				}
+			]
+			title: "El Bosque"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9D3E622DF914D8DE"]
+			description: ["Los desiertos guardan ruinas de reinos que no resistieron la guerra. El sol cae sin piedad."]
+			id: "44379F2B1A5611F6"
+			rewards: [
+				{
+					id: "0E2F19498DEB4653"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Arena y ceniza"
+			tasks: [
+				{
+					biome: "minecraft:desert"
+					id: "8B297EB9BEC751B9"
+					type: "biome"
+				}
+			]
+			title: "El Desierto"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["44379F2B1A5611F6"]
+			description: ["Los pueblos de la sabana viven a cielo abierto, siempre mirando hacia arriba, esperando una señal."]
+			id: "ED84D589F231F3DC"
+			rewards: [
+				{
+					id: "DB6BDEFBD9899032"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Cielo abierto"
+			tasks: [
+				{
+					biome: "minecraft:savanna"
+					id: "952B39E3A8B2D5BF"
+					type: "biome"
+				}
+			]
+			title: "La Sabana"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["ED84D589F231F3DC"]
+			description: ["La jungla es un laberinto vivo. Allí los templos olvidados aún tienen dueños."]
+			id: "C4A68DC959943CAF"
+			rewards: [
+				{
+					id: "4196E24178E23852"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Verde y peligro"
+			tasks: [
+				{
+					biome: "minecraft:jungle"
+					id: "DE378AA915F3F595"
+					type: "biome"
+				}
+			]
+			title: "La Jungla"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C4A68DC959943CAF"]
+			description: ["Los pantanos huelen a brujería. Es el hogar de quienes aprendieron a hablar con lo que quedó tras la Caída."]
+			id: "3D8ABFBB5128006D"
+			rewards: [
+				{
+					id: "59E327D49F5BE468"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Aguas quietas"
+			tasks: [
+				{
+					biome: "minecraft:swamp"
+					id: "0ED6591E28796EF8"
+					type: "biome"
+				}
+			]
+			title: "El Pantano"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3D8ABFBB5128006D"]
+			description: ["El bosque de abetos guarda historias de reinos que cayeron cubiertos de nieve."]
+			id: "90A071D6A73F529D"
+			rewards: [
+				{
+					id: "FEF080611E0757A8"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Frío y silencio"
+			tasks: [
+				{
+					biome: "minecraft:taiga"
+					id: "9D7A2250CC91BF09"
+					type: "biome"
+				}
+			]
+			title: "La Taiga"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["90A071D6A73F529D"]
+			description: ["Allí el clima mata antes que cualquier monstruo. Ábrigate bien y no confíes en el sol."]
+			id: "1E95EC65C03E06C5"
+			rewards: [
+				{
+					id: "7E066A861A47C740"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "El frío que mata"
+			tasks: [
+				{
+					biome: "minecraft:snowy_plains"
+					id: "5CC83EAC1F24283E"
+					type: "biome"
+				}
+			]
+			title: "Llanuras Nevadas"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1E95EC65C03E06C5"]
+			description: ["Las mesas rojas de las tierras baldías esconden minas abandonadas y fortalezas de otros tiempos."]
+			id: "A2A1F63D98E3755F"
+			rewards: [
+				{
+					id: "5C654DB4E043CD50"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "Rojo y polvo"
+			tasks: [
+				{
+					biome: "minecraft:badlands"
+					id: "99EE26ADED9B27EC"
+					type: "biome"
+				}
+			]
+			title: "Tierras Baldías"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["A2A1F63D98E3755F"]
+			description: ["Los árboles son tan altos que ahogan la luz. Entre ellos se levantan mansiones de quienes juraron lealtad a la oscuridad."]
+			id: "4678F5A997D3C425"
+			rewards: [
+				{
+					id: "D47AF86CC278884A"
+					type: "xp"
+					xp: 110
+				}
+			]
+			subtitle: "Donde nunca amanece"
+			tasks: [
+				{
+					biome: "minecraft:dark_forest"
+					id: "577CE456E1D89B73"
+					type: "biome"
+				}
+			]
+			title: "El Bosque Oscuro"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["4678F5A997D3C425"]
+			description: ["Bajo la tierra la vida sigue: cuevas llenas de musgo, bayas brillantes y criaturas pequeñas."]
+			id: "E249A6EBF2739172"
+			rewards: [
+				{
+					id: "97F70EAB27E9ED0D"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Un jardín bajo tierra"
+			tasks: [
+				{
+					biome: "minecraft:lush_caves"
+					id: "1E8CD79047AEA8B4"
+					type: "biome"
+				}
+			]
+			title: "Cuevas Frondosas"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E249A6EBF2739172"]
+			description: ["La piedra crece como dientes. Es un paisaje que parece observar a quien pasa."]
+			id: "0839F88AE61EFAA3"
+			rewards: [
+				{
+					id: "48D084C32A482AD3"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Piedra viva"
+			tasks: [
+				{
+					biome: "minecraft:dripstone_caves"
+					id: "EF4534A568FA4E6D"
+					type: "biome"
+				}
+			]
+			title: "Cuevas de Goteo"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["0839F88AE61EFAA3"]
+			description: ["En lo más hondo del mundo, un silencio absoluto lo cubre todo. Cuidado con dónde pisas."]
+			id: "2D337E4372792A35"
+			rewards: [
+				{
+					id: "673F23CA18B9041B"
+					type: "xp"
+					xp: 250
+				}
+			]
+			subtitle: "Lo que nadie debería ver"
+			tasks: [
+				{
+					biome: "minecraft:deep_dark"
+					id: "334209BCCF03AF30"
+					type: "biome"
+				}
+			]
+			title: "La Oscuridad Profunda"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["2D337E4372792A35"]
+			description: ["El humano es la raza base: sin bonificaciones ni penalizaciones. Puede ganar el favor de cualquier dios."]
+			id: "003A63AA0B2E193E"
+			rewards: [
+				{
+					id: "6EFA58176173B894"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Sin favor, sin límites"
+			tasks: [
+				{
+					id: "FC5B3C77D0DC85DA"
+					title: "Sin favor, sin límites"
+					type: "checkmark"
+				}
+			]
+			title: "El Humano"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["003A63AA0B2E193E"]
+			description: ["Los dioses lo ignoran. Él aprendió a ver dónde duele. Un hereje busca poder para proteger a su familia, aunque esa búsqueda lo marque como enemigo del orden."]
+			id: "78E76241A599F90C"
+			rewards: [
+				{
+					id: "C6C58C955275DAB3"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Los dioses lo ignoran"
+			tasks: [
+				{
+					id: "5384E371E5988173"
+					title: "Los dioses lo ignoran"
+					type: "checkmark"
+				}
+			]
+			title: "El Hereje"
+			x: -3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["78E76241A599F90C"]
+			description: ["Criado bajo la mirada de los dioses creadores. Se recupera sola y cura mejor, a cambio de vivir según los designios de los altares."]
+			id: "DCE93E39C7BFD0AD"
+			rewards: [
+				{
+					id: "AF9F7E1981E588BF"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Criado bajo la mirada divina"
+			tasks: [
+				{
+					id: "AC2EA31FEDB37226"
+					title: "Criado bajo la mirada divina"
+					type: "checkmark"
+				}
+			]
+			title: "El Devoto"
+			x: -3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["DCE93E39C7BFD0AD"]
+			description: ["Sangre de fuego y cuernos del inframundo. Descendiente de los acólitos de Deiros, resiste el fuego y la lava como nadie."]
+			id: "55900F6043109D0C"
+			rewards: [
+				{
+					id: "71076381EA662B5C"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Sangre de fuego"
+			tasks: [
+				{
+					id: "BEDDAD11AB406BB1"
+					title: "Sangre de fuego"
+					type: "checkmark"
+				}
+			]
+			title: "El Demonio"
+			x: -1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["55900F6043109D0C"]
+			description: ["Alas de luz caídas del paraíso. Un ángel no sufre daño por caída y su favor con los dioses creadores es mayor, pero su suerte con el rebelde es peor."]
+			id: "894E71A060267ADA"
+			rewards: [
+				{
+					id: "A522EC8258D9AD1B"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Alas de luz"
+			tasks: [
+				{
+					id: "5B480C4E3DD18317"
+					title: "Alas de luz"
+					type: "checkmark"
+				}
+			]
+			title: "El Ángel"
+			x: 1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["894E71A060267ADA"]
+			description: ["Sirve a Luna. De día se debilita; de noche, bajo el cielo abierto, gana fuerza y armadura. Es quien hace el trabajo sucio que Luna delega."]
+			id: "9846F2D7E24272F3"
+			rewards: [
+				{
+					id: "9E5EA22D3AD6EDE8"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "La noche es su reino"
+			tasks: [
+				{
+					id: "F35D9BB07AFE426F"
+					title: "La noche es su reino"
+					type: "checkmark"
+				}
+			]
+			title: "El Siervo de la Luna"
+			x: 3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["9846F2D7E24272F3"]
+			description: ["Los enderman son humanos transformados en monstruos por atentar contra el orden preestablecido. El Ender Warrior es uno que conservó su espada y su orgullo, pero le teme al agua."]
+			id: "3489C055D1CAAFBF"
+			rewards: [
+				{
+					id: "8ECCFF8FE9D5AE55"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Humanos transformados"
+			tasks: [
+				{
+					id: "C0C278A2B9023153"
+					title: "Humanos transformados"
+					type: "checkmark"
+				}
+			]
+			title: "Los Enderman y el Ender Warrior"
+			x: 3.8d
+			y: 12.5d
+		}
+		{
+			dependencies: ["3489C055D1CAAFBF"]
+			description: ["Nacido maldito, deforme y odiado por todos. El veneno lo cura y no sufre hambre, pero es más lento. Es camino de quienes aceptan que nadie los va a querer."]
+			id: "AD87B1EC5F6020F5"
+			rewards: [
+				{
+					id: "8C7A862E2B60F765"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Nacido maldito"
+			tasks: [
+				{
+					id: "AD8C8E7B0EF45744"
+					title: "Nacido maldito"
+					type: "checkmark"
+				}
+			]
+			title: "El Malnacido"
+			x: 1.2d
+			y: 12.5d
+		}
+		{
+			dependencies: ["AD87B1EC5F6020F5"]
+			description: ["El gigante de piedra es lento pero casi imparable. El autómata es una máquina al servicio de Deiros, inmune a la magia. Ambos son caminos secretos."]
+			id: "EFABC30264BFC793"
+			rewards: [
+				{
+					id: "DC7138C83823C4F1"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Piedra y engranajes"
+			tasks: [
+				{
+					id: "48049757F6C28FD3"
+					title: "Piedra y engranajes"
+					type: "checkmark"
+				}
+			]
+			title: "El Gigante Rocoso y el Autómata"
+			x: -1.2d
+			y: 12.5d
+		}
+	]
+	title: "Reinos y Razas"
+}

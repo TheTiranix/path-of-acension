@@ -80,7 +80,7 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             // puntas para que no se vea como un bloque duro.
             // Con el arbol de habilidades al maximo las alas se vuelven doradas (solo se sabe el arbol del jugador local).
             boolean gold = player == net.minecraft.client.Minecraft.getInstance().player && treeMaxed();
-            VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(gold ? WINGS_GOLD_TEXTURE : WINGS_TEXTURE));
+            VertexConsumer consumer = buffer.getBuffer(gold ? RenderType.entityTranslucentEmissive(WINGS_GOLD_TEXTURE) : RenderType.entityTranslucent(WINGS_TEXTURE));
             wings.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {

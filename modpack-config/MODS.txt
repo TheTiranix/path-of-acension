@@ -1,6 +1,6 @@
 # Mods que necesita el pack (solo nombres de archivo; bajalos de CurseForge o Modrinth).
 # No se suben al repo por respeto a las licencias de sus autores.
-# testamentodelacarne-0.1.0.jar es NUESTRO mod: viene en releases/ de este repo.
+# pathofascension-0.1.0.jar es NUESTRO mod: viene en releases/ de este repo.
 
 1.20.1-damage_number-1.3.1.jar
 Apotheosis-1.20.1-7.4.8.jar
@@ -189,7 +189,7 @@ sounds_of_the_forest-1.0.2-forge-1.20.1.jar
 spark-1.10.53-forge.jar
 spookydoors-forge-1.20.1-20.1.5.jar
 starlight-1.1.2+forge.1cda73c.jar
-testamentodelacarne-0.1.0.jar
+pathofascension-0.1.0.jar
 tombstone-1.20.1-9.0.2.jar
 twilightforest-1.20.1-4.3.2508-universal.jar
 villagergolemhealer 1.20.1.jar

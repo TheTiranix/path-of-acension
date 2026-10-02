@@ -1,0 +1,413 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_11_sangre"
+	group: "851BC1B6564B2B74"
+	icon: "bloodmagic:altar"
+	id: "B044C215C8F104B4"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_11.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 15
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["La senda de la sangre empieza con una herida que uno mismo se hace. Los textos dicen que la sangre propia es la moneda más cara y la única que nunca se acaba."]
+			id: "8DDF878039B70767"
+			rewards: [
+				{
+					id: "D62FE0CD32B455D1"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Sangre que se ofrece"
+			tasks: [
+				{
+					id: "37F3DA46988FBBFC"
+					title: "Sangre que se ofrece"
+					type: "checkmark"
+				}
+			]
+			title: "El Primer Corte"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["8DDF878039B70767"]
+			description: ["Un cuchillo ritual con el que los antiguos aprendían a separar la carne del espíritu."]
+			id: "FAC989447CAD2EDB"
+			rewards: [
+				{
+					id: "054E5A5A6ECCCB91"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Un filo con historia"
+			tasks: [
+				{
+					id: "5682947ABDCE57E4"
+					item: "occultism:butcher_knife"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "184C8CC254774A93"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+			]
+			title: "El Cuchillo del Carnicero"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["FAC989447CAD2EDB"]
+			description: ["Este altar será el foco de tu poder. Colócalo bajo el cielo abierto, donde los dioses puedan verte."]
+			id: "C0828E0381730BEF"
+			rewards: [
+				{
+					id: "57E7FA2F784F9225"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "84B4BB41246BE9B0"
+					item: "bloodmagic:weakbloodorb"
+					type: "item"
+				}
+			]
+			subtitle: "Donde la vida se convierte en magia"
+			tasks: [
+				{
+					id: "010CC3B11CA52A2F"
+					item: "bloodmagic:altar"
+					type: "item"
+				}
+				{
+					id: "1A688D8F7D05C3D8"
+					item: "bloodmagic:sacrificialdagger"
+					type: "item"
+				}
+			]
+			title: "El Altar de Sangre"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["C0828E0381730BEF"]
+			description: ["Un orbe que guarda tu esencia. Cada vez que lo llenes sentirás menos frío."]
+			id: "7E7CB6814B74D659"
+			rewards: [
+				{
+					id: "6244E97AB6945653"
+					type: "xp"
+					xp: 140
+				}
+			]
+			subtitle: "Un recipiente para tu sangre"
+			tasks: [
+				{
+					id: "2D4D8FDB125D90AF"
+					item: "bloodmagic:apprenticebloodorb"
+					type: "item"
+				}
+			]
+			title: "El Orbe del Aprendiz"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7E7CB6814B74D659"]
+			description: ["Pizarras en blanco, reforzadas e infundidas con sangre. Son la base de todo ritual."]
+			id: "437F57809F82B9E2"
+			rewards: [
+				{
+					id: "EB1ACE1C0CB40DEA"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Piedra para grabar el rito"
+			tasks: [
+				{
+					count: 4L
+					id: "A4873CA07C3EAF53"
+					item: "bloodmagic:blankslate"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "EB7479BC291672B4"
+					item: "bloodmagic:reinforcedslate"
+					type: "item"
+				}
+			]
+			title: "Pizarras"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["437F57809F82B9E2"]
+			description: ["Los círculos de tiza concentran la voluntad de los espíritus. Trazarlos mal tiene consecuencias."]
+			id: "425DB905039F7A65"
+			rewards: [
+				{
+					id: "48B0FDAD4A053A60"
+					type: "xp"
+					xp: 150
+				}
+			]
+			subtitle: "Líneas que abren puertas"
+			tasks: [
+				{
+					count: 2L
+					id: "E5B2B5D33E4BE2F8"
+					item: "occultism:chalk_white"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "AD7A534ACEE96D6A"
+					item: "occultism:chalk_gold"
+					type: "item"
+				}
+			]
+			title: "Tiza Ritual"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["425DB905039F7A65"]
+			description: ["Una gema vacía que puede capturar el alma de un ser vivo. Úsala con cuidado: lo que se atrapa pesa."]
+			id: "9D7115B42254D59B"
+			rewards: [
+				{
+					id: "83CC6CF78852A90D"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Un recipiente para almas ajenas"
+			tasks: [
+				{
+					id: "8B83BE1877D6E18A"
+					item: "occultism:soul_gem_empty"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "B14CD7B0FAE74F17"
+					item: "minecraft:amethyst_shard"
+					type: "item"
+				}
+			]
+			title: "La Gema del Alma"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["9D7115B42254D59B"]
+			description: ["Un metal que sólo se encuentra en un plano distinto. Pocos regresan con él, y menos aún con la cordura intacta."]
+			id: "3E8D88FDD85D7153"
+			rewards: [
+				{
+					id: "FC9CD927AC710AF9"
+					type: "xp"
+					xp: 260
+				}
+			]
+			subtitle: "El metal de la otra dimensión"
+			tasks: [
+				{
+					count: 8L
+					id: "FC2C016FCC113B3A"
+					item: "occultism:iesnium_ingot"
+					type: "item"
+				}
+			]
+			title: "Iesnium"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3E8D88FDD85D7153"]
+			description: ["Cada piedra de ritual canaliza un elemento distinto. Unidas, crean un círculo que ningún dios podría deshacer."]
+			id: "03E04301B15A7969"
+			rewards: [
+				{
+					id: "81F278D55AB38B99"
+					type: "xp"
+					xp: 320
+				}
+			]
+			subtitle: "Poder concentrado"
+			tasks: [
+				{
+					count: 8L
+					id: "2AB3E64A1A30021B"
+					item: "bloodmagic:ritualstone"
+					type: "item"
+				}
+				{
+					id: "17F9403345944015"
+					item: "bloodmagic:masterritualstone"
+					type: "item"
+				}
+			]
+			title: "Piedras de Ritual"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["03E04301B15A7969"]
+			description: ["El siguiente peldaño: un orbe más grande, capaz de sostener hechizos y rituales mayores."]
+			id: "2B3357D90B70EDB1"
+			rewards: [
+				{
+					id: "20EEF772E84FF94B"
+					type: "xp"
+					xp: 400
+				}
+			]
+			subtitle: "Mucho más que sangre"
+			tasks: [
+				{
+					id: "395702B2290B37CD"
+					item: "bloodmagic:magicianbloodorb"
+					type: "item"
+				}
+			]
+			title: "Orbe del Mago"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["2B3357D90B70EDB1"]
+			description: ["Pequeñas runas grabadas que hacen cosas imposibles: caminar sobre el agua, respirar lava, ver a través de la piedra."]
+			id: "E744F97EB579BE2C"
+			rewards: [
+				{
+					id: "F60DE06FE22BA2AC"
+					type: "xp"
+					xp: 450
+				}
+			]
+			subtitle: "Marcas que obedecen"
+			tasks: [
+				{
+					id: "74DA43C2CF2972E2"
+					item: "bloodmagic:airsigil"
+					type: "item"
+				}
+				{
+					id: "A9AC384BDF64FB31"
+					item: "bloodmagic:lavasigil"
+					type: "item"
+				}
+				{
+					id: "870DF63585517A42"
+					item: "bloodmagic:divinationsigil"
+					type: "item"
+				}
+			]
+			title: "Sigilos"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E744F97EB579BE2C"]
+			description: ["Con un círculo de tiza y paciencia, un espíritu menor aceptará servirte. No es una amistad, pero funciona."]
+			id: "3DFAE9D68590FEF9"
+			rewards: [
+				{
+					id: "4F70A20AF7B0CB2D"
+					type: "xp"
+					xp: 520
+				}
+			]
+			subtitle: "Un alma que sirve"
+			tasks: [
+				{
+					id: "4E0662CFC1AA4CBC"
+					item: "occultism:book_of_binding_empty"
+					type: "item"
+				}
+				{
+					id: "01E9065A0C568566"
+					item: "occultism:dimensional_matrix"
+					type: "item"
+				}
+			]
+			title: "El Espíritu Atrapado"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3DFAE9D68590FEF9"]
+			description: ["El poder de los demonios se condensa en cristales que brillan con un fulgor enfermizo. Quien los toca los quiere cerca."]
+			id: "F38672FC0F5A142D"
+			rewards: [
+				{
+					id: "5239B64E3738A02E"
+					type: "xp"
+					xp: 650
+				}
+			]
+			subtitle: "Voluntad hecha cristal"
+			tasks: [
+				{
+					count: 4L
+					id: "FECB86B3374D5230"
+					item: "bloodmagic:rawdemoncrystal"
+					type: "item"
+				}
+				{
+					id: "5F53106BF8C0CD7B"
+					item: "bloodmagic:demoncrucible"
+					type: "item"
+				}
+			]
+			title: "Cristales del Demonio"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["F38672FC0F5A142D"]
+			description: ["El orbe más poderoso al que accede un mortal. Allí la senda de la sangre deja de ser un camino y pasa a ser una identidad."]
+			id: "DF512B9CB3E7D8DE"
+			rewards: [
+				{
+					id: "7B746691E58BD17C"
+					type: "xp"
+					xp: 1000
+				}
+				{
+					id: "73FF932E58B18077"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Sangre que no se acaba"
+			tasks: [
+				{
+					id: "F486E9ADFD89BB39"
+					item: "bloodmagic:masterbloodorb"
+					type: "item"
+				}
+			]
+			title: "El Orbe del Maestro"
+			x: 1.2d
+			y: 7.5d
+		}
+	]
+	title: "Senda de la Sangre"
+}

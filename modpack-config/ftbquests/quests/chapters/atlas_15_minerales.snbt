@@ -1,0 +1,661 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_15_minerales"
+	group: "A1679646AA507048"
+	icon: "minecraft:diamond"
+	id: "EEC10E24928395DB"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_15.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 7.5d
+	}]
+	order_index: 19
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Cuando los dioses cayeron, sus restos se mezclaron con la roca. Cada mineral guarda un fragmento de lo que fue: su dureza, su brillo, su voluntad."]
+			id: "F1584B995A477098"
+			rewards: [
+				{
+					id: "DF41C8EEB57E59F1"
+					type: "xp"
+					xp: 40
+				}
+			]
+			subtitle: "Lo que la Caída enterró"
+			tasks: [
+				{
+					id: "B0ADF626BE7425D2"
+					title: "Lo que la Caída enterró"
+					type: "checkmark"
+				}
+			]
+			title: "Las Venas de la Tierra"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["F1584B995A477098"]
+			description: ["Antes de cualquier forja hace falta fuego, y antes del fuego, carbón."]
+			id: "2D387AB98437E5F5"
+			rewards: [
+				{
+					id: "A7C47136B56075F2"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "El primer fuego"
+			tasks: [
+				{
+					count: 64L
+					id: "9CF8659CADE36035"
+					item: "minecraft:coal"
+					type: "item"
+				}
+			]
+			title: "Carbón"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D387AB98437E5F5"]
+			description: ["Más común que el oro y tan útil que construyó un imperio."]
+			id: "417C4FA3B4135A6C"
+			rewards: [
+				{
+					id: "21C03B63C497FE1C"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "El metal de los pobres"
+			tasks: [
+				{
+					count: 48L
+					id: "8271D450F2231687"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+			]
+			title: "Hierro"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["417C4FA3B4135A6C"]
+			description: ["Un metal maleable que se oxida con orgullo."]
+			id: "500DBB501D3577B1"
+			rewards: [
+				{
+					id: "19B0AA682261CF6A"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Verde y dócil"
+			tasks: [
+				{
+					count: 48L
+					id: "9AE687416ED95913"
+					item: "minecraft:copper_ingot"
+					type: "item"
+				}
+			]
+			title: "Cobre"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["500DBB501D3577B1"]
+			description: ["Los dioses lo usaban como adorno. Hoy es moneda y sobre todo magia."]
+			id: "46FA5A234958DBA5"
+			rewards: [
+				{
+					id: "09A4EB2BFED8EAB2"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Brillo sin valor útil"
+			tasks: [
+				{
+					count: 32L
+					id: "668ED12334491071"
+					item: "minecraft:gold_ingot"
+					type: "item"
+				}
+			]
+			title: "Oro"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["46FA5A234958DBA5"]
+			description: ["Un polvo rojo que parece tener pulso propio."]
+			id: "39D987FD8304752B"
+			rewards: [
+				{
+					id: "D2305C1605A832DB"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Polvo que late"
+			tasks: [
+				{
+					count: 64L
+					id: "561320EC8569CB0F"
+					item: "minecraft:redstone"
+					type: "item"
+				}
+			]
+			title: "Redstone"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["39D987FD8304752B"]
+			description: ["La piedra de los encantadores. Su color recuerda a los ojos de quienes ya no están."]
+			id: "5E7494662EA04AD8"
+			rewards: [
+				{
+					id: "6A4588665CB1C8BB"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Azul de templo"
+			tasks: [
+				{
+					count: 48L
+					id: "4A32865E112ED0A7"
+					item: "minecraft:lapis_lazuli"
+					type: "item"
+				}
+			]
+			title: "Lapislázuli"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["5E7494662EA04AD8"]
+			description: ["Cristal puro que crece en el Nether. Su luz es dura."]
+			id: "6A4657045B013F0D"
+			rewards: [
+				{
+					id: "8C2DE548B82AFFFA"
+					type: "xp"
+					xp: 110
+				}
+			]
+			subtitle: "Blanco y duro"
+			tasks: [
+				{
+					count: 48L
+					id: "E1326608BAA9C12D"
+					item: "minecraft:quartz"
+					type: "item"
+				}
+			]
+			title: "Cuarzo"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["6A4657045B013F0D"]
+			description: ["Las amatistas resuenan cuando alguien se acerca. Quien las lleva nunca camina solo."]
+			id: "AB0FD361FDE5C362"
+			rewards: [
+				{
+					id: "CCD43957C119BEFB"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Cristales que cantan"
+			tasks: [
+				{
+					count: 32L
+					id: "57104A9DEF59CF64"
+					item: "minecraft:amethyst_shard"
+					type: "item"
+				}
+			]
+			title: "Amatista"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AB0FD361FDE5C362"]
+			description: ["Los diamantes siguen brillando como antes de la Caída."]
+			id: "D98801486A65C815"
+			rewards: [
+				{
+					id: "B5D83CC27E1BCD51"
+					type: "xp"
+					xp: 200
+				}
+				{
+					count: 4
+					id: "1407352B51E8BE01"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			subtitle: "Lo que un dios no quebró"
+			tasks: [
+				{
+					count: 24L
+					id: "FA149D4E188B84E8"
+					item: "minecraft:diamond"
+					type: "item"
+				}
+			]
+			title: "Diamantes"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["D98801486A65C815"]
+			description: ["Las aldeas pagan en esmeraldas. Más valor, menos peso."]
+			id: "FD8004EC2F65CB08"
+			rewards: [
+				{
+					id: "144BDC81CB893065"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "Moneda de aldeas"
+			tasks: [
+				{
+					count: 24L
+					id: "3ACFCD9DB99B6140"
+					item: "minecraft:emerald"
+					type: "item"
+				}
+			]
+			title: "Esmeraldas"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["FD8004EC2F65CB08"]
+			description: ["Un metal gris-azulado que sólo comprenden los que saben de máquinas."]
+			id: "5143DFD77B3A79D1"
+			rewards: [
+				{
+					id: "761DEF7E1957E282"
+					type: "xp"
+					xp: 220
+				}
+			]
+			subtitle: "Metal de ingenieros"
+			tasks: [
+				{
+					count: 16L
+					id: "35DA0F6562BA0B6E"
+					item: "create:zinc_ingot"
+					type: "item"
+				}
+			]
+			title: "Zinc"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5143DFD77B3A79D1"]
+			description: ["Menos nobles, pero sin ellos no hay aleaciones ni baterías."]
+			id: "6377DB573729F375"
+			rewards: [
+				{
+					id: "10D00CA9490E4AD6"
+					type: "xp"
+					xp: 240
+				}
+			]
+			subtitle: "Metales de segunda"
+			tasks: [
+				{
+					count: 16L
+					id: "E74A2062EE6C600F"
+					item: "mekanism:ingot_tin"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "9D1452602AC6881C"
+					item: "mekanism:ingot_lead"
+					type: "item"
+				}
+			]
+			title: "Estaño y Plomo"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["6377DB573729F375"]
+			description: ["Un metal pesado que se vuelve imprescindible en la industria avanzada."]
+			id: "5337EAAABE97FF33"
+			rewards: [
+				{
+					id: "1319AAA4A93287B1"
+					type: "xp"
+					xp: 260
+				}
+			]
+			subtitle: "Resistente como pocos"
+			tasks: [
+				{
+					count: 24L
+					id: "E10221ACC2668CD8"
+					item: "mekanism:ingot_osmium"
+					type: "item"
+				}
+			]
+			title: "Osmio"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["5337EAAABE97FF33"]
+			description: ["Una gema verdosa que sirve tanto de decoración como de ingrediente de máquinas."]
+			id: "81B347CFB7C89FE6"
+			rewards: [
+				{
+					id: "31068276B433BDC1"
+					type: "xp"
+					xp: 280
+				}
+			]
+			subtitle: "Una gema industrial"
+			tasks: [
+				{
+					count: 16L
+					id: "1EDAD921273DED9F"
+					item: "mekanism:fluorite_gem"
+					type: "item"
+				}
+			]
+			title: "Fluorita"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["81B347CFB7C89FE6"]
+			description: ["Dicen que la plata hiere a lo que no debería existir. Los cazadores la valoran mucho."]
+			id: "4203F3F6E6983E0D"
+			rewards: [
+				{
+					id: "D1CD98D17502FB25"
+					type: "xp"
+					xp: 300
+				}
+			]
+			subtitle: "Metal de los muertos"
+			tasks: [
+				{
+					count: 16L
+					id: "0B3517F019ABBD36"
+					item: "iceandfire:silver_ingot"
+					type: "item"
+				}
+			]
+			title: "Plata"
+			x: -3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["4203F3F6E6983E0D"]
+			description: ["Una gema azul que se forma cuando un dragón de hielo se queda quieto demasiado tiempo."]
+			id: "C840D1E5F0063361"
+			rewards: [
+				{
+					id: "A48BDFB1E72FC929"
+					type: "xp"
+					xp: 320
+				}
+			]
+			subtitle: "Gema del hielo"
+			tasks: [
+				{
+					count: 8L
+					id: "64DEC247E50B6843"
+					item: "iceandfire:sapphire_gem"
+					type: "item"
+				}
+			]
+			title: "Zafiro"
+			x: -3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["C840D1E5F0063361"]
+			description: ["Cuatro lingotes de oro y cuatro fragmentos de escombro antiguo. Un metal que sólo se forja con paciencia y suerte."]
+			id: "F9ECCAE5D96C8A77"
+			rewards: [
+				{
+					id: "D60630095377241F"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "Metal del infierno"
+			tasks: [
+				{
+					count: 4L
+					id: "E80CFADF2E045A8A"
+					item: "minecraft:netherite_ingot"
+					type: "item"
+				}
+			]
+			title: "Netherita"
+			x: -1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["F9ECCAE5D96C8A77"]
+			description: ["Un metal verde-azulado que crece donde el Sculk Horde ha tocado. Brilla con una luz que no es sana."]
+			id: "E34EB88BE411B0F9"
+			rewards: [
+				{
+					id: "E219691C8E9D9362"
+					type: "xp"
+					xp: 520
+				}
+			]
+			subtitle: "Metal enfermo"
+			tasks: [
+				{
+					count: 12L
+					id: "A85F288111323F8A"
+					item: "sculkhorde:diascite"
+					type: "item"
+				}
+			]
+			title: "Diascita"
+			x: 1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["E34EB88BE411B0F9"]
+			description: ["Un metal que sólo se funde en los fuegos de un mundo que se está quemando."]
+			id: "4E77032FD6804BBA"
+			rewards: [
+				{
+					id: "A5FA29121E6E09BE"
+					type: "xp"
+					xp: 560
+				}
+			]
+			subtitle: "La forja del caos"
+			tasks: [
+				{
+					count: 12L
+					id: "790D2A93B67FBF79"
+					item: "born_in_chaos_v1:dark_metal_ingot"
+					type: "item"
+				}
+			]
+			title: "Metal Oscuro"
+			x: 3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["4E77032FD6804BBA"]
+			description: ["Forjado en la oscuridad de un rey olvidado. Pesa más de lo que parece."]
+			id: "21FC81AF340B9551"
+			rewards: [
+				{
+					id: "9D8187C46712D45E"
+					type: "xp"
+					xp: 700
+				}
+			]
+			subtitle: "Un metal para gigantes"
+			tasks: [
+				{
+					count: 8L
+					id: "C38EA5E8E6223155"
+					item: "cataclysm:black_steel_ingot"
+					type: "item"
+				}
+			]
+			title: "Acero Negro"
+			x: 3.8d
+			y: 12.5d
+		}
+		{
+			dependencies: ["21FC81AF340B9551"]
+			description: ["Un metal que no se enfría nunca. Quien lo lleva no sufre del calor."]
+			id: "91A0F20D6A71793D"
+			rewards: [
+				{
+					id: "852347CABF55463A"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Fuego sólido"
+			tasks: [
+				{
+					count: 6L
+					id: "D2640425A0E3AADC"
+					item: "cataclysm:ignitium_ingot"
+					type: "item"
+				}
+			]
+			title: "Ignitium"
+			x: 1.2d
+			y: 12.5d
+		}
+		{
+			dependencies: ["91A0F20D6A71793D"]
+			description: ["El metal del Wither. Frío al tacto y pesado en la conciencia."]
+			id: "3728BC7F0EB528CD"
+			rewards: [
+				{
+					id: "ADB0AB180E967677"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Muerte en lingote"
+			tasks: [
+				{
+					count: 6L
+					id: "90DC0D1DDFE5FAAC"
+					item: "cataclysm:witherite_ingot"
+					type: "item"
+				}
+			]
+			title: "Witherita"
+			x: -1.2d
+			y: 12.5d
+		}
+		{
+			dependencies: ["3728BC7F0EB528CD"]
+			description: ["Un mineral radiactivo que alimenta las máquinas más peligrosas del mundo."]
+			id: "8015A26A760A986B"
+			rewards: [
+				{
+					id: "39D444F30A3CAD12"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Un brillo verde"
+			tasks: [
+				{
+					count: 8L
+					id: "E6A95794558EC882"
+					item: "alexscaves:uranium"
+					type: "item"
+				}
+			]
+			title: "Uranio"
+			x: -3.8d
+			y: 12.5d
+		}
+		{
+			dependencies: ["8015A26A760A986B"]
+			description: ["Sólo se encuentra en una dimensión de bolsillo. Quien vuelve con él no es el mismo."]
+			id: "301BC20DCD03C32B"
+			rewards: [
+				{
+					id: "62FB057BE3DAC758"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "El metal de otro plano"
+			tasks: [
+				{
+					count: 8L
+					id: "438A398C6F604639"
+					item: "occultism:iesnium_ingot"
+					type: "item"
+				}
+			]
+			title: "Iesnium"
+			x: -3.8d
+			y: 15.0d
+		}
+		{
+			dependencies: ["301BC20DCD03C32B"]
+			description: ["Los minerales del Aether, que flotan y desafían la caída."]
+			id: "240A98D9207A346B"
+			rewards: [
+				{
+					id: "89FAFF9234C4568A"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Metales del cielo"
+			tasks: [
+				{
+					count: 16L
+					id: "9A967C51B88BB30F"
+					item: "aether:zanite_gemstone"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "07A99EE8BEE3264A"
+					item: "aether:gravitite_ore"
+					type: "item"
+				}
+			]
+			title: "Zanita y Gravitita"
+			x: -1.2d
+			y: 15.0d
+		}
+	]
+	title: "Minerales del Mundo Caído"
+}

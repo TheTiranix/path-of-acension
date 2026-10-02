@@ -1,0 +1,440 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_12_acero"
+	group: "851BC1B6564B2B74"
+	icon: "create:mechanical_press"
+	id: "AB269B239F7BCC4C"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_12.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 16
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["El acero no reza: calcula. La senda empieza con la idea de que todo movimiento puede domarse y que cualquier fuerza puede encadenarse a una rueda."]
+			id: "83F1535F99AB0BF4"
+			rewards: [
+				{
+					id: "84AFC5D862B33483"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Primeros engranajes"
+			tasks: [
+				{
+					id: "5689B195A20CC2D5"
+					title: "Primeros engranajes"
+					type: "checkmark"
+				}
+			]
+			title: "Orden y Rueda"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["83F1535F99AB0BF4"]
+			description: ["Piedra y hierro unidos por una receta que nadie recuerda quién inventó. Sin ella no hay maquinaria."]
+			id: "0F826A89CF68C399"
+			rewards: [
+				{
+					id: "E73A98302329E0A3"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "La base de la industria"
+			tasks: [
+				{
+					count: 16L
+					id: "9CF0945963A8E8A2"
+					item: "create:andesite_alloy"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "C8D8AB89EA89A0B9"
+					item: "create:shaft"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "41B17A70257B627C"
+					item: "create:cogwheel"
+					type: "item"
+				}
+			]
+			title: "Aleación de Andesita"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0F826A89CF68C399"]
+			description: ["Un río bien aprovechado es un ejército que nunca se cansa. Pon la primera rueda y deja que el mundo trabaje por ti."]
+			id: "0B8854AD38F0A6C6"
+			rewards: [
+				{
+					id: "94D2A230EAAA3012"
+					type: "xp"
+					xp: 110
+				}
+			]
+			subtitle: "Fuerza gratis"
+			tasks: [
+				{
+					count: 2L
+					id: "63816F94874CFC2F"
+					item: "create:water_wheel"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "6D5C189790BE5CCE"
+					item: "create:large_cogwheel"
+					type: "item"
+				}
+			]
+			title: "La Rueda de Agua"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0B8854AD38F0A6C6"]
+			description: ["Todo lo que antes se rompía a golpes ahora se muele sin esfuerzo."]
+			id: "1051527638B9DA6F"
+			rewards: [
+				{
+					id: "8F3D6ED1D2EBA632"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Moler lo que antes se rompía"
+			tasks: [
+				{
+					id: "F29719F523C73199"
+					item: "create:millstone"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "AE1AFF0919E2697D"
+					item: "create:crushed_raw_iron"
+					type: "item"
+				}
+			]
+			title: "La Piedra de Molino"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1051527638B9DA6F"]
+			description: ["Una prensa que aplasta metal en láminas, para empezar a hacer cosas de verdad."]
+			id: "DF2184F4B46DE3DD"
+			rewards: [
+				{
+					id: "628122C10E70EE90"
+					type: "xp"
+					xp: 160
+				}
+			]
+			subtitle: "Planchas y láminas"
+			tasks: [
+				{
+					id: "307DC56763588275"
+					item: "create:mechanical_press"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "596190AE1803D9B6"
+					item: "create:brass_ingot"
+					type: "item"
+				}
+			]
+			title: "La Prensa Mecánica"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["DF2184F4B46DE3DD"]
+			description: ["Una máquina que hace en un minuto lo que antes tomaba un día. Pónla sobre una pared de piedra y olvídate."]
+			id: "A77CCA9BD375665B"
+			rewards: [
+				{
+					id: "05799335FA32C562"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Cavar sin sudar"
+			tasks: [
+				{
+					id: "75AB8AAC3A7F9A97"
+					item: "create:mechanical_drill"
+					type: "item"
+				}
+				{
+					id: "788011DD67DC4273"
+					item: "create:encased_fan"
+					type: "item"
+				}
+			]
+			title: "El Taladro"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["A77CCA9BD375665B"]
+			description: ["Los engranajes pasaron de ser fuerza a ser lógica. Esto es el primer paso hacia máquinas que deciden."]
+			id: "3685708FD594A686"
+			rewards: [
+				{
+					id: "3D1B7DADD03E5F43"
+					type: "xp"
+					xp: 280
+				}
+			]
+			subtitle: "El primer pensamiento de una máquina"
+			tasks: [
+				{
+					count: 4L
+					id: "25CFC501C6DCEAC9"
+					item: "create:precision_mechanism"
+					type: "item"
+				}
+				{
+					id: "13B12223E2693B8B"
+					item: "create:deployer"
+					type: "item"
+				}
+			]
+			title: "Mecanismos de Precisión"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3685708FD594A686"]
+			description: ["Más allá de las ruedas, hay otra escuela: la que procesa metales en cadena, multiplicando cada mena por tres, por cuatro, por cinco."]
+			id: "531A93A176DF5BDE"
+			rewards: [
+				{
+					id: "D61D5804064ED965"
+					type: "xp"
+					xp: 350
+				}
+			]
+			subtitle: "Otro tipo de industria"
+			tasks: [
+				{
+					count: 8L
+					id: "53AC34241DFE4C03"
+					item: "mekanism:enriched_iron"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "B97147B19AFB56FD"
+					item: "mekanism:ingot_steel"
+					type: "item"
+				}
+			]
+			title: "El Hierro Mekanizado"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["531A93A176DF5BDE"]
+			description: ["Un metal azul-plateado que resiste lo que nada más resiste. Las máquinas lo consideran un lujo."]
+			id: "82F696175C08FE04"
+			rewards: [
+				{
+					id: "F5B48CA99A3EE586"
+					type: "xp"
+					xp: 380
+				}
+			]
+			subtitle: "Metal de la nueva era"
+			tasks: [
+				{
+					count: 16L
+					id: "C252244D32EF6D48"
+					item: "mekanism:ingot_osmium"
+					type: "item"
+				}
+			]
+			title: "Osmio"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["82F696175C08FE04"]
+			description: ["Pequeños circuitos que dan forma a máquinas más avanzadas. Quien sepa fabricarlos, domina la industria."]
+			id: "AF7DA95E0BA5FF3C"
+			rewards: [
+				{
+					id: "D22306F8519D6ED2"
+					type: "xp"
+					xp: 420
+				}
+			]
+			subtitle: "Un cerebro simple"
+			tasks: [
+				{
+					count: 4L
+					id: "7188255279BAB896"
+					item: "mekanism:basic_control_circuit"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "B6670FEF3C05A3DA"
+					item: "mekanism:advanced_control_circuit"
+					type: "item"
+				}
+			]
+			title: "Circuitos de Control"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AF7DA95E0BA5FF3C"]
+			description: ["Un cubo que almacena energía para cuando la necesites. La industria de Pater es una industria con reservas."]
+			id: "4787FE8AE24C1298"
+			rewards: [
+				{
+					id: "A29F920F96869736"
+					type: "xp"
+					xp: 460
+				}
+			]
+			subtitle: "Fuerza guardada"
+			tasks: [
+				{
+					id: "2A1791366AA19590"
+					item: "mekanism:basic_energy_cube"
+					type: "item"
+				}
+				{
+					id: "E369306599660107"
+					item: "mekanism:metallurgic_infuser"
+					type: "item"
+				}
+			]
+			title: "El Cubo de Energía"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["4787FE8AE24C1298"]
+			description: ["Las máquinas de los dioses no son sólo hierro: lo que las mueve es otra cosa. Engranajes que obedecen a una fuerza que nadie entiende."]
+			id: "A461D688D013E47C"
+			rewards: [
+				{
+					id: "241AB94A5462F53E"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "Máquina y magia"
+			tasks: [
+				{
+					id: "427F2A1076311B3A"
+					item: "testamentodelacarne:engranaje_arcano"
+					type: "item"
+				}
+				{
+					id: "10D83EA4A3A87685"
+					item: "testamentodelacarne:chasis_engranaje"
+					type: "item"
+				}
+			]
+			title: "El Engranaje Arcano"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["A461D688D013E47C"]
+			description: ["Una máquina que excava un área entera por su cuenta. Los que la usan no pisan una mina nunca más."]
+			id: "991924D4AC643FAC"
+			rewards: [
+				{
+					id: "2C677FF4AA1C34C2"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Cavar sin mirar"
+			tasks: [
+				{
+					id: "B5DBF95153844209"
+					item: "mekanism:digital_miner"
+					type: "item"
+				}
+			]
+			title: "El Minero Digital"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["991924D4AC643FAC"]
+			description: ["Un jetpack que quema combustible para elevarte. Lo que antes sólo podían hacer los ángeles, ahora lo hace un artefacto."]
+			id: "01993059F0F2EB1F"
+			rewards: [
+				{
+					id: "1C8552D46ADE3902"
+					type: "xp"
+					xp: 900
+				}
+			]
+			subtitle: "Volar sin permiso divino"
+			tasks: [
+				{
+					id: "4B5AC32396DA5D17"
+					item: "mekanism:jetpack"
+					type: "item"
+				}
+			]
+			title: "Mochila Cohete"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["01993059F0F2EB1F"]
+			description: ["Quien quiera ver el límite de la senda debe fabricar el núcleo de un autómata: un corazón que late por engranajes."]
+			id: "3F0F862B0C65D1B8"
+			rewards: [
+				{
+					id: "B7AB77E9BCBD7688"
+					type: "xp"
+					xp: 1200
+				}
+				{
+					id: "9B3FE1A22F219FD5"
+					item: "mekanism:atomic_disassembler"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Un corazón de engranajes"
+			tasks: [
+				{
+					id: "5111D376B783DD44"
+					item: "testamentodelacarne:nucleo_de_automata"
+					type: "item"
+				}
+			]
+			title: "El Núcleo del Autómata"
+			x: -1.2d
+			y: 7.5d
+		}
+	]
+	title: "Senda del Acero"
+}

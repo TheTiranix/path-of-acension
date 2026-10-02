@@ -1,0 +1,468 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_9_dioses"
+	group: "851BC1B6564B2B74"
+	icon: "tcorigenes:altar_pater"
+	id: "CD1563479DEF00FD"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_9.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 13
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Hace 3000 años que los dioses abandonaron a la humanidad, pero siguen recibiendo ofrendas. Los reinos, formados por distintas razas de homínidos, batallan entre sí en su nombre y las iglesias gobiernan según sus designios.", "A los dioses de la Tierra se les puede rezar y ofrendar en su altar. Los que no son de la Tierra no escuchan."]
+			id: "EC6EF230F1828039"
+			rewards: [
+				{
+					id: "2A298FDD42D676A3"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Las iglesias dominan el mundo"
+			tasks: [
+				{
+					id: "7E05F69AC1BFFA4E"
+					title: "Las iglesias dominan el mundo"
+					type: "checkmark"
+				}
+			]
+			title: "Un Mundo de Totalitarismo Divino"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["EC6EF230F1828039"]
+			description: ["Meidris creó la naturaleza y la vida cuando vio vacía la obra de Pater. Su poder es salvaje e instintivo.", "Se gana su favor reproduciendo animales, cultivando y ejerciendo magia blanca. Matar ángeles neutrales o miembros de su facción lo baja. Subir el favor de Deiros también."]
+			id: "1D665B9B1467944C"
+			rewards: [
+				{
+					id: "9A5A9AC473AA56E4"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Naturaleza, vida y magia blanca"
+			tasks: [
+				{
+					id: "6B43BF8F1D6CEE8B"
+					title: "Naturaleza, vida y magia blanca"
+					type: "checkmark"
+				}
+			]
+			title: "Meidris, la Diosa Primordial"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1D665B9B1467944C"]
+			description: ["Pon el trigo en la tierra y cuida de lo que nace. Meidris prefiere manos que cuidan a manos que mandan."]
+			id: "7BC3CA68769437CE"
+			rewards: [
+				{
+					id: "B9B6287B25B6DC4B"
+					type: "xp"
+					xp: 90
+				}
+				{
+					count: 16
+					id: "DB93EE923D05B029"
+					item: "minecraft:bone_meal"
+					type: "item"
+				}
+			]
+			subtitle: "Cultiva y cría"
+			tasks: [
+				{
+					count: 64L
+					id: "4C681D79E9E97CFD"
+					item: "minecraft:wheat"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "44D3C769D739ED9D"
+					item: "minecraft:honeycomb"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "B306306A6B94223A"
+					item: "minecraft:egg"
+					type: "item"
+				}
+			]
+			title: "Ofrenda a Meidris"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7BC3CA68769437CE"]
+			description: ["Pater creó el universo hace 3 millones de años. Es el dios de lo físico, lo material y lo mecánico. Su poder es rígido, autoritario y dogmático, y odia la debilidad: prefiere sacrificarla.", "Se gana su favor construyendo y crafteando. Los crafteos que son quest dan muchísimo más favor, unas 20 veces más."]
+			id: "13207E3D5722030F"
+			rewards: [
+				{
+					id: "05B63B498857152A"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Orden, civilización y dogma"
+			tasks: [
+				{
+					id: "92C89EBB946D30AB"
+					title: "Orden, civilización y dogma"
+					type: "checkmark"
+				}
+			]
+			title: "Pater, Dios de la Luz"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["13207E3D5722030F"]
+			description: ["Para Pater cada mesa de trabajo es un altar. Construye una de las mesas superiores y habrás rezado sin decir palabra."]
+			id: "ED92EFF813A02A31"
+			rewards: [
+				{
+					id: "82AECF9786C71177"
+					type: "xp"
+					xp: 110
+				}
+				{
+					count: 16
+					id: "0EF552FF9BBBC16C"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+			]
+			subtitle: "Construir es rezar"
+			tasks: [
+				{
+					id: "6A87B413815AC3EE"
+					item: "testamentodelacarne:tier2_crafting_table"
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "4E99973D5BF1541A"
+					item: "minecraft:iron_block"
+					type: "item"
+				}
+			]
+			title: "Ofrenda a Pater"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["ED92EFF813A02A31"]
+			description: ["Luna no es antagonista del panteón: es un ente paralelo que administra el equilibrio entre luz y oscuridad. Es hijo de Deiros y trabaja para el panteón creador, haciendo el trabajo sucio de limpiar a los débiles.", "Controla la magia oscura y se alimenta del sacrificio. Más aún en su altar, y más aún si se le ofrecen partes de cuerpos de animales. Matar a Luna multiplica por cinco el spawn de mobs de su tag."]
+			id: "C6C27FC98633C825"
+			rewards: [
+				{
+					id: "65078276CE0A1F27"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Lo oculto, lo perverso, la noche"
+			tasks: [
+				{
+					id: "79E4BFA575AEFC79"
+					title: "Lo oculto, lo perverso, la noche"
+					type: "checkmark"
+				}
+			]
+			title: "Luna, el Equilibrio Oscuro"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["C6C27FC98633C825"]
+			description: ["La noche no pide permiso. Prepara el altar de sangre y algo que ofrecer: Luna se alimenta de lo que otros no se animan a mirar."]
+			id: "46D46A759BF6CBED"
+			rewards: [
+				{
+					id: "D45DEC299C27F29A"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Sangre en el altar"
+			tasks: [
+				{
+					id: "7BDF3BD99D8EF381"
+					item: "bloodmagic:altar"
+					type: "item"
+				}
+				{
+					id: "E17DDF26CB055782"
+					item: "bloodmagic:sacrificialdagger"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "DA56BAE6B9D87273"
+					item: "minecraft:bone"
+					type: "item"
+				}
+			]
+			title: "Ofrenda a Luna"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["46D46A759BF6CBED"]
+			description: ["Filis es el hijo humano de Meidris, nacido para conseguir empatía de Pater. Dios de la redención a través de la fe, del mundo terrenal, de la curación y la exploración.", "Explorar y lootear aumenta su favor, igual que cumplir las quests de sus aldeas. Su sacrificio y ascensión terminó de unir a la humanidad con la divinidad."]
+			id: "2E3F209D4F2BB346"
+			rewards: [
+				{
+					id: "155C11F2B26CB7B6"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Fe, exploración y sanación"
+			tasks: [
+				{
+					id: "E5A292684CC96453"
+					title: "Fe, exploración y sanación"
+					type: "checkmark"
+				}
+			]
+			title: "Filis, el Dios de la Redención"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["2E3F209D4F2BB346"]
+			description: ["El que explora honra a Filis. Equípate con los ojos de un viajero y recorre lo que otros no se atreven."]
+			id: "D9A9D61EF9AC1FB4"
+			rewards: [
+				{
+					id: "A023533B8C1D1E80"
+					type: "xp"
+					xp: 100
+				}
+				{
+					count: 16
+					id: "DB61D556B0678C26"
+					item: "minecraft:bread"
+					type: "item"
+				}
+			]
+			subtitle: "Camina y mira"
+			tasks: [
+				{
+					id: "349C5BC39A0375B1"
+					item: "minecraft:compass"
+					type: "item"
+				}
+				{
+					id: "3651B6534DD792D8"
+					item: "minecraft:spyglass"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "ECB98C17DA46E9E1"
+					item: "minecraft:golden_apple"
+					type: "item"
+				}
+			]
+			title: "Ofrenda a Filis"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["D9A9D61EF9AC1FB4"]
+			description: ["Deiros es el dios del egoísmo, la rebelión, el desafío a la autoridad y el fuego. Por su intento de rebelión fue recluido en el infierno junto a sus acólitos.", "Su favor crece matando mobs hostiles, ángeles o miembros de las facciones del panteón creador."]
+			id: "AD304601E6638BF2"
+			rewards: [
+				{
+					id: "C9B34D34DE4EC8AE"
+					type: "xp"
+					xp: 70
+				}
+			]
+			subtitle: "Egoísmo, fuego y desafío"
+			tasks: [
+				{
+					id: "B50EBCA2C71FFEB6"
+					title: "Egoísmo, fuego y desafío"
+					type: "checkmark"
+				}
+			]
+			title: "Deiros, el Rebelde"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["AD304601E6638BF2"]
+			description: ["Deiros no pide palabras: pide sangre del orden establecido. Limpia el mundo de lo que el panteón creador deja caminando."]
+			id: "52053048DECAA0CB"
+			rewards: [
+				{
+					id: "43FC7DEDD1D2661E"
+					type: "xp"
+					xp: 150
+				}
+				{
+					count: 8
+					id: "BAD43E03E5B9BC47"
+					item: "minecraft:blaze_powder"
+					type: "item"
+				}
+			]
+			subtitle: "Matar es su plegaria"
+			tasks: [
+				{
+					entity: "minecraft:zombie"
+					id: "DD3D66636979EF22"
+					type: "kill"
+					value: 50L
+				}
+				{
+					entity: "minecraft:skeleton"
+					id: "E649ACFB9AAEAA2F"
+					type: "kill"
+					value: 50L
+				}
+				{
+					entity: "minecraft:creeper"
+					id: "E144747C1CDB4C43"
+					type: "kill"
+					value: 25L
+				}
+			]
+			title: "Ofrenda a Deiros"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["52053048DECAA0CB"]
+			description: ["Cada dios de la Tierra tiene su altar: Pater, Meidris, Filis, Luna, Deiros y, escondido, Tempo. Allí se reza, se ofrenda y se mide el favor.", "El favor es del mundo, no del jugador: es por servidor. Lo que hagas afecta a todos y cambia cómo te tratan aldeas y reinos."]
+			id: "D3D078BF2FC1425E"
+			rewards: [
+				{
+					id: "0D6243515418FF7F"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "Seis lugares de culto"
+			tasks: [
+				{
+					id: "C4E5A472F6D2BC75"
+					title: "Seis lugares de culto"
+					type: "checkmark"
+				}
+			]
+			title: "Los Altares"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["D3D078BF2FC1425E"]
+			description: ["Deiros intentó rebelarse al orden establecido en la gran guerra de hace 100.000 años. Fue derrotado y recluido en el infierno con sus acólitos.", "Desde allí movió sus hilos para evitar que el mensaje de redención de Filis fuera escuchado, y logró que lo mataran en su forma humana."]
+			id: "F4FC7371DBC6ABA6"
+			rewards: [
+				{
+					id: "A70191162F617DF7"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Hace 100.000 años"
+			tasks: [
+				{
+					id: "27C50E9A47A736CF"
+					title: "Hace 100.000 años"
+					type: "checkmark"
+				}
+			]
+			title: "La Gran Guerra"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["F4FC7371DBC6ABA6"]
+			description: ["La muerte de Filis, hijo de Meidris, fue lo que terminó de unir a la humanidad con la divinidad. Desde su ascensión pasaron 3000 años.", "Los dioses se fueron, pero reciben las ofrendas. Los reinos pelean en su nombre y el mundo quedó marcado por esas batallas."]
+			id: "989AE4F0A2EA31DB"
+			rewards: [
+				{
+					id: "BAAA6F6BBEDF61C4"
+					type: "xp"
+					xp: 90
+				}
+			]
+			subtitle: "Humanidad y divinidad, unidas"
+			tasks: [
+				{
+					id: "2A595B67B9F649DA"
+					title: "Humanidad y divinidad, unidas"
+					type: "checkmark"
+				}
+			]
+			title: "El Sacrificio de Filis"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["989AE4F0A2EA31DB"]
+			description: ["El favor del panteón creador es inversamente proporcional al del rebelde. De eso depende tu relación con las aldeas y los reinos.", "Subir el favor de Deiros baja el de Meidris, Pater y Filis."]
+			id: "A60812A268ABC3F1"
+			rewards: [
+				{
+					id: "6471F0270F37A86A"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "Un favor que se resta"
+			tasks: [
+				{
+					id: "88B14358B8FE2309"
+					title: "Un favor que se resta"
+					type: "checkmark"
+				}
+			]
+			title: "Panteón Creador y Panteón Rebelde"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["A60812A268ABC3F1"]
+			description: ["Existen tres finales. Matar a los dioses rebeldes y derrotar a los creadores como prueba, ascendiendo como divinidad. O al revés: matar a los creadores y derrotar a los rebeldes.", "O matar a todos, lo que provoca el fin del mundo. Ese final es forzado si hay un hereje o un malnacido en el equipo, a menos que pases un ritual de perdón."]
+			id: "5E9AC5D787F7BDD0"
+			rewards: [
+				{
+					id: "181F6CEF9FAD1C02"
+					type: "xp"
+					xp: 150
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "Ascender o acabar con todo"
+			tasks: [
+				{
+					id: "F854F676981D04D3"
+					title: "Ascender o acabar con todo"
+					type: "checkmark"
+				}
+			]
+			title: "Los Tres Finales"
+			x: -3.8d
+			y: 7.5d
+		}
+	]
+	title: "Los Dioses del Panteón"
+}

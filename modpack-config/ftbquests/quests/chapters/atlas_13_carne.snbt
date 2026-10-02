@@ -1,0 +1,392 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_13_carne"
+	group: "851BC1B6564B2B74"
+	icon: "ars_nouveau:novice_spell_book"
+	id: "117A8E30377D6B7C"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_13.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 3.8d
+	}]
+	order_index: 17
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Hay un tercer camino: el de quienes creen que una palabra bien dicha vale más que un golpe. La senda de la carne aprende a ordenar la realidad con la voluntad."]
+			id: "AE7BE26CDAA742CA"
+			rewards: [
+				{
+					id: "06415BBFA620C76C"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Entre la sangre y el acero"
+			tasks: [
+				{
+					id: "6CCC0A3ED32D9F9F"
+					title: "Entre la sangre y el acero"
+					type: "checkmark"
+				}
+			]
+			title: "El Verbo"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["AE7BE26CDAA742CA"]
+			description: ["Un cuaderno viejo con anotaciones de alguien que se atrevió a hablar con la magia."]
+			id: "AAF2F89992379705"
+			rewards: [
+				{
+					id: "D0A7D01885C5AF5B"
+					type: "xp"
+					xp: 80
+				}
+			]
+			subtitle: "La primera lectura"
+			tasks: [
+				{
+					id: "9044B45118C39B30"
+					item: "ars_nouveau:worn_notebook"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "DBD5808A28906376"
+					item: "minecraft:paper"
+					type: "item"
+				}
+			]
+			title: "Un Cuaderno Gastado"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["AAF2F89992379705"]
+			description: ["Una flor que brota de la magia misma. Sin ella no se fabrica casi nada arcano."]
+			id: "9678F7A7939F457F"
+			rewards: [
+				{
+					id: "E9D6B92FA79BAD3B"
+					type: "xp"
+					xp: 100
+				}
+			]
+			subtitle: "Una flor que crece del aire"
+			tasks: [
+				{
+					count: 16L
+					id: "EE05E0BFD350D4EF"
+					item: "ars_nouveau:magebloom"
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "19812E334F717FE0"
+					item: "ars_nouveau:magebloom_fiber"
+					type: "item"
+				}
+			]
+			title: "Magebloom"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9678F7A7939F457F"]
+			description: ["Un libro de hechizos de principiante. Con él, el mundo empieza a obedecerte, a veces demasiado literalmente."]
+			id: "FD6B6FC9220B72D2"
+			rewards: [
+				{
+					id: "D8AD14C9BFDF63BB"
+					type: "xp"
+					xp: 140
+				}
+			]
+			subtitle: "Palabras que se vuelven fuego"
+			tasks: [
+				{
+					id: "BE762017F14F1769"
+					item: "ars_nouveau:novice_spell_book"
+					type: "item"
+				}
+			]
+			title: "Tu Primer Libro"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["FD6B6FC9220B72D2"]
+			description: ["La fuente es la energía de la magia. Las piedras de fuente la almacenan y la devuelven."]
+			id: "7B1F6DFF14D8C2DF"
+			rewards: [
+				{
+					id: "0D653A641948F71E"
+					type: "xp"
+					xp: 180
+				}
+			]
+			subtitle: "Donde el verbo se concentra"
+			tasks: [
+				{
+					count: 16L
+					id: "41C781C59DF9B75E"
+					item: "ars_nouveau:source_gem"
+					type: "item"
+				}
+				{
+					count: 16L
+					id: "AF9014C37334C718"
+					item: "ars_nouveau:sourcestone"
+					type: "item"
+				}
+			]
+			title: "Piedra de Fuente"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["7B1F6DFF14D8C2DF"]
+			description: ["Un frasco para guardar fuente. El primer lujo de un mago ordenado."]
+			id: "36604411A85DB2BD"
+			rewards: [
+				{
+					id: "EE2D98CE9E24FD12"
+					type: "xp"
+					xp: 200
+				}
+			]
+			subtitle: "Reservas de poder"
+			tasks: [
+				{
+					id: "452C8E59283142EA"
+					item: "ars_nouveau:source_jar"
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "1BB5DC5AF9946086"
+					item: "ars_nouveau:relay"
+					type: "item"
+				}
+			]
+			title: "El Frasco de Fuente"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["36604411A85DB2BD"]
+			description: ["Aquí los objetos se vuelven mágicos. Quien tenga uno puede hacer en una tarde lo que a otros les lleva toda una vida."]
+			id: "0449904FBF32607B"
+			rewards: [
+				{
+					id: "BE2FC812438465DA"
+					type: "xp"
+					xp: 300
+				}
+			]
+			subtitle: "Una mesa para cosas imposibles"
+			tasks: [
+				{
+					id: "15849B6B6B47CC88"
+					item: "ars_nouveau:enchanting_apparatus"
+					type: "item"
+				}
+			]
+			title: "El Aparato de Encantamiento"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["0449904FBF32607B"]
+			description: ["Una cámara para infundir fuente en materiales. Lo que sale tiene el brillo de lo vivo."]
+			id: "980B79C2A71B9BCC"
+			rewards: [
+				{
+					id: "E2A041C65F79B0CA"
+					type: "xp"
+					xp: 340
+				}
+			]
+			subtitle: "Dar vida a lo inerte"
+			tasks: [
+				{
+					id: "E883BB87ABA6F267"
+					item: "ars_nouveau:imbuement_chamber"
+					type: "item"
+				}
+			]
+			title: "La Cámara de Imbuimiento"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["980B79C2A71B9BCC"]
+			description: ["Los wilden son guardianes que nacen de la magia que no tiene dueño. Visita su guarida y mira de cerca las criaturas que la defienden."]
+			id: "5BBB291CC1E38A05"
+			rewards: [
+				{
+					id: "308B25B7DF21380D"
+					type: "xp"
+					xp: 380
+				}
+			]
+			subtitle: "Los guardianes de la magia salvaje"
+			tasks: [
+				{
+					id: "42CDF85BE0F51E57"
+					structure: "ars_nouveau:hunter_wilden_den"
+					type: "structure"
+				}
+			]
+			title: "La Guarida del Wilden"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5BBB291CC1E38A05"]
+			description: ["El cazador wilden dispara flechas hechas de energía pura. Aprende a esquivar su ritmo."]
+			id: "E66050AA5D0A7E0E"
+			rewards: [
+				{
+					id: "00ED924A0E0CFE02"
+					type: "xp"
+					xp: 400
+				}
+			]
+			subtitle: "El que cuida la entrada"
+			tasks: [
+				{
+					entity: "ars_nouveau:wilden_hunter"
+					id: "B065AF14B33D1FA6"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Cazador Wilden"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["E66050AA5D0A7E0E"]
+			description: ["Un coloso silencioso que protege el centro de la guarida. Pega fuerte, pero se mueve lento."]
+			id: "C4534FE0CA256B33"
+			rewards: [
+				{
+					id: "3EE905EDAF3CEDF2"
+					type: "xp"
+					xp: 450
+				}
+			]
+			subtitle: "El muro vivo"
+			tasks: [
+				{
+					entity: "ars_nouveau:wilden_guardian"
+					id: "F8FE6378B4AEA2A4"
+					type: "kill"
+					value: 1L
+				}
+			]
+			title: "Guardián Wilden"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["C4534FE0CA256B33"]
+			description: ["Un libro que deja grabar hechizos más complejos, con más glifos y más opciones."]
+			id: "ABECCF9AE147D854"
+			rewards: [
+				{
+					id: "7424B33E3548E4F1"
+					type: "xp"
+					xp: 600
+				}
+			]
+			subtitle: "Un hechizo más ancho"
+			tasks: [
+				{
+					id: "7AEA8ED57E096C93"
+					item: "ars_nouveau:apprentice_spell_book"
+					type: "item"
+				}
+			]
+			title: "El Libro del Aprendiz"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["ABECCF9AE147D854"]
+			description: ["Quien aprende a pelear con magia necesita una túnica que aguante algún golpe."]
+			id: "01EEA3D08DE140D1"
+			rewards: [
+				{
+					id: "ED8B5C5E627098F0"
+					type: "xp"
+					xp: 1000
+				}
+			]
+			subtitle: "Un mago que no se esconde"
+			tasks: [
+				{
+					id: "9CB82A7F534EEE27"
+					item: "ars_nouveau:battlemage_hood"
+					type: "item"
+				}
+				{
+					id: "A0C4F62E0A9F42A3"
+					item: "ars_nouveau:battlemage_robes"
+					type: "item"
+				}
+				{
+					id: "4FEF9F22B514DC93"
+					item: "ars_nouveau:battlemage_leggings"
+					type: "item"
+				}
+				{
+					id: "AFC51A9D1946A9B8"
+					item: "ars_nouveau:battlemage_boots"
+					type: "item"
+				}
+			]
+			title: "Túnica de Batalla"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["01EEA3D08DE140D1"]
+			description: ["El libro más poderoso al que puede acceder un mortal. Con él, cada palabra es un acontecimiento."]
+			id: "29FF1CD562DBE3E0"
+			rewards: [
+				{
+					id: "4511A3B527C268F6"
+					type: "xp"
+					xp: 1500
+				}
+				{
+					id: "522A1C2A70E5DF6A"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "El verbo en su forma final"
+			tasks: [
+				{
+					id: "B38E3385413FD6FA"
+					item: "ars_nouveau:archmage_spell_book"
+					type: "item"
+				}
+			]
+			title: "El Libro del Archimago"
+			x: 1.2d
+			y: 7.5d
+		}
+	]
+	title: "Senda de la Carne"
+}

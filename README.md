@@ -108,7 +108,7 @@ Cinco capítulos de FTB Quests que te llevan desde el primer refugio hasta el Ae
 Todo lo que hay que instalar está explicado en [`modpack-config/README.md`](modpack-config/README.md), y la última versión está en la sección de [Releases](../../releases). En resumen:
 
 1. Instalá los mods de [`modpack-config/MODS.txt`](modpack-config/MODS.txt) (Forge 1.20.1-47.4.0).
-2. Copiá `testamentodelacarne-0.1.0.jar` a `mods/`.
+2. Copiá `pathofascension-0.1.0.jar` a `mods/`.
 3. Descomprimí el zip de configs encima de la carpeta de la instancia.
 
 > Los mods de terceros **no** están en este repositorio, por respeto a sus autores: hay que bajarlos de CurseForge o Modrinth.

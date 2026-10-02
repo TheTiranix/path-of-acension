@@ -3,7 +3,7 @@ ServerEvents.recipes(event => {
 
     // Es una buena práctica añadir un mensaje a la consola del juego.
     // Así, al iniciar, puedes ver en los logs que tu script se está ejecutando.
-    console.info('[Testamento de la Carne] Aplicando reglas del Capítulo 1...');
+    console.info('[Path of Ascension] Aplicando reglas del Capítulo 1...');
 
     // --- 1. HACEMOS LA MADERA MÁS ESCASA ---
     // Eliminamos la receta estándar que convierte 1 tronco en 4 tablones.

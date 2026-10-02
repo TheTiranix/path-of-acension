@@ -6,7 +6,7 @@ Uso:  python tools/make_release.py <version>   (ej. v0.2.0)
 Genera build/release/PathOfAscension-configs-<version>.zip con esta estructura, lista para
 descomprimir dentro de la carpeta de la instancia (se pisan los archivos existentes):
     config/toughasnails/*, config/apotheosis/*, config/ftbquests/quests/*, config/fancymenu/*, kubejs/*
-El jar del mod NO va en el zip: se distribuye aparte (releases/testamentodelacarne-0.1.0.jar).
+El jar del mod NO va en el zip: se distribuye aparte (releases/pathofascension-0.1.0.jar).
 Los mods de terceros tampoco se incluyen: ver modpack-config/MODS.txt.
 """
 import os

@@ -1,0 +1,612 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "atlas_16_forja"
+	group: "A1679646AA507048"
+	icon: "testamentodelacarne:tier3_crafting_table"
+	id: "FBDC81B60FF89C29"
+	images: [{
+		height: 24.0d
+		image: "kubejs:textures/gui/quest/atlas_16.png"
+		rotation: 0.0d
+		width: 24.0d
+		x: 0.0d
+		y: 5.0d
+	}]
+	order_index: 20
+	quest_links: [ ]
+	quests: [
+		{
+			description: ["Hay tres mesas de crafteo: la común, la superior y la suprema. Cada una desbloquea recetas más grandes y más peligrosas. El trabajo bien hecho también es un tipo de oración."]
+			id: "A95DCB8AEBB202EF"
+			rewards: [
+				{
+					id: "7ADF33621EA05750"
+					type: "xp"
+					xp: 50
+				}
+			]
+			subtitle: "Tres mesas, tres niveles"
+			tasks: [
+				{
+					id: "61B2546C8B2BC86D"
+					title: "Tres mesas, tres niveles"
+					type: "checkmark"
+				}
+			]
+			title: "La Forja de Pater"
+			x: -3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["A95DCB8AEBB202EF"]
+			description: ["Un cuchillo de carnicero de piedra. Rinde un tercio del de hierro, pero cualquiera puede hacerlo."]
+			id: "62D7D5184B7A313D"
+			rewards: [
+				{
+					id: "8079D6792750C3F0"
+					type: "xp"
+					xp: 60
+				}
+			]
+			subtitle: "Lo primero que se afila"
+			tasks: [
+				{
+					id: "4E3A956676CCC8AA"
+					item: "testamentodelacarne:stone_butcher_knife"
+					type: "item"
+				}
+			]
+			title: "El Cuchillo de Piedra"
+			x: -1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["62D7D5184B7A313D"]
+			description: ["La mesa de nivel dos permite recetas mayores. Desde aquí en adelante, todo se fabrica con más cuidado."]
+			id: "9DE2F0AE096702DB"
+			rewards: [
+				{
+					id: "F645745947E8FAB4"
+					type: "xp"
+					xp: 120
+				}
+			]
+			subtitle: "Una cuadrícula de 3x3"
+			tasks: [
+				{
+					id: "F12301C0FBBA6875"
+					item: "testamentodelacarne:tier2_crafting_table"
+					type: "item"
+				}
+			]
+			title: "La Mesa Superior"
+			x: 1.2d
+			y: 0.0d
+		}
+		{
+			dependencies: ["9DE2F0AE096702DB"]
+			description: ["Una versión azul del encendedor común. Sus chispas son más frías y más largas."]
+			id: "3E7A4A12EE1F6CD3"
+			rewards: [
+				{
+					id: "F545CBE41C87F69D"
+					type: "xp"
+					xp: 150
+				}
+			]
+			subtitle: "Un encendedor del mundo caído"
+			tasks: [
+				{
+					id: "B6D368C12BE2EBF3"
+					item: "testamentodelacarne:blue_flint_and_steel"
+					type: "item"
+				}
+			]
+			title: "Pedernal Azul"
+			x: 3.8d
+			y: 0.0d
+		}
+		{
+			dependencies: ["3E7A4A12EE1F6CD3"]
+			description: ["La mesa de nivel tres guarda las recetas de armas y armaduras legendarias. Nadie la construye por casualidad."]
+			id: "236A1E1BC4BCD301"
+			rewards: [
+				{
+					id: "86EC1E9DE66AF945"
+					type: "xp"
+					xp: 350
+				}
+			]
+			subtitle: "Una cuadrícula de 5x5"
+			tasks: [
+				{
+					id: "F822B698E97F9881"
+					item: "testamentodelacarne:tier3_crafting_table"
+					type: "item"
+				}
+			]
+			title: "La Mesa Suprema"
+			x: 3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["236A1E1BC4BCD301"]
+			description: ["Un conjunto completo de zafiro: una coraza azul que vence a la del diamante."]
+			id: "8A561003C3291281"
+			rewards: [
+				{
+					id: "B498BDEF63A5785A"
+					type: "xp"
+					xp: 400
+				}
+			]
+			subtitle: "Hielo hecho coraza"
+			tasks: [
+				{
+					id: "45A5940B698734C7"
+					item: "testamentodelacarne:sapphire_helmet"
+					type: "item"
+				}
+				{
+					id: "EC14EFF8B1059CD2"
+					item: "testamentodelacarne:sapphire_chestplate"
+					type: "item"
+				}
+				{
+					id: "2C2C0DD9232C5244"
+					item: "testamentodelacarne:sapphire_leggings"
+					type: "item"
+				}
+				{
+					id: "996CFEF2F01C7E70"
+					item: "testamentodelacarne:sapphire_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura de Zafiro"
+			x: 1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["8A561003C3291281"]
+			description: ["Una armadura ligera hecha con las escamas de una serpiente primordial."]
+			id: "3CD48215EF4AC20C"
+			rewards: [
+				{
+					id: "DDF90C22B495E358"
+					type: "xp"
+					xp: 420
+				}
+			]
+			subtitle: "Escamas de serpiente"
+			tasks: [
+				{
+					id: "71B155CF2B3BEAE2"
+					item: "testamentodelacarne:naga_helmet"
+					type: "item"
+				}
+				{
+					id: "FD4F1A1E28E14753"
+					item: "testamentodelacarne:naga_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura de Naga"
+			x: -1.2d
+			y: 2.5d
+		}
+		{
+			dependencies: ["3CD48215EF4AC20C"]
+			description: ["Un conjunto completo de diascita. Quien lo viste parece parte de la infección."]
+			id: "2B3492BEDDB0203E"
+			rewards: [
+				{
+					id: "0E66CCFFD0E90E42"
+					type: "xp"
+					xp: 560
+				}
+			]
+			subtitle: "Metal enfermo, cuerpo sano"
+			tasks: [
+				{
+					id: "061A57B4624E18F4"
+					item: "testamentodelacarne:diascite_helmet"
+					type: "item"
+				}
+				{
+					id: "2084C5D204BE5111"
+					item: "testamentodelacarne:diascite_chestplate"
+					type: "item"
+				}
+				{
+					id: "AD9A2DAF491FA3B6"
+					item: "testamentodelacarne:diascite_leggings"
+					type: "item"
+				}
+				{
+					id: "690992D06E4114D1"
+					item: "testamentodelacarne:diascite_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura de Diascita"
+			x: -3.8d
+			y: 2.5d
+		}
+		{
+			dependencies: ["2B3492BEDDB0203E"]
+			description: ["Una espada de diascita: más afilada de lo que parece y mucho más dura."]
+			id: "EF33778F5CCE7C29"
+			rewards: [
+				{
+					id: "148CD4116A1AF0DA"
+					type: "xp"
+					xp: 520
+				}
+			]
+			subtitle: "Hoja de un metal enfermo"
+			tasks: [
+				{
+					id: "B0D26B964745956A"
+					item: "testamentodelacarne:diascite_sword"
+					type: "item"
+				}
+			]
+			title: "Espada de Diascita"
+			x: -3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["EF33778F5CCE7C29"]
+			description: ["Un conjunto completo arcano, con forma de guardián de las mareas. Su blanco crema recuerda al de un cielo antes de la Caída."]
+			id: "86B188D9101BE27A"
+			rewards: [
+				{
+					id: "8F28AD1CF58E3ACF"
+					type: "xp"
+					xp: 800
+				}
+			]
+			subtitle: "Blanco celestial"
+			tasks: [
+				{
+					id: "A7791B73943A1DED"
+					item: "testamentodelacarne:arcane_helmet"
+					type: "item"
+				}
+				{
+					id: "D27DE3F0D3775AA1"
+					item: "testamentodelacarne:arcane_chestplate"
+					type: "item"
+				}
+				{
+					id: "0A3BB871D69D1C71"
+					item: "testamentodelacarne:arcane_leggings"
+					type: "item"
+				}
+				{
+					id: "56E42A8746D4A08A"
+					item: "testamentodelacarne:arcane_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura Arcana"
+			x: -1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["86B188D9101BE27A"]
+			description: ["Una espada que condensa energía arcana. Con ella el acero deja de ser sólo acero."]
+			id: "3BCBA9C4C9A88F16"
+			rewards: [
+				{
+					id: "41921BCD690517C2"
+					type: "xp"
+					xp: 760
+				}
+			]
+			subtitle: "Magia en una hoja"
+			tasks: [
+				{
+					id: "2A990368356B1FC5"
+					item: "testamentodelacarne:arcane_sword"
+					type: "item"
+				}
+			]
+			title: "Espada Arcana"
+			x: 1.2d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3BCBA9C4C9A88F16"]
+			description: ["Un conjunto completo de acero negro. Pesa como una promesa."]
+			id: "BFE24C7248BF23E3"
+			rewards: [
+				{
+					id: "E7CAB86EDE6738BE"
+					type: "xp"
+					xp: 1000
+				}
+			]
+			subtitle: "Una coraza de rey olvidado"
+			tasks: [
+				{
+					id: "338DD03C6F24A317"
+					item: "testamentodelacarne:black_steel_helmet"
+					type: "item"
+				}
+				{
+					id: "E3411E370ED23AF4"
+					item: "testamentodelacarne:black_steel_chestplate"
+					type: "item"
+				}
+				{
+					id: "72F2776807D1E069"
+					item: "testamentodelacarne:black_steel_leggings"
+					type: "item"
+				}
+				{
+					id: "E7C724DAC8A0055B"
+					item: "testamentodelacarne:black_steel_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura de Acero Negro"
+			x: 3.8d
+			y: 5.0d
+		}
+		{
+			dependencies: ["BFE24C7248BF23E3"]
+			description: ["Hecha con las piezas del guardián de hierro. Pesada y lenta, pero casi indestructible."]
+			id: "BE6BE3B7888C7140"
+			rewards: [
+				{
+					id: "0867F7B5F154DC70"
+					type: "xp"
+					xp: 1100
+				}
+			]
+			subtitle: "Hierro vivo"
+			tasks: [
+				{
+					id: "3821EC90B369CC1E"
+					item: "mowziesmobs:wrought_helmet"
+					type: "item"
+				}
+				{
+					id: "9B59E3BD4F1B5992"
+					item: "testamentodelacarne:wrought_chestplate"
+					type: "item"
+				}
+				{
+					id: "8A51E5F4677AA740"
+					item: "testamentodelacarne:wrought_leggings"
+					type: "item"
+				}
+				{
+					id: "E7AD7B76D66E4362"
+					item: "testamentodelacarne:wrought_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura de Wrought"
+			x: 3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["BE6BE3B7888C7140"]
+			description: ["Una espada de acero de dragón de fuego. Quien la empuña siente un calor que no es el suyo."]
+			id: "552F2F3DDAE49A8C"
+			rewards: [
+				{
+					id: "35886EB2A6C974FF"
+					type: "xp"
+					xp: 1200
+				}
+			]
+			subtitle: "Acero de dragón"
+			tasks: [
+				{
+					id: "E3032EB1D2CE993E"
+					item: "iceandfire:dragonsteel_fire_sword"
+					type: "item"
+				}
+			]
+			title: "Arma de Dragonsteel"
+			x: 1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["552F2F3DDAE49A8C"]
+			description: ["Un conjunto completo de acero de dragón de hielo. La coraza más dura que se puede forjar en este mundo."]
+			id: "F52A8AC503BF1657"
+			rewards: [
+				{
+					id: "6FF720F2BB129A7E"
+					type: "xp"
+					xp: 1500
+				}
+			]
+			subtitle: "Cuerpo de dragón"
+			tasks: [
+				{
+					id: "5AA1A5CB863E8BBC"
+					item: "iceandfire:dragonsteel_ice_helmet"
+					type: "item"
+				}
+				{
+					id: "628CEDE963990C02"
+					item: "iceandfire:dragonsteel_ice_chestplate"
+					type: "item"
+				}
+				{
+					id: "FD3D43E5C8F816E1"
+					item: "iceandfire:dragonsteel_ice_leggings"
+					type: "item"
+				}
+				{
+					id: "DE100508ED3F140D"
+					item: "iceandfire:dragonsteel_ice_boots"
+					type: "item"
+				}
+			]
+			title: "Armadura de Dragonsteel"
+			x: -1.2d
+			y: 7.5d
+		}
+		{
+			dependencies: ["F52A8AC503BF1657"]
+			description: ["Cristal solar convertido en armadura. Quien la lleva es inmune al calor."]
+			id: "E5027CDB24E0CF17"
+			rewards: [
+				{
+					id: "5A272685D905686C"
+					type: "xp"
+					xp: 1800
+				}
+			]
+			subtitle: "Una coraza de sol"
+			tasks: [
+				{
+					id: "4DBD8AC8F7CA691D"
+					item: "celestisynth:solar_crystal_helmet"
+					type: "item"
+				}
+				{
+					id: "8D9D13028A4BE5A2"
+					item: "celestisynth:solar_crystal_chestplate"
+					type: "item"
+				}
+				{
+					id: "913FE2DB0A723259"
+					item: "celestisynth:solar_crystal_leggings"
+					type: "item"
+				}
+				{
+					id: "DA8DAD092CDD385E"
+					item: "celestisynth:solar_crystal_boots"
+					type: "item"
+				}
+			]
+			title: "Celestial Solar"
+			x: -3.8d
+			y: 7.5d
+		}
+		{
+			dependencies: ["E5027CDB24E0CF17"]
+			description: ["Piedra lunar convertida en armadura. Quien la lleva no teme al frío ni al wither."]
+			id: "42F1F10B9E18A726"
+			rewards: [
+				{
+					id: "2C0DF3AB1AB08FAC"
+					type: "xp"
+					xp: 1800
+				}
+			]
+			subtitle: "Una coraza de luna"
+			tasks: [
+				{
+					id: "0351375CE370D7D3"
+					item: "celestisynth:lunar_stone_helmet"
+					type: "item"
+				}
+				{
+					id: "FFF34CB117101B0A"
+					item: "celestisynth:lunar_stone_chestplate"
+					type: "item"
+				}
+				{
+					id: "43D3BFBEFE056CB6"
+					item: "celestisynth:lunar_stone_leggings"
+					type: "item"
+				}
+				{
+					id: "5CADEF50D6F39D34"
+					item: "celestisynth:lunar_stone_boots"
+					type: "item"
+				}
+			]
+			title: "Celestial Lunar"
+			x: -3.8d
+			y: 10.0d
+		}
+		{
+			dependencies: ["42F1F10B9E18A726"]
+			description: ["Un arma legendaria que se alimenta de sangre. Tu salud paga el precio de cada lanza que invoca."]
+			id: "05857B303B69839C"
+			rewards: [
+				{
+					id: "5E4DF9089DD698FE"
+					type: "xp"
+					xp: 2000
+				}
+			]
+			subtitle: "La espada de los dos filos"
+			tasks: [
+				{
+					id: "063B04897DECD1C5"
+					item: "celestisynth:keres"
+					type: "item"
+				}
+			]
+			title: "Keres"
+			x: -1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["05857B303B69839C"]
+			description: ["Un arma de dos manos que congela todo lo que toca. Su danza es lenta pero no tiene piedad."]
+			id: "2874A7AC88CCE632"
+			rewards: [
+				{
+					id: "17F06396DC8414C9"
+					type: "xp"
+					xp: 2000
+				}
+			]
+			subtitle: "Hielo de dos manos"
+			tasks: [
+				{
+					id: "6CBCA041A3D8E2EF"
+					item: "celestisynth:frostbound"
+					type: "item"
+				}
+			]
+			title: "Frostbound"
+			x: 1.2d
+			y: 10.0d
+		}
+		{
+			dependencies: ["2874A7AC88CCE632"]
+			description: ["Una guadaña que canta como la luna. Su tormenta de cortes es hermosa y mortal."]
+			id: "ED05E6BDD5B77D49"
+			rewards: [
+				{
+					id: "2FAAF86A073BFA7C"
+					type: "xp"
+					xp: 2000
+				}
+				{
+					id: "72438F3A04CF1222"
+					item: "minecraft:nether_star"
+					type: "item"
+				}
+			]
+			shape: "octagon"
+			size: 1.5d
+			subtitle: "La luna hecha arma"
+			tasks: [
+				{
+					id: "ACD27B13F4A5CB52"
+					item: "celestisynth:crescentia"
+					type: "item"
+				}
+			]
+			title: "Crescentia"
+			x: 3.8d
+			y: 10.0d
+		}
+	]
+	title: "El Arte de la Forja"
+}
