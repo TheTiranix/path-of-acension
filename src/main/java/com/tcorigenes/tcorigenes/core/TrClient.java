@@ -9,6 +9,11 @@ final class TrClient {
     }
 
     static String translate(String spanish) {
+        // en español Minecraft usa en_us como respaldo de las claves que faltan, asi que "has" daria ingles: el español se queda como esta
+        String selected = net.minecraft.client.Minecraft.getInstance().getLanguageManager().getSelected();
+        if (selected == null || selected.startsWith("es_")) {
+            return spanish;
+        }
         String key = Tr.key(spanish);
         Language language = Language.getInstance();
         return language.has(key) ? language.getOrDefault(key) : spanish;
