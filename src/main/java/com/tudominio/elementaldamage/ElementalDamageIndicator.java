@@ -23,10 +23,33 @@ import net.minecraft.world.entity.decoration.ArmorStand;
  * propio ni packets nuevos.
  */
 public final class ElementalDamageIndicator {
-    private record ActiveIndicator(ArmorStand entity, long expireAtGameTime) {
+    private static final class ActiveIndicator {
+        final ArmorStand entity;
+        long expireAtGameTime;
+        float total;
+        long lastHit;
+
+        ActiveIndicator(ArmorStand entity, long expireAtGameTime, float total, long lastHit) {
+            this.entity = entity;
+            this.expireAtGameTime = expireAtGameTime;
+            this.total = total;
+            this.lastHit = lastHit;
+        }
+
+        ArmorStand entity() {
+            return this.entity;
+        }
+
+        long expireAtGameTime() {
+            return this.expireAtGameTime;
+        }
     }
 
     private static final List<ActiveIndicator> ACTIVE = new ArrayList<>();
+    /** Golpes seguidos del mismo tipo sobre el mismo mob se suman en UN solo cartel (antes cada golpe era una entidad: con armas rapidas llenaba la pantalla y laggeaba). */
+    private static final java.util.Map<String, ActiveIndicator> MERGED = new java.util.HashMap<>();
+    private static final int MERGE_WINDOW_TICKS = 10;
+    private static final int MAX_ACTIVE = 40;
     private static final int LIFETIME_TICKS = 25;
 
     private ElementalDamageIndicator() {
@@ -34,19 +57,45 @@ public final class ElementalDamageIndicator {
 
     /** Cartel del golpe critico fisico (punto debil). */
     public static void showCritical(LivingEntity target, float amount) {
-        spawn(target, Component.translatable("pa.msg.ab72b220cd", String.format("%.1f", amount)).withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
+        showOrMerge(target, "crit", amount, total -> Component.translatable("pa.msg.ab72b220cd", String.format("%.1f", total))
+                .withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
     }
 
     public static void show(LivingEntity target, ResourceKey<DamageType> element, float amount) {
         if (amount <= 0.0F) {
             return;
         }
-        spawn(target, label(element, amount, com.tcorigenes.tcorigenes.core.WeakPointManager.isCriticalNow(target)));
+        boolean critical = com.tcorigenes.tcorigenes.core.WeakPointManager.isCriticalNow(target);
+        showOrMerge(target, element.location().getPath() + (critical ? "|c" : ""), amount, total -> label(element, total, critical));
     }
 
-    private static void spawn(LivingEntity target, Component text) {
+    private static void showOrMerge(LivingEntity target, String key, float amount, java.util.function.Function<Float, Component> label) {
         if (!(target.level() instanceof ServerLevel serverLevel)) {
             return;
+        }
+        long now = serverLevel.getGameTime();
+        String id = target.getId() + "|" + key;
+        ActiveIndicator existing = MERGED.get(id);
+        if (existing != null && existing.entity.isAlive() && now - existing.lastHit <= MERGE_WINDOW_TICKS) {
+            existing.total += amount;
+            existing.lastHit = now;
+            existing.expireAtGameTime = now + LIFETIME_TICKS;
+            existing.entity.setCustomName(label.apply(existing.total));
+            return;
+        }
+        if (ACTIVE.size() >= MAX_ACTIVE) {
+            ActiveIndicator oldest = ACTIVE.remove(0);
+            oldest.entity.discard();
+        }
+        ActiveIndicator created = spawn(target, label.apply(amount), amount, now);
+        if (created != null) {
+            MERGED.put(id, created);
+        }
+    }
+
+    private static ActiveIndicator spawn(LivingEntity target, Component text, float amount, long now) {
+        if (!(target.level() instanceof ServerLevel serverLevel)) {
+            return null;
         }
         ArmorStand indicator = new ArmorStand(EntityType.ARMOR_STAND, serverLevel);
         CompoundTag markerTag = new CompoundTag();
@@ -63,7 +112,9 @@ public final class ElementalDamageIndicator {
         indicator.setCustomName(text);
         indicator.setCustomNameVisible(true);
         serverLevel.addFreshEntity(indicator);
-        ACTIVE.add(new ActiveIndicator(indicator, serverLevel.getGameTime() + LIFETIME_TICKS));
+        ActiveIndicator created = new ActiveIndicator(indicator, now + LIFETIME_TICKS, amount, now);
+        ACTIVE.add(created);
+        return created;
     }
 
     private static Component label(ResourceKey<DamageType> element, float amount, boolean critical) {
@@ -105,6 +156,7 @@ public final class ElementalDamageIndicator {
         ACTIVE.removeIf(indicator -> {
             if (now >= indicator.expireAtGameTime() || !indicator.entity().isAlive()) {
                 indicator.entity().discard();
+                MERGED.values().remove(indicator);
                 return true;
             }
             return false;

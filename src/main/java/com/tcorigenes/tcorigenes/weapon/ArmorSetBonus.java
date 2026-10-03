@@ -17,10 +17,16 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class ArmorSetBonus {
     public static final double AMPLIFICATION = 0.20;
     /** prefijo de las piezas -> elemento amplificado */
-    public static final Map<String, ResourceKey<DamageType>> SETS = Map.of(
-            "aether:neptune_", ModDamageTypes.WATER_ELEMENTAL,
-            "aether:phoenix_", ModDamageTypes.FIRE_ELEMENTAL,
-            "aether:valkyrie_", ModDamageTypes.LIGHT);
+    public record SetBonus(String prefix, ResourceKey<DamageType> element, double amount) {
+    }
+
+    /** Pedido de alejandr0: Phoenix da 10% de fuego y 10% de lunar; Valkyrie 10% de luz y 10% de natural; Neptune sigue con 20% de agua. */
+    public static final java.util.List<SetBonus> SETS = java.util.List.of(
+            new SetBonus("aether:neptune_", ModDamageTypes.WATER_ELEMENTAL, 0.20),
+            new SetBonus("aether:phoenix_", ModDamageTypes.FIRE_ELEMENTAL, 0.10),
+            new SetBonus("aether:phoenix_", ModDamageTypes.LUNAR, 0.10),
+            new SetBonus("aether:valkyrie_", ModDamageTypes.LIGHT, 0.10),
+            new SetBonus("aether:valkyrie_", ModDamageTypes.NATURAL, 0.10));
 
     /** Armaduras divinas (Celestisynth): +2.5% de daño elemental por pieza. */
     public static final double PIECE_BONUS = 0.025;
@@ -44,9 +50,9 @@ public final class ArmorSetBonus {
     /** 1.0 si no hay bonus para ese elemento; 1.2 con el set completo correspondiente; mas 2.5% por pieza divina. */
     public static double multiplier(Player player, ResourceKey<DamageType> element) {
         double result = 1.0;
-        for (var entry : SETS.entrySet()) {
-            if (entry.getValue().equals(element) && hasFullSet(player, entry.getKey())) {
-                result = 1.0 + AMPLIFICATION;
+        for (SetBonus bonus : SETS) {
+            if (bonus.element().equals(element) && hasFullSet(player, bonus.prefix())) {
+                result += bonus.amount();
             }
         }
         for (var entry : PIECE_SETS.entrySet()) {
