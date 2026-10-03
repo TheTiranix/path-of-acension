@@ -18,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class MiningProgression {
     private static final ResourceLocation ARCANE_DEBRIS = ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "arcane_debris");
     private static final Set<String> ARCANE_DEBRIS_TOOLS = Set.of(
-            "twilightforest:fiery_pickaxe",
+            "twilightforest:fiery_pickaxe", "testamentodelacarne:wintry_pickaxe",
             "testamentodelacarne:arcane_pickaxe",
             "cataclysm:black_steel_pickaxe",
             "iceandfire:dragonsteel_fire_pickaxe", "iceandfire:dragonsteel_ice_pickaxe", "iceandfire:dragonsteel_lightning_pickaxe",

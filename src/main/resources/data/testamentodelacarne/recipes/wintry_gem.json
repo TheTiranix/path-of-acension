@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "testamentodelacarne:gravitite_gem"
+    },
+    {
+      "item": "testamentodelacarne:wintry_essence"
+    }
+  ],
+  "result": {
+    "item": "testamentodelacarne:wintry_gem"
+  }
+}

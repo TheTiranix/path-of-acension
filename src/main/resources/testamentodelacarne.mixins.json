@@ -23,7 +23,8 @@
     "CursiumSetEventsMixin",
     "CursiumKeyMixin",
     "DarkMetalArmorTickMixin",
-    "CombatRulesMixin"
+    "CombatRulesMixin",
+    "DarkMetalSwordUndeadMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin"

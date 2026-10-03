@@ -508,6 +508,11 @@ public final class WeaponBalance {
             TOOL_DURABILITY.put(rl(id), 6062);
         }
 
+        // Wintry (nuestras, "como fiery pero frio"): espada de 26 y el resto proporcional, 3031 usos.
+        w("testamentodelacarne:wintry_sword").dmg(26);
+        group("testamentodelacarne:wintry_sword", 26, "testamentodelacarne:wintry_axe", "testamentodelacarne:wintry_pickaxe",
+                "testamentodelacarne:wintry_shovel", "testamentodelacarne:wintry_hoe");
+
         // Herramientas de zafiro (nuestras): al nivel del diamante.
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
             w("testamentodelacarne:sapphire_" + tool).like("minecraft:diamond_" + tool);
@@ -576,6 +581,9 @@ public final class WeaponBalance {
             // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 1000 usos mas (2500)
             ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(diamondDefenseOf(piece) * 2.5, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
             EXACT_DURABILITY.add(rl("twilightforest:fiery_" + piece));
+            // Wintry (nuestra): igual que la fiery pero fria
+            ARMOR_FIXED.put(rl("testamentodelacarne:wintry_" + piece), new ArmorFixed(diamondDefenseOf(piece) * 2.5, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("testamentodelacarne:wintry_" + piece));
             // Dragon scale armor (Ice and Fire, todos los colores): iguales a las de fiery (2.5 veces el diamante, 5 de tenacidad,
             // 2500 usos).
             double dragonDefense = diamondDefenseOf(piece) * 2.5;

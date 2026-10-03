@@ -259,6 +259,45 @@ public class ModItems {
     public static final RegistryObject<Item> GRAVITITE_GEM = ITEMS.register(
             "gravitite_gem", () -> new Item(new Item.Properties()));
 
+    /** Lingotes de Phoenix y Valkyrie (pedido de alejandr0): salen del Gold Dungeon de Aether y, con la mesa de herreria,
+     *  convierten piezas de netherite / gravitite en la armadura de Phoenix / Valkyrie. */
+    public static final RegistryObject<Item> PHOENIX_INGOT = ITEMS.register(
+            "phoenix_ingot", () -> new Item(new Item.Properties().rarity(Rarity.RARE).fireResistant()));
+    public static final RegistryObject<Item> VALKYRIE_INGOT = ITEMS.register(
+            "valkyrie_ingot", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+
+    /** Esencia de invierno (drop de la Snow Queen) y gema invernal (gravitite + esencia): material de todo el set wintry. */
+    public static final RegistryObject<Item> WINTRY_ESSENCE = ITEMS.register(
+            "wintry_essence", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> WINTRY_GEM = ITEMS.register(
+            "wintry_gem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+
+    private static RegistryObject<Item> wintryArmor(String piece, net.minecraft.world.item.ArmorItem.Type type) {
+        return ITEMS.register("wintry_" + piece, () -> new net.minecraft.world.item.ArmorItem(
+                com.tudominio.testamentodelacarne.util.WintryArmorMaterial.INSTANCE, type, new Item.Properties()));
+    }
+
+    public static final RegistryObject<Item> WINTRY_HELMET = wintryArmor("helmet", net.minecraft.world.item.ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> WINTRY_CHESTPLATE = wintryArmor("chestplate", net.minecraft.world.item.ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> WINTRY_LEGGINGS = wintryArmor("leggings", net.minecraft.world.item.ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> WINTRY_BOOTS = wintryArmor("boots", net.minecraft.world.item.ArmorItem.Type.BOOTS);
+
+    public static final RegistryObject<Item> WINTRY_SWORD = ITEMS.register(
+            "wintry_sword", () -> new net.minecraft.world.item.SwordItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.WINTRY_TIER, 3, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> WINTRY_PICKAXE = ITEMS.register(
+            "wintry_pickaxe", () -> new net.minecraft.world.item.PickaxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.WINTRY_TIER, 1, -2.8F, new Item.Properties()));
+    public static final RegistryObject<Item> WINTRY_AXE = ITEMS.register(
+            "wintry_axe", () -> new net.minecraft.world.item.AxeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.WINTRY_TIER, 5.0F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> WINTRY_SHOVEL = ITEMS.register(
+            "wintry_shovel", () -> new net.minecraft.world.item.ShovelItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.WINTRY_TIER, 1.5F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> WINTRY_HOE = ITEMS.register(
+            "wintry_hoe", () -> new net.minecraft.world.item.HoeItem(
+                    com.tudominio.testamentodelacarne.util.ModTiers.WINTRY_TIER, -3, 0.0F, new Item.Properties()));
+
     /** Encendedor de metal azul (pedido de alejandr0): se craftea con depth ingot, dark metal ingot y pedernal en la mesa tier 2. */
     public static final RegistryObject<Item> BLUE_FLINT_AND_STEEL = ITEMS.register(
             "blue_flint_and_steel", () -> new net.minecraft.world.item.FlintAndSteelItem(new Item.Properties().durability(256)));

@@ -37,6 +37,13 @@ public class ModTiers {
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("iceandfire", "sapphire_gem")))
     );
 
+    /** Herramientas wintry (pedido de alejandr0): "como fiery pero frio", 1000 usos mas que netherite (3031); se reparan con la wintry gem. */
+    public static final ForgeTier WINTRY_TIER = new ForgeTier(
+            4, 3031, 9.0F, 4.0F, 15, BlockTags.NEEDS_DIAMOND_TOOL,
+            () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "wintry_gem")))
+    );
+
     /** Pico de Dark Metal: nivel por encima del diamante (se registra DESPUES del netherite en
      *  TierSortingRegistry, ver TestamentoDeLaCarne#commonSetup), un poco mas rapido y duradero que el diamante. */
     public static final ForgeTier DARK_METAL_TIER = new ForgeTier(

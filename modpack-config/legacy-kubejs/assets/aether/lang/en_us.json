@@ -1,0 +1,13 @@
+{
+  "lore.item.aether.phoenix_helmet": "When fully worn, this armor set allows for fire resistance; you can swim in lava as well. Be careful when standing in water, as it will turn into obsidian armor.",
+  "lore.item.aether.phoenix_gloves": "These Gloves are required to finish the Phoenix armor set. If you stand in water for long enough, they will turn into Obsidian Gloves.",
+  "lore.item.aether.valkyrie_helmet": "When fully worn, you are granted temporary flight. Quite useful for getting to high places.",
+  "lore.item.aether.valkyrie_gloves": "The Gloves are needed to complete the armor set, which grants temporary flight.",
+  "advancement.aether.phoenix_armor.desc": "Obtain a piece of Phoenix armor",
+  "lore.item.aether.phoenix_chestplate": "When fully worn, this armor set allows for fire resistance; you can swim in lava as well. Be careful when standing in water, as it will turn into obsidian armor.",
+  "lore.item.aether.valkyrie_chestplate": "When fully worn, you are granted temporary flight. Quite useful for getting to high places.",
+  "lore.item.aether.phoenix_leggings": "When fully worn, this armor set allows for fire resistance; you can swim in lava as well. Be careful when standing in water, as it will turn into obsidian armor.",
+  "lore.item.aether.valkyrie_leggings": "When fully worn, you are granted temporary flight. Quite useful for getting to high places.",
+  "lore.item.aether.phoenix_boots": "When fully worn, this armor set allows for fire resistance; you can swim in lava as well. Be careful when standing in water, as it will turn into obsidian armor.",
+  "lore.item.aether.valkyrie_boots": "When fully worn, you are granted temporary flight. Quite useful for getting to high places."
+}

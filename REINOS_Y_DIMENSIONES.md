@@ -28,3 +28,10 @@ Este documento todavía NO está implementado: es el diseño acordado para cuand
 ## Biomas propuestos por reino (pendiente de confirmar)
 Ver la propuesta en la conversación: Páter I llanuras, Páter II montañas, Filis costa/cerezos, Meidris I bosques, Meidris II selva/pantano,
 Deiros I badlands, Deiros II desierto/ceniza volcánica, Luna bosque oscuro/moonlight, sin religión nieve y hielo.
+
+## Progresión por niveles (parcial, mensaje de alejandr0 incompleto)
+- Nivel 1: Overworld.
+- Nivel 2: Nether (infierno superficial) y Aether (cielo superficial).
+- Nivel 3: Twilight Forest (la dimensión de Meidris) y [el mensaje se cortó: falta la otra dimensión del nivel 3 y los niveles siguientes].
+
+Materiales ya ligados a esa progresión: lingotes de Phoenix y Valkyrie (Gold Dungeon de Aether), gema y set wintry (Snow Queen, Twilight Forest).
