@@ -35,6 +35,8 @@ public final class IntroManager {
 
     public static void start(ServerPlayer player) {
         ACTIVE.add(player.getUUID());
+        player.setInvulnerable(true);
+        releaseTargets(player);
         Networking.sendToPlayer(player, new StartIntroPacket());
     }
 
@@ -48,6 +50,33 @@ public final class IntroManager {
     @SubscribeEvent
     public static void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         ACTIVE.remove(event.getEntity().getUUID());
+        event.getEntity().setInvulnerable(false);
+    }
+
+    /** Quita de encima al jugador a todo mob que lo tenga de objetivo (cerca). */
+    private static void releaseTargets(ServerPlayer player) {
+        for (net.minecraft.world.entity.Mob mob : player.level().getEntitiesOfClass(net.minecraft.world.entity.Mob.class,
+                player.getBoundingBox().inflate(64.0), mob -> mob.getTarget() == player)) {
+            mob.setTarget(null);
+        }
+    }
+
+    /** Durante la introduccion nadie puede apuntarle al jugador (antes los bichos lo seguian y lo mataban mientras miraba la cinematica). */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onTarget(net.minecraftforge.event.entity.living.LivingChangeTargetEvent event) {
+        if (event.getNewTarget() instanceof Player player && ACTIVE.contains(player.getUUID())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onTick(net.minecraftforge.event.TickEvent.PlayerTickEvent event) {
+        if (event.phase == net.minecraftforge.event.TickEvent.Phase.END && event.player instanceof ServerPlayer player
+                && ACTIVE.contains(player.getUUID()) && player.tickCount % 10 == 0) {
+            player.setInvulnerable(true);
+            player.setHealth(player.getMaxHealth());
+            releaseTargets(player);
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -67,6 +96,7 @@ public final class IntroManager {
             return;
         }
         ACTIVE.remove(player.getUUID());
+        player.setInvulnerable(false);
         // El orbe se gasta con esta primera eleccion (despues se puede cambiar con otro).
         ChooseRacePacket.consumeOrb(player);
         ChooseRacePacket.applyRace(player, result.race(), false);

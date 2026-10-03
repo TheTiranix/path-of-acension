@@ -39,7 +39,6 @@ public class IntroScreen extends Screen {
         }
     }
 
-    private static final int CAM_TICKS = 420;
     private static final float TYPE_SPEED = 1.1F; // caracteres por tick
 
     private final List<Step> steps = new ArrayList<>();
@@ -62,11 +61,6 @@ public class IntroScreen extends Screen {
     // camara
     private float baseYaw;
     private float basePitch;
-    private float fromYaw;
-    private float fromPitch;
-    private float toYaw;
-    private float toPitch;
-    private int camTick = CAM_TICKS;
     private float camYaw;
     private float camPitch;
     private boolean prevHideGui;
@@ -123,61 +117,124 @@ public class IntroScreen extends Screen {
         return Math.sin(theta) >= 0 ? -90.0F : 90.0F; // este = -90, oeste = 90
     }
 
-    private void setCameraTarget(Cam cam) {
-        fromYaw = camYaw;
-        fromPitch = camPitch;
-        switch (cam) {
-            case SKY -> {
-                toYaw = baseYaw + 30;
-                toPitch = -78;
-            }
-            case MOON -> {
-                toYaw = moonYaw();
-                toPitch = -Mth.clamp(moonElevation(), 14.0F, 70.0F);
-            }
-            case WORLD -> {
-                toYaw = moonYaw() + 150;
-                toPitch = 6;
-            }
-            case AETHER -> {
-                toYaw = moonYaw() + 230;
-                toPitch = -38;
-            }
-            case GROUND -> {
-                toYaw = moonYaw() + 250;
-                toPitch = 38;
-            }
+    // camara voladora: una entidad de camara (solo del cliente) que recorre el paisaje alrededor del jugador y de vez en cuando lo enfoca
+    private net.minecraft.world.entity.decoration.ArmorStand cam;
+    private double flyTime = 0;
+    private double startAngle;
+    private double camX;
+    private double camY;
+    private double camZ;
+    private double descentFromX;
+    private double descentFromY;
+    private double descentFromZ;
+    private float descentFromYaw;
+    private float descentFromPitch;
+
+    private static double smooth(double t) {
+        t = Mth.clamp(t, 0.0, 1.0);
+        return t * t * (3.0 - 2.0 * t);
+    }
+
+    private void createCamera(Minecraft mc) {
+        if (mc.level == null || mc.player == null) {
+            return;
         }
-        // el yaw avanza por el camino corto
-        toYaw = fromYaw + Mth.wrapDegrees(toYaw - fromYaw);
-        camTick = 0;
+        cam = new net.minecraft.world.entity.decoration.ArmorStand(net.minecraft.world.entity.EntityType.ARMOR_STAND, mc.level);
+        cam.setInvisible(true);
+        cam.setNoGravity(true);
+        cam.noPhysics = true;
+        cam.moveTo(mc.player.getX(), mc.player.getY(), mc.player.getZ(), baseYaw, basePitch);
+        startAngle = Math.toRadians(baseYaw) + Math.PI;
+        mc.setCameraEntity(cam);
+    }
+
+    private void placeCamera(double x, double y, double z, float yaw, float pitch) {
+        camX = x;
+        camY = y;
+        camZ = z;
+        camYaw = yaw;
+        camPitch = pitch;
+        if (cam == null) {
+            return;
+        }
+        double feet = y - cam.getEyeHeight();
+        cam.setPos(x, feet, z);
+        cam.setYRot(yaw);
+        cam.setXRot(pitch);
+        cam.setYHeadRot(yaw);
+        cam.xo = x;
+        cam.yo = feet;
+        cam.zo = z;
+        cam.xOld = x;
+        cam.yOld = feet;
+        cam.zOld = z;
+        cam.yRotO = yaw;
+        cam.xRotO = pitch;
+    }
+
+    private static float yawTo(double dx, double dz) {
+        return (float) Math.toDegrees(Math.atan2(-dx, dz));
+    }
+
+    private static float pitchTo(double dx, double dy, double dz) {
+        return (float) -Math.toDegrees(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
     }
 
     private void applyCamera(float partial) {
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player == null) {
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        if (player == null || mc.level == null) {
             return;
         }
+        if (cam == null) {
+            createCamera(mc);
+        }
+        double eyeX = player.getX();
+        double eyeY = player.getEyeY();
+        double eyeZ = player.getZ();
         if (descending) {
-            // desde arriba (casi vertical) hasta quedar detras del personaje, girando lentamente
-            float t = Mth.clamp((descentTick + partial) / (DESCENT_TICKS - 14), 0.0F, 1.0F);
-            float e = 1.0F - (1.0F - t) * (1.0F - t) * (1.0F - t);
-            camYaw = baseYaw + (1.0F - e) * 160.0F;
-            camPitch = Mth.lerp(e, 89.0F, 14.0F);
-            player.setYRot(camYaw);
-            player.setXRot(camPitch);
-            player.yRotO = camYaw;
-            player.xRotO = camPitch;
+            // el zoom final: la camara se acerca volando a los ojos del jugador y termina en primera persona
+            double t = smooth((descentTick + partial) / (DESCENT_TICKS - 14.0));
+            placeCamera(Mth.lerp(t, descentFromX, eyeX), Mth.lerp(t, descentFromY, eyeY), Mth.lerp(t, descentFromZ, eyeZ),
+                    descentFromYaw + Mth.wrapDegrees(baseYaw - descentFromYaw) * (float) t,
+                    (float) Mth.lerp(t, descentFromPitch, basePitch));
             return;
         }
-        float t = Mth.clamp((camTick + partial) / CAM_TICKS, 0.0F, 1.0F);
-        float e = t * t * (3.0F - 2.0F * t);
-        camYaw = Mth.lerp(e, fromYaw, toYaw);
-        camPitch = Mth.lerp(e, fromPitch, toPitch);
-        player.setYRot(camYaw);
-        player.setXRot(camPitch);
-        player.yRotO = camYaw;
-        player.xRotO = camPitch;
+        double time = flyTime + partial;
+        // paisaje: orbita lenta alrededor del jugador, mirando hacia el horizonte
+        double a = startAngle + time * 0.0035;
+        double radius = 52 + 18 * Math.sin(time * 0.0013);
+        double lx = eyeX + Math.cos(a) * radius;
+        double lz = eyeZ + Math.sin(a) * radius;
+        double ground = mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING, (int) Math.floor(lx), (int) Math.floor(lz));
+        double ly = Math.max(ground + 14 + 6 * Math.sin(time * 0.0019), eyeY + 10);
+        double lookX = lx - Math.sin(a) * 90 + Math.cos(a) * 60;
+        double lookY = ly - 18;
+        double lookZ = lz + Math.cos(a) * 90 + Math.sin(a) * 60;
+        // de vez en cuando enfoca al jugador de cerca (ciclo de 800 ticks)
+        double p = (time % 800.0) / 800.0;
+        double f = smooth((p - 0.55) / 0.10) * (1.0 - smooth((p - 0.86) / 0.10));
+        double a2 = time * 0.012;
+        double fx = eyeX + Math.cos(a2) * 4.5;
+        double fy = eyeY + 0.5;
+        double fz = eyeZ + Math.sin(a2) * 4.5;
+        double x = Mth.lerp(f, lx, fx);
+        double y = Mth.lerp(f, ly, fy);
+        double z = Mth.lerp(f, lz, fz);
+        double tx = Mth.lerp(f, lookX, eyeX);
+        double ty = Mth.lerp(f, lookY, eyeY - 0.2);
+        double tz = Mth.lerp(f, lookZ, eyeZ);
+        // al empezar sale volando desde los ojos del jugador
+        double ramp = smooth(time / 100.0);
+        double lookStartX = eyeX - Math.sin(Math.toRadians(baseYaw)) * 60;
+        double lookStartZ = eyeZ + Math.cos(Math.toRadians(baseYaw)) * 60;
+        x = Mth.lerp(ramp, eyeX, x);
+        y = Mth.lerp(ramp, eyeY, y);
+        z = Mth.lerp(ramp, eyeZ, z);
+        tx = Mth.lerp(ramp, lookStartX, tx);
+        ty = Mth.lerp(ramp, eyeY, ty);
+        tz = Mth.lerp(ramp, lookStartZ, tz);
+        placeCamera(x, y, z, yawTo(tx - x, tz - z), pitchTo(tx - x, ty - y, tz - z));
     }
 
     // ------------------------------------------------------------------ ciclo de vida
@@ -190,8 +247,9 @@ public class IntroScreen extends Screen {
         if (mc.player != null) {
             baseYaw = mc.player.getYRot();
             basePitch = mc.player.getXRot();
-            camYaw = fromYaw = toYaw = baseYaw;
-            camPitch = fromPitch = toPitch = basePitch;
+            camYaw = baseYaw;
+            camPitch = basePitch;
+            createCamera(mc);
         }
         prevHideGui = mc.options.hideGui;
         mc.options.hideGui = true;
@@ -205,9 +263,11 @@ public class IntroScreen extends Screen {
         mc.options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON);
         LocalPlayer player = mc.player;
         if (player != null) {
+            mc.setCameraEntity(player);   // la camara vuelve a ser el jugador (primera persona)
             player.setYRot(baseYaw);
             player.setXRot(basePitch);
         }
+        cam = null;
     }
 
     @Override
@@ -230,7 +290,6 @@ public class IntroScreen extends Screen {
         typingDone = false;
         Step step = step();
         if (step.cam() != null) {
-            setCameraTarget(step.cam());
             play(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.7F);
         } else if (step.question() >= 0) {
             play(SoundEvents.AMETHYST_BLOCK_CHIME, 1.0F);
@@ -244,7 +303,9 @@ public class IntroScreen extends Screen {
     @Override
     public void tick() {
         stepTicks++;
-        camTick++;
+        if (!descending) {
+            flyTime++;
+        }
         if (descending) {
             descentTick++;
             if (fadeState == 2 && ++fadeTick >= fadeInLength) {
@@ -312,7 +373,11 @@ public class IntroScreen extends Screen {
         fadeState = 2;
         fadeTick = 0;
         fadeInLength = 30;
-        mc.options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_BACK);
+        descentFromX = camX;
+        descentFromY = camY;
+        descentFromZ = camZ;
+        descentFromYaw = camYaw;
+        descentFromPitch = camPitch;
         play(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.5F);
     }
 

@@ -98,20 +98,33 @@ public final class ClimateTuning {
     }
 
     // ------------------------------------------------------------------ clima por bioma
-    /** Temperatura efectiva del bioma donde esta el jugador: base + variacion fija por bioma (hasta +-0.25). */
-    public static double biomeTemperature(Player player) {
+    /** Numero fijo entre 0 y 1 para cada bioma (y sal): reparte los biomas de forma pareja pero siempre igual. */
+    private static double biomeRoll(Player player, int salt) {
         var holder = player.level().getBiome(player.blockPosition());
-        double base = holder.value().getBaseTemperature();
-        double offset = holder.unwrapKey().map(key -> ((key.location().toString().hashCode() & 0xFF) / 255.0 - 0.5) * 0.5).orElse(0.0);
-        return base + offset;
+        int h = holder.unwrapKey().map(key -> key.location().toString().hashCode()).orElse(0) * 31 + salt * 0x9E3779B1;
+        h ^= (h >>> 15);
+        h *= 0x2C1B3C6D;
+        h ^= (h >>> 12);
+        return (h & 0xFFFF) / 65535.0;
     }
 
+    /** Temperatura base del bioma (solo para saber si es calido o frio). */
+    public static double biomeTemperature(Player player) {
+        return player.level().getBiome(player.blockPosition()).value().getBaseTemperature();
+    }
+
+    /**
+     * Pedido de alejandr0: cuanto mas extremo el clima, mas raro es que un bioma lo tenga. Cada bioma tira su propio numero fijo u en [0,1] y la
+     * intensidad es 0.7 + 1.3 * u^3: la mayoria de los biomas calidos/frios quedan suaves (0.7-1.0) y pocos llegan a 2.0 (11% pasa de 1.6).
+     */
     public static double heatFactor(Player player) {
-        return Math.max(0.6, Math.min(2.0, 1.0 + (biomeTemperature(player) - 1.5) * 0.8));
+        double u = biomeRoll(player, 1);
+        return 0.7 + 1.3 * u * u * u;
     }
 
     public static double coldFactor(Player player) {
-        return Math.max(0.6, Math.min(2.0, 1.0 + (0.0 - biomeTemperature(player)) * 0.8));
+        double u = biomeRoll(player, 2);
+        return 0.7 + 1.3 * u * u * u;
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)

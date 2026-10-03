@@ -39,6 +39,9 @@ public record SkillNode(
 
     /** Titulo en el idioma del juego (los titulos estan escritos en español en SkillTree). */
     public String title() {
+        if (title.startsWith("Cumbre: ")) {
+            return com.tcorigenes.tcorigenes.core.Tr.s("Cumbre: ") + com.tcorigenes.tcorigenes.core.Tr.s(title.substring(8));
+        }
         return com.tcorigenes.tcorigenes.core.Tr.s(title);
     }
 
