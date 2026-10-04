@@ -680,11 +680,18 @@
 			dependencies: ["51729ADCEA3AF4F4"]
 			description: ["No todos los guardianes son de carne y hueso. En las profundidades yace un autómata de una era olvidada, inmune a casi todo daño. Descubre su debilidad, rómpelo y reclama su núcleo de poder."]
 			id: "321A432C6BDC45A3"
-			rewards: [{
-				id: "4BF66224999C9988"
-				type: "xp_levels"
-				xp_levels: 25
-			}]
+			rewards: [
+				{
+					id: "4BF66224999C9988"
+					type: "xp_levels"
+					xp_levels: 25
+				}
+				{
+					command: "/grantabilitypoints {p} 1"
+					id: "AFB8A1BFF42B1A9A"
+					type: "command"
+				}
+			]
 			size: 1.5d
 			tasks: [
 				{
@@ -696,11 +703,6 @@
 							affix_data: {
 								sockets: 1
 							}
-		{
-			command: "/grantabilitypoints {p} 1"
-			id: "AFB8A1BFF42B1A9A"
-			type: "command"
-		}
 						}
 					}
 					type: "item"

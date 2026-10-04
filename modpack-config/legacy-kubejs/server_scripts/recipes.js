@@ -10,13 +10,13 @@ ServerEvents.recipes(event => {
   ], {
     B: 'bloodmagic:weakbloodshard',
     S: 'minecraft:stone_bricks',
-    F: 'mowzies_mobs:foliaath_seed' // El botín del jefe
+    F: 'mowziesmobs:foliaath_seed' // El botín del jefe
   });
 
 
    event.shapeless(
     'testamentodelacarne:nucleo_de_automata',
-    [ 'mowzies_mobs:wrought_axe' ] // <-- ID correcto que encontraste
+    [ 'mowziesmobs:wrought_axe' ] // <-- ID correcto que encontraste
 );
 
    // Receta sin forma: 1 Alma Corrupta + 4 de Adoquín (Cobblestone)
@@ -130,13 +130,15 @@ ServerEvents.recipes(event => {
 
 
     // --- PASO 1: Chasis de Engranaje de Precisión (Create) ---
-    event.recipes.create.pressing(
-        'testamentodelacarne:chasis_engranaje', // CORREGIDO: Ahora es un ítem de tu mod
-        [
-            'create:brass_ingot',
-            'testamentodelacarne:corazon_de_piedra_inerte'
-        ]
-    );
+    // (JSON directo: no depende del addon KubeJS Create; el prensado con 2 ingredientes es "compacting" de Create)
+    event.custom({
+        type: 'create:compacting',
+        ingredients: [
+            { item: 'create:brass_ingot' },
+            { item: 'testamentodelacarne:corazon_de_piedra_inerte' }
+        ],
+        results: [{ item: 'testamentodelacarne:chasis_engranaje' }]
+    });
 
     // --- PASO 2: Gema de Sangre Imbuida (Blood Magic) ---
     event.recipes.bloodmagic.altar('testamentodelacarne:gema_sangre_imbuida', 'minecraft:diamond') // CORREGIDO

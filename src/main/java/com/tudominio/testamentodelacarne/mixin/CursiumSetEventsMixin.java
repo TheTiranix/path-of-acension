@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets = "com.github.L_Ender.cataclysm.event.ServerEventHandler", remap = false)
 public abstract class CursiumSetEventsMixin {
 
-    public static boolean wearsPiece(Player player) {
+    private static boolean wearsPiece(Player player) {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() != EquipmentSlot.Type.ARMOR) {
                 continue;
