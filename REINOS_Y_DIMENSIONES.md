@@ -15,23 +15,16 @@ Este documento todavía NO está implementado: es el diseño acordado para cuand
 | 8 | Luna | Overworld y Luna | igual composición que el reino 1 | ataca a las mismas razas que el reino 1 |
 | 9 | Hereje | todas las que sea | todas las razas, mayormente humanos | hostil a todos los demás reinos |
 
-## Orden de dimensiones
-1. Overworld básico (obligatorio pasar por el océano al necesitar depth ingots).
-2. Nether y Aether.
-3. Twilight Forest.
-4. Alex's Caves.
-5. End.
-6. Después, la dimensión Luna.
-7. Faltan idear 5 dimensiones más.
-8. Al final de todo: Heaven y Hell, donde residen los dioses.
+## Progresión dimensional (versión vigente, de alejandr0)
+- **Nivel 1: Overworld básico.** Supervivencia, algo de exploración, equipaciones básicas y primer contacto con los reinos. Océano y dark metal.
+- **Nivel 2: Nether (infierno superficial) y Aether (cielo superficial).** Netherite o gravitite para mejorar (upgradear) los ítems de dark metal.
+- **Nivel 3: Twilight Forest (dimensión de humanoides y magia de Meidris) y Alex's Caves (dimensión primitiva y de carne de Meidris).** Fiery o wintry para mejorar los ítems de netherite o gravitite.
+- **Nivel 4: End, exploración más avanzada del Overworld y dragones.** Al matar al Ender Dragon se adquiere el conocimiento sobre los dragones: se descubre cómo extraer sangre y escamas para crafteos (dragon scale y dragonmetal) y se puede domesticarlos.
+- Después: dimensión Luna; faltan idear 5 dimensiones más; al final de todo, Heaven y Hell, donde residen los dioses.
+
+Estado de implementación: ya existen los lingotes de Phoenix/Valkyrie (mejora de netherite/gravitite en la mesa de herrería), el set wintry y la nueva receta del fiery ingot. Pendiente: mejora de dark metal con netherite/gravitite, mejora de netherite/gravitite con fiery/wintry, y el "conocimiento de dragones" tras el Ender Dragon (extracción de sangre y escamas, y domesticación).
 
 ## Biomas propuestos por reino (pendiente de confirmar)
 Ver la propuesta en la conversación: Páter I llanuras, Páter II montañas, Filis costa/cerezos, Meidris I bosques, Meidris II selva/pantano,
 Deiros I badlands, Deiros II desierto/ceniza volcánica, Luna bosque oscuro/moonlight, sin religión nieve y hielo.
 
-## Progresión por niveles (parcial, mensaje de alejandr0 incompleto)
-- Nivel 1: Overworld.
-- Nivel 2: Nether (infierno superficial) y Aether (cielo superficial).
-- Nivel 3: Twilight Forest (la dimensión de Meidris) y [el mensaje se cortó: falta la otra dimensión del nivel 3 y los niveles siguientes].
-
-Materiales ya ligados a esa progresión: lingotes de Phoenix y Valkyrie (Gold Dungeon de Aether), gema y set wintry (Snow Queen, Twilight Forest).
