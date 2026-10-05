@@ -602,5 +602,7 @@
   "pa.t.eda542e6a4": "Elemental Prism",
   "pa.t.18d6abd914": "Peak: ",
   "tcorigenes.magic.cap": "Your mastery of magic does not go beyond level %s yet. Advance through the world to master stronger spells.",
-  "tcorigenes.progress.tier_up": "Your power grows: you have reached progression level %s."
+  "tcorigenes.progress.tier_up": "Your power grows: you have reached progression level %s.",
+  "tcorigenes.magic.glyph_tier": "This spell uses tier %s glyphs. You have not progressed far enough in the world to master them.",
+  "tcorigenes.magic.blood_gate": "You are not ready for this blood magic yet: it requires progression level %s."
 }

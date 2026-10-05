@@ -17,7 +17,7 @@ import net.minecraftforge.fml.ModList;
  * - Iron's Spellbooks: cualquiera puede lanzar hechizos de nivel 1; de nivel 2 para arriba, solo el Ritualista, y su tope sube con el
  *   nivel de progresion (ver ProgressionTier y MAGE_LEVEL_CAP): 2 en el Overworld, 3 tras el Nether/Aether, 4 tras Twilight/Alex's Caves,
  *   sin tope tras matar al Ender Dragon.
- * - Ars Nouveau: solo el Ritualista.
+ * - Ars Nouveau: solo el Ritualista, y los glifos de tier 2 y 3 se desbloquean con el nivel de progresion 2 y 3.
  * Se engancha por reflexion (sin compilar contra esos mods) y solo si estan instalados.
  */
 public final class MagicRestrictions {
@@ -58,9 +58,21 @@ public final class MagicRestrictions {
         if (ModList.get().isLoaded("ars_nouveau")) {
             hook(ARS_EVENT, event -> {
                 Player player = playerOf(event);
-                if (player != null && !isMage(player)) {
+                if (player == null) {
+                    return;
+                }
+                if (!isMage(player)) {
                     deny(player, "pa.m.mage_ars");
                     event.setCanceled(true);
+                } else if (!(player.isCreative() && player.hasPermissions(2))) {
+                    int allowed = Math.min(3, com.tcorigenes.tcorigenes.core.ProgressionTier.get(player));
+                    int needed = highestGlyphTier(event);
+                    if (needed > allowed) {
+                        if (!player.level().isClientSide()) {
+                            player.displayClientMessage(Component.translatable("tcorigenes.magic.glyph_tier", needed), true);
+                        }
+                        event.setCanceled(true);
+                    }
                 }
             });
         }
@@ -90,6 +102,22 @@ public final class MagicRestrictions {
             return (int) event.getClass().getMethod("getSpellLevel").invoke(event);
         } catch (ReflectiveOperationException e) {
             return 0;
+        }
+    }
+
+    /** Mayor tier (1..3) entre los glifos del hechizo de Ars Nouveau: spell.recipe[i].getConfigTier().value, por reflexion. */
+    private static int highestGlyphTier(Event event) {
+        try {
+            Object spell = event.getClass().getField("spell").get(event);
+            Object recipe = spell.getClass().getField("recipe").get(spell);
+            int highest = 1;
+            for (Object part : (Iterable<?>) recipe) {
+                Object tier = part.getClass().getMethod("getConfigTier").invoke(part);
+                highest = Math.max(highest, tier.getClass().getField("value").getInt(tier));
+            }
+            return highest;
+        } catch (ReflectiveOperationException | ClassCastException e) {
+            return 1;
         }
     }
 
