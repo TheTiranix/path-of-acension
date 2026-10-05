@@ -604,7 +604,7 @@
 		}
 		{
 			dependencies: ["8015A26A760A986B"]
-			description: ["Found only in a pocket dimension. Whoever returns with it is not the same."]
+			description: ["A pale metal that, smelted with copper, gives the brass of your gears."]
 			id: "301BC20DCD03C32B"
 			rewards: [
 				{
@@ -613,16 +613,16 @@
 					xp: 800
 				}
 			]
-			subtitle: "Metal of another plane"
+			subtitle: "The gear metal"
 			tasks: [
 				{
 					count: 8L
 					id: "438A398C6F604639"
-					item: "occultism:iesnium_ingot"
+					item: "create:zinc_ingot"
 					type: "item"
 				}
 			]
-			title: "Iesnium"
+			title: "Zinc"
 			x: -3.8d
 			y: 15.0d
 		}

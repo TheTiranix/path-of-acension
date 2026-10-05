@@ -42,31 +42,19 @@
 			rewards: [
 				{
 					id: "6CEEC46C11E7549F"
-					item: {
-						Count: 1
-						id: "occultism:dictionary_of_spirits"
-						tag: {
-							"modonomicon:book_id": "occultism:dictionary_of_spirits"
-						}
-					}
+					item: "bloodmagic:weakbloodorb"
 					type: "item"
 				}
 				{
 					count: 4
 					id: "31F1A39D92917249"
-					item: "occultism:otherworld_ashes"
+					item: "bloodmagic:weakbloodshard"
 					type: "item"
 				}
 			]
 			tasks: [{
 				id: "0935CBEA95B0859B"
-				item: {
-					Count: 1
-					id: "occultism:butcher_knife"
-					tag: {
-						Damage: 0
-					}
-				}
+				item: "bloodmagic:sacrificialdagger"
 				type: "item"
 			}]
 			title: "El Pacto de Sangre"
@@ -98,26 +86,14 @@
 			tasks: [
 				{
 					id: "14FFE950E01201E2"
-					item: {
-						Count: 1
-						id: "occultism:chalk_gold"
-						tag: {
-							Damage: 0
-						}
-					}
+					item: "bloodmagic:blankslate"
 					type: "item"
 				}
 				{
-					icon: {
-						Count: 1
-						id: "occultism:chalk_white"
-						tag: {
-							Damage: 0
-						}
-					}
+					icon: "bloodmagic:ritualstone"
 					id: "04A8E021ACC4BECA"
 					optional_task: true
-					title: "Craftear y colocar un círculo de occultism:chalk_glyph_white"
+					title: "Colocar una piedra de ritual de Blood Magic"
 					type: "custom"
 				}
 			]
@@ -234,7 +210,7 @@
 				}
 				{
 					id: "61D6186FD366E983"
-					item: "occultism:iron_dust"
+					item: "create:crushed_raw_iron"
 					type: "item"
 				}
 			]

@@ -604,7 +604,7 @@
 		}
 		{
 			dependencies: ["8015A26A760A986B"]
-			description: ["Sólo se encuentra en una dimensión de bolsillo. Quien vuelve con él no es el mismo."]
+			description: ["Un metal pálido que, fundido con cobre, da el latón de tus engranajes."]
 			id: "301BC20DCD03C32B"
 			rewards: [
 				{
@@ -613,16 +613,16 @@
 					xp: 800
 				}
 			]
-			subtitle: "El metal de otro plano"
+			subtitle: "El metal del engranaje"
 			tasks: [
 				{
 					count: 8L
 					id: "438A398C6F604639"
-					item: "occultism:iesnium_ingot"
+					item: "create:zinc_ingot"
 					type: "item"
 				}
 			]
-			title: "Iesnium"
+			title: "Zinc"
 			x: -3.8d
 			y: 15.0d
 		}

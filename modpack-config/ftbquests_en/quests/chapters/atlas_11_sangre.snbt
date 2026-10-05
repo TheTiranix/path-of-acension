@@ -40,7 +40,7 @@
 		}
 		{
 			dependencies: ["8DDF878039B70767"]
-			description: ["A ritual knife with which the ancients learned to separate flesh from spirit."]
+			description: ["A ritual dagger with which the ancients learned to separate flesh from spirit."]
 			id: "FAC989447CAD2EDB"
 			rewards: [
 				{
@@ -53,7 +53,7 @@
 			tasks: [
 				{
 					id: "5682947ABDCE57E4"
-					item: "occultism:butcher_knife"
+					item: "bloodmagic:sacrificialdagger"
 					type: "item"
 				}
 				{
@@ -63,7 +63,7 @@
 					type: "item"
 				}
 			]
-			title: "The Butcher's Knife"
+			title: "The Sacrificial Dagger"
 			x: -1.2d
 			y: 0.0d
 		}
@@ -155,7 +155,7 @@
 		}
 		{
 			dependencies: ["437F57809F82B9E2"]
-			description: ["Chalk circles concentrate the will of spirits. Drawing them wrong has consequences."]
+			description: ["Slates concentrate the will of spirits. Inscribing them wrong has consequences."]
 			id: "425DB905039F7A65"
 			rewards: [
 				{
@@ -169,17 +169,17 @@
 				{
 					count: 2L
 					id: "E5B2B5D33E4BE2F8"
-					item: "occultism:chalk_white"
+					item: "bloodmagic:blankslate"
 					type: "item"
 				}
 				{
 					count: 2L
 					id: "AD7A534ACEE96D6A"
-					item: "occultism:chalk_gold"
+					item: "bloodmagic:reinforcedslate"
 					type: "item"
 				}
 			]
-			title: "Ritual Chalk"
+			title: "Ritual Slates"
 			x: 1.2d
 			y: 2.5d
 		}
@@ -198,7 +198,7 @@
 			tasks: [
 				{
 					id: "8B83BE1877D6E18A"
-					item: "occultism:soul_gem_empty"
+					item: "bloodmagic:soulgempetty"
 					type: "item"
 				}
 				{
@@ -214,7 +214,7 @@
 		}
 		{
 			dependencies: ["9D7115B42254D59B"]
-			description: ["A metal found only on a different plane. Few return with it, and fewer with their sanity intact."]
+			description: ["A slate engraved with a power only an advanced altar can give. Few forge it, and fewer with their sanity intact."]
 			id: "3E8D88FDD85D7153"
 			rewards: [
 				{
@@ -223,16 +223,16 @@
 					xp: 260
 				}
 			]
-			subtitle: "Metal from the other dimension"
+			subtitle: "Power carved in stone"
 			tasks: [
 				{
-					count: 8L
+					count: 4L
 					id: "FC2C016FCC113B3A"
-					item: "occultism:iesnium_ingot"
+					item: "bloodmagic:infusedslate"
 					type: "item"
 				}
 			]
-			title: "Iesnium"
+			title: "Imbued Slate"
 			x: -3.8d
 			y: 2.5d
 		}
@@ -323,7 +323,7 @@
 		}
 		{
 			dependencies: ["E744F97EB579BE2C"]
-			description: ["With a chalk circle and patience, a lesser spirit will agree to serve you. It is not friendship, but it works."]
+			description: ["With a soul snare and a lesser gem, a lesser spirit will agree to serve you. It is not friendship, but it works."]
 			id: "3DFAE9D68590FEF9"
 			rewards: [
 				{
@@ -336,12 +336,12 @@
 			tasks: [
 				{
 					id: "4E0662CFC1AA4CBC"
-					item: "occultism:book_of_binding_empty"
+					item: "bloodmagic:soulsnare"
 					type: "item"
 				}
 				{
 					id: "01E9065A0C568566"
-					item: "occultism:dimensional_matrix"
+					item: "bloodmagic:soulgemlesser"
 					type: "item"
 				}
 			]

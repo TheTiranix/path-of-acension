@@ -40,7 +40,7 @@
 		}
 		{
 			dependencies: ["8DDF878039B70767"]
-			description: ["Un cuchillo ritual con el que los antiguos aprendían a separar la carne del espíritu."]
+			description: ["Una daga ritual con la que los antiguos aprendían a separar la carne del espíritu."]
 			id: "FAC989447CAD2EDB"
 			rewards: [
 				{
@@ -53,7 +53,7 @@
 			tasks: [
 				{
 					id: "5682947ABDCE57E4"
-					item: "occultism:butcher_knife"
+					item: "bloodmagic:sacrificialdagger"
 					type: "item"
 				}
 				{
@@ -63,7 +63,7 @@
 					type: "item"
 				}
 			]
-			title: "El Cuchillo del Carnicero"
+			title: "La Daga del Sacrificio"
 			x: -1.2d
 			y: 0.0d
 		}
@@ -155,7 +155,7 @@
 		}
 		{
 			dependencies: ["437F57809F82B9E2"]
-			description: ["Los círculos de tiza concentran la voluntad de los espíritus. Trazarlos mal tiene consecuencias."]
+			description: ["Las tablillas concentran la voluntad de los espíritus. Grabarlas mal tiene consecuencias."]
 			id: "425DB905039F7A65"
 			rewards: [
 				{
@@ -169,17 +169,17 @@
 				{
 					count: 2L
 					id: "E5B2B5D33E4BE2F8"
-					item: "occultism:chalk_white"
+					item: "bloodmagic:blankslate"
 					type: "item"
 				}
 				{
 					count: 2L
 					id: "AD7A534ACEE96D6A"
-					item: "occultism:chalk_gold"
+					item: "bloodmagic:reinforcedslate"
 					type: "item"
 				}
 			]
-			title: "Tiza Ritual"
+			title: "Tablillas Rituales"
 			x: 1.2d
 			y: 2.5d
 		}
@@ -198,7 +198,7 @@
 			tasks: [
 				{
 					id: "8B83BE1877D6E18A"
-					item: "occultism:soul_gem_empty"
+					item: "bloodmagic:soulgempetty"
 					type: "item"
 				}
 				{
@@ -214,7 +214,7 @@
 		}
 		{
 			dependencies: ["9D7115B42254D59B"]
-			description: ["Un metal que sólo se encuentra en un plano distinto. Pocos regresan con él, y menos aún con la cordura intacta."]
+			description: ["Una tablilla grabada con un poder que sólo un altar avanzado puede dar. Pocos la forjan, y menos aún con la cordura intacta."]
 			id: "3E8D88FDD85D7153"
 			rewards: [
 				{
@@ -223,16 +223,16 @@
 					xp: 260
 				}
 			]
-			subtitle: "El metal de la otra dimensión"
+			subtitle: "Poder grabado en piedra"
 			tasks: [
 				{
-					count: 8L
+					count: 4L
 					id: "FC2C016FCC113B3A"
-					item: "occultism:iesnium_ingot"
+					item: "bloodmagic:infusedslate"
 					type: "item"
 				}
 			]
-			title: "Iesnium"
+			title: "Tablilla Imbuida"
 			x: -3.8d
 			y: 2.5d
 		}
@@ -323,7 +323,7 @@
 		}
 		{
 			dependencies: ["E744F97EB579BE2C"]
-			description: ["Con un círculo de tiza y paciencia, un espíritu menor aceptará servirte. No es una amistad, pero funciona."]
+			description: ["Con una trampa de almas y una gema menor, un espíritu menor aceptará servirte. No es una amistad, pero funciona."]
 			id: "3DFAE9D68590FEF9"
 			rewards: [
 				{
@@ -336,12 +336,12 @@
 			tasks: [
 				{
 					id: "4E0662CFC1AA4CBC"
-					item: "occultism:book_of_binding_empty"
+					item: "bloodmagic:soulsnare"
 					type: "item"
 				}
 				{
 					id: "01E9065A0C568566"
-					item: "occultism:dimensional_matrix"
+					item: "bloodmagic:soulgemlesser"
 					type: "item"
 				}
 			]
