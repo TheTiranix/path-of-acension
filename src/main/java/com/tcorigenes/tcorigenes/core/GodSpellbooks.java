@@ -134,6 +134,9 @@ public final class GodSpellbooks {
             return;
         }
         Race race = player.getCapability(PlayerRaceProvider.PLAYER_RACE_CAPABILITY).map(info -> info.getRace()).orElse(Race.HUMANO);
+        if (race == Race.AUTOMATA) {
+            return; // el Autómata tiene prohibida la magia (ver AutomataMagicBan)
+        }
         if (race == Race.HEREJE) {
             grant(player, "neutral");
             return;
