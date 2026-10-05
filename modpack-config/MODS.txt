@@ -22,7 +22,6 @@ BadOptimizations-2.4.1-1.20.1.jar
 baguettelib-1.20.1-Forge-1.0.0.jar
 balm-forge-1.20.1-7.3.31-all.jar
 basicweapons-1.2.4+1.20.1.jar
-betterchunkloading-1.20.1-5.4.jar
 bettercombat-forge-1.8.6+1.20.1.jar
 bettermobcombat-forge-1.20.1-1.3.0-all.jar
 bettervillage-forge-1.20.1-3.3.1-all.jar
