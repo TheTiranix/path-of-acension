@@ -268,5 +268,18 @@
   "tcorigenes.magic.cap": "Tu dominio de la magia aún no pasa del nivel %s. Avanza por el mundo para dominar hechizos más fuertes.",
   "tcorigenes.progress.tier_up": "Tu poder crece: has alcanzado el nivel de progresión %s.",
   "tcorigenes.magic.glyph_tier": "Este hechizo usa glifos de tier %s. Todavía no avanzaste lo suficiente por el mundo para dominarlos.",
-  "tcorigenes.magic.blood_gate": "Todavía no estás listo para esta magia de sangre: requiere nivel de progresión %s."
+  "tcorigenes.magic.blood_gate": "Todavía no estás listo para esta magia de sangre: requiere nivel de progresión %s.",
+  "tcorigenes.magic.book_granted": "Los dioses te responden: recibes %s.",
+  "tcorigenes.magic.book.pater": "Grimorio de Pater",
+  "tcorigenes.magic.book.lore.pater": "Magia de rayo, la ira del Creador.",
+  "tcorigenes.magic.book.deiros": "Grimorio de Deiros",
+  "tcorigenes.magic.book.lore.deiros": "Magia de fuego, la llama del rebelde.",
+  "tcorigenes.magic.book.meidris": "Grimorio de Meidris",
+  "tcorigenes.magic.book.lore.meidris": "Magia de naturaleza, el aliento de la vida.",
+  "tcorigenes.magic.book.filis": "Grimorio de Filis",
+  "tcorigenes.magic.book.lore.filis": "Magia sagrada, redención y curación.",
+  "tcorigenes.magic.book.luna": "Grimorio de Luna",
+  "tcorigenes.magic.book.lore.luna": "Magia eldritch, la oscuridad de la noche.",
+  "tcorigenes.magic.book.neutral": "Grimorio del Hereje",
+  "tcorigenes.magic.book.lore.neutral": "Magia neutra: ningún dios la reclama."
 }

@@ -604,5 +604,18 @@
   "tcorigenes.magic.cap": "Your mastery of magic does not go beyond level %s yet. Advance through the world to master stronger spells.",
   "tcorigenes.progress.tier_up": "Your power grows: you have reached progression level %s.",
   "tcorigenes.magic.glyph_tier": "This spell uses tier %s glyphs. You have not progressed far enough in the world to master them.",
-  "tcorigenes.magic.blood_gate": "You are not ready for this blood magic yet: it requires progression level %s."
+  "tcorigenes.magic.blood_gate": "You are not ready for this blood magic yet: it requires progression level %s.",
+  "tcorigenes.magic.book_granted": "The gods answer you: you receive %s.",
+  "tcorigenes.magic.book.pater": "Grimoire of Pater",
+  "tcorigenes.magic.book.lore.pater": "Lightning magic, the wrath of the Creator.",
+  "tcorigenes.magic.book.deiros": "Grimoire of Deiros",
+  "tcorigenes.magic.book.lore.deiros": "Fire magic, the flame of the rebel.",
+  "tcorigenes.magic.book.meidris": "Grimoire of Meidris",
+  "tcorigenes.magic.book.lore.meidris": "Nature magic, the breath of life.",
+  "tcorigenes.magic.book.filis": "Grimoire of Filis",
+  "tcorigenes.magic.book.lore.filis": "Holy magic, redemption and healing.",
+  "tcorigenes.magic.book.luna": "Grimoire of Luna",
+  "tcorigenes.magic.book.lore.luna": "Eldritch magic, the dark of the night.",
+  "tcorigenes.magic.book.neutral": "Heretic's Grimoire",
+  "tcorigenes.magic.book.lore.neutral": "Neutral magic: no god claims it."
 }
