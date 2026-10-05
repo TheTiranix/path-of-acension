@@ -66,6 +66,7 @@ public class TCOrigenes {
         MinecraftForge.EVENT_BUS.register(ModCommands.class);
         PlayerReviveCompat.register();
         com.tcorigenes.tcorigenes.compat.MagicRestrictions.register();
+        com.tcorigenes.tcorigenes.compat.MagicBalance.register();
     }
 
     private static void registerOverlays(RegisterGuiOverlaysEvent event) {
