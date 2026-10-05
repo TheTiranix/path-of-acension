@@ -30,7 +30,7 @@ ServerEvents.recipes(event => {
 });
 
 // aether_gloves_removed: los guantes del Aether (de a pares) se reemplazan por guantes individuales del mod (2 por crafteo, slots "hands" de
-// Curios). Se sacan sus recetas; sin slot de guantes ni de escudo del Aether (ver data/aether/curios/entities/player.json).
+// Curios). Se sacan sus recetas. Los slots de accesorios del Aether quedan por defecto: su menu de accesorios necesita todos (guantes y escudo incluidos).
 ServerEvents.recipes(event => {
   ['leather', 'chainmail', 'iron', 'golden', 'diamond', 'netherite', 'zanite', 'gravitite', 'valkyrie', 'neptune', 'obsidian', 'phoenix'].forEach(material => {
     event.remove({ output: 'aether:' + material + '_gloves' });
