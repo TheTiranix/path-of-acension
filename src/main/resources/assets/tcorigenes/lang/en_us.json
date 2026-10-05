@@ -600,5 +600,7 @@
   "pa.t.40c870e50b": "Immortal",
   "pa.t.c48b9a281c": "Arcane Mastery",
   "pa.t.eda542e6a4": "Elemental Prism",
-  "pa.t.18d6abd914": "Peak: "
+  "pa.t.18d6abd914": "Peak: ",
+  "tcorigenes.magic.cap": "Your mastery of magic does not go beyond level %s yet. Advance through the world to master stronger spells.",
+  "tcorigenes.progress.tier_up": "Your power grows: you have reached progression level %s."
 }

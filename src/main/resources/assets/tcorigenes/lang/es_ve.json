@@ -264,5 +264,7 @@
   "pa.m.glove_have_pair": "Ya llevás un par de guantes: sacalos antes de equipar los del Aether.",
   "pa.m.xp_add": "+%s XP de habilidad",
   "pa.m.xp_take": "-%s XP de habilidad",
-  "pa.m.xp_set": "XP de habilidad fijada en %s"
+  "pa.m.xp_set": "XP de habilidad fijada en %s",
+  "tcorigenes.magic.cap": "Tu dominio de la magia aún no pasa del nivel %s. Avanza por el mundo para dominar hechizos más fuertes.",
+  "tcorigenes.progress.tier_up": "Tu poder crece: has alcanzado el nivel de progresión %s."
 }

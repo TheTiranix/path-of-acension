@@ -14,13 +14,18 @@ import net.minecraftforge.fml.ModList;
 
 /**
  * La magia es cosa del Ritualista Arcano. Los demas solo tienen acceso limitado:
- * - Iron's Spellbooks: cualquiera puede lanzar hechizos de nivel 1; de nivel 2 para arriba, solo el Ritualista.
+ * - Iron's Spellbooks: cualquiera puede lanzar hechizos de nivel 1; de nivel 2 para arriba, solo el Ritualista, y su tope sube con el
+ *   nivel de progresion (ver ProgressionTier y MAGE_LEVEL_CAP): 2 en el Overworld, 3 tras el Nether/Aether, 4 tras Twilight/Alex's Caves,
+ *   sin tope tras matar al Ender Dragon.
  * - Ars Nouveau: solo el Ritualista.
  * Se engancha por reflexion (sin compilar contra esos mods) y solo si estan instalados.
  */
 public final class MagicRestrictions {
     private static final String IRONS_EVENT = "io.redspace.ironsspellbooks.api.events.SpellPreCastEvent";
     private static final String ARS_EVENT = "com.hollingsworth.arsnouveau.api.event.SpellCastEvent";
+
+    /** Nivel maximo de hechizo (Iron's Spellbooks) del Ritualista segun el nivel de progresion 1..4; el 4 no tiene tope. */
+    private static final int[] MAGE_LEVEL_CAP = {2, 2, 3, 4, Integer.MAX_VALUE};
 
     private MagicRestrictions() {
     }
@@ -29,9 +34,24 @@ public final class MagicRestrictions {
         if (ModList.get().isLoaded("irons_spellbooks")) {
             hook(IRONS_EVENT, event -> {
                 Player player = playerOf(event);
-                if (player != null && !isMage(player) && spellLevel(event) > 1) {
-                    deny(player, "pa.m.mage_lvl2");
-                    event.setCanceled(true);
+                if (player == null) {
+                    return;
+                }
+                int level = spellLevel(event);
+                if (!isMage(player)) {
+                    if (level > 1) {
+                        deny(player, "pa.m.mage_lvl2");
+                        event.setCanceled(true);
+                    }
+                } else if (!(player.isCreative() && player.hasPermissions(2))) {
+                    int tier = com.tcorigenes.tcorigenes.core.ProgressionTier.get(player);
+                    int cap = MAGE_LEVEL_CAP[Math.min(tier, 4)];
+                    if (level > cap) {
+                        if (!player.level().isClientSide()) {
+                            player.displayClientMessage(Component.translatable("tcorigenes.magic.cap", cap), true);
+                        }
+                        event.setCanceled(true);
+                    }
                 }
             });
         }
