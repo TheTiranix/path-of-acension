@@ -204,6 +204,18 @@ public class Networking {
                 .encoder(PacifistSyncPacket::toBytes)
                 .consumerMainThread(PacifistSyncPacket::handle)
                 .add();
+
+        net.messageBuilder(com.tcorigenes.tcorigenes.networking.packet.OpenProfilePacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(com.tcorigenes.tcorigenes.networking.packet.OpenProfilePacket::new)
+                .encoder(com.tcorigenes.tcorigenes.networking.packet.OpenProfilePacket::toBytes)
+                .consumerMainThread(com.tcorigenes.tcorigenes.networking.packet.OpenProfilePacket::handle)
+                .add();
+
+        net.messageBuilder(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket::new)
+                .encoder(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket::toBytes)
+                .consumerMainThread(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

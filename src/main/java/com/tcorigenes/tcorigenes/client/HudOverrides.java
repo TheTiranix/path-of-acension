@@ -41,7 +41,7 @@ public final class HudOverrides {
     @SubscribeEvent
     public static void onOverlay(RenderGuiOverlayEvent.Pre event) {
         Minecraft mc = Minecraft.getInstance();
-        if (!(mc.gui instanceof ForgeGui gui) || !survival(mc) || mc.player == null) {
+        if (!(mc.gui instanceof ForgeGui gui) || !survival(mc) || mc.player == null || !HudConfig.CUSTOM_HUD.get()) {
             return;
         }
         boolean health = event.getOverlay().id().equals(VanillaGuiOverlay.PLAYER_HEALTH.id());
@@ -63,6 +63,10 @@ public final class HudOverrides {
     }
 
     private static int colorFor(float ratio) {
+        int solid = HudConfig.solidColor(HudConfig.HEALTH_COLOR.get());
+        if (solid != 0) {
+            return solid;
+        }
         // verde (lleno) -> amarillo -> rojo (cerca de 0), brillante para que el texto negro contraste
         return Mth.hsvToRgb(Mth.clamp(ratio, 0.0F, 1.0F) * 0.333F, 0.85F, 1.0F) | 0xFF000000;
     }
@@ -82,6 +86,9 @@ public final class HudOverrides {
         if (absorption > 0.0F) {
             int gold = Math.min(BAR_WIDTH, Math.round(BAR_WIDTH * absorption / max));
             g.fill(x, y + BAR_HEIGHT - 2, x + gold, y + BAR_HEIGHT, 0xFFFFD700);
+        }
+        if (!HudConfig.HEALTH_TEXT.get()) {
+            return;
         }
         String text = number(current) + "/" + number(max);
         int textWidth = mc.font.width(text);

@@ -61,6 +61,7 @@ public class TCOrigenes {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.WeaponWeightTooltip.class));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.register(com.tcorigenes.tcorigenes.client.PacifistButton.class));
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, com.tcorigenes.tcorigenes.client.HudConfig.SPEC, "tcorigenes-client.toml");
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(ModEvents.class);
         MinecraftForge.EVENT_BUS.register(ModCommands.class);

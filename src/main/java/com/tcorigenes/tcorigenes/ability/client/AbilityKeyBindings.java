@@ -28,12 +28,17 @@ public class AbilityKeyBindings {
     public static final KeyMapping TOGGLE_KERES_SHADOWS = new KeyMapping(
             "key.tcorigenes.toggle_keres_shadows", InputConstants.Type.KEYSYM, InputConstants.KEY_K, "key.categories.tcorigenes");
 
+    /** Abre la pantalla de perfil del personaje (raza, clase, progresion, favor y opciones de interfaz). */
+    public static final KeyMapping OPEN_PROFILE = new KeyMapping(
+            "key.tcorigenes.open_profile", InputConstants.Type.KEYSYM, InputConstants.KEY_O, "key.categories.tcorigenes");
+
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(ACTIVATE_ABILITY);
         event.register(OPEN_ABILITY_TREE);
         event.register(ACTIVATE_RACIAL);
         event.register(TOGGLE_KERES_SHADOWS);
+        event.register(OPEN_PROFILE);
     }
 
     @SubscribeEvent
@@ -43,6 +48,12 @@ public class AbilityKeyBindings {
         }
         while (ACTIVATE_ABILITY.consumeClick()) {
             Networking.sendToServer(new ActivateAbilityPacket());
+        }
+        while (OPEN_PROFILE.consumeClick()) {
+            var self = net.minecraft.client.Minecraft.getInstance();
+            if (self.player != null && self.screen == null) {
+                Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.OpenProfilePacket());
+            }
         }
         while (OPEN_ABILITY_TREE.consumeClick()) {
             SkillTreeScreen.open();
