@@ -316,5 +316,14 @@
   "tcorigenes.profile.color.gold": "Dorado",
   "tcorigenes.profile.color.purple": "Violeta",
   "tcorigenes.magic.book.ender": "Grimorio del Vacío",
-  "tcorigenes.magic.book.lore.ender": "Magia ender, la mirada tras las estrellas."
+  "tcorigenes.magic.book.lore.ender": "Magia ender, la mirada tras las estrellas.",
+  "tcorigenes.preload.button": "Elegir punto de guardado",
+  "tcorigenes.preload.title": "Elegí un punto de guardado",
+  "tcorigenes.preload.hint": "El mundo se carga una sola vez, ya en el save que elijas. Se pierde el progreso posterior.",
+  "tcorigenes.preload.initial": "Save inicial",
+  "tcorigenes.preload.entry": "Save %s - Día %s",
+  "tcorigenes.preload.none": "Este mundo todavía no tiene puntos de guardado.",
+  "tcorigenes.preload.continue": "Seguir con el mundo como está",
+  "tcorigenes.preload.working": "Restaurando el mundo...",
+  "tcorigenes.preload.failed": "No se pudo restaurar el save. Revisá que el mundo esté cerrado."
 }

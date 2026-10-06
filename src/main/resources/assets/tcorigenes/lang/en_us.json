@@ -652,5 +652,14 @@
   "tcorigenes.profile.color.gold": "Gold",
   "tcorigenes.profile.color.purple": "Purple",
   "tcorigenes.magic.book.ender": "Grimoire of the Void",
-  "tcorigenes.magic.book.lore.ender": "Ender magic, the gaze behind the stars."
+  "tcorigenes.magic.book.lore.ender": "Ender magic, the gaze behind the stars.",
+  "tcorigenes.preload.button": "Choose save point",
+  "tcorigenes.preload.title": "Choose a save point",
+  "tcorigenes.preload.hint": "The world will load once, already on the save you pick. Progress after it is lost.",
+  "tcorigenes.preload.initial": "Initial save",
+  "tcorigenes.preload.entry": "Save %s - Day %s",
+  "tcorigenes.preload.none": "This world has no save points yet.",
+  "tcorigenes.preload.continue": "Keep the world as it is",
+  "tcorigenes.preload.working": "Restoring the world...",
+  "tcorigenes.preload.failed": "Could not restore the save. Check that the world is closed."
 }
