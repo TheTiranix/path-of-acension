@@ -314,5 +314,7 @@
   "tcorigenes.profile.color.green": "Verde",
   "tcorigenes.profile.color.blue": "Azul",
   "tcorigenes.profile.color.gold": "Dorado",
-  "tcorigenes.profile.color.purple": "Violeta"
+  "tcorigenes.profile.color.purple": "Violeta",
+  "tcorigenes.magic.book.ender": "Grimorio del Vacío",
+  "tcorigenes.magic.book.lore.ender": "Magia ender, la mirada tras las estrellas."
 }

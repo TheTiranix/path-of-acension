@@ -650,5 +650,7 @@
   "tcorigenes.profile.color.green": "Green",
   "tcorigenes.profile.color.blue": "Blue",
   "tcorigenes.profile.color.gold": "Gold",
-  "tcorigenes.profile.color.purple": "Purple"
+  "tcorigenes.profile.color.purple": "Purple",
+  "tcorigenes.magic.book.ender": "Grimoire of the Void",
+  "tcorigenes.magic.book.lore.ender": "Ender magic, the gaze behind the stars."
 }

@@ -46,6 +46,7 @@ public final class GodSpellbooks {
             case "meidris" -> new String[] {"oakskin", "root", "poison_splash"};
             case "filis" -> new String[] {"heal", "cleanse", "haste"};
             case "luna" -> new String[] {"eldritch_blast", "planar_sight", "abyssal_shroud"};
+            case "ender" -> new String[] {"magic_missile", "evasion", "teleport"};
             default -> new String[] {"fang_strike", "shield", "gust"}; // neutro
         };
     }
@@ -83,6 +84,20 @@ public final class GodSpellbooks {
         tag.put("display", display);
         SoulboundItems.markSoulbound(stack);
         return stack;
+    }
+
+    /** Libros permitidos por raza (el primero es el de la raza); null = cualquiera segun el favor. Un angel no dispara rayos ni un malnacido usa magia sagrada. */
+    private static String[] allowedBooks(Race race) {
+        return switch (race) {
+            case ANGEL -> new String[] {"filis"};
+            case DEVOTO -> new String[] {"filis", "meidris"};
+            case DEMONIO -> new String[] {"deiros"};
+            case SIERVO_DE_LA_LUNA -> new String[] {"luna"};
+            case MALNACIDO -> new String[] {"luna"};
+            case STONE_GIANT -> new String[] {"meidris"};
+            case ENDER_WARRIOR -> new String[] {"ender"};
+            default -> null;
+        };
     }
 
     private static String leader(ServerPlayer player) {
@@ -142,8 +157,20 @@ public final class GodSpellbooks {
             return;
         }
         String god = leader(player);
-        if (god != null) {
-            grant(player, god);
+        String[] allowed = allowedBooks(race);
+        if (allowed == null) {
+            if (god != null) {
+                grant(player, god); // Humano: el dios con mas favor
+            }
+            return;
         }
+        // las razas con magia propia solo reciben libros de su afinidad; si el dios con mas favor no es de ellas, reciben el de la raza
+        for (String candidate : allowed) {
+            if (candidate.equals(god)) {
+                grant(player, god);
+                return;
+            }
+        }
+        grant(player, allowed[0]);
     }
 }
