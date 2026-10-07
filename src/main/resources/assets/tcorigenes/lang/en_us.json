@@ -615,7 +615,7 @@
   "tcorigenes.magic.book.filis": "Grimoire of Filis",
   "tcorigenes.magic.book.lore.filis": "Holy magic, redemption and healing.",
   "tcorigenes.magic.book.luna": "Grimoire of Luna",
-  "tcorigenes.magic.book.lore.luna": "Eldritch magic, the dark of the night.",
+  "tcorigenes.magic.book.lore.luna": "Dark magic: blood and the void of the night.",
   "tcorigenes.magic.book.neutral": "Heretic's Grimoire",
   "tcorigenes.magic.book.lore.neutral": "Neutral magic: no god claims it.",
   "key.tcorigenes.open_profile": "Open Character Profile",
@@ -1034,5 +1034,8 @@
   "pa.t.ed7e7323e5": "Immortal VI",
   "pa.t.664e84886a": "Immortal VII",
   "pa.t.f0c7b000e8": "Immortal VIII",
-  "tcorigenes.favor.patron": "%s has chosen you as a follower. %s, their opposite, turns away from you, and the other gods will barely listen."
+  "tcorigenes.favor.patron": "%s has chosen you as a follower. %s, their opposite, turns away from you, and the other gods will barely listen.",
+  "tcorigenes.racial.servant_stay": "Your servant stays here.",
+  "tcorigenes.racial.servant_follow": "Your servant follows you and defends you.",
+  "tcorigenes.racial.servant_aggressive": "Your servant follows you and attacks the nearest enemy."
 }

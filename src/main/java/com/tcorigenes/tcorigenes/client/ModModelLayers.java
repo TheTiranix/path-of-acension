@@ -122,14 +122,14 @@ public final class ModModelLayers {
     private static LayerDefinition createCrucifixLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("chain_left", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 0.5F, 4.0F, 0.5F),
-                PartPose.offsetAndRotation(-2.2F, -0.4F, -3.4F, 0.0F, 0.0F, 0.52F));
-        root.addOrReplaceChild("chain_right", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, 0.0F, 0.0F, 0.5F, 4.0F, 0.5F),
-                PartPose.offsetAndRotation(2.2F, -0.4F, -3.4F, 0.0F, 0.0F, -0.52F));
+        root.addOrReplaceChild("chain_left", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 0.3F, 3.2F, 0.3F),
+                PartPose.offsetAndRotation(-1.6F, -0.2F, -2.7F, 0.0F, 0.0F, 0.55F));
+        root.addOrReplaceChild("chain_right", CubeListBuilder.create().texOffs(0, 0).addBox(-0.3F, 0.0F, 0.0F, 0.3F, 3.2F, 0.3F),
+                PartPose.offsetAndRotation(1.6F, -0.2F, -2.7F, 0.0F, 0.0F, -0.55F));
         PartDefinition cross = root.addOrReplaceChild("cross", CubeListBuilder.create().texOffs(0, 0)
-                        .addBox(-0.6F, 0.0F, 0.0F, 1.2F, 5.0F, 0.7F)
-                        .texOffs(0, 0).addBox(-1.8F, 1.2F, 0.0F, 3.6F, 1.2F, 0.7F),
-                PartPose.offset(0.0F, 3.4F, -3.5F));
+                        .addBox(-0.4F, 0.0F, 0.0F, 0.8F, 3.4F, 0.4F)
+                        .texOffs(0, 0).addBox(-1.2F, 0.8F, 0.0F, 2.4F, 0.8F, 0.4F),
+                PartPose.offset(0.0F, 2.6F, -2.75F));
         return LayerDefinition.create(mesh, 16, 16);
     }
 

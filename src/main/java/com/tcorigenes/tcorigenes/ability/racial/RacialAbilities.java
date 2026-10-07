@@ -84,8 +84,8 @@ public final class RacialAbilities {
     // ----------------------------------------------------------------- constantes
     private static final int PRAYER_TICKS = 20 * 5;
     private static final int REGEN_TICKS = 20 * 4;
-    private static final int AURA_TICKS = 20 * 10;
-    private static final double AURA_RADIUS = 2.0;
+    private static final int WAVE_TICKS = 12;
+    private static final double WAVE_RADIUS = 7.0;
     private static final int GRAB_TICKS = 20 * 3;
     private static final double GRAB_RANGE = 6.0;
     private static final double SLAM_RADIUS = 6.0;
@@ -96,6 +96,7 @@ public final class RacialAbilities {
 
     private static final Map<UUID, Prayer> PRAYING = new HashMap<>();
     private static final Map<UUID, Integer> AURA = new HashMap<>();
+    private static final Map<UUID, java.util.Set<UUID>> WAVE_HIT = new HashMap<>();
     private static final Map<UUID, Grab> GRABS = new HashMap<>();
     private static final Map<UUID, UUID> THROWN = new HashMap<>(); // entidad del bloque lanzado -> dueño
 
@@ -252,29 +253,36 @@ public final class RacialAbilities {
         if (AURA.containsKey(player.getUUID())) {
             return false;
         }
-        AURA.put(player.getUUID(), AURA_TICKS);
-        player.level().playSound(null, player.blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0F, 0.7F);
+        AURA.put(player.getUUID(), 0);
+        WAVE_HIT.put(player.getUUID(), new java.util.HashSet<>());
+        player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 0.9F, 0.6F);
+        player.level().playSound(null, player.blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.2F, 0.5F);
         return true;
     }
 
-    private static void tickAura(ServerPlayer player, int remaining) {
+    /** Onda expansiva de fuego: un anillo que crece desde el demonio y quema una sola vez a cada ser vivo que alcanza (daño elemental de fuego). */
+    private static void tickAura(ServerPlayer player, int elapsed) {
         if (!(player.level() instanceof ServerLevel level)) {
             return;
         }
-        // anillo de llamas de 2 bloques de radio
-        for (int i = 0; i < 12; i++) {
-            double angle = (player.tickCount * 0.25) + i * (Math.PI * 2 / 12);
-            level.sendParticles(ParticleTypes.FLAME, player.getX() + Math.cos(angle) * AURA_RADIUS, player.getY() + 0.2 + (i % 3) * 0.4,
-                    player.getZ() + Math.sin(angle) * AURA_RADIUS, 1, 0.0, 0.02, 0.0, 0.0);
+        double radius = WAVE_RADIUS * (elapsed + 1) / WAVE_TICKS;
+        for (int i = 0; i < 48; i++) {
+            double angle = i * (Math.PI * 2 / 48);
+            level.sendParticles(ParticleTypes.FLAME, player.getX() + Math.cos(angle) * radius, player.getY() + 0.3,
+                    player.getZ() + Math.sin(angle) * radius, 1, 0.05, 0.1, 0.05, 0.02);
+            if (i % 3 == 0) {
+                level.sendParticles(ParticleTypes.LAVA, player.getX() + Math.cos(angle) * radius, player.getY() + 0.5,
+                        player.getZ() + Math.sin(angle) * radius, 1, 0.0, 0.0, 0.0, 0.0);
+            }
         }
-        if (remaining % 10 != 0) {
-            return;
-        }
-        float damage = 2.0F + level(player) * 0.4F;
-        AABB box = player.getBoundingBox().inflate(AURA_RADIUS, 1.0, AURA_RADIUS);
+        java.util.Set<UUID> hit = WAVE_HIT.computeIfAbsent(player.getUUID(), k -> new java.util.HashSet<>());
+        float damage = 4.0F + level(player) * 0.8F;
+        AABB box = player.getBoundingBox().inflate(radius, 2.0, radius);
         for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, box)) {
-            if (validVictim(player, target) && target.distanceToSqr(player) <= AURA_RADIUS * AURA_RADIUS + 1.0) {
+            if (validVictim(player, target) && !hit.contains(target.getUUID()) && target.distanceToSqr(player) <= radius * radius) {
+                hit.add(target.getUUID());
                 PendingElementalHits.hurtNow(target, player, ModDamageTypes.FIRE_ELEMENTAL, damage);
+                target.setSecondsOnFire(4);
             }
         }
     }
@@ -388,11 +396,111 @@ public final class RacialAbilities {
         say(player, "corrupted", servantCount(player), servantLimit(player));
     }
 
-    /** Los sirvientes siguen a su dueño y atacan a los enemigos que no son sirvientes. */
+    private static final String MODE_KEY = "tc_servant_mode";
+    private static final int MODE_FOLLOW = 0; // sigue al dueño y lo defiende (ataca a quien lo ataca o a quien el ataca), como un lobo
+    private static final int MODE_STAY = 1;   // se queda quieto en el lugar
+    private static final int MODE_AGGRESSIVE = 2; // sigue al dueño y ataca al enemigo mas cercano
+
+    private static int modeOf(Entity mob) {
+        return mob.getPersistentData().getInt(MODE_KEY);
+    }
+
+    /** Los sirvientes obedecen como los lobos: se les puede decir que se queden, que sigan o que ataquen (click derecho con la mano vacia). */
     private static void addServantGoals(Mob mob, UUID owner) {
         Predicate<LivingEntity> enemy = target -> target instanceof Enemy && !isServant(target) && !target.getUUID().equals(owner);
-        mob.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(mob, LivingEntity.class, 10, true, false, enemy));
+        mob.targetSelector.addGoal(1, new OwnerTargetGoal(mob, owner, true));
+        mob.targetSelector.addGoal(2, new OwnerTargetGoal(mob, owner, false));
+        mob.targetSelector.addGoal(3, new ModeGatedTargetGoal(mob, enemy));
+        mob.goalSelector.addGoal(1, new StayGoal(mob));
         mob.goalSelector.addGoal(2, new FollowOwnerGoal(mob, owner));
+    }
+
+    /** Si el modo es "quieto" el mob no se mueve del lugar. */
+    private static final class StayGoal extends Goal {
+        private final Mob mob;
+
+        StayGoal(Mob mob) {
+            this.mob = mob;
+            setFlags(java.util.EnumSet.of(Flag.MOVE, Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            return modeOf(mob) == MODE_STAY;
+        }
+
+        @Override
+        public void start() {
+            mob.getNavigation().stop();
+        }
+    }
+
+    /** Ataca a quien lastimo al dueño (hurtBy) o a lo que el dueño esta atacando (hurt), como los lobos. */
+    private static final class OwnerTargetGoal extends net.minecraft.world.entity.ai.goal.target.TargetGoal {
+        private final UUID owner;
+        private final boolean defend;
+        private LivingEntity candidate;
+
+        OwnerTargetGoal(Mob mob, UUID owner, boolean defend) {
+            super(mob, false);
+            this.owner = owner;
+            this.defend = defend;
+            setFlags(java.util.EnumSet.of(Flag.TARGET));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (modeOf(mob) == MODE_STAY) {
+                return false;
+            }
+            Player player = mob.level().getPlayerByUUID(owner);
+            if (player == null) {
+                return false;
+            }
+            LivingEntity other = defend ? player.getLastHurtByMob() : player.getLastHurtMob();
+            int stamp = defend ? player.getLastHurtByMobTimestamp() : player.getLastHurtMobTimestamp();
+            if (other == null || stamp + 200 < player.tickCount || !other.isAlive() || other == player || isServant(other)) {
+                return false;
+            }
+            candidate = other;
+            return true;
+        }
+
+        @Override
+        public void start() {
+            mob.setTarget(candidate);
+            super.start();
+        }
+    }
+
+    /** Solo en modo agresivo busca al enemigo mas cercano. */
+    private static final class ModeGatedTargetGoal extends NearestAttackableTargetGoal<LivingEntity> {
+        ModeGatedTargetGoal(Mob mob, Predicate<LivingEntity> enemy) {
+            super(mob, LivingEntity.class, 10, true, false, enemy);
+        }
+
+        @Override
+        public boolean canUse() {
+            return modeOf(mob) == MODE_AGGRESSIVE && super.canUse();
+        }
+    }
+
+    /** Click derecho con la mano vacia sobre un sirviente propio: cambia el modo (seguir, quedarse, agresivo). */
+    @SubscribeEvent
+    public static void onServantInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.getLevel().isClientSide() || event.getHand() != net.minecraft.world.InteractionHand.MAIN_HAND
+                || !(event.getEntity() instanceof ServerPlayer player) || !event.getEntity().getMainHandItem().isEmpty()
+                || !isServantOf(event.getTarget(), player.getUUID()) || isPraying(player)) {
+            return;
+        }
+        int mode = (modeOf(event.getTarget()) + 1) % 3;
+        event.getTarget().getPersistentData().putInt(MODE_KEY, mode);
+        if (event.getTarget() instanceof Mob mob) {
+            mob.getNavigation().stop();
+            mob.setTarget(null);
+        }
+        say(player, mode == MODE_STAY ? "servant_stay" : mode == MODE_AGGRESSIVE ? "servant_aggressive" : "servant_follow");
+        event.setCanceled(true);
     }
 
     private static final class FollowOwnerGoal extends Goal {
@@ -409,7 +517,7 @@ public final class RacialAbilities {
         @Override
         public boolean canUse() {
             Player player = mob.level().getPlayerByUUID(owner);
-            if (player == null || mob.getTarget() != null || mob.distanceToSqr(player) < 36.0) {
+            if (player == null || modeOf(mob) == MODE_STAY || mob.getTarget() != null || mob.distanceToSqr(player) < 36.0) {
                 return false;
             }
             target = player;
@@ -629,10 +737,11 @@ public final class RacialAbilities {
         Integer aura = AURA.get(player.getUUID());
         if (aura != null) {
             tickAura(player, aura);
-            if (aura <= 1) {
+            if (aura + 1 >= WAVE_TICKS) {
                 AURA.remove(player.getUUID());
+                WAVE_HIT.remove(player.getUUID());
             } else {
-                AURA.put(player.getUUID(), aura - 1);
+                AURA.put(player.getUUID(), aura + 1);
             }
         }
         Grab grab = GRABS.get(player.getUUID());
@@ -653,6 +762,7 @@ public final class RacialAbilities {
         if (event.getEntity() instanceof ServerPlayer player) {
             PRAYING.remove(player.getUUID());
             AURA.remove(player.getUUID());
+            WAVE_HIT.remove(player.getUUID());
             Grab grab = GRABS.remove(player.getUUID());
             if (grab != null && player.serverLevel().getEntity(grab.mob) instanceof Mob mob) {
                 mob.setNoAi(false);

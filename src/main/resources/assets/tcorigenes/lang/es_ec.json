@@ -279,7 +279,7 @@
   "tcorigenes.magic.book.filis": "Grimorio de Filis",
   "tcorigenes.magic.book.lore.filis": "Magia sagrada, redención y curación.",
   "tcorigenes.magic.book.luna": "Grimorio de Luna",
-  "tcorigenes.magic.book.lore.luna": "Magia eldritch, la oscuridad de la noche.",
+  "tcorigenes.magic.book.lore.luna": "Magia oscura: la sangre y el vacío de la noche.",
   "tcorigenes.magic.book.neutral": "Grimorio del Hereje",
   "tcorigenes.magic.book.lore.neutral": "Magia neutra: ningún dios la reclama.",
   "key.tcorigenes.open_profile": "Abrir perfil del personaje",
@@ -338,5 +338,8 @@
   "tcorigenes.racial.picked": "Agarras el bloque. Usa la habilidad otra vez para lanzarlo.",
   "tcorigenes.racial.no_room": "No hay espacio para lanzar el bloque.",
   "tcorigenes.profile.level": "Nivel: %s",
-  "tcorigenes.favor.patron": "%s te ha elegido como seguidor. %s, su opuesto, te da la espalda, y los demás dioses apenas te escucharán."
+  "tcorigenes.favor.patron": "%s te ha elegido como seguidor. %s, su opuesto, te da la espalda, y los demás dioses apenas te escucharán.",
+  "tcorigenes.racial.servant_stay": "Tu sirviente se queda aquí.",
+  "tcorigenes.racial.servant_follow": "Tu sirviente te sigue y te defiende.",
+  "tcorigenes.racial.servant_aggressive": "Tu sirviente te sigue y ataca al enemigo más cercano."
 }

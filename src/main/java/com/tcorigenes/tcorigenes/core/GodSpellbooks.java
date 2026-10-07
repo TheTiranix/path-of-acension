@@ -41,12 +41,12 @@ public final class GodSpellbooks {
 
     private static String[] spellsOf(String id) {
         return switch (id) {
-            case "pater" -> new String[] {"lightning_bolt", "electrocute", "charge"};
-            case "deiros" -> new String[] {"firebolt", "burning_dash", "scorch"};
-            case "meidris" -> new String[] {"oakskin", "root", "poison_splash"};
-            case "filis" -> new String[] {"heal", "cleanse", "haste"};
-            case "luna" -> new String[] {"eldritch_blast", "planar_sight", "abyssal_shroud"};
-            case "ender" -> new String[] {"magic_missile", "evasion", "teleport"};
+            case "pater" -> new String[] {"electrocute", "ball_lightning", "shockwave"};
+            case "deiros" -> new String[] {"firebolt", "burning_dash", "flaming_strike"};
+            case "meidris" -> new String[] {"oakskin", "acid_orb", "poison_arrow"};
+            case "filis" -> new String[] {"guiding_bolt", "healing_circle", "blessing_of_life"};
+            case "luna" -> new String[] {"ray_of_siphoning", "heartstop", "magic_missile"};
+            case "ender" -> new String[] {"magic_missile", "dragon_breath"};
             default -> new String[] {"fang_strike", "shield", "gust"}; // neutro
         };
     }
