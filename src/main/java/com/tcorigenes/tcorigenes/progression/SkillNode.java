@@ -30,11 +30,12 @@ public record SkillNode(
         String abilityId) {
 
     /**
-     * Fase del arbol (todas las clases tienen 3): la 1 va de la raiz al nodo 8 de cada camino, la 2 del 9 al 16 y la 3 del 17 al 24
+     * Fase del arbol (todas las clases tienen 3): cada fase cubre un tercio del camino (24 nodos con 72 por camino)
      * mas la piedra clave. El nodo x de la grilla es su posicion en el camino.
      */
     public int phase() {
-        return x <= 8 ? 1 : x <= 16 ? 2 : 3;
+        int third = SkillTree.NODES_PER_PATH / 3;
+        return x <= third ? 1 : x <= third * 2 ? 2 : 3;
     }
 
     /** Titulo en el idioma del juego (los titulos estan escritos en español en SkillTree). */

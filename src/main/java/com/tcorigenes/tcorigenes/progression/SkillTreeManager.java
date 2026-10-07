@@ -36,7 +36,7 @@ public final class SkillTreeManager {
     public static final String PACT_KEY = "tc_pact";
     /** Precio en XP del primer punto comprado; cada punto comprado suma PRICE_STEP al precio del siguiente. */
     public static final long PRICE_BASE = 100;
-    public static final long PRICE_STEP = 25;
+    public static final long PRICE_STEP = 10; // el arbol tiene el triple de nodos: el precio sube mas despacio para que el ultimo punto cueste parecido
 
     /** Precio en XP del proximo punto, dado cuantos puntos compro ya el jugador. */
     public static long pointPrice(int bought) {

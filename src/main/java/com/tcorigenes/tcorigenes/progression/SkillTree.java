@@ -15,8 +15,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 /**
- * Definicion del arbol propio: una rama de 50 nodos por clase con la misma forma. El primer nodo (la raiz)
- * desbloquea la habilidad activa de la clase (las clases ya no arrancan con ella); despues hay dos caminos de 24
+ * Definicion del arbol propio: una rama de 146 nodos por clase con la misma forma. El primer nodo (la raiz)
+ * desbloquea la habilidad activa de la clase (las clases ya no arrancan con ella); despues hay dos caminos de 72
  * nodos y una piedra clave final que pide cualquiera de los dos. Cada mejora crece de forma proporcional a lo
  * largo del camino (de la mitad de la "unidad" de la estadistica en el primer nodo a una vez y media en el ultimo).
  *
@@ -67,7 +67,12 @@ public final class SkillTree {
     }
 
     /** Nodos por camino: raiz + 2 caminos + piedra clave = 50 nodos por clase. */
-    public static final int NODES_PER_PATH = 24;
+    public static final int NODES_PER_PATH = 72;
+
+    /** La unidad de cada estadistica esta pensada para 24 nodos por camino: con mas nodos cada uno aporta proporcionalmente menos (mismo total). */
+    private static final double UNIT_SCALE = 24.0 / NODES_PER_PATH;
+
+    private static final String[] ROMAN = {"", " II", " III", " IV", " V", " VI", " VII", " VIII"};
 
     /** Multiplicador de la "unidad" de la estadistica en el nodo i del camino: crece linealmente de 0.5 a 1.5. */
     private static double factor(int i) {
@@ -77,7 +82,7 @@ public final class SkillTree {
     private static String tierTitle(Named[] names, int i) {
         String base = names[i % names.length].title();
         int tier = i / names.length;
-        return tier == 0 ? base : base + " " + (tier == 1 ? "II" : tier == 2 ? "III" : "IV");
+        return base + ROMAN[Math.min(tier, ROMAN.length - 1)];
     }
 
     private record Stat(Supplier<Attribute> attribute, Operation op, double unit) {
@@ -125,7 +130,7 @@ public final class SkillTree {
     }
 
     private static Perk pathPerk(String title, Supplier<Item> icon, Stat stat, double factor) {
-        double amount = Math.round(stat.unit() * factor * 10000.0) / 10000.0;
+        double amount = Math.round(stat.unit() * factor * UNIT_SCALE * 10000.0) / 10000.0;
         return new Perk(title, icon, stat.attribute(), stat.op(), amount);
     }
 

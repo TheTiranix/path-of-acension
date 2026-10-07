@@ -58,7 +58,8 @@ public class SkillTreeScreen extends Screen {
     private int page = 1;
     private final Button[] pageButtons = new Button[3];
     private static final String[] PAGE_NAMES = {"I · Despertar", "II · Ascenso", "III · Trascendencia"};
-    private static final int[] PAGE_X_RANGE = {0, 8, 9, 16, 17, 25};
+    private static final int THIRD = SkillTree.NODES_PER_PATH / 3;
+    private static final int[] PAGE_X_RANGE = {0, THIRD, THIRD + 1, THIRD * 2, THIRD * 2 + 1, SkillTree.NODES_PER_PATH + 1};
 
     public SkillTreeScreen() {
         super(Component.translatable("pa.msg.a29d060190"));
