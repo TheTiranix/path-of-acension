@@ -32,7 +32,8 @@ public class OpenProfilePacket {
             FavorManager.syncToClient(player);
             PlayerClass playerClass = player.getCapability(PlayerClassProvider.PLAYER_CLASS_CAPABILITY)
                     .map(data -> data.getPlayerClass()).orElse(PlayerClass.NINGUNA);
-            Networking.sendToPlayer(player, new ProfileDataPacket(ProgressionTier.get(player), playerClass.ordinal()));
+            Networking.sendToPlayer(player, new ProfileDataPacket(ProgressionTier.get(player), playerClass.ordinal(),
+                    com.tcorigenes.tcorigenes.favor.FavorManager.patron(player) == null ? -1 : com.tcorigenes.tcorigenes.favor.FavorManager.patron(player).ordinal()));
         });
         return true;
     }

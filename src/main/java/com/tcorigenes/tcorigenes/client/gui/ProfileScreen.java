@@ -31,20 +31,22 @@ public class ProfileScreen extends Screen {
 
     private final int tier;
     private final PlayerClass playerClass;
+    private final int patron;
     private boolean interfaceTab;
     private Button healthColorButton;
     private Button healthTextButton;
     private Button customHudButton;
 
-    public ProfileScreen(int tier, int classOrdinal) {
+    public ProfileScreen(int tier, int classOrdinal, int patron) {
         super(Component.translatable("tcorigenes.profile.title"));
+        this.patron = patron;
         this.tier = Mth.clamp(tier, 1, 4);
         PlayerClass[] classes = PlayerClass.values();
         this.playerClass = classOrdinal >= 0 && classOrdinal < classes.length ? classes[classOrdinal] : PlayerClass.NINGUNA;
     }
 
-    public static void open(int tier, int classOrdinal) {
-        Minecraft.getInstance().setScreen(new ProfileScreen(tier, classOrdinal));
+    public static void open(int tier, int classOrdinal, int patron) {
+        Minecraft.getInstance().setScreen(new ProfileScreen(tier, classOrdinal, patron));
     }
 
     private int left() {
@@ -173,7 +175,8 @@ public class ProfileScreen extends Screen {
             if (deity == Deity.TEMPO && favor == 0) {
                 continue; // Tempo es un secreto del lore: solo aparece si ya tiene favor con el
             }
-            g.drawString(font, deity.getDisplayName(), x + 12, line, godColor(deity), false);
+            boolean isPatron = deity.ordinal() == patron;
+            g.drawString(font, (isPatron ? "\u2605 " : "") + deity.getDisplayName(), x + (isPatron ? 4 : 12), line, godColor(deity), false);
             int barX = x + 70;
             int barW = 130;
             g.fill(barX, line, barX + barW, line + 8, 0xFF2A1A1A);

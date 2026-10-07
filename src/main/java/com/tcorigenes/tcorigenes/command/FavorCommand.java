@@ -31,7 +31,7 @@ public class FavorCommand {
                                                             ServerPlayer target = EntityArgument.getPlayer(context, "target");
                                                             Deity deity = Deity.valueOf(StringArgumentType.getString(context, "deity").toUpperCase());
                                                             int amount = IntegerArgumentType.getInteger(context, "amount");
-                                                            FavorManager.addFavor(target, deity, amount);
+                                                            FavorManager.addFavorRaw(target, deity, amount);
                                                             int newValue = FavorManager.getFavor(target, deity);
                                                             context.getSource().sendSuccess(() -> Component.translatable("pa.msg.61391e99e1", target.getName().getString(), newValue, deity.getDisplayName()), true);
                                                             return 1;

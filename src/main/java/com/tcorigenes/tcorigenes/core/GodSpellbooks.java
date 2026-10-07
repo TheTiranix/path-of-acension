@@ -101,6 +101,10 @@ public final class GodSpellbooks {
     }
 
     private static String leader(ServerPlayer player) {
+        Deity patron = FavorManager.patron(player);
+        if (patron != null && patron != Deity.TEMPO) {
+            return patron.name().toLowerCase(java.util.Locale.ROOT);
+        }
         Deity best = null;
         int bestFavor = MIN_FAVOR - 1;
         boolean tie = false;

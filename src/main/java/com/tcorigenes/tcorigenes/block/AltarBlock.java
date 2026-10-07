@@ -53,7 +53,7 @@ public class AltarBlock extends Block {
         }
 
         stack.shrink(1);
-        FavorManager.addFavor(serverPlayer, deity, favorAmount);
+        FavorManager.addFavorAltar(serverPlayer, deity, favorAmount);
         int newValue = FavorManager.getFavor(serverPlayer, deity);
         player.displayClientMessage(Component.translatable("pa.msg.3eda8ab547", deity.getDisplayName(), favorAmount, newValue), true);
 
@@ -75,7 +75,7 @@ public class AltarBlock extends Block {
             return InteractionResult.FAIL;
         }
         LAST_PRAYER.put(player.getUUID(), now);
-        FavorManager.addFavor(player, Deity.PATER, PRAYER_FAVOR);
+        FavorManager.addFavorAltar(player, Deity.PATER, PRAYER_FAVOR);
         player.displayClientMessage(Component.translatable("pa.msg.51b5ed7871", PRAYER_FAVOR), true);
         ServerLevel serverLevel = (ServerLevel) level;
         serverLevel.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1.0F, 0.8F);

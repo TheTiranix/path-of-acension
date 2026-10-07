@@ -52,6 +52,7 @@ public class TCOrigenes {
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(TCOrigenes::registerAttributes);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(TCOrigenes::registerOverlays));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(com.tcorigenes.tcorigenes.ability.client.AbilityKeyBindings::onRegisterKeyMappings));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(TCOrigenes::registerEntityRenderers));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(com.tcorigenes.tcorigenes.client.ModModelLayers::registerLayerDefinitions));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(com.tcorigenes.tcorigenes.client.RaceRenderEvents::onAddLayers));

@@ -337,5 +337,6 @@
   "tcorigenes.racial.no_block": "Necesitas un bloque frente a ti o bajo tus pies.",
   "tcorigenes.racial.picked": "Agarras el bloque. Usa la habilidad otra vez para lanzarlo.",
   "tcorigenes.racial.no_room": "No hay espacio para lanzar el bloque.",
-  "tcorigenes.profile.level": "Nivel: %s"
+  "tcorigenes.profile.level": "Nivel: %s",
+  "tcorigenes.favor.patron": "%s te ha elegido como seguidor. %s, su opuesto, te da la espalda, y los demás dioses apenas te escucharán."
 }

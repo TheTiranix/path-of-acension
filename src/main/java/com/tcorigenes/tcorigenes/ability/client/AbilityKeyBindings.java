@@ -32,7 +32,7 @@ public class AbilityKeyBindings {
     public static final KeyMapping OPEN_PROFILE = new KeyMapping(
             "key.tcorigenes.open_profile", InputConstants.Type.KEYSYM, InputConstants.KEY_O, "key.categories.tcorigenes");
 
-    @SubscribeEvent
+    /** Se registra explicitamente en el bus del mod (ver TCOrigenes): asi las teclas siempre aparecen en Controles. */
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(ACTIVATE_ABILITY);
         event.register(OPEN_ABILITY_TREE);
