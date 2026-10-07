@@ -37,7 +37,7 @@ public class SkillTreeScreen extends Screen {
     private static final int COLOR_PENDING = 0xFF55CCFF;
     private static final int COLOR_AVAILABLE = 0xFFFFD700;
     private static final int COLOR_LOCKED = 0xFF666666;
-    private static final float MIN_ZOOM = 0.45F;
+    private static final float MIN_ZOOM = 0.15F;
     private static final float MAX_ZOOM = 2.2F;
     private static final DecimalFormat FORMAT = new DecimalFormat("0.##");
 
@@ -100,6 +100,9 @@ public class SkillTreeScreen extends Screen {
         double[] box = SkillTree.bounds(ClientSkillData.playerClass(), newPage);
         this.camX = (box[0] + box[2]) / 2.0 * CELL;
         this.camY = (box[1] + box[3]) / 2.0 * CELL;
+        double fitW = (this.width - 60.0) / ((box[2] - box[0] + 4.0) * CELL);
+        double fitH = (this.height - 140.0) / ((box[3] - box[1] + 4.0) * CELL);
+        this.zoom = (float) Math.max(MIN_ZOOM, Math.min(1.0, Math.min(fitW, fitH)));
     }
 
     /** La fase 1 siempre esta; para entrar a una fase hay que haber llegado al ultimo nodo de la anterior (en cualquiera de los dos
@@ -318,7 +321,12 @@ public class SkillTreeScreen extends Screen {
         g.pose().scale(zoom, zoom, 1F);
         g.pose().translate(-camX, -camY, 0);
         drawPhaseBands(g);
+        double viewW = this.width / 2.0 / zoom + CELL;
+        double viewH = this.height / 2.0 / zoom + CELL;
         for (SkillNode node : nodes) {
+            if (Math.abs(node.x() * CELL - camX) > viewW || Math.abs(node.y() * CELL - camY) > viewH) {
+                continue;
+            }
             for (String parentId : node.parents()) {
                 SkillNode parent = SkillTree.get(parentId);
                 if (parent != null && parent.phase() == page) {
@@ -327,6 +335,9 @@ public class SkillTreeScreen extends Screen {
             }
         }
         for (SkillNode node : nodes) {
+            if (Math.abs(node.x() * CELL - camX) > viewW || Math.abs(node.y() * CELL - camY) > viewH) {
+                continue;
+            }
             int x = (int) Math.round(node.x() * CELL);
             int y = (int) Math.round(node.y() * CELL);
             int color = colorOf(node);
@@ -389,8 +400,12 @@ public class SkillTreeScreen extends Screen {
             // fondo: degradado vertical (mas claro arriba, oscuro abajo)
             g.fillGradient(left, top, right, bottom, 0x55000000 | color, 0x14000000 | color);
             // puntitos tenues a modo de textura
-            for (int x = left + 10; x < right - 4; x += 22) {
-                for (int y = top + 38; y < bottom - 6; y += 22) {
+            int fromX = (int) Math.max(left + 10, camX - this.width / 2.0 / zoom);
+            int toX = (int) Math.min(right - 4, camX + this.width / 2.0 / zoom);
+            int fromY = (int) Math.max(top + 38, camY - this.height / 2.0 / zoom);
+            int toY = (int) Math.min(bottom - 6, camY + this.height / 2.0 / zoom);
+            for (int x = fromX - fromX % 44; x < toX; x += 44) {
+                for (int y = fromY - fromY % 44; y < toY; y += 44) {
                     g.fill(x, y, x + 1, y + 1, 0x30000000 | color);
                 }
             }
