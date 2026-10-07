@@ -61,6 +61,13 @@ public final class MobScaling {
     private MobScaling() {
     }
 
+    /** Nivel del mob (1 si no tiene escalado), deducido del modificador de vida que se le puso al nacer. */
+    public static int levelOf(Mob mob) {
+        AttributeInstance health = mob.getAttribute(Attributes.MAX_HEALTH);
+        AttributeModifier modifier = health == null ? null : health.getModifier(HEALTH_ID);
+        return modifier == null ? 1 : 1 + (int) Math.round(modifier.getAmount() / BONUS_PER_LEVEL);
+    }
+
     /** Cada jugador extra suma un 35% a la fuerza de los mobs nuevos; una vez alcanzado un
      *  numero de jugadores, ese efecto queda permanente aunque despues se desconecten. */
     @SubscribeEvent

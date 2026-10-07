@@ -27,6 +27,7 @@
     "DarkMetalSwordUndeadMixin"
   ],
   "client": [
-    "CelestisynthParticleEngineMixin"
+    "CelestisynthParticleEngineMixin",
+    "PlayerRacialPoseMixin"
   ]
 }

@@ -17,7 +17,13 @@ import net.minecraftforge.network.NetworkEvent.Context;
 public class ActivateRacialAbilityPacket {
     private static final Map<Race, String> RACE_ABILITIES = Map.of(
             Race.ENDER_WARRIOR, "tcorigenes:teletransporte_ender",
-            Race.AUTOMATA, "tcorigenes:sobrecarga_automata"
+            Race.AUTOMATA, "tcorigenes:sobrecarga_automata",
+            Race.ANGEL, "tcorigenes:impulso_angel",
+            Race.DEVOTO, "tcorigenes:plegaria_devoto",
+            Race.DEMONIO, "tcorigenes:aura_demonio",
+            Race.SIERVO_DE_LA_LUNA, "tcorigenes:corrupcion_luna",
+            Race.MALNACIDO, "tcorigenes:golpe_malnacido",
+            Race.STONE_GIANT, "tcorigenes:bloque_gigante"
     );
 
     public ActivateRacialAbilityPacket() {
@@ -27,6 +33,11 @@ public class ActivateRacialAbilityPacket {
     }
 
     public void toBytes(FriendlyByteBuf buf) {
+    }
+
+    private static boolean activateAndReport(PlayerAbility ability, ServerPlayer player) {
+        ability.activate(player);
+        return true;
     }
 
     public boolean handle(Supplier<Context> supplier) {
@@ -47,7 +58,12 @@ public class ActivateRacialAbilityPacket {
                 }
                 long remainingMillis = AbilityCooldownManager.remainingMillis(player, ability);
                 if (remainingMillis <= 0) {
-                    ability.activate(player);
+                    // las habilidades que pueden fallar (sin blanco, sin bloque...) no gastan cooldown si no se usaron
+                    boolean used = ability instanceof com.tcorigenes.tcorigenes.ability.racial.RacialAbilities.Racial racial
+                            ? racial.tryActivate(player) : activateAndReport(ability, player);
+                    if (!used) {
+                        return;
+                    }
                     AbilityCooldownManager.startCooldown(player, ability);
                     com.tcorigenes.tcorigenes.networking.Networking.sendToPlayer(player,
                             new AbilityCooldownSyncPacket(ability.id(), ability.cooldownTicks() * 50, true));

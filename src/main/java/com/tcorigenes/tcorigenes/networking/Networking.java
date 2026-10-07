@@ -211,6 +211,12 @@ public class Networking {
                 .consumerMainThread(com.tcorigenes.tcorigenes.networking.packet.OpenProfilePacket::handle)
                 .add();
 
+        net.messageBuilder(com.tcorigenes.tcorigenes.networking.packet.RacialStateSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(com.tcorigenes.tcorigenes.networking.packet.RacialStateSyncPacket::new)
+                .encoder(com.tcorigenes.tcorigenes.networking.packet.RacialStateSyncPacket::toBytes)
+                .consumerMainThread(com.tcorigenes.tcorigenes.networking.packet.RacialStateSyncPacket::handle)
+                .add();
+
         net.messageBuilder(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket::new)
                 .encoder(com.tcorigenes.tcorigenes.networking.packet.ProfileDataPacket::toBytes)
@@ -224,6 +230,11 @@ public class Networking {
 
     public static <MSG> void sendToPlayer(ServerPlayer player, MSG message) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+    }
+
+    /** A los clientes que ven a la entidad (y a ella misma si es un jugador). */
+    public static <MSG> void sendToTrackingAndSelf(net.minecraft.world.entity.Entity entity, MSG message) {
+        INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
     }
 
     public static <MSG> void sendToAll(MSG message) {

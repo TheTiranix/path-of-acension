@@ -661,5 +661,17 @@
   "tcorigenes.preload.none": "This world has no save points yet.",
   "tcorigenes.preload.continue": "Keep the world as it is",
   "tcorigenes.preload.working": "Restoring the world...",
-  "tcorigenes.preload.failed": "Could not restore the save. Check that the world is closed."
+  "tcorigenes.preload.failed": "Could not restore the save. Check that the world is closed.",
+  "tcorigenes.racial.praying": "You pray... do not move.",
+  "tcorigenes.racial.prayer_cancelled": "Your prayer was interrupted.",
+  "tcorigenes.racial.no_target": "There is nothing to grab in front of you.",
+  "tcorigenes.racial.already_servant": "That creature already serves you.",
+  "tcorigenes.racial.boss": "Bosses and minibosses cannot be corrupted.",
+  "tcorigenes.racial.too_strong": "That creature is too strong (level %s).",
+  "tcorigenes.racial.limit": "You cannot command more than %s servants yet.",
+  "tcorigenes.racial.corrupted": "The creature serves you now (%s/%s servants).",
+  "tcorigenes.racial.no_block": "You need a block in front of you or under your feet.",
+  "tcorigenes.racial.picked": "You grab the block. Use the ability again to throw it.",
+  "tcorigenes.racial.no_room": "There is no room to throw the block.",
+  "tcorigenes.profile.level": "Level: %s"
 }

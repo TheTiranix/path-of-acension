@@ -46,6 +46,7 @@ public final class RaceRenderEvents {
             PlayerRenderer renderer = event.getSkin(skinName);
             if (renderer != null) {
                 renderer.addLayer(new RaceFeaturesLayer(renderer, event.getEntityModels()));
+                renderer.addLayer(new GiantBlockLayer(renderer));
             }
         }
     }

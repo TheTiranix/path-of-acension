@@ -23,6 +23,15 @@ public final class ModModelLayers {
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_gears"), "main");
     public static final ModelLayerLocation AUTOMATA_CORE =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "automata_core"), "main");
+    public static final ModelLayerLocation CRUCIFIX =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "crucifix"), "main");
+    public static final ModelLayerLocation DEMON_TAIL =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "demon_tail"), "main");
+    public static final ModelLayerLocation ANGEL_HALO =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "angel_halo"), "main");
+    public static final ModelLayerLocation SIERVO_EYES =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "siervo_eyes"), "main");
+    public static final int TAIL_SEGMENTS = 7;
     public static final ModelLayerLocation ANIMA_SPIRIT = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath("tcorigenes", "anima_spirit"), "main");
 
@@ -48,6 +57,10 @@ public final class ModModelLayers {
         event.registerLayerDefinition(AUTOMATA_GEARS, ModModelLayers::createGearsLayer);
         event.registerLayerDefinition(AUTOMATA_CORE, ModModelLayers::createCoreLayer);
         event.registerLayerDefinition(ANIMA_SPIRIT, AnimaSpiritModel::createLayer);
+        event.registerLayerDefinition(CRUCIFIX, ModModelLayers::createCrucifixLayer);
+        event.registerLayerDefinition(DEMON_TAIL, ModModelLayers::createTailLayer);
+        event.registerLayerDefinition(ANGEL_HALO, ModModelLayers::createHaloLayer);
+        event.registerLayerDefinition(SIERVO_EYES, ModModelLayers::createEyesLayer);
     }
 
     /** Nucleo de energia en el pecho (pedido de alejandr0): brilla de verdad, ver RaceFeaturesLayer. */
@@ -103,6 +116,66 @@ public final class ModModelLayers {
             builder.addBox(cx - toothHalf, cy - toothHalf, -depth / 2.0F, toothHalf * 2.0F, toothHalf * 2.0F, depth);
         }
         return builder;
+    }
+
+    /** Crucifijo dorado colgando del cuello: cadena en V y cruz sobre el pecho (cuelga delante de la armadura). */
+    private static LayerDefinition createCrucifixLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        root.addOrReplaceChild("chain_left", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 0.5F, 4.0F, 0.5F),
+                PartPose.offsetAndRotation(-2.2F, -0.4F, -3.4F, 0.0F, 0.0F, 0.52F));
+        root.addOrReplaceChild("chain_right", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, 0.0F, 0.0F, 0.5F, 4.0F, 0.5F),
+                PartPose.offsetAndRotation(2.2F, -0.4F, -3.4F, 0.0F, 0.0F, -0.52F));
+        PartDefinition cross = root.addOrReplaceChild("cross", CubeListBuilder.create().texOffs(0, 0)
+                        .addBox(-0.6F, 0.0F, 0.0F, 1.2F, 5.0F, 0.7F)
+                        .texOffs(0, 0).addBox(-1.8F, 1.2F, 0.0F, 3.6F, 1.2F, 0.7F),
+                PartPose.offset(0.0F, 3.4F, -3.5F));
+        return LayerDefinition.create(mesh, 16, 16);
+    }
+
+    /** Cola fina de demonio: segmentos encadenados (cada uno hijo del anterior, asi la onda se acumula) y un corazon en la punta. */
+    private static LayerDefinition createTailLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition parent = mesh.getRoot();
+        for (int i = 0; i < TAIL_SEGMENTS; i++) {
+            float thickness = 0.9F - i * 0.07F;
+            PartPose pose = i == 0 ? PartPose.offsetAndRotation(0.0F, 11.0F, 2.0F, 0.0F, 0.0F, 0.0F) : PartPose.offset(0.0F, 0.0F, 2.4F);
+            parent = parent.addOrReplaceChild("tail_" + i, CubeListBuilder.create().texOffs(0, 0)
+                    .addBox(-thickness / 2.0F, -thickness / 2.0F, 0.0F, thickness, thickness, 2.6F), pose);
+        }
+        // corazon: rombo + dos lobulos, plano y vertical en la punta
+        PartDefinition heart = parent.addOrReplaceChild("heart", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 2.6F));
+        heart.addOrReplaceChild("diamond", CubeListBuilder.create().texOffs(0, 8).addBox(-1.1F, -1.1F, -0.25F, 2.2F, 2.2F, 0.5F),
+                PartPose.offsetAndRotation(0.0F, 0.7F, 0.0F, 0.0F, 0.0F, 0.7854F));
+        heart.addOrReplaceChild("lobe_left", CubeListBuilder.create().texOffs(0, 8).addBox(-0.7F, -0.7F, -0.25F, 1.4F, 1.4F, 0.5F),
+                PartPose.offsetAndRotation(-0.8F, -0.7F, 0.0F, 0.0F, 0.0F, 0.7854F));
+        heart.addOrReplaceChild("lobe_right", CubeListBuilder.create().texOffs(0, 8).addBox(-0.7F, -0.7F, -0.25F, 1.4F, 1.4F, 0.5F),
+                PartPose.offsetAndRotation(0.8F, -0.7F, 0.0F, 0.0F, 0.0F, 0.7854F));
+        return LayerDefinition.create(mesh, 16, 16);
+    }
+
+    /** Aureola del Angel: anillo de 10 tramos sobre la cabeza. */
+    private static LayerDefinition createHaloLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        int pieces = 10;
+        for (int i = 0; i < pieces; i++) {
+            double angle = Math.PI * 2.0 * i / pieces;
+            float x = (float) (Math.cos(angle) * 4.6);
+            float z = (float) (Math.sin(angle) * 4.6);
+            root.addOrReplaceChild("halo_" + i, CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -0.3F, -0.5F, 3.0F, 0.6F, 1.0F),
+                    PartPose.offsetAndRotation(x, -12.5F, z, 0.0F, (float) (-angle + Math.PI / 2.0), 0.0F));
+        }
+        return LayerDefinition.create(mesh, 16, 16);
+    }
+
+    /** Ojos del Siervo de la Luna: dos rendijas que brillan de noche. */
+    private static LayerDefinition createEyesLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        root.addOrReplaceChild("eye_left", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -4.4F, 2.0F, 1.0F, 0.1F), PartPose.ZERO);
+        root.addOrReplaceChild("eye_right", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -4.0F, -4.4F, 2.0F, 1.0F, 0.1F), PartPose.ZERO);
+        return LayerDefinition.create(mesh, 16, 16);
     }
 
     private static LayerDefinition createHornsLayer() {

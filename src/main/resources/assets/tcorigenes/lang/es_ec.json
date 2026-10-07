@@ -325,5 +325,17 @@
   "tcorigenes.preload.none": "Este mundo todavía no tiene puntos de guardado.",
   "tcorigenes.preload.continue": "Seguir con el mundo como está",
   "tcorigenes.preload.working": "Restaurando el mundo...",
-  "tcorigenes.preload.failed": "No se pudo restaurar el save. Revisá que el mundo esté cerrado."
+  "tcorigenes.preload.failed": "No se pudo restaurar el save. Revisá que el mundo esté cerrado.",
+  "tcorigenes.racial.praying": "Rezas... no te muevas.",
+  "tcorigenes.racial.prayer_cancelled": "Tu plegaria se interrumpió.",
+  "tcorigenes.racial.no_target": "No hay nada para agarrar frente a ti.",
+  "tcorigenes.racial.already_servant": "Esa criatura ya te sirve.",
+  "tcorigenes.racial.boss": "No se puede corromper a jefes ni minijefes.",
+  "tcorigenes.racial.too_strong": "Esa criatura es demasiado fuerte (nivel %s).",
+  "tcorigenes.racial.limit": "Todavía no puedes mandar a más de %s sirvientes.",
+  "tcorigenes.racial.corrupted": "La criatura ahora te sirve (%s/%s sirvientes).",
+  "tcorigenes.racial.no_block": "Necesitas un bloque frente a ti o bajo tus pies.",
+  "tcorigenes.racial.picked": "Agarras el bloque. Usa la habilidad otra vez para lanzarlo.",
+  "tcorigenes.racial.no_room": "No hay espacio para lanzar el bloque.",
+  "tcorigenes.profile.level": "Nivel: %s"
 }

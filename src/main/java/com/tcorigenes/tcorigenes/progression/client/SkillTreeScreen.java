@@ -282,6 +282,7 @@ public class SkillTreeScreen extends Screen {
         g.fill(0, 43, this.width, 44, 0xFF5A0A0A);
         PlayerClass cls = ClientSkillData.playerClass();
         g.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
+        g.drawString(this.font, Component.translatable("tcorigenes.profile.level", 1 + ClientSkillData.bought()), 8, 12, 0xFF55FF55, true);
         g.drawCenteredString(this.font, Component.translatable("pa.msg.89f3a8977a", cls.getDisplayName(), ClientSkillData.points(), ClientSkillData.xp()), this.width / 2, 26, 0xFFD700);
         long price = SkillTreeManager.pointPrice(ClientSkillData.bought());
         buyButton.setMessage(Component.translatable("pa.msg.d9957f3eac", price));

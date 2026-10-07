@@ -36,6 +36,7 @@ public final class AbilityRegistry {
         registerEspirituAnima();
         registerTeletransporteEnder();
         registerSobrecargaAutomata();
+        com.tcorigenes.tcorigenes.ability.racial.RacialAbilities.registerAll();
         register(new PlayerAbility() {
             @Override
             public String id() {

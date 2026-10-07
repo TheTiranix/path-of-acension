@@ -66,15 +66,15 @@ public class AnimaSpiritModel extends EntityModel<AnimaSpiritEntity> {
         this.tintG = ((rgb >> 8) & 255) / 255.0F;
         this.tintB = (rgb & 255) / 255.0F;
         this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
+        this.head.xRot = headPitch * Mth.DEG_TO_RAD + 0.22F; // cabeza gacha, mirada amenazante
         // brazos cruzados hacia adelante y arriba, meciendose (pose clasica del genio)
-        float sway = Mth.sin(ageInTicks * 0.12F) * 0.06F;
-        this.rightArm.xRot = -1.0F + sway;
-        this.leftArm.xRot = -1.0F - sway;
-        this.rightArm.zRot = 0.25F;
-        this.leftArm.zRot = -0.25F;
-        this.rightArm.yRot = 0.55F;
-        this.leftArm.yRot = -0.55F;
+        float sway = Mth.sin(ageInTicks * 0.12F) * 0.04F;
+        this.rightArm.xRot = -0.75F + sway;
+        this.leftArm.xRot = -0.75F - sway;
+        this.rightArm.zRot = 0.55F;   // brazos abiertos y tensos, listos para atacar
+        this.leftArm.zRot = -0.55F;
+        this.rightArm.yRot = 0.2F;
+        this.leftArm.yRot = -0.2F;
         // la cola de humo se mece
         this.body.zRot = Mth.sin(ageInTicks * 0.1F) * 0.05F;
     }

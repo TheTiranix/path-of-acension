@@ -38,6 +38,19 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
     private static final ResourceLocation CORE_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/automata_core.png");
 
+    private static final ResourceLocation CRUCIFIX_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/crucifix.png");
+    private static final ResourceLocation TAIL_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/demon_tail.png");
+    private static final ResourceLocation HALO_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/angel_halo.png");
+    private static final ResourceLocation EYES_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(TCOrigenes.MOD_ID, "textures/entity/race/siervo_eyes.png");
+
+    private final ModelPart crucifix;
+    private final ModelPart tail;
+    private final ModelPart halo;
+    private final ModelPart eyes;
     private final ModelPart horns;
     private final ModelPart wings;
     private final ModelPart antennas;
@@ -46,6 +59,10 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
 
     public RaceFeaturesLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, EntityModelSet modelSet) {
         super(parent);
+        this.crucifix = modelSet.bakeLayer(ModModelLayers.CRUCIFIX);
+        this.tail = modelSet.bakeLayer(ModModelLayers.DEMON_TAIL);
+        this.halo = modelSet.bakeLayer(ModModelLayers.ANGEL_HALO);
+        this.eyes = modelSet.bakeLayer(ModModelLayers.SIERVO_EYES);
         this.horns = modelSet.bakeLayer(ModModelLayers.DEMON_HORNS);
         this.wings = modelSet.bakeLayer(ModModelLayers.ANGEL_WINGS);
         this.antennas = modelSet.bakeLayer(ModModelLayers.SIERVO_ANTENNAS);
@@ -66,12 +83,14 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(HORNS_TEXTURE));
             horns.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
+            renderTail(poseStack, buffer, packedLight, ageInTicks, limbSwingAmount);
         } else if (race == Race.SIERVO_DE_LA_LUNA) {
             poseStack.pushPose();
             this.getParentModel().head.translateAndRotate(poseStack);
             VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(ANTENNAS_TEXTURE));
             antennas.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
+            renderEyes(poseStack, buffer, player, ageInTicks);
         } else if (race == Race.ANGEL) {
             poseStack.pushPose();
             this.getParentModel().body.translateAndRotate(poseStack);
@@ -83,12 +102,69 @@ public class RaceFeaturesLayer extends RenderLayer<AbstractClientPlayer, PlayerM
             VertexConsumer consumer = buffer.getBuffer(gold ? RenderType.entityTranslucentEmissive(WINGS_GOLD_TEXTURE) : RenderType.entityTranslucent(WINGS_TEXTURE));
             wings.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
+            renderHalo(poseStack, buffer, ageInTicks);
+        } else if (race == Race.DEVOTO) {
+            renderCrucifix(poseStack, buffer, packedLight, limbSwing, limbSwingAmount, ageInTicks);
         } else if (race == Race.MALNACIDO && !ClientRaceData.isPurified(player.getUUID())) {
             renderMalnacido(poseStack, buffer, packedLight, player);
         } else if (race == Race.AUTOMATA) {
             renderGears(poseStack, buffer, packedLight, ageInTicks);
             renderCore(poseStack, buffer, ageInTicks);
         }
+    }
+
+    /** Crucifijo dorado que cuelga del cuello y se mece un poco al caminar. */
+    private void renderCrucifix(PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks) {
+        ModelPart cross = this.crucifix.getChild("cross");
+        cross.xRot = Math.min(0.5F, limbSwingAmount * 0.6F) * (float) Math.sin(limbSwing * 0.6662F) * 0.5F + (float) Math.sin(ageInTicks * 0.05F) * 0.03F;
+        poseStack.pushPose();
+        this.getParentModel().body.translateAndRotate(poseStack);
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(CRUCIFIX_TEXTURE));
+        this.crucifix.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
+    }
+
+    /** Cola de demonio: la onda recorre los segmentos de la base a la punta y se mueve siempre, aunque este quieto. */
+    private void renderTail(PoseStack poseStack, MultiBufferSource buffer, int packedLight, float ageInTicks, float limbSwingAmount) {
+        float amplitude = 0.32F + Math.min(1.0F, limbSwingAmount) * 0.25F;
+        ModelPart segment = this.tail;
+        for (int i = 0; i < ModModelLayers.TAIL_SEGMENTS; i++) {
+            segment = segment.getChild("tail_" + i);
+            segment.yRot = (float) Math.sin(ageInTicks * 0.13F - i * 0.65F) * amplitude;
+            segment.xRot = (i == 0 ? 0.55F : 0.12F) + (float) Math.sin(ageInTicks * 0.09F - i * 0.5F) * 0.07F;
+        }
+        ModelPart heart = segment.getChild("heart");
+        heart.zRot = (float) Math.sin(ageInTicks * 0.13F - ModModelLayers.TAIL_SEGMENTS * 0.65F) * 0.35F;
+        poseStack.pushPose();
+        this.getParentModel().body.translateAndRotate(poseStack);
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TAIL_TEXTURE));
+        this.tail.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
+    }
+
+    /** Aureola dorada sobre la cabeza: gira despacio, sube y baja apenas y brilla. */
+    private void renderHalo(PoseStack poseStack, MultiBufferSource buffer, float ageInTicks) {
+        poseStack.pushPose();
+        this.getParentModel().head.translateAndRotate(poseStack);
+        poseStack.translate(0.0F, (float) Math.sin(ageInTicks * 0.08F) * 0.015F, 0.0F);
+        poseStack.mulPose(com.mojang.math.Axis.YP.rotationDegrees(ageInTicks * 1.5F));
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(HALO_TEXTURE));
+        this.halo.render(poseStack, consumer, 0xF000F0, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
+    }
+
+    /** Los ojos del Siervo de la Luna brillan de noche (con un pulso suave). */
+    private void renderEyes(PoseStack poseStack, MultiBufferSource buffer, AbstractClientPlayer player, float ageInTicks) {
+        long time = player.level().getDayTime() % 24000L;
+        if (time < 12600L || time > 23400L) {
+            return;
+        }
+        float pulse = 0.75F + 0.25F * (float) Math.sin(ageInTicks * 0.1F);
+        poseStack.pushPose();
+        this.getParentModel().head.translateAndRotate(poseStack);
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(EYES_TEXTURE));
+        this.eyes.render(poseStack, consumer, 0xF000F0, OverlayTexture.NO_OVERLAY, pulse, pulse, pulse, 1.0F);
+        poseStack.popPose();
     }
 
     /** Nucleo de energia en el pecho: brillo real, full-bright, con un leve pulso. Antes usaba

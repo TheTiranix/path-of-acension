@@ -154,6 +154,8 @@ public class ProfileScreen extends Screen {
         line += 13;
         g.drawString(font, Component.translatable("tcorigenes.profile.race", race.getDisplayName()), x + 12, line, 0xFFCCCCCC, false);
         g.drawString(font, Component.translatable("tcorigenes.profile.class", playerClass.getDisplayName()), x + 134, line, 0xFFCCCCCC, false);
+        g.drawString(font, Component.translatable("tcorigenes.profile.level", 1 + com.tcorigenes.tcorigenes.progression.client.ClientSkillData.bought())
+                .withStyle(ChatFormatting.GREEN), x + 134, line + 12, 0xFFFFFFFF, false);
         line += 12;
         g.drawString(font, Component.translatable("tcorigenes.profile.element",
                 Component.translatable("tcorigenes.profile.element." + raceElementKey(race))), x + 12, line, 0xFFCCCCCC, false);
