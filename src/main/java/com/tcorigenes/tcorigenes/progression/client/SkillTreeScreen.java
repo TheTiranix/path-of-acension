@@ -56,10 +56,10 @@ public class SkillTreeScreen extends Screen {
 
     /** Fase (pagina) que se esta viendo: 1 a 3. Las fases todavia no alcanzadas estan bloqueadas y sus nodos no se muestran. */
     private int page = 1;
+    private boolean cameraReady;
     private final Button[] pageButtons = new Button[3];
     private static final String[] PAGE_NAMES = {"I · Despertar", "II · Ascenso", "III · Trascendencia"};
     private static final int THIRD = SkillTree.NODES_PER_PATH / 3;
-    private static final int[] PAGE_X_RANGE = {0, THIRD, THIRD + 1, THIRD * 2, THIRD * 2 + 1, SkillTree.NODES_PER_PATH + 1};
 
     public SkillTreeScreen() {
         super(Component.translatable("pa.msg.a29d060190"));
@@ -97,8 +97,9 @@ public class SkillTreeScreen extends Screen {
             return;
         }
         this.page = newPage;
-        this.camX = (PAGE_X_RANGE[(newPage - 1) * 2] + PAGE_X_RANGE[(newPage - 1) * 2 + 1]) / 2.0 * CELL;
-        this.camY = 0;
+        double[] box = SkillTree.bounds(ClientSkillData.playerClass(), newPage);
+        this.camX = (box[0] + box[2]) / 2.0 * CELL;
+        this.camY = (box[1] + box[3]) / 2.0 * CELL;
     }
 
     /** La fase 1 siempre esta; para entrar a una fase hay que haber llegado al ultimo nodo de la anterior (en cualquiera de los dos
@@ -107,9 +108,9 @@ public class SkillTreeScreen extends Screen {
         if (phase <= 1) {
             return true;
         }
-        int gateX = PAGE_X_RANGE[(phase - 2) * 2 + 1];
+        int gateStep = THIRD * (phase - 1);
         for (SkillNode node : SkillTree.forClass(ClientSkillData.playerClass())) {
-            if (node.x() == gateX && (isUnlocked(node) || pending.contains(node))) {
+            if (node.step() == gateStep && (isUnlocked(node) || pending.contains(node))) {
                 return true;
             }
         }
@@ -282,6 +283,10 @@ public class SkillTreeScreen extends Screen {
         g.fillGradient(0, 0, this.width, 44, 0x9A2A0505, 0x002A0505);
         g.fill(0, 43, this.width, 44, 0xFF5A0A0A);
         PlayerClass cls = ClientSkillData.playerClass();
+        if (!cameraReady && cls != PlayerClass.NINGUNA) {
+            cameraReady = true;
+            setPage(1);
+        }
         g.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
         g.drawString(this.font, Component.translatable("tcorigenes.profile.level", 1 + ClientSkillData.bought()), 8, 12, 0xFF55FF55, true);
         g.drawCenteredString(this.font, Component.translatable("pa.msg.89f3a8977a", cls.getDisplayName(), ClientSkillData.points(), ClientSkillData.xp()), this.width / 2, 26, 0xFFD700);
@@ -322,8 +327,8 @@ public class SkillTreeScreen extends Screen {
             }
         }
         for (SkillNode node : nodes) {
-            int x = node.x() * CELL;
-            int y = node.y() * CELL;
+            int x = (int) Math.round(node.x() * CELL);
+            int y = (int) Math.round(node.y() * CELL);
             int color = colorOf(node);
             g.fill(x - HALF - 2, y - HALF - 2, x + HALF + 2, y + HALF + 2, color);
             g.fill(x - HALF, y - HALF, x + HALF, y + HALF, 0xFF1A0808);
@@ -358,28 +363,28 @@ public class SkillTreeScreen extends Screen {
 
     private void drawLink(GuiGraphics g, SkillNode parent, SkillNode child) {
         int color = isUnlocked(parent) || pending.contains(parent) ? COLOR_UNLOCKED : COLOR_LOCKED;
-        int px = parent.x() * CELL;
-        int py = parent.y() * CELL;
-        int cx = child.x() * CELL;
-        int cy = child.y() * CELL;
+        int px = (int) Math.round(parent.x() * CELL);
+        int py = (int) Math.round(parent.y() * CELL);
+        int cx = (int) Math.round(child.x() * CELL);
+        int cy = (int) Math.round(child.y() * CELL);
         g.fill(Math.min(px, cx), py - 1, Math.max(px, cx) + 1, py + 1, color);
         g.fill(cx - 1, Math.min(py, cy), cx + 1, Math.max(py, cy) + 1, color);
     }
 
     /** Las 3 fases del arbol (ver SkillNode#phase): franjas con degradado, marco, brillo en los bordes y un cartel con nombre. */
     private void drawPhaseBands(GuiGraphics g) {
-        int[][] ranges = {{0, 8}, {9, 16}, {17, 25}};
         int[] accent = {0xFF55B8FF, 0xFFFFD24A, 0xFFFF5A4A};
         String[] titles = {Tr.s("I \u00b7 DESPERTAR"), Tr.s("II \u00b7 ASCENSO"), Tr.s("III \u00b7 TRASCENDENCIA")};
         String[] subtitles = {Tr.s("los primeros pasos de tu camino"), Tr.s("el poder se afianza"), Tr.s("la cumbre de la clase")};
-        int top = -3 * CELL;
-        int bottom = 3 * CELL;
-        for (int i = 0; i < ranges.length; i++) {
+        double[] box = SkillTree.bounds(ClientSkillData.playerClass(), page);
+        int top = (int) Math.round(box[1] * CELL) - CELL * 2;
+        int bottom = (int) Math.round(box[3] * CELL) + CELL * 2;
+        for (int i = 0; i < 3; i++) {
             if (i != page - 1) {
                 continue;
             }
-            int left = ranges[i][0] * CELL - CELL / 2;
-            int right = ranges[i][1] * CELL + CELL / 2;
+            int left = (int) Math.round(box[0] * CELL) - CELL * 2;
+            int right = (int) Math.round(box[2] * CELL) + CELL * 2;
             int color = accent[i] & 0x00FFFFFF;
             // fondo: degradado vertical (mas claro arriba, oscuro abajo)
             g.fillGradient(left, top, right, bottom, 0x55000000 | color, 0x14000000 | color);

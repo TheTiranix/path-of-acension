@@ -20,8 +20,9 @@ public record SkillNode(
         PlayerClass playerClass,
         String title,
         Supplier<Item> icon,
-        int x,
-        int y,
+        double x,
+        double y,
+        int step,
         int cost,
         List<String> parents,
         Supplier<Attribute> attribute,
@@ -31,11 +32,11 @@ public record SkillNode(
 
     /**
      * Fase del arbol (todas las clases tienen 3): cada fase cubre un tercio del camino (24 nodos con 72 por camino)
-     * mas la piedra clave. El nodo x de la grilla es su posicion en el camino.
+     * mas la piedra clave. step es su posicion en el camino (0 = raiz, 73 = piedra clave); x e y, su lugar en la forma de la clase.
      */
     public int phase() {
         int third = SkillTree.NODES_PER_PATH / 3;
-        return x <= third ? 1 : x <= third * 2 ? 2 : 3;
+        return step <= third ? 1 : step <= third * 2 ? 2 : 3;
     }
 
     /** Titulo en el idioma del juego (los titulos estan escritos en español en SkillTree). */

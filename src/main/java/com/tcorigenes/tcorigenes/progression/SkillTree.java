@@ -109,10 +109,11 @@ public final class SkillTree {
             first = new Perk(keystone.title(), keystone.icon(), root.attribute(), root.op(), root.amount());
             last = new Perk("Cumbre: " + root.title(), root.icon(), keystone.attribute(), keystone.op(), keystone.amount());
         }
-        add(cls, key + "_raiz", first, 0, 0, 1, List.of(), abilityId);
+        SkillShapes.Paths shape = SkillShapes.of(cls, NODES_PER_PATH);
+        add(cls, key + "_raiz", first, 0, 0, 0, 1, List.of(), abilityId);
         // Fase 1: el Prisma Elemental (funcion del Prisma Convertidor sin llevar el item, ver ElementalRestriction#skillAbsorbElement)
         add(cls, key + "_prisma", new Perk("Prisma Elemental", () -> com.tudominio.testamentodelacarne.ModItems.PRISMA_CONVERTIDOR.get(),
-                () -> ModAttributes.ELEMENT_ABSORB.get(), Operation.ADDITION, 1.0), 1, 0, 2, List.of(key + "_raiz"), null);
+                () -> ModAttributes.ELEMENT_ABSORB.get(), Operation.ADDITION, 1.0), 0, 2.0, 0, 2, List.of(key + "_raiz"), null);
         String prevA = key + "_raiz";
         String prevB = key + "_raiz";
         for (int i = 0; i < NODES_PER_PATH; i++) {
@@ -120,13 +121,13 @@ public final class SkillTree {
             String idA = key + "_a" + (i + 1);
             String idB = key + "_b" + (i + 1);
             add(cls, idA, pathPerk(tierTitle(a, i), a[i % a.length].icon(), statsA[i % statsA.length], factor(i)),
-                    i + 1, -1, cost, List.of(prevA), null);
+                    shape.a().get(i)[0], -shape.a().get(i)[1], i + 1, cost, List.of(prevA), null);
             add(cls, idB, pathPerk(tierTitle(b, i), b[i % b.length].icon(), statsB[i % statsB.length], factor(i)),
-                    i + 1, 1, cost, List.of(prevB), null);
+                    shape.b().get(i)[0], -shape.b().get(i)[1], i + 1, cost, List.of(prevB), null);
             prevA = idA;
             prevB = idB;
         }
-        add(cls, key + "_clave", last, NODES_PER_PATH + 1, 0, 3, List.of(prevA, prevB), null);
+        add(cls, key + "_clave", last, shape.apex()[0], -shape.apex()[1], NODES_PER_PATH + 1, 3, List.of(prevA, prevB), null);
     }
 
     private static Perk pathPerk(String title, Supplier<Item> icon, Stat stat, double factor) {
@@ -134,8 +135,22 @@ public final class SkillTree {
         return new Perk(title, icon, stat.attribute(), stat.op(), amount);
     }
 
-    private static void add(PlayerClass cls, String id, Perk perk, int x, int y, int cost, List<String> parents, String abilityId) {
-        NODES.put(id, new SkillNode(id, cls, perk.title(), perk.icon(), x, y, cost, parents,
+    /** Limites (en unidades de nodo) de los nodos de una fase de la clase: {minX, minY, maxX, maxY}. */
+    public static double[] bounds(PlayerClass cls, int phase) {
+        double[] box = {Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE};
+        for (SkillNode node : NODES.values()) {
+            if (node.playerClass() == cls && node.phase() == phase) {
+                box[0] = Math.min(box[0], node.x());
+                box[1] = Math.min(box[1], node.y());
+                box[2] = Math.max(box[2], node.x());
+                box[3] = Math.max(box[3], node.y());
+            }
+        }
+        return box;
+    }
+
+    private static void add(PlayerClass cls, String id, Perk perk, double x, double y, int step, int cost, List<String> parents, String abilityId) {
+        NODES.put(id, new SkillNode(id, cls, perk.title(), perk.icon(), x, y, step, cost, parents,
                 perk.attribute(), perk.op(), perk.amount(), abilityId));
     }
 
