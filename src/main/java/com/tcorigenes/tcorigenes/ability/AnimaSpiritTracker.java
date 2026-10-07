@@ -51,6 +51,7 @@ public final class AnimaSpiritTracker {
         if (spirit == null) {
             return;
         }
+        spirit.setOwner(player);
         spirit.setup(colorOf(race), DURATION_TICKS);
         spirit.moveTo(player.getX(), player.getY() + 0.1, player.getZ(), player.getYRot(), 0.0F);
         serverLevel.addFreshEntity(spirit);

@@ -53,6 +53,19 @@ public class AnimaSpiritEntity extends Mob {
         this.entityData.define(REMAINING, 300);
     }
 
+    private java.util.UUID ownerId;
+
+    /** Dueño del espiritu: su daño escala con el nivel de ese jugador (ver PlayerLevel). */
+    public void setOwner(net.minecraft.world.entity.player.Player owner) {
+        this.ownerId = owner.getUUID();
+    }
+
+    private float damage(ServerLevel level) {
+        net.minecraft.world.entity.player.Player owner = this.ownerId == null ? null : level.getPlayerByUUID(this.ownerId);
+        int playerLevel = owner == null ? 1 : com.tcorigenes.tcorigenes.progression.PlayerLevel.of(owner);
+        return 3.0F + playerLevel;
+    }
+
     public void setup(int rgb, int durationTicks) {
         this.entityData.set(COLOR, rgb);
         this.entityData.set(REMAINING, durationTicks);
@@ -106,7 +119,10 @@ public class AnimaSpiritEntity extends Mob {
         if (this.tickCount > APPEAR_TICKS && left > VANISH_TICKS && this.tickCount % 10 == 0) {
             AABB area = new AABB(this.blockPosition()).inflate(4.0);
             List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, area, e -> e instanceof Monster && e.isAlive());
-            enemies.forEach(e -> e.hurt(this.damageSources().magic(), 4.0F));
+            net.minecraft.world.entity.player.Player owner = this.ownerId == null ? null : level.getPlayerByUUID(this.ownerId);
+            DamageSource source = owner == null ? this.damageSources().magic() : this.damageSources().indirectMagic(this, owner);
+            float damage = damage(level);
+            enemies.forEach(e -> e.hurt(source, damage));
             if (!enemies.isEmpty()) {
                 // gira hacia el enemigo mas cercano
                 LivingEntity near = enemies.get(0);
