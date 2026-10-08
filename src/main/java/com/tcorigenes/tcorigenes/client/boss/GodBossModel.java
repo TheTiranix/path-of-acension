@@ -11,7 +11,7 @@ import net.minecraft.client.model.geom.ModelPart;
 
 /**
  * Modelo de cubos de un dios jefe (la geometria sale de GodModelData). Flota con un vaiven y anima las partes segun el prefijo de su nombre:
- * "wing" aletea, "tent" ondula como un tentaculo, "float" flota por su cuenta y "spin" late (halo, llamas); "fix" queda quieto.
+ * "wing" aletea, "tent" ondula como un tentaculo, "float" flota por su cuenta y "spin" late (halo, llamas); "breath" respira (el cuerpo se contrae y dilata), "pupil" contrae la pupila, "shake" tiembla; "fix" queda quieto.
  */
 public class GodBossModel extends EntityModel<GodBossEntity> {
     private final ModelPart root;
@@ -49,6 +49,16 @@ public class GodBossModel extends EntityModel<GodBossEntity> {
                     part.xScale = pulse;
                     part.yScale = pulse;
                     part.zScale = pulse;
+                }
+                case "breath" -> {
+                    float s = 1.0F + (float) Math.sin(ageInTicks * 0.05F + phase * 0.15F) * 0.07F;
+                    part.xScale = s;
+                    part.zScale = s;
+                }
+                case "pupil" -> part.xScale = 1.0F + (float) Math.sin(ageInTicks * 0.09F) * 0.7F;
+                case "shake" -> {
+                    part.x = b[0] + (float) Math.sin(ageInTicks * 1.7F + phase) * 0.35F;
+                    part.y = b[1] + (float) Math.cos(ageInTicks * 2.1F + phase) * 0.35F;
                 }
                 default -> {
                 }
