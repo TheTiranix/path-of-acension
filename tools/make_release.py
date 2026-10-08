@@ -19,6 +19,7 @@ SRC = os.path.join(ROOT, 'modpack-config')
 # carpeta del repo -> ruta dentro de la instancia
 MAPPING = [
     ('config', 'config'),
+    ('defaultconfigs', 'defaultconfigs'),
     ('ftbquests', 'config/ftbquests'),
     ('fancymenu', 'config/fancymenu'),
     ('legacy-kubejs', 'kubejs'),
