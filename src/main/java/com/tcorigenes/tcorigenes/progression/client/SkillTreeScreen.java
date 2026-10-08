@@ -454,7 +454,16 @@ public class SkillTreeScreen extends Screen {
             lines.add(Component.translatable("pa.msg.3effbd9ca1").withStyle(ChatFormatting.GREEN));
             lines.add(Component.translatable("pa.msg.15474e4c4d").withStyle(ChatFormatting.GREEN));
         } else if (node.attribute() != null) {
-            String value = node.operation() == AttributeModifier.Operation.ADDITION
+            // la prob. de critico, el esquive y las resistencias son fracciones (0.01 = 1%): se muestran como porcentaje
+            var attr = node.attribute().get();
+            boolean fraction = attr == com.tudominio.elementaldamage.ModAttributes.CRIT_CHANCE.get()
+                    || attr == com.tudominio.elementaldamage.ModAttributes.DODGE_CHANCE.get()
+                    || attr == com.tudominio.elementaldamage.ModAttributes.RESIST_LIGHT.get()
+                    || attr == com.tudominio.elementaldamage.ModAttributes.RESIST_FIRE.get()
+                    || attr == com.tudominio.elementaldamage.ModAttributes.RESIST_WATER.get()
+                    || attr == com.tudominio.elementaldamage.ModAttributes.RESIST_LUNAR.get()
+                    || attr == com.tudominio.elementaldamage.ModAttributes.RESIST_ENDER.get();
+            String value = node.operation() == AttributeModifier.Operation.ADDITION && !fraction
                     ? "+" + FORMAT.format(node.amount())
                     : "+" + FORMAT.format(node.amount() * 100) + "%";
             lines.add(Component.literal(value + " ").append(Component.translatable(node.attribute().get().getDescriptionId()))
