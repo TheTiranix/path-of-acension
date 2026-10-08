@@ -63,7 +63,7 @@ public class AnimaSpiritEntity extends Mob {
     private float damage(ServerLevel level) {
         net.minecraft.world.entity.player.Player owner = this.ownerId == null ? null : level.getPlayerByUUID(this.ownerId);
         int playerLevel = owner == null ? 1 : com.tcorigenes.tcorigenes.progression.PlayerLevel.of(owner);
-        return 3.0F + playerLevel;
+        return 4.0F + playerLevel / 5; // +1 de daño cada 5 niveles
     }
 
     public void setup(int rgb, int durationTicks) {
