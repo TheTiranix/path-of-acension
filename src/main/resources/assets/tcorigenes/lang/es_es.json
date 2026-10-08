@@ -342,5 +342,17 @@
   "tcorigenes.racial.servant_stay": "Tu sirviente se queda aquí.",
   "tcorigenes.racial.servant_follow": "Tu sirviente te sigue y te defiende.",
   "tcorigenes.racial.servant_aggressive": "Tu sirviente te sigue y ataca al enemigo más cercano.",
-  "tcorigenes.skillxp.gain": "+%s XP de habilidad"
+  "tcorigenes.skillxp.gain": "+%s XP de habilidad",
+  "entity.tcorigenes.god_pater": "Pater, el Creador",
+  "item.tcorigenes.god_pater_spawn_egg": "Huevo de aparición de Pater",
+  "entity.tcorigenes.god_luna": "Luna, el Horror de la Noche",
+  "item.tcorigenes.god_luna_spawn_egg": "Huevo de aparición de Luna",
+  "entity.tcorigenes.god_deiros": "Deiros, el Ángel Caído",
+  "item.tcorigenes.god_deiros_spawn_egg": "Huevo de aparición de Deiros",
+  "entity.tcorigenes.god_meidris": "Meidris, la Serpiente Eterna",
+  "item.tcorigenes.god_meidris_spawn_egg": "Huevo de aparición de Meidris",
+  "entity.tcorigenes.god_filis": "Filis, de Raíces y Hojas",
+  "item.tcorigenes.god_filis_spawn_egg": "Huevo de aparición de Filis",
+  "entity.tcorigenes.god_tempo": "Tempo, el Ojo que Observa",
+  "item.tcorigenes.god_tempo_spawn_egg": "Huevo de aparición de Tempo"
 }

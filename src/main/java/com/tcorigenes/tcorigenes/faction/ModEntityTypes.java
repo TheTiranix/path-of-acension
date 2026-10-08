@@ -43,6 +43,27 @@ public final class ModEntityTypes {
                     .fireImmune()
                     .build("anima_spirit"));
 
+    private static RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> god(String name) {
+        float[] size = com.tcorigenes.tcorigenes.boss.GodSizes.SIZES.get(name);
+        return ENTITY_TYPES.register("god_" + name,
+                () -> EntityType.Builder.<com.tcorigenes.tcorigenes.boss.GodBossEntity>of(com.tcorigenes.tcorigenes.boss.GodBossEntity::new, MobCategory.MONSTER)
+                        .sized(size[0], size[1])
+                        .clientTrackingRange(24)
+                        .fireImmune()
+                        .build("god_" + name));
+    }
+
+    /** Los seis dioses jefe, en este orden: pater, luna, deiros, meidris, filis, tempo. */
+    public static final String[] GOD_NAMES = {"pater", "luna", "deiros", "meidris", "filis", "tempo"};
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> GOD_PATER = god("pater");
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> GOD_LUNA = god("luna");
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> GOD_DEIROS = god("deiros");
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> GOD_MEIDRIS = god("meidris");
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> GOD_FILIS = god("filis");
+    public static final RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> GOD_TEMPO = god("tempo");
+    public static final java.util.List<RegistryObject<EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>>> GODS =
+            java.util.List.of(GOD_PATER, GOD_LUNA, GOD_DEIROS, GOD_MEIDRIS, GOD_FILIS, GOD_TEMPO);
+
     private ModEntityTypes() {
     }
 

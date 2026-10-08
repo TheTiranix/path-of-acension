@@ -40,6 +40,21 @@ public class ModItems {
             "damage_dummy_spawn_egg", () -> new net.minecraftforge.common.ForgeSpawnEggItem(
                     com.tcorigenes.tcorigenes.faction.ModEntityTypes.DAMAGE_DUMMY, 0xC8A464, 0x7A4A1E, new Item.Properties()));
 
+    /** Huevos de aparicion de los dioses jefe (colores: fondo y manchas). */
+    private static net.minecraftforge.registries.RegistryObject<Item> godEgg(String name,
+            net.minecraftforge.registries.RegistryObject<net.minecraft.world.entity.EntityType<com.tcorigenes.tcorigenes.boss.GodBossEntity>> type,
+            int base, int spots) {
+        return ITEMS.register("god_" + name + "_spawn_egg", () -> new net.minecraftforge.common.ForgeSpawnEggItem(type, base, spots, new Item.Properties()));
+    }
+
+    public static final java.util.List<net.minecraftforge.registries.RegistryObject<Item>> GOD_EGGS = java.util.List.of(
+            godEgg("pater", com.tcorigenes.tcorigenes.faction.ModEntityTypes.GOD_PATER, 0xE8E2DA, 0xD62226),
+            godEgg("luna", com.tcorigenes.tcorigenes.faction.ModEntityTypes.GOD_LUNA, 0x969498, 0xFF8C1E),
+            godEgg("deiros", com.tcorigenes.tcorigenes.faction.ModEntityTypes.GOD_DEIROS, 0xD6D0C4, 0x2C282A),
+            godEgg("meidris", com.tcorigenes.tcorigenes.faction.ModEntityTypes.GOD_MEIDRIS, 0x969496, 0xFF9628),
+            godEgg("filis", com.tcorigenes.tcorigenes.faction.ModEntityTypes.GOD_FILIS, 0x6E185C, 0x32823A),
+            godEgg("tempo", com.tcorigenes.tcorigenes.faction.ModEntityTypes.GOD_TEMPO, 0x0C0C10, 0xBE96FF));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

@@ -58,6 +58,12 @@ public final class ModModelLayers {
         event.registerLayerDefinition(AUTOMATA_CORE, ModModelLayers::createCoreLayer);
         event.registerLayerDefinition(ANIMA_SPIRIT, AnimaSpiritModel::createLayer);
         event.registerLayerDefinition(CRUCIFIX, ModModelLayers::createCrucifixLayer);
+        event.registerLayerDefinition(com.tcorigenes.tcorigenes.client.boss.GodBossRenderer.layer("pater"), com.tcorigenes.tcorigenes.client.boss.GodModelData::pater);
+        event.registerLayerDefinition(com.tcorigenes.tcorigenes.client.boss.GodBossRenderer.layer("luna"), com.tcorigenes.tcorigenes.client.boss.GodModelData::luna);
+        event.registerLayerDefinition(com.tcorigenes.tcorigenes.client.boss.GodBossRenderer.layer("deiros"), com.tcorigenes.tcorigenes.client.boss.GodModelData::deiros);
+        event.registerLayerDefinition(com.tcorigenes.tcorigenes.client.boss.GodBossRenderer.layer("meidris"), com.tcorigenes.tcorigenes.client.boss.GodModelData::meidris);
+        event.registerLayerDefinition(com.tcorigenes.tcorigenes.client.boss.GodBossRenderer.layer("filis"), com.tcorigenes.tcorigenes.client.boss.GodModelData::filis);
+        event.registerLayerDefinition(com.tcorigenes.tcorigenes.client.boss.GodBossRenderer.layer("tempo"), com.tcorigenes.tcorigenes.client.boss.GodModelData::tempo);
         event.registerLayerDefinition(DEMON_TAIL, ModModelLayers::createTailLayer);
         event.registerLayerDefinition(ANGEL_HALO, ModModelLayers::createHaloLayer);
         event.registerLayerDefinition(SIERVO_EYES, ModModelLayers::createEyesLayer);

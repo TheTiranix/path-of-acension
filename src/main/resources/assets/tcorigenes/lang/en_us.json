@@ -1038,5 +1038,17 @@
   "tcorigenes.racial.servant_stay": "Your servant stays here.",
   "tcorigenes.racial.servant_follow": "Your servant follows you and defends you.",
   "tcorigenes.racial.servant_aggressive": "Your servant follows you and attacks the nearest enemy.",
-  "tcorigenes.skillxp.gain": "+%s skill XP"
+  "tcorigenes.skillxp.gain": "+%s skill XP",
+  "entity.tcorigenes.god_pater": "Pater, the Creator",
+  "item.tcorigenes.god_pater_spawn_egg": "Pater Spawn Egg",
+  "entity.tcorigenes.god_luna": "Luna, the Night Horror",
+  "item.tcorigenes.god_luna_spawn_egg": "Luna Spawn Egg",
+  "entity.tcorigenes.god_deiros": "Deiros, the Fallen Angel",
+  "item.tcorigenes.god_deiros_spawn_egg": "Deiros Spawn Egg",
+  "entity.tcorigenes.god_meidris": "Meidris, the Eternal Serpent",
+  "item.tcorigenes.god_meidris_spawn_egg": "Meidris Spawn Egg",
+  "entity.tcorigenes.god_filis": "Filis, of Roots and Leaves",
+  "item.tcorigenes.god_filis_spawn_egg": "Filis Spawn Egg",
+  "entity.tcorigenes.god_tempo": "Tempo, the Watching Eye",
+  "item.tcorigenes.god_tempo_spawn_egg": "Tempo Spawn Egg"
 }

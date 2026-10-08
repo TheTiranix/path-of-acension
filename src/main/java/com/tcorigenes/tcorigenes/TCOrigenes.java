@@ -80,6 +80,9 @@ public class TCOrigenes {
         event.put(ModEntityTypes.FACTION_NPC.get(), FactionNpcEntity.createAttributes().build());
         event.put(ModEntityTypes.ANIMA_SPIRIT.get(), com.tcorigenes.tcorigenes.ability.AnimaSpiritEntity.createAttributes().build());
         event.put(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.core.DamageDummyEntity.createAttributes().build());
+        for (var god : ModEntityTypes.GODS) {
+            event.put(god.get(), com.tcorigenes.tcorigenes.boss.GodBossEntity.createAttributes().build());
+        }
     }
 
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -87,6 +90,10 @@ public class TCOrigenes {
         event.registerEntityRenderer(ModEntityTypes.WEAK_POINT.get(), com.tcorigenes.tcorigenes.client.WeakPointRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.ANIMA_SPIRIT.get(), com.tcorigenes.tcorigenes.client.AnimaSpiritRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.client.DamageDummyRenderer::new);
+        for (int i = 0; i < ModEntityTypes.GOD_NAMES.length; i++) {
+            String god = ModEntityTypes.GOD_NAMES[i];
+            event.registerEntityRenderer(ModEntityTypes.GODS.get(i).get(), context -> new com.tcorigenes.tcorigenes.client.boss.GodBossRenderer(context, god));
+        }
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -108,6 +115,7 @@ public class TCOrigenes {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.ORBE_DE_ORIGENES);
             event.accept(ModItems.DAMAGE_DUMMY_EGG);
+            ModItems.GOD_EGGS.forEach(egg -> event.accept(egg));
             event.accept(ModItems.ANILLO_DE_PURIFICACION);
             event.accept(ModItems.BATERIA_LUNAR);
             event.accept(ModItems.VINCULO_DE_CARNE);
