@@ -102,6 +102,10 @@ public class ProfileScreen extends Screen {
                 Component.translatable("tcorigenes.profile.color." + HudConfig.HEALTH_COLOR.get()));
     }
 
+    private static net.minecraft.resources.ResourceLocation portrait(Deity deity) {
+        return net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/gui/god/" + deity.name().toLowerCase(Locale.ROOT) + ".png");
+    }
+
     private static int godColor(Deity deity) {
         return switch (deity) {
             case PATER -> 0xFFE8C84A;
@@ -162,6 +166,12 @@ public class ProfileScreen extends Screen {
         g.drawString(font, Component.translatable("tcorigenes.profile.element",
                 Component.translatable("tcorigenes.profile.element." + raceElementKey(race))), x + 12, line, 0xFFCCCCCC, false);
         line += 12;
+        if (patron >= 0 && patron < Deity.values().length) {
+            Deity god = Deity.values()[patron];
+            g.fill(x + WIDTH - 58, y + 46, x + WIDTH - 6, y + 98, godColor(god) | 0xFF000000);
+            g.blit(portrait(god), x + WIDTH - 56, y + 48, 48, 48, 0.0F, 0.0F, 64, 64, 64, 64);
+            g.drawCenteredString(font, god.getDisplayName(), x + WIDTH - 32, y + 100, godColor(god));
+        }
         g.drawString(font, Component.translatable("tcorigenes.profile.tier", tier, Component.translatable("tcorigenes.profile.tier." + tier)),
                 x + 12, line, 0xFFE8C84A, false);
         for (int i = 0; i < 4; i++) {
@@ -176,7 +186,8 @@ public class ProfileScreen extends Screen {
                 continue; // Tempo es un secreto del lore: solo aparece si ya tiene favor con el
             }
             boolean isPatron = deity.ordinal() == patron;
-            g.drawString(font, (isPatron ? "\u2605 " : "") + deity.getDisplayName(), x + (isPatron ? 4 : 12), line, godColor(deity), false);
+            g.blit(portrait(deity), x + 12, line - 1, 10, 10, 0.0F, 0.0F, 64, 64, 64, 64);
+            g.drawString(font, (isPatron ? "\u2605 " : "") + deity.getDisplayName(), x + (isPatron ? 18 : 24), line, godColor(deity), false);
             int barX = x + 70;
             int barW = 130;
             g.fill(barX, line, barX + barW, line + 8, 0xFF2A1A1A);
