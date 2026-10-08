@@ -341,5 +341,6 @@
   "tcorigenes.favor.patron": "%s te ha elegido como seguidor. %s, su opuesto, te da la espalda, y los demás dioses apenas te escucharán.",
   "tcorigenes.racial.servant_stay": "Tu sirviente se queda aquí.",
   "tcorigenes.racial.servant_follow": "Tu sirviente te sigue y te defiende.",
-  "tcorigenes.racial.servant_aggressive": "Tu sirviente te sigue y ataca al enemigo más cercano."
+  "tcorigenes.racial.servant_aggressive": "Tu sirviente te sigue y ataca al enemigo más cercano.",
+  "tcorigenes.skillxp.gain": "+%s XP de habilidad"
 }

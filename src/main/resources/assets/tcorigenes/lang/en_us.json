@@ -1037,5 +1037,6 @@
   "tcorigenes.favor.patron": "%s has chosen you as a follower. %s, their opposite, turns away from you, and the other gods will barely listen.",
   "tcorigenes.racial.servant_stay": "Your servant stays here.",
   "tcorigenes.racial.servant_follow": "Your servant follows you and defends you.",
-  "tcorigenes.racial.servant_aggressive": "Your servant follows you and attacks the nearest enemy."
+  "tcorigenes.racial.servant_aggressive": "Your servant follows you and attacks the nearest enemy.",
+  "tcorigenes.skillxp.gain": "+%s skill XP"
 }
