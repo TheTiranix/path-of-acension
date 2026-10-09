@@ -75,6 +75,16 @@ public final class ClientWorldRestore {
             String worldRootStr = values.get("world_root");
             String snapshotStr = values.get("snapshot");
             String backupStr = values.get("backup");
+            // El marcador guarda rutas absolutas: si la carpeta de la instancia se copio (instancia de pruebas), un marcador viejo
+            // apuntaria a la instancia ORIGINAL y la restauracion pisaria su mundo. Solo se ejecuta si todo cae dentro de esta instancia.
+            Path gameDir = marker.toAbsolutePath().normalize().getParent();
+            for (String candidate : new String[] {worldRootStr, snapshotStr, backupStr}) {
+                if (candidate != null && !Path.of(candidate).toAbsolutePath().normalize().startsWith(gameDir)) {
+                    LOGGER.warn("[tcorigenes] El marcador de restauración apunta fuera de esta instancia ({}), lo descarto sin tocar nada", candidate);
+                    Files.deleteIfExists(marker);
+                    return;
+                }
+            }
             if (worldRootStr != null && backupStr != null) {
                 // Copia oculta del mundo tal como quedo al salir (fuera de la lista de saves del juego).
                 try {
