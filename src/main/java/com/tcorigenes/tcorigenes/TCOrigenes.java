@@ -73,7 +73,6 @@ public class TCOrigenes {
 
     private static void registerOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("ability_cooldown", new com.tcorigenes.tcorigenes.ability.client.AbilityHudOverlay());
-        event.registerAboveAll("favor_hud", new com.tcorigenes.tcorigenes.favor.client.FavorHudOverlay());
     }
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {

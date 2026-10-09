@@ -180,6 +180,41 @@ public class IntroScreen extends Screen {
         return (float) -Math.toDegrees(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
     }
 
+    private double groundSmooth = Double.NaN;
+    private long groundNanos;
+
+    /**
+     * Altura del terreno bajo la camara, suavizada en el tiempo: el mapa de alturas salta de golpe sobre arboles, acantilados y chunks
+     * sin cargar, y la camara pegaba trompicones al seguirlo. Toma el maximo de varios puntos cercanos y lo filtra (sube mas rapido que baja).
+     */
+    private double smoothedGround(Minecraft mc, double lx, double lz) {
+        double target = Double.NaN;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                int bx = (int) Math.floor(lx) + dx * 8;
+                int bz = (int) Math.floor(lz) + dz * 8;
+                if (!mc.level.hasChunkAt(new net.minecraft.core.BlockPos(bx, 64, bz))) {
+                    continue;
+                }
+                double h = mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING, bx, bz);
+                target = Double.isNaN(target) ? h : Math.max(target, h);
+            }
+        }
+        long now = System.nanoTime();
+        double dt = groundNanos == 0 ? 0.0 : Math.min(0.25, (now - groundNanos) / 1.0e9);
+        groundNanos = now;
+        if (Double.isNaN(target)) {
+            return Double.isNaN(groundSmooth) ? mc.player.getY() : groundSmooth;
+        }
+        if (Double.isNaN(groundSmooth)) {
+            groundSmooth = target;
+        } else {
+            double tau = target > groundSmooth ? 0.7 : 1.6;
+            groundSmooth += (target - groundSmooth) * (1.0 - Math.exp(-dt / tau));
+        }
+        return groundSmooth;
+    }
+
     private void applyCamera(float partial) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
@@ -206,7 +241,7 @@ public class IntroScreen extends Screen {
         double radius = 52 + 18 * Math.sin(time * 0.0013);
         double lx = eyeX + Math.cos(a) * radius;
         double lz = eyeZ + Math.sin(a) * radius;
-        double ground = mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING, (int) Math.floor(lx), (int) Math.floor(lz));
+        double ground = smoothedGround(mc, lx, lz);
         double ly = Math.max(ground + 14 + 6 * Math.sin(time * 0.0019), eyeY + 10);
         double lookX = lx - Math.sin(a) * 90 + Math.cos(a) * 60;
         double lookY = ly - 18;
