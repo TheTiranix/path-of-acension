@@ -1,13 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "testamentodelacarne:tier3_shaped",
   "category": "equipment",
   "pattern": [
-    "###",
-    "# #"
+    "MMMMM",
+    "MGMGM",
+    "M   M"
   ],
   "key": {
-    "#": {
+    "M": {
       "item": "testamentodelacarne:wintry_gem"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {

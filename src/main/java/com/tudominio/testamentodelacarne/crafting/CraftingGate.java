@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 /**
  * Nivel de mesa que pide cada receta de crafteo (pedido de alejandr0):
  * - nivel 3 (mesa de 5x5): las recetas propias de ese tipo (Tier3ShapedRecipe) y cualquiera que fabrique armas, herramientas o
- *   armaduras de arcane, black steel o dragonsteel (las recetas viejas de 3x3 de esos items se sacan con KubeJS);
+ *   armaduras de arcane, black steel, dragonsteel, fiery o wintry (las recetas viejas de 3x3 de esos items se sacan con KubeJS);
  * - nivel 2: todo crafteo que use dark metal, gravitite, zanite o netherite como ingrediente (un ingrediente cuenta solo si TODOS
  *   sus items lo son: una etiqueta generica de lingotes no);
  * - nivel 1: el resto (la mesa comun).
@@ -31,7 +31,7 @@ public final class CraftingGate {
     private static final String[] TIER2_MARKERS = {"dark_metal", "darkmetal", "gravitite", "zanite", "netherite"};
     private static final List<String> TIER3_PREFIXES = List.of(
             "testamentodelacarne:arcane_", "testamentodelacarne:black_steel_", "cataclysm:black_steel_",
-            "iceandfire:dragonsteel_");
+            "iceandfire:dragonsteel_", "testamentodelacarne:fiery_", "testamentodelacarne:wintry_", "twilightforest:fiery_");
     private static final Map<ResourceLocation, Integer> CACHE = new HashMap<>();
 
     private CraftingGate() {

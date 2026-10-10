@@ -1,16 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
   "pattern": [
-    "MM",
-    "MM",
-    " S"
+    " MMM ",
+    "  M  ",
+    "  M  ",
+    " GGG ",
+    "  G  "
   ],
   "key": {
     "M": {
       "item": "twilightforest:fiery_ingot"
     },
-    "S": {
-      "item": "twilightforest:fiery_ingot"
+    "G": {
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {

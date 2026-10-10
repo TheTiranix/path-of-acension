@@ -36,3 +36,11 @@ ServerEvents.recipes(event => {
     event.remove({ output: 'aether:' + material + '_gloves' });
   });
 });
+
+// Fiery y wintry (armas, herramientas y armaduras) solo se craftean en la mesa tier 3 (5x5) con oro: se sacan las recetas de 3x3 de
+// Twilight Forest; las nuevas estan en el mod (recetas tier3_shaped, tf_fiery_*).
+ServerEvents.recipes(event => {
+  ["twilightforest:fiery_sword", "twilightforest:fiery_pickaxe", "twilightforest:fiery_helmet", "twilightforest:fiery_chestplate", "twilightforest:fiery_leggings", "twilightforest:fiery_boots"].forEach(output => {
+    event.remove({ output: output, type: 'minecraft:crafting_shaped' });
+  });
+});
