@@ -195,17 +195,22 @@ public class ModEvents {
         return world.isDay() && world.canSeeSky(player.blockPosition());
     }
 
-    /** Vida maxima: -20% a la luz del sol y +20% a la luz de la luna (a cubierto o con el cielo tapado queda normal). */
-    private static void applySiervoLunaHealth(Player player) {
-        double bonus = isMoonExposed(player) ? 0.20 : isSunExposed(player) ? -0.20 : 0.0;
-        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "moon", Attributes.MAX_HEALTH, bonus);
-        if (player.getHealth() > player.getMaxHealth()) {
-            player.setHealth(player.getMaxHealth());
+    /** Cordura: la luz del sol la baja y la de la luna la sube (0,5% de la barra por segundo, al cielo abierto). */
+    private static final float LUNAR_SANITY_PER_SECOND = 0.005F;
+
+    private static void tickSiervoLunaSanity(Player player) {
+        if (player.tickCount % 20 != 0 || !(player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)) {
+            return;
+        }
+        if (isMoonExposed(player)) {
+            com.tcorigenes.tcorigenes.compat.SanityCompat.add(serverPlayer, LUNAR_SANITY_PER_SECOND);
+        } else if (isSunExposed(player)) {
+            com.tcorigenes.tcorigenes.compat.SanityCompat.add(serverPlayer, -LUNAR_SANITY_PER_SECOND);
         }
     }
 
     private static void handleSiervoDeLaLunaTick(Player player) {
-        applySiervoLunaHealth(player);
+        tickSiervoLunaSanity(player);
         AttributeInstance damageInstance = player.getAttribute(Attributes.ATTACK_DAMAGE);
         AttributeInstance attackSpeedInstance = player.getAttribute(Attributes.ATTACK_SPEED);
         AttributeInstance drawSpeedInstance = player.getAttribute(com.tudominio.elementaldamage.ModAttributes.DRAW_SPEED.get());
