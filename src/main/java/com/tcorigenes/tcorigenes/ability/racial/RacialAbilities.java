@@ -411,8 +411,111 @@ public final class RacialAbilities {
         mob.targetSelector.addGoal(1, new OwnerTargetGoal(mob, owner, true));
         mob.targetSelector.addGoal(2, new OwnerTargetGoal(mob, owner, false));
         mob.targetSelector.addGoal(3, new ModeGatedTargetGoal(mob, enemy));
-        mob.goalSelector.addGoal(1, new StayGoal(mob));
+        mob.goalSelector.addGoal(0, new StayGoal(mob));
+        mob.goalSelector.addGoal(1, new ServantAttackGoal(mob));
         mob.goalSelector.addGoal(2, new FollowOwnerGoal(mob, owner));
+        // los mobs con cerebro (aldeanos, piglins...) pisaban la navegacion con sus tareas y daban vueltas: se les quitan
+        try {
+            mob.getBrain().removeAllBehaviors();
+        } catch (RuntimeException ignored) {
+            // algun mod con cerebro propio: se deja como esta
+        }
+    }
+
+    /**
+     * Ataque del sirviente: va hasta su blanco y lo golpea. Anda con cualquier mob, tambien con los que no saben pelear (un aldeano
+     * no tiene objetivo de ataque ni atributo de daño): en ese caso pega con un daño fijo.
+     */
+    private static final class ServantAttackGoal extends Goal {
+        private static final float FALLBACK_DAMAGE = 6.0F;
+        private final Mob mob;
+        private int cooldown;
+        private int repath;
+
+        ServantAttackGoal(Mob mob) {
+            this.mob = mob;
+            setFlags(java.util.EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            LivingEntity target = mob.getTarget();
+            return modeOf(mob) != MODE_STAY && target != null && target.isAlive();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        @Override
+        public void start() {
+            repath = 0;
+        }
+
+        @Override
+        public void stop() {
+            mob.getNavigation().stop();
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = mob.getTarget();
+            if (target == null) {
+                return;
+            }
+            mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            double reach = mob.getBbWidth() * 1.2 + target.getBbWidth() + 0.8;
+            double distSqr = mob.distanceToSqr(target);
+            if (distSqr > reach * reach && --repath <= 0) {
+                repath = 10;
+                mob.getNavigation().moveTo(target, 1.2);
+            }
+            if (cooldown > 0) {
+                cooldown--;
+            }
+            if (distSqr <= (reach + 0.6) * (reach + 0.6) && cooldown <= 0) {
+                cooldown = 20;
+                mob.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
+                if (mob.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) != null) {
+                    mob.doHurtTarget(target);
+                } else {
+                    target.hurt(mob.damageSources().mobAttack(mob), FALLBACK_DAMAGE);
+                }
+            }
+        }
+    }
+
+    /**
+     * Cada medio segundo: si el dueño se alejo mas de 24 bloques el sirviente se teletransporta a su lado (antes solo lo hacia mientras
+     * caminaba hacia el, y si no encontraba camino nunca se movia), y suelta blancos inalcanzables que quedaron lejos del dueño.
+     */
+    @SubscribeEvent
+    public static void onServantTick(net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent event) {
+        if (!(event.getEntity() instanceof Mob mob) || mob.tickCount % 10 != 0 || mob.level().isClientSide() || !isServant(mob)
+                || mob.getServer() == null) {
+            return;
+        }
+        UUID ownerId;
+        try {
+            ownerId = UUID.fromString(mob.getPersistentData().getString(SERVANT_KEY));
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        ServerPlayer owner = mob.getServer().getPlayerList().getPlayer(ownerId);
+        if (owner == null || owner.level() != mob.level() || !owner.isAlive()) {
+            return;
+        }
+        LivingEntity target = mob.getTarget();
+        if (target != null && (!target.isAlive() || target.distanceToSqr(owner) > 32.0 * 32.0)) {
+            mob.setTarget(null);
+        }
+        if (modeOf(mob) != MODE_STAY && mob.distanceToSqr(owner) > 24.0 * 24.0) {
+            mob.getNavigation().stop();
+            mob.setTarget(null);
+            mob.teleportTo(owner.getX() + (mob.getRandom().nextDouble() - 0.5) * 3.0, owner.getY(), owner.getZ() + (mob.getRandom().nextDouble() - 0.5) * 3.0);
+            ((ServerLevel) mob.level()).sendParticles(ParticleTypes.PORTAL, mob.getX(), mob.getY() + 1.0, mob.getZ(), 12, 0.3, 0.5, 0.3, 0.1);
+        }
     }
 
     /** Si el modo es "quieto" el mob no se mueve del lugar. */

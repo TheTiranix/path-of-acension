@@ -189,7 +189,23 @@ public class ModEvents {
         return world.isNight() && world.canSeeSky(player.blockPosition());
     }
 
+    /** "Expuesto al sol": de dia y a cielo abierto. */
+    public static boolean isSunExposed(Player player) {
+        Level world = player.level();
+        return world.isDay() && world.canSeeSky(player.blockPosition());
+    }
+
+    /** Vida maxima: -20% a la luz del sol y +20% a la luz de la luna (a cubierto o con el cielo tapado queda normal). */
+    private static void applySiervoLunaHealth(Player player) {
+        double bonus = isMoonExposed(player) ? 0.20 : isSunExposed(player) ? -0.20 : 0.0;
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "moon", Attributes.MAX_HEALTH, bonus);
+        if (player.getHealth() > player.getMaxHealth()) {
+            player.setHealth(player.getMaxHealth());
+        }
+    }
+
     private static void handleSiervoDeLaLunaTick(Player player) {
+        applySiervoLunaHealth(player);
         AttributeInstance damageInstance = player.getAttribute(Attributes.ATTACK_DAMAGE);
         AttributeInstance attackSpeedInstance = player.getAttribute(Attributes.ATTACK_SPEED);
         AttributeInstance drawSpeedInstance = player.getAttribute(com.tudominio.elementaldamage.ModAttributes.DRAW_SPEED.get());
