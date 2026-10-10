@@ -1,0 +1,8 @@
+{
+  "advanced": {
+    "use_advanced_staging_buffers": false
+  },
+  "performance": {
+    "use_no_error_g_l_context": false
+  }
+}
