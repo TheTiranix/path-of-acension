@@ -408,7 +408,7 @@
       "particlesPerDamage": 1
     },
     "thirst": {
-      "enabled": true,
+      "enabled": false,
       "opacity": 1.0,
       "defaultIntensity": 0,
       "maxIntensity": 5,
