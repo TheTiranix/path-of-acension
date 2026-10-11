@@ -24,7 +24,8 @@
     "CursiumKeyMixin",
     "DarkMetalArmorTickMixin",
     "CombatRulesMixin",
-    "DarkMetalSwordUndeadMixin"
+    "DarkMetalSwordUndeadMixin",
+    "EntomophobiaPheromoneClientTickMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin",

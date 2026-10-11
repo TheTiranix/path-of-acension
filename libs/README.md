@@ -10,6 +10,7 @@ copialos en esta carpeta con estos nombres exactos si queres compilar el mod:
 - jei-1.20.1-forge-15.20.0.112.jar
 - relics_in_chaos-0.2.4-forge-1.20.1.jar
 - celestisynth-1.20.1-1.3.1.jar
+- entomophobia-1.1.0_HOME_SWEET_HOME.jar
 - iceandfire-2.1.13-1.20.1-beta-5.jar
 - citadel-2.6.2-1.20.1.jar
 - born_in_chaos_v1-1.7.jar (el jar de Born in Chaos 1.7 renombrado)
