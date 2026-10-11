@@ -69,7 +69,9 @@ public final class HudOverrides {
         // todo el dibujo de la barra va en un solo lote: fuera de drawManaged cada fill y cada drawString vaciaba el buffer y hacia su propio
         // dibujo en la placa (unos 14 por cuadro); asi se agrupan en uno y se ve exactamente igual
         if (health) {
-            g.drawManaged(() -> drawHealthBar(g, mc, player, left, top - 1));
+            // dos lotes: primero las barras y despues el texto, asi el numero queda siempre por encima aunque otro mod reordene los lotes
+            g.drawManaged(() -> drawHealthBarShapes(g, player, left, top - 1));
+            g.drawManaged(() -> drawHealthText(g, mc, player, left, top - 1));
         } else {
             g.drawManaged(() -> drawArmor(g, mc, player, left, top));
         }
@@ -85,7 +87,7 @@ public final class HudOverrides {
         return Mth.hsvToRgb(Mth.clamp(ratio, 0.0F, 1.0F) * 0.333F, 0.85F, 1.0F) | 0xFF000000;
     }
 
-    private static void drawHealthBar(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
+    private static void drawHealthBarShapes(GuiGraphics g, LocalPlayer player, int x, int y) {
         float max = Math.max(1.0F, player.getMaxHealth());
         float current = Mth.clamp(player.getHealth(), 0.0F, max);
         float ratio = current / max;
@@ -101,9 +103,14 @@ public final class HudOverrides {
             int gold = Math.min(BAR_WIDTH, Math.round(BAR_WIDTH * absorption / max));
             g.fill(x, y + BAR_HEIGHT - 2, x + gold, y + BAR_HEIGHT, 0xFFFFD700);
         }
+    }
+
+    private static void drawHealthText(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
         if (!HudConfig.HEALTH_TEXT.get()) {
             return;
         }
+        float max = Math.max(1.0F, player.getMaxHealth());
+        float current = Mth.clamp(player.getHealth(), 0.0F, max);
         if (current != cachedCurrent || max != cachedMax) {
             cachedCurrent = current;
             cachedMax = max;
