@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "N",
+    "I",
+    "N"
+  ],
+  "key": {
+    "N": {
+      "item": "born_in_chaos_v1:dark_metal_nugget"
+    },
+    "I": {
+      "item": "born_in_chaos_v1:dark_metal_ingot"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:dark_metal_chain",
+    "count": 2
+  }
+}

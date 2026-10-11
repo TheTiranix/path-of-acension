@@ -79,6 +79,11 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.SAPPHIRE_CHESTPLATE.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_LEGGINGS.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_BOOTS.get());
+                        output.accept((ItemLike) ModItems.DARK_METAL_CHAIN.get());
+                        output.accept((ItemLike) ModItems.DARK_CHAINMAIL_HELMET.get());
+                        output.accept((ItemLike) ModItems.DARK_CHAINMAIL_CHESTPLATE.get());
+                        output.accept((ItemLike) ModItems.DARK_CHAINMAIL_LEGGINGS.get());
+                        output.accept((ItemLike) ModItems.DARK_CHAINMAIL_BOOTS.get());
                         output.accept((ItemLike) ModItems.DIASCITE_SWORD.get());
                         output.accept((ItemLike) ModItems.DIASCITE_HELMET.get());
                         output.accept((ItemLike) ModItems.DIASCITE_CHESTPLATE.get());
@@ -87,6 +92,7 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER2_TABLE_ITEM.get());
                         output.accept((ItemLike) com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER3_TABLE_ITEM.get());
                         output.accept((ItemLike) ModItems.GRAVITITE_GEM.get());
+                        output.accept((ItemLike) ModItems.GRAVITITE_INGOT.get());
                         output.accept((ItemLike) ModItems.BLUE_FLINT_AND_STEEL.get());
                         output.accept((ItemLike) ModItems.ARCANE_SWORD.get());
                         output.accept((ItemLike) ModItems.ARCANE_PICKAXE.get());

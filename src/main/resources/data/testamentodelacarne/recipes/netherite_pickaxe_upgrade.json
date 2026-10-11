@@ -1,19 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "pattern": [
-    " N ",
-    "NXN",
-    " N "
-  ],
-  "key": {
-    "N": {
+  "ingredients": [
+    {
       "item": "minecraft:netherite_ingot"
     },
-    "X": {
+    {
       "item": "testamentodelacarne:dark_metal_pickaxe"
     }
-  },
+  ],
   "result": {
     "item": "minecraft:netherite_pickaxe"
   }

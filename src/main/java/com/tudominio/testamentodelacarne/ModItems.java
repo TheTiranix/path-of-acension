@@ -237,6 +237,30 @@ public class ModItems {
                     com.tudominio.testamentodelacarne.util.SapphireArmorMaterial.INSTANCE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
 
+    /** Cadena de dark metal (pedido de alejandr0): 1 lingote + 2 pepitas de dark metal dan 2; sirve para la cota de malla de dark metal. */
+    public static final RegistryObject<Item> DARK_METAL_CHAIN = ITEMS.register(
+            "dark_metal_chain", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> DARK_CHAINMAIL_HELMET = ITEMS.register(
+            "dark_chainmail_helmet", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DarkChainmailArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> DARK_CHAINMAIL_CHESTPLATE = ITEMS.register(
+            "dark_chainmail_chestplate", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DarkChainmailArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> DARK_CHAINMAIL_LEGGINGS = ITEMS.register(
+            "dark_chainmail_leggings", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DarkChainmailArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> DARK_CHAINMAIL_BOOTS = ITEMS.register(
+            "dark_chainmail_boots", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.DarkChainmailArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
     public static final RegistryObject<Item> DIASCITE_SWORD = ITEMS.register(
             "diascite_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DIASCITE_TIER, 3, -2.4F, new Item.Properties()));
@@ -264,6 +288,10 @@ public class ModItems {
     /** Gema de gravitite (pedido de alejandr0): sale de fundir el mineral de gravitite y es el material de todo lo de gravitite. */
     public static final RegistryObject<Item> GRAVITITE_GEM = ITEMS.register(
             "gravitite_gem", () -> new Item(new Item.Properties()));
+
+    /** Lingote de gravitite (pedido de alejandr0): 4 gemas de gravitite + 4 de osmium; mejora items de dark metal a gravitite. */
+    public static final RegistryObject<Item> GRAVITITE_INGOT = ITEMS.register(
+            "gravitite_ingot", () -> new Item(new Item.Properties()));
 
     /** Lingotes de Phoenix y Valkyrie (pedido de alejandr0): salen del Gold Dungeon de Aether y, con la mesa de herreria,
      *  convierten piezas de netherite / gravitite en la armadura de Phoenix / Valkyrie. */

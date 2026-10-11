@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "A A",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "testamentodelacarne:dark_metal_chain"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:dark_chainmail_boots"
+  }
+}

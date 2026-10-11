@@ -240,5 +240,11 @@
   "tooltip.testamentodelacarne.wintry_armor": "Congela a quien te hace daño: cuantas más piezas llevas, más largo el congelamiento.",
   "tooltip.testamentodelacarne.wintry_essence": "La suelta la Reina de las Nieves. Se combina con una gema de gravitite para hacer una gema invernal.",
   "tooltip.testamentodelacarne.phoenix_ingot": "Se encuentra en la Mazmorra de Oro de Aether. Mejora armadura de netherite a armadura de Fénix en la mesa de herrería.",
-  "tooltip.testamentodelacarne.valkyrie_ingot": "Se encuentra en la Mazmorra de Oro de Aether. Mejora armadura de gravitite a armadura de Valquiria en la mesa de herrería."
+  "tooltip.testamentodelacarne.valkyrie_ingot": "Se encuentra en la Mazmorra de Oro de Aether. Mejora armadura de gravitite a armadura de Valquiria en la mesa de herrería.",
+  "item.testamentodelacarne.gravitite_ingot": "Lingote de Gravitite",
+  "item.testamentodelacarne.dark_metal_chain": "Cadena de Dark Metal",
+  "item.testamentodelacarne.dark_chainmail_helmet": "Casco de Cota de Malla de Dark Metal",
+  "item.testamentodelacarne.dark_chainmail_chestplate": "Peto de Cota de Malla de Dark Metal",
+  "item.testamentodelacarne.dark_chainmail_leggings": "Pantalones de Cota de Malla de Dark Metal",
+  "item.testamentodelacarne.dark_chainmail_boots": "Botas de Cota de Malla de Dark Metal"
 }

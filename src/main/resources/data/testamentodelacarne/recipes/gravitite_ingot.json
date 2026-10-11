@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "testamentodelacarne:gravitite_gem"
+    },
+    {
+      "item": "testamentodelacarne:gravitite_gem"
+    },
+    {
+      "item": "testamentodelacarne:gravitite_gem"
+    },
+    {
+      "item": "testamentodelacarne:gravitite_gem"
+    },
+    {
+      "item": "mekanism:ingot_osmium"
+    },
+    {
+      "item": "mekanism:ingot_osmium"
+    },
+    {
+      "item": "mekanism:ingot_osmium"
+    },
+    {
+      "item": "mekanism:ingot_osmium"
+    }
+  ],
+  "result": {
+    "item": "testamentodelacarne:gravitite_ingot"
+  }
+}

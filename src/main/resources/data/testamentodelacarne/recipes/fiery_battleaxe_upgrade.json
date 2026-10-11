@@ -1,0 +1,18 @@
+{
+  "type": "testamentodelacarne:tier3_shaped",
+  "category": "equipment",
+  "pattern": [
+    "NXN"
+  ],
+  "key": {
+    "N": {
+      "item": "twilightforest:fiery_ingot"
+    },
+    "X": {
+      "item": "vtaw_mw:netherite_battleaxe"
+    }
+  },
+  "result": {
+    "item": "testamentodelacarne:fiery_battleaxe"
+  }
+}

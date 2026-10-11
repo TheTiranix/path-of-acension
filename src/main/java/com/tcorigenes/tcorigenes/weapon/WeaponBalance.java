@@ -695,6 +695,9 @@ public final class WeaponBalance {
             // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
             double darkMetalDefense = times(piece, 1.6);
             ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
+            // Cota de malla de dark metal (nuestra): 0.5 menos de proteccion por pieza que la de dark metal, misma tenacidad.
+            ARMOR_FIXED.put(rl("testamentodelacarne:dark_chainmail_" + piece), new ArmorFixed(darkMetalDefense - 0.5, 3,
+                    scaledDurability(darkMetalDefense - 0.5, 3, defense), rl("minecraft:diamond_" + piece)));
             // Diascite (nuestra, Sculk Horde): igual que el dark metal.
             ARMOR_FIXED.put(rl("testamentodelacarne:diascite_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Armadura de zafiro (nuestra, ver SapphireArmorMaterial): 3.5 casco y botas, 8.5 pechera, 6.5 pantalones, 3 de tenacidad.
@@ -704,6 +707,27 @@ public final class WeaponBalance {
             // La Battlemage normal de Ars Nouveau NO se toca: usa los valores por defecto del mod.
             double battlemageDefense = times(piece, 4.0) - 2.0;
             ARMOR_FIXED.put(rl("irons_spellbooks:netherite_mage_" + piece), new ArmorFixed(battlemageDefense, 4, scaledDurability(battlemageDefense, 4, defense), rl("minecraft:diamond_" + piece)));
+            // Iron's Spellbooks (armaduras de mago, ligeras): un poco menos que la alternativa pesada de su nivel (ver LEVELS en add_irons.py).
+            ARMOR_FIXED.put(rl("irons_spellbooks:wandering_magician_" + piece), new ArmorFixed(times(piece, 1.2) - 0.5, Double.NaN,
+                    scaledDurability(times(piece, 1.2) - 0.5, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:pumpkin_" + piece), new ArmorFixed(times(piece, 1.2) - 0.5, Double.NaN,
+                    scaledDurability(times(piece, 1.2) - 0.5, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:cultist_" + piece), new ArmorFixed(times(piece, 1.2) - 0.5, Double.NaN,
+                    scaledDurability(times(piece, 1.2) - 0.5, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:priest_" + piece), new ArmorFixed(times(piece, 1.6) - 1.0, Double.NaN,
+                    scaledDurability(times(piece, 1.6) - 1.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:plagued_" + piece), new ArmorFixed(times(piece, 1.6) - 1.0, Double.NaN,
+                    scaledDurability(times(piece, 1.6) - 1.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:pyromancer_" + piece), new ArmorFixed(times(piece, 1.6) - 1.0, Double.NaN,
+                    scaledDurability(times(piece, 1.6) - 1.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:cryomancer_" + piece), new ArmorFixed(times(piece, 4.0) - 2.0, Double.NaN,
+                    scaledDurability(times(piece, 4.0) - 2.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:electromancer_" + piece), new ArmorFixed(times(piece, 4.0) - 2.0, Double.NaN,
+                    scaledDurability(times(piece, 4.0) - 2.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:archevoker_" + piece), new ArmorFixed(times(piece, 6.0) - 3.0, Double.NaN,
+                    scaledDurability(times(piece, 6.0) - 3.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:shadowwalker_" + piece), new ArmorFixed(times(piece, 6.0) - 3.0, Double.NaN,
+                    scaledDurability(times(piece, 6.0) - 3.0, 0, defense), rl("minecraft:diamond_" + piece)));
             // Myrmex (Ice and Fire): valores fijos propios, ambas variantes (desierto y jungla).
             double myrmexDefense = switch (piece) {
                 case "helmet" -> 2.5;

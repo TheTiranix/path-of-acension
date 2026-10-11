@@ -44,3 +44,12 @@ ServerEvents.recipes(event => {
     event.remove({ output: output, type: 'minecraft:crafting_shaped' });
   });
 });
+
+// Gravitite (armas, herramientas y armaduras del Aether): ya no se craftean con la gema (recetas del Aether); se hacen mejorando un item de
+// dark metal con un lingote de gravitite, o con 4 en cruz las armaduras (recetas gravitite_*_upgrade del mod). Se quitan por id: un remove
+// por output tambien se llevaria las nuevas.
+ServerEvents.recipes(event => {
+  ['sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots'].forEach(piece => {
+    event.remove({ id: 'aether:gravitite_' + piece });
+  });
+});

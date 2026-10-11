@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " N ",
+    "NXN",
+    " N "
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "X": {
+      "item": "irons_spellbooks:plagued_chestplate"
+    }
+  },
+  "result": {
+    "item": "irons_spellbooks:cryomancer_chestplate"
+  }
+}
