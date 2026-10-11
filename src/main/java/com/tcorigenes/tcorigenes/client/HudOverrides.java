@@ -66,10 +66,12 @@ public final class HudOverrides {
         int left = event.getWindow().getGuiScaledWidth() / 2 - 91;
         int top = event.getWindow().getGuiScaledHeight() - gui.leftHeight;
         LocalPlayer player = mc.player;
+        // todo el dibujo de la barra va en un solo lote: fuera de drawManaged cada fill y cada drawString vaciaba el buffer y hacia su propio
+        // dibujo en la placa (unos 14 por cuadro); asi se agrupan en uno y se ve exactamente igual
         if (health) {
-            drawHealthBar(g, mc, player, left, top - 1);
+            g.drawManaged(() -> drawHealthBar(g, mc, player, left, top - 1));
         } else {
-            drawArmor(g, mc, player, left, top);
+            g.drawManaged(() -> drawArmor(g, mc, player, left, top));
         }
         gui.leftHeight += 10;
     }
