@@ -4,6 +4,7 @@
   },
   "performance": {
     "chunk_builder_threads": 0,
+    "use_compact_vertex_format": false,
     "use_no_error_g_l_context": false
   }
 }
