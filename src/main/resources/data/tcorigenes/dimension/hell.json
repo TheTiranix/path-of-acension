@@ -1,0 +1,26 @@
+{
+  "type": "tcorigenes:hell",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "minecraft:crimson_forest",
+      "features": false,
+      "lakes": false,
+      "structure_overrides": [],
+      "layers": [
+        {
+          "block": "minecraft:bedrock",
+          "height": 1
+        },
+        {
+          "block": "minecraft:netherrack",
+          "height": 62
+        },
+        {
+          "block": "minecraft:air",
+          "height": 193
+        }
+      ]
+    }
+  }
+}

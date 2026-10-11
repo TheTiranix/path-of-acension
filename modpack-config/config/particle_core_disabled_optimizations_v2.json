@@ -1,0 +1,6 @@
+{
+  "disableOptimizations": [
+    "VERTEX",
+    "ROTATION"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tcorigenes:heaven",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "minecraft:meadow",
+      "features": false,
+      "lakes": false,
+      "structure_overrides": [],
+      "layers": [
+        {
+          "block": "minecraft:air",
+          "height": 254
+        },
+        {
+          "block": "minecraft:glass",
+          "height": 1
+        }
+      ]
+    }
+  }
+}
