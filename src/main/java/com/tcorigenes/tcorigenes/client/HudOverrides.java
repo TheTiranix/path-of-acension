@@ -29,6 +29,18 @@ public final class HudOverrides {
     private HudOverrides() {
     }
 
+    // se dibujaba ocho veces el texto en cada cuadro creando el arreglo de desplazamientos de nuevo y formateando los numeros con String.format:
+    // ahora los desplazamientos son constantes y el texto (y su ancho) se recalculan solo cuando cambian la vida o la armadura
+    private static final int[][] OUTLINE = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {1, 1}, {-1, 1}, {1, -1}};
+    private static float cachedCurrent = Float.NaN;
+    private static float cachedMax = Float.NaN;
+    private static String cachedHealthText = "";
+    private static int cachedHealthWidth;
+    private static double cachedArmor = Double.NaN;
+    private static double cachedToughness = Double.NaN;
+    private static String cachedArmorText = "";
+    private static String cachedToughnessText = "";
+
     private static String number(double value) {
         String text = String.format(Locale.ROOT, "%.1f", value);
         return text.endsWith(".0") ? text.substring(0, text.length() - 2) : text;
@@ -90,8 +102,14 @@ public final class HudOverrides {
         if (!HudConfig.HEALTH_TEXT.get()) {
             return;
         }
-        String text = number(current) + "/" + number(max);
-        int textWidth = mc.font.width(text);
+        if (current != cachedCurrent || max != cachedMax) {
+            cachedCurrent = current;
+            cachedMax = max;
+            cachedHealthText = number(current) + "/" + number(max);
+            cachedHealthWidth = mc.font.width(cachedHealthText);
+        }
+        String text = cachedHealthText;
+        int textWidth = cachedHealthWidth;
         float scale = textWidth > BAR_WIDTH - 4 ? (BAR_WIDTH - 4) / (float) textWidth : 1.0F;
         float tx = x + (BAR_WIDTH - textWidth * scale) / 2.0F;
         float ty = y + (BAR_HEIGHT - 8 * scale) / 2.0F + 0.5F;
@@ -99,7 +117,7 @@ public final class HudOverrides {
         g.pose().translate(tx, ty, 0.0F);
         g.pose().scale(scale, scale, 1.0F);
         // contorno blanco + texto negro: se lee sobre verde, amarillo y rojo
-        for (int[] d : new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {1, 1}, {-1, 1}, {1, -1}}) {
+        for (int[] d : OUTLINE) {
             g.drawString(mc.font, text, d[0], d[1], 0xFFFFFFFF, false);
         }
         g.drawString(mc.font, text, 0, 0, 0xFF000000, false);
@@ -107,8 +125,16 @@ public final class HudOverrides {
     }
 
     private static void drawArmor(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
-        String protection = number(player.getArmorValue());
-        String toughness = number(player.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
+        double armorValue = player.getArmorValue();
+        double toughnessValue = player.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
+        if (armorValue != cachedArmor || toughnessValue != cachedToughness) {
+            cachedArmor = armorValue;
+            cachedToughness = toughnessValue;
+            cachedArmorText = number(armorValue);
+            cachedToughnessText = number(toughnessValue);
+        }
+        String protection = cachedArmorText;
+        String toughness = cachedToughnessText;
         g.blit(ICONS, x, y, 0, 0, 9, 9, 32, 16);
         int tx = x + 11;
         g.drawString(mc.font, protection, tx, y + 1, 0xFFFFFFFF, true);
