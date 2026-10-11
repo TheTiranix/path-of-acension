@@ -157,7 +157,7 @@ public class TestamentoDeLaCarne {
         event.enqueueWork(() -> net.minecraftforge.common.TierSortingRegistry.registerTier(
                 com.tudominio.testamentodelacarne.util.ModTiers.DARK_METAL_TIER,
                 net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "dark_metal"),
-                java.util.List.of(net.minecraft.world.item.Tiers.NETHERITE), java.util.List.of()));
+                java.util.List.of(net.minecraft.world.item.Tiers.DIAMOND), java.util.List.of(net.minecraft.world.item.Tiers.NETHERITE)));
     }
 
     /**

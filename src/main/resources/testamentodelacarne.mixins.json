@@ -25,7 +25,8 @@
     "DarkMetalArmorTickMixin",
     "CombatRulesMixin",
     "DarkMetalSwordUndeadMixin",
-    "EntomophobiaPheromoneClientTickMixin"
+    "EntomophobiaPheromoneClientTickMixin",
+    "GravititeSetNoAbilitiesMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin",

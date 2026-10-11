@@ -92,7 +92,7 @@ public final class WeaponStatTooltip {
         // el bonus de set completo es solo de la armadura, no de las armas ni herramientas de la misma linea
         for (ArmorSetBonus.SetBonus bonus : ArmorSetBonus.SETS) {
             if (stack.getItem() instanceof net.minecraft.world.item.ArmorItem && id.toString().startsWith(bonus.prefix())) {
-                lines.add(statLine("pa.stat.set", (int) Math.round(bonus.amount() * 100), elementName(bonus.element())));
+                lines.add(statLine("pa.stat.set", (int) Math.round(bonus.amount()), elementName(bonus.element())));
             }
         }
         return lines;

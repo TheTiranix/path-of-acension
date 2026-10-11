@@ -43,6 +43,24 @@ public final class CuriosCompat {
                         }).orElse(false)).orElse(false);
     }
 
+    /** Gasta 1 de durabilidad a cada pieza con durabilidad puesta en el slot de Curios con ese id (se rompe sola al llegar a cero). */
+    public static void damageItemsInSlot(net.minecraft.world.entity.player.Player player, String slotId) {
+        if (!ModList.get().isLoaded("curios")) {
+            return;
+        }
+        CuriosApi.getCuriosInventory(player).ifPresent(handler -> handler.getStacksHandler(slotId).ifPresent(stacks -> {
+            for (int i = 0; i < stacks.getStacks().getSlots(); i++) {
+                ItemStack stack = stacks.getStacks().getStackInSlot(i);
+                if (!stack.isEmpty() && stack.isDamageableItem()) {
+                    stack.hurtAndBreak(1, player, broken -> { });
+                    if (stack.isEmpty() || stack.getDamageValue() >= stack.getMaxDamage()) {
+                        stacks.getStacks().setStackInSlot(i, ItemStack.EMPTY);
+                    }
+                }
+            }
+        }));
+    }
+
     /** Hay algo (cualquier item) puesto en el slot de Curios con ese id. */
     public static boolean hasAnyInSlot(LivingEntity entity, String slotId) {
         return ModList.get().isLoaded("curios")

@@ -197,10 +197,15 @@ public class ModEvents {
 
     /** Cordura: la luz del sol la baja y la de la luna la sube (0,5% de la barra por segundo, al cielo abierto). */
     private static final float LUNAR_SANITY_PER_SECOND = 0.005F;
+    private static final org.apache.logging.log4j.Logger LOGGER_SANITY = org.apache.logging.log4j.LogManager.getLogger();
 
     private static void tickSiervoLunaSanity(Player player) {
         if (player.tickCount % 20 != 0 || !(player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)) {
             return;
+        }
+        if (player.tickCount % 200 == 0) {
+            LOGGER_SANITY.info("[Sanity] noche={} sol={} cordura={}", isMoonExposed(player), isSunExposed(player),
+                    com.tcorigenes.tcorigenes.compat.SanityCompat.get(serverPlayer));
         }
         if (isMoonExposed(player)) {
             com.tcorigenes.tcorigenes.compat.SanityCompat.add(serverPlayer, LUNAR_SANITY_PER_SECOND);

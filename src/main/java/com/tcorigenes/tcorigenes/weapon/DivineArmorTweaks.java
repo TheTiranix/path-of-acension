@@ -40,6 +40,15 @@ public final class DivineArmorTweaks {
             UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000023"),
             UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000024")};
 
+    /** 10% de resistencia al retroceso por pieza (pedido de alejandr0) en las armaduras de gravitite, fiery, wintry y dragonsteel. */
+    private static final UUID[] KNOCKBACK_IDS = {
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000031"),
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000032"),
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000033"),
+            UUID.fromString("5b1f1c30-0a52-4b1e-9d2a-7e1a00000034")};
+    private static final String[] KNOCKBACK_SETS = {"aether:gravitite_", "twilightforest:fiery_", "testamentodelacarne:wintry_",
+            "iceandfire:dragonsteel_"};
+
     private DivineArmorTweaks() {
     }
 
@@ -69,6 +78,16 @@ public final class DivineArmorTweaks {
             event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
                     YETI_IDS[index(event.getSlotType())], "Armadura de yeti", 0.10, AttributeModifier.Operation.ADDITION));
             return;
+        }
+        if (id != null && event.getItemStack().getItem() instanceof net.minecraft.world.item.ArmorItem) {
+            for (String prefix : KNOCKBACK_SETS) {
+                if (id.toString().startsWith(prefix)) {
+                    event.removeAttribute(Attributes.KNOCKBACK_RESISTANCE);
+                    event.addModifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(
+                            KNOCKBACK_IDS[index(event.getSlotType())], "Resistencia al retroceso", 0.10, AttributeModifier.Operation.ADDITION));
+                    return;
+                }
+            }
         }
         if (id == null || !id.getNamespace().equals("celestisynth")) {
             return;

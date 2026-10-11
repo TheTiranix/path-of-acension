@@ -37,7 +37,13 @@ public class ModItems {
 
     /** Guantes individuales (pedido de alejandr0): reemplazan a los del Aether, de a uno, en los slots "hands" de Curios. Ver GloveBonuses. */
     private static RegistryObject<Item> glove(String material) {
-        return ITEMS.register(material + "_glove", () -> new Item(new Item.Properties().stacksTo(1)));
+        return glove(material, 0);
+    }
+
+    /** durability 0 = irrompible; los de gravitite y netherite se gastan (ver GloveDurability) con la durabilidad de la armadura de gravitite. */
+    private static RegistryObject<Item> glove(String material, int durability) {
+        return ITEMS.register(material + "_glove", () -> durability > 0 ? new Item(new Item.Properties().durability(durability))
+                : new Item(new Item.Properties().stacksTo(1)));
     }
 
     public static final RegistryObject<Item> LEATHER_GLOVE = glove("leather");
@@ -45,9 +51,9 @@ public class ModItems {
     public static final RegistryObject<Item> IRON_GLOVE = glove("iron");
     public static final RegistryObject<Item> GOLDEN_GLOVE = glove("golden");
     public static final RegistryObject<Item> DIAMOND_GLOVE = glove("diamond");
-    public static final RegistryObject<Item> NETHERITE_GLOVE = glove("netherite");
+    public static final RegistryObject<Item> NETHERITE_GLOVE = glove("netherite", com.tcorigenes.tcorigenes.weapon.WeaponBalance.GRAVITITE_DURABILITY);
     public static final RegistryObject<Item> ZANITE_GLOVE = glove("zanite");
-    public static final RegistryObject<Item> GRAVITITE_GLOVE = glove("gravitite");
+    public static final RegistryObject<Item> GRAVITITE_GLOVE = glove("gravitite", com.tcorigenes.tcorigenes.weapon.WeaponBalance.GRAVITITE_DURABILITY);
     public static final RegistryObject<Item> VALKYRIE_GLOVE = glove("valkyrie");
     public static final RegistryObject<Item> NEPTUNE_GLOVE = glove("neptune");
     public static final RegistryObject<Item> OBSIDIAN_GLOVE = glove("obsidian");

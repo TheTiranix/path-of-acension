@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 public final class SanityCompat {
     private static final Logger LOGGER = LogManager.getLogger();
     private static boolean loggedFailure;
+    private static Method getSanity;
     private static boolean initialized;
     private static Capability<?> capability;
     private static Method addSanity;
@@ -29,6 +30,7 @@ public final class SanityCompat {
                 try {
                     capability = (Capability<?>) Class.forName("croissantnova.sanitydim.capability.SanityProvider").getField("CAP").get(null);
                     Class<?> iface = Class.forName("croissantnova.sanitydim.capability.ISanity");
+                    getSanity = iface.getMethod("getSanity");
                     addSanity = Class.forName("croissantnova.sanitydim.SanityProcessor").getMethod("addSanity", iface, float.class, ServerPlayer.class);
                     LOGGER.info("[Sanity] puente con sanitydim listo");
                 } catch (ReflectiveOperationException | RuntimeException | LinkageError e) {
@@ -39,6 +41,22 @@ public final class SanityCompat {
             }
         }
         return capability != null && addSanity != null;
+    }
+
+    /** Cordura actual (0 a 1), o -1 si el mod no esta disponible. */
+    public static float get(ServerPlayer player) {
+        if (!init()) {
+            return -1.0F;
+        }
+        float[] out = {-1.0F};
+        player.getCapability(capability).ifPresent(cap -> {
+            try {
+                out[0] = (Float) getSanity.invoke(cap);
+            } catch (ReflectiveOperationException | RuntimeException ignored) {
+                // sin lectura: se informa -1
+            }
+        });
+        return out[0];
     }
 
     private static void logOnce(String message, Throwable error) {

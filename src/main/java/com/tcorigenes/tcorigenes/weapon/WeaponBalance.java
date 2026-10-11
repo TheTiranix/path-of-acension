@@ -211,6 +211,14 @@ public final class WeaponBalance {
         };
     }
 
+    /** Proteccion de la pieza como multiplo de la del diamante, redondeada a .0 o .5 (ej. 1.6 veces). */
+    static double times(String piece, double factor) {
+        return Math.round(diamondDefenseOf(piece) * factor * 2.0) / 2.0;
+    }
+
+    /** Armaduras cuya tenacidad se copia de la de otra pieza (se resuelve al usarla, cuando ya estan registrados los items). */
+    public static final Map<ResourceLocation, ResourceLocation> TOUGHNESS_LIKE = new HashMap<>();
+
     static int scaledDurability(double defense, double toughness, double gravititeDefense) {
         return (int) Math.round(GRAVITITE_DURABILITY * (defense + toughness) / (gravititeDefense + 4.0));
     }
@@ -268,19 +276,19 @@ public final class WeaponBalance {
 
     static {
         // ---------------------------------------------------------------- Aether
-        w("aether:gravitite_sword").dmg(18);
-        group("aether:gravitite_sword", 18, "aether:gravitite_axe", "aether:gravitite_pickaxe",
+        w("aether:gravitite_sword").dmg(34);
+        group("aether:gravitite_sword", 34, "aether:gravitite_axe", "aether:gravitite_pickaxe",
                 "aether:gravitite_shovel", "aether:gravitite_hoe");
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
             w("aether:zanite_" + tool).like("minecraft:diamond_" + tool); // zanite = diamante del mismo tipo
         }
-        w("aether:holy_sword").dmg(6).el(LIGHT, 8);
-        w("aether:lightning_sword").dmg(8).el(AIR, 2).el(LIGHT, 4);
-        w("aether:valkyrie_lance").dmg(9).speed(1.5).reach(3.5).two().el(LIGHT, 3);
-        w("aether:hammer_of_kingbdogz").dmg(9).el(LIGHT, 3);
-        w("aether:pig_slayer").dmg(10).el(LIGHT, 2).el(EARTH, 2);
-        w("aether:flaming_sword").dmg(9).el(LIGHT, 3);
-        w("aether:vampire_blade").dmg(10).el(LIGHT, 4);
+        w("aether:holy_sword").dmg(11.5).el(LIGHT, 15);
+        w("aether:lightning_sword").dmg(15).el(AIR, 4).el(LIGHT, 7.5);
+        w("aether:valkyrie_lance").dmg(17).speed(1.5).reach(3.5).two().el(LIGHT, 5.5);
+        w("aether:hammer_of_kingbdogz").dmg(17).el(LIGHT, 5.5);
+        w("aether:pig_slayer").dmg(19).el(LIGHT, 4).el(EARTH, 4);
+        w("aether:flaming_sword").dmg(17).el(LIGHT, 5.5);
+        w("aether:vampire_blade").dmg(19).el(LIGHT, 7.5);
 
         // ------------------------------------------------------------- Celestisynth
         // Wrath of the Desert: 3 torbellinos por uso, cada uno con su elemento fijo.
@@ -295,7 +303,7 @@ public final class WeaponBalance {
         w("twilightforest:ice_bow").dmg(15).shot().el(ICE, 3);
         w("twilightforest:ender_bow").dmg(15).shot().el(ENDER, 3);
         w("twilightforest:seeker_bow").dmg(15).shot().el(NATURAL, 3);
-        w("aether:phoenix_bow").dmg(12).shot().el(FIRE, 3);
+        w("aether:phoenix_bow").dmg(22.5).shot().el(FIRE, 5.5);
         w("ars_nouveau:spell_bow").dmg(12).shot();
         w("ars_nouveau:spell_crossbow").dmg(12).shot();
         w("alexscaves:dreadbow").dmg(100).shot().el(LUNAR, 50).note("Hace llover flechas oscuras del cielo (cada una pega con este daño)");
@@ -367,7 +375,7 @@ public final class WeaponBalance {
         w("seadwellers:depth_sword").dmg(6).el(WATER, 3);
         w("sculkhorde:sculk_sweeper_sword").dmg(13).el(LUNAR, 10);
         w("sculkhorde:blade_of_purity").dmg(40).el(LIGHT, 20);
-        w("alexscaves:extinction_spear").dmg(350).el(NATURAL, 150);
+        w("alexscaves:extinction_spear").dmg(70).el(NATURAL, 30);
         w("mutantmonsters:hulk_hammer").dmg(40).el(LUNAR, 20);
         // Mutants Buff: Charged Hammer y Flame Burst Hammer (upgraded_hulk_hammer): 45 de daño y 20 de aire.
         w("mutantsbuff:charged_hammer").dmg(45).el(AIR, 20);
@@ -378,8 +386,8 @@ public final class WeaponBalance {
         w("irons_spellbooks:claymore").dmg(15).el(EARTH, 3);
         w("irons_spellbooks:spellbreaker").dmg(53); // 39 x 30/22: proporcional al aumento de la rapier
         w("twilightforest:ice_sword").dmg(18).el(ICE, 5);
-        w("twilightforest:fiery_sword").dmg(26);
-        group("twilightforest:fiery_sword", 26, "twilightforest:fiery_pickaxe");
+        w("twilightforest:fiery_sword").dmg(50);
+        group("twilightforest:fiery_sword", 50, "twilightforest:fiery_pickaxe");
         w("twilightforest:diamond_minotaur_axe").dmg(26);
         w("twilightforest:giant_sword").dmg(21).reach(5).noBlockReach();
         w("immersive_weathering:ice_sickle").speed(2);
@@ -395,8 +403,8 @@ public final class WeaponBalance {
         TOOL_DURABILITY.put(rl("alexscaves:dreadbow"), 20000);
 
         // Netherite vanilla: espada 18 y el resto proporcional.
-        w("minecraft:netherite_sword").dmg(18);
-        group("minecraft:netherite_sword", 18, "minecraft:netherite_axe", "minecraft:netherite_pickaxe",
+        w("minecraft:netherite_sword").dmg(34);
+        group("minecraft:netherite_sword", 34, "minecraft:netherite_axe", "minecraft:netherite_pickaxe",
                 "minecraft:netherite_shovel", "minecraft:netherite_hoe");
 
         // Fiery (Twilight Forest): sus herramientas tienen 1000 usos mas que las de netherite (2031 + 1000).
@@ -421,8 +429,8 @@ public final class WeaponBalance {
         }
         for (String element : new String[] {"fire", "ice", "lightning"}) {
             String swordId = "iceandfire:dragonsteel_" + element + "_sword";
-            w(swordId).dmg(50);
-            group(swordId, 50, "iceandfire:dragonsteel_" + element + "_axe", "iceandfire:dragonsteel_" + element + "_pickaxe",
+            w(swordId).dmg(250); // 5 veces (la proteccion paso de 6 a 30 veces el diamante)
+            group(swordId, 250, "iceandfire:dragonsteel_" + element + "_axe", "iceandfire:dragonsteel_" + element + "_pickaxe",
                     "iceandfire:dragonsteel_" + element + "_shovel", "iceandfire:dragonsteel_" + element + "_hoe");
         }
         minDur(2500, "iceandfire:dread_sword", "iceandfire:dread_knight_sword", "iceandfire:dread_queen_sword",
@@ -508,14 +516,14 @@ public final class WeaponBalance {
             TOOL_DURABILITY.put(rl(id), 6062);
         }
 
-        // Wintry (nuestras, "como fiery pero frio"): espada de 26 y el resto proporcional, 3031 usos.
-        w("testamentodelacarne:wintry_sword").dmg(26);
-        group("testamentodelacarne:wintry_sword", 26, "testamentodelacarne:wintry_axe", "testamentodelacarne:wintry_pickaxe",
+        // Wintry (nuestras, "como fiery pero frio"): espada de 50 (como fiery y el dragonsteel de antes) y el resto proporcional, 3031 usos.
+        w("testamentodelacarne:wintry_sword").dmg(50);
+        group("testamentodelacarne:wintry_sword", 50, "testamentodelacarne:wintry_axe", "testamentodelacarne:wintry_pickaxe",
                 "testamentodelacarne:wintry_shovel", "testamentodelacarne:wintry_hoe");
 
         // Herramientas de zafiro (nuestras): al nivel del diamante.
         for (String tool : new String[] {"sword", "axe", "pickaxe", "shovel", "hoe"}) {
-            w("testamentodelacarne:sapphire_" + tool).like("minecraft:diamond_" + tool);
+            w("testamentodelacarne:sapphire_" + tool).likeScaled("minecraft:diamond_" + tool, 9.0 / 7.0);
         }
 
         // Knightmetal y Steeleaf: al nivel del diamante.
@@ -547,6 +555,18 @@ public final class WeaponBalance {
             SPECS.computeIfAbsent(rl("vtaw_mw:" + material + "_dagger"), k -> new Spec()).dex = 25;
         }
 
+        // Netherite de los mods con familias (Variant Tools / Basic Weapons): al nivel de arcane y black steel, 34/7 del diamante de su
+        // tipo (ya rebalanceado, igual que las armas de gravitite, arcane y black steel de MaterialWeapons).
+        double[][] netheriteTypes = {{5}, {5.5}, {12}, {16}, {18}, {17}};
+        String[] vtawTypes = {"dagger", "longsword", "katana", "greatsword", "battleaxe", "halberd"};
+        for (int i = 0; i < vtawTypes.length; i++) {
+            SPECS.computeIfAbsent(rl("vtaw_mw:netherite_" + vtawTypes[i]), k -> new Spec()).dmg(Math.round(netheriteTypes[i][0] * 34.0 / 7.0 * 2.0) / 2.0);
+        }
+        SPECS.computeIfAbsent(rl("basicweapons:netherite_glaive"), k -> new Spec()).dmg(Math.round(17 * 34.0 / 7.0 * 2.0) / 2.0);
+        SPECS.computeIfAbsent(rl("basicweapons:netherite_hammer"), k -> new Spec()).dmg(Math.round(10.5 * 34.0 / 7.0 * 2.0) / 2.0);
+        SPECS.computeIfAbsent(rl("basicweapons:netherite_spear"), k -> new Spec()).dmg(Math.round(9 * 34.0 / 7.0 * 2.0) / 2.0);
+        SPECS.computeIfAbsent(rl("basicweapons:netherite_quarterstaff"), k -> new Spec()).likeScaled("basicweapons:diamond_quarterstaff", 34.0 / 7.0);
+
         // ------------------------------------------------------------------- armaduras
         String[] diamond = {"helmet", "chestplate", "leggings", "boots"};
         for (String piece : diamond) {
@@ -560,29 +580,26 @@ public final class WeaponBalance {
                 default -> 6;
             };
             for (String set : new String[] {"aether:gravitite_", "minecraft:netherite_"}) {
-                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, GRAVITITE_DURABILITY, rl("minecraft:diamond_" + piece)));
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(times(piece, 4.0), 8, GRAVITITE_DURABILITY, rl("minecraft:diamond_" + piece)));
             }
             // Valkyrie y Phoenix: +3 de proteccion por pieza sobre lo que tenian (como el diamante) y 4 de tenacidad, igual que
             // gravitite; el bonus de set completo (+20% al daño de luz / fuego) esta en ArmorSetBonus.
             for (String set : new String[] {"aether:valkyrie_", "aether:phoenix_"}) {
-                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(defense, 4, scaledDurability(defense, 4, defense), rl("minecraft:diamond_" + piece)));
+                ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(times(piece, 3.5), 4, scaledDurability(times(piece, 3.5), 4, defense), rl("minecraft:diamond_" + piece)));
             }
             // Neptune (Aether): 5 casco y botas, 10 pechera, 8 pantalones, 3 de tenacidad por pieza.
-            double neptuneDefense = switch (piece) {
-                case "helmet" -> 5;
-                case "chestplate" -> 10;
-                case "leggings" -> 8;
-                default -> 5;
-            };
+            double neptuneDefense = times(piece, 3.0);
             ARMOR_FIXED.put(rl("aether:neptune_" + piece), new ArmorFixed(neptuneDefense, 3, scaledDurability(neptuneDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Yeti (Twilight Forest): como gravitite (6/11/9/6) con 5 de tenacidad; 10% de resistencia al retroceso por
             // pieza e inmunidad al frio con el set completo (ver YetiArmor y ClimateImmunity).
             ARMOR_FIXED.put(rl("twilightforest:yeti_" + piece), new ArmorFixed(defense, 5, scaledDurability(defense, 5, defense), rl("minecraft:diamond_" + piece)));
             // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 1000 usos mas (2500)
-            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(diamondDefenseOf(piece) * 2.5, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(times(piece, 6.0), Double.NaN, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            TOUGHNESS_LIKE.put(rl("twilightforest:fiery_" + piece), rl("iceandfire:dragonsteel_fire_" + piece));
             EXACT_DURABILITY.add(rl("twilightforest:fiery_" + piece));
             // Wintry (nuestra): igual que la fiery pero fria
-            ARMOR_FIXED.put(rl("testamentodelacarne:wintry_" + piece), new ArmorFixed(diamondDefenseOf(piece) * 2.5, 5, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("testamentodelacarne:wintry_" + piece), new ArmorFixed(times(piece, 6.0), Double.NaN, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
+            TOUGHNESS_LIKE.put(rl("testamentodelacarne:wintry_" + piece), rl("iceandfire:dragonsteel_fire_" + piece));
             EXACT_DURABILITY.add(rl("testamentodelacarne:wintry_" + piece));
             // Dragon scale armor (Ice and Fire, todos los colores): iguales a las de fiery (2.5 veces el diamante, 5 de tenacidad,
             // 2500 usos).
@@ -615,8 +632,8 @@ public final class WeaponBalance {
             ARMOR_LIKE.put(rl("seadwellers:depth_" + piece), rl("minecraft:diamond_" + piece));
             // Diving Armor (Alex's Caves): al nivel del netherite (proteccion y dureza).
             ARMOR_LIKE.put(rl("alexscaves:diving_" + (piece.equals("chestplate") ? "chestplate" : piece)), rl("minecraft:netherite_" + piece));
-            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 6 veces la proteccion y la durabilidad del diamante (tenacidad sin tocar).
-            double dragonsteelDefense = diamondDefenseOf(piece) * 6.0;
+            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 30 veces la proteccion del diamante (tenacidad sin tocar).
+            double dragonsteelDefense = diamondDefenseOf(piece) * 30.0;
             int diamondPieceDurability = switch (piece) {
                 case "helmet" -> 363;
                 case "chestplate" -> 528;
@@ -676,31 +693,16 @@ public final class WeaponBalance {
                 ARMOR_DURABILITY_LIKE.put(rl("twilightforest:naga_leggings"), rl("minecraft:diamond_leggings"));
             }
             // Dark Metal (Born in Chaos): valores fijos propios, sin tocar tenacidad ni durabilidad.
-            double darkMetalDefense = switch (piece) {
-                case "helmet" -> 4;
-                case "chestplate" -> 9;
-                case "leggings" -> 7;
-                default -> 4;
-            };
+            double darkMetalDefense = times(piece, 1.6);
             ARMOR_FIXED.put(rl("born_in_chaos_v1:dark_metal_armor_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Diascite (nuestra, Sculk Horde): igual que el dark metal.
             ARMOR_FIXED.put(rl("testamentodelacarne:diascite_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Armadura de zafiro (nuestra, ver SapphireArmorMaterial): 3.5 casco y botas, 8.5 pechera, 6.5 pantalones, 3 de tenacidad.
-            double sapphireDefense = switch (piece) {
-                case "helmet" -> 3.5;
-                case "chestplate" -> 8.5;
-                case "leggings" -> 6.5;
-                default -> 3.5;
-            };
+            double sapphireDefense = times(piece, 1.2);
             ARMOR_FIXED.put(rl("testamentodelacarne:sapphire_" + piece), new ArmorFixed(sapphireDefense, 3, -1, rl("minecraft:diamond_" + piece)));
             // Netherite Battlemage (Iron's Spellbooks, netherite_mage_*): valores fijos propios + 4 de tenacidad de armadura.
             // La Battlemage normal de Ars Nouveau NO se toca: usa los valores por defecto del mod.
-            double battlemageDefense = switch (piece) {
-                case "helmet" -> 5.5;
-                case "chestplate" -> 10.5;
-                case "leggings" -> 8.5;
-                default -> 5.5;
-            };
+            double battlemageDefense = times(piece, 4.0) - 2.0;
             ARMOR_FIXED.put(rl("irons_spellbooks:netherite_mage_" + piece), new ArmorFixed(battlemageDefense, 4, scaledDurability(battlemageDefense, 4, defense), rl("minecraft:diamond_" + piece)));
             // Myrmex (Ice and Fire): valores fijos propios, ambas variantes (desierto y jungla).
             double myrmexDefense = switch (piece) {

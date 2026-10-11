@@ -156,6 +156,8 @@ dependencies {
     compileOnly files('libs/L_Enders_Cataclysm-3.07.jar')
     // Solo para el Mixin que evita el crash de Entomophobia en clientes de mundos compartidos. No se empaqueta.
     compileOnly files('libs/entomophobia-1.1.0_HOME_SWEET_HOME.jar')
+    // Solo para el Mixin que quita el salto y la caida sin daño del set de gravitite. No se empaqueta.
+    compileOnly files('libs/aether-1.20.1-1.5.2-neoforge.jar')
 
     // Mixin annotation processor (genera el refmap para que Forge remapee en runtime)
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'

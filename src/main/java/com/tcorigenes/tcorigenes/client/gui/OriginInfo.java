@@ -178,7 +178,8 @@ public final class OriginInfo {
             case RITUALISTA_ARCANO -> {
                 l.add(plus(Tr.s("Es la única clase con acceso pleno a la magia.")));
                 l.add(minus(Tr.s("-10% de daño físico y -20% de vida, hasta consagrar el Matrimonio de Carne.")));
-                l.add(minus(Tr.s("Límite de destreza de armas: 75 entre ambas manos (sin armas de dos manos ni dos piezas de 50). Tras el matrimonio puede superarlo, con -10% de daño y -15% de velocidad de ataque a partir de 50.")));
+                l.add(minus(Tr.s("Fuerza base: 50 (hasta 79 con el Matrimonio de Carne). Las armaduras pesadas piden 80: por debajo, penalizan la velocidad de movimiento y de ataque.")));
+                l.add(minus(Tr.s("Límite de fuerza de armas: 75 entre ambas manos (sin armas de dos manos ni dos piezas de 50). Tras el matrimonio puede superarlo, con -10% de daño y -15% de velocidad de ataque a partir de 50.")));
             }
             case BERSERKER -> {
                 l.add(plus(Tr.s("+25% de daño cuerpo a cuerpo.")));
@@ -201,7 +202,8 @@ public final class OriginInfo {
                 l.add(plus(Tr.s("+100% de daño con arco y ballesta.")));
                 l.add(plus(Tr.s("+50% de probabilidad y de daño crítico, solo con proyectiles.")));
                 l.add(plus(Tr.s("+10% de velocidad de movimiento.")));
-                l.add(minus(Tr.s("Pasar 50 de destreza en armas es posible, pero con -10% de daño y -15% de velocidad de ataque y de carga.")));
+                l.add(plus(Tr.s("Fuerza base: 80 (puede usar armaduras pesadas sin penalización).")));
+                l.add(minus(Tr.s("Pasar 50 de fuerza en armas es posible, pero con -10% de daño y -15% de velocidad de ataque y de carga.")));
                 l.add(note(Tr.s("Habilidad (G): Ojo de Halcón. Marca los puntos débiles de todos los enemigos a 30 bloques durante 20 s: los proyectiles que los aciertan hacen +40% de daño y 15% ignora la armadura. Fallar 3 flechazos la cancela antes. Recarga: 3 min.")));
             }
             default -> {

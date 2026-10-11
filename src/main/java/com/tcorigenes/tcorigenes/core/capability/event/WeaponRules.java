@@ -114,6 +114,11 @@ public final class WeaponRules {
         com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "weight", Attributes.ATTACK_DAMAGE, penalized ? -0.10 : 0.0);
         com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "weight", Attributes.ATTACK_SPEED, penalized ? -0.15 : 0.0);
         setModifier(player.getAttribute(ModAttributes.DRAW_SPEED.get()), DRAW_SPEED_ID, "Peso excesivo (carga)", -0.15, AttributeModifier.Operation.ADDITION, penalized);
+
+        // Armaduras pesadas con menos de 80 de fuerza: penalizacion absoluta a la velocidad de movimiento y de ataque (ver HeavyArmor).
+        double heavyPenalty = com.tcorigenes.tcorigenes.core.HeavyArmor.penalty(player);
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "heavy_armor", Attributes.MOVEMENT_SPEED, -heavyPenalty);
+        com.tcorigenes.tcorigenes.attributes.OriginBonuses.set(player, "heavy_armor", Attributes.ATTACK_SPEED, -heavyPenalty);
     }
 
     private static void setModifier(AttributeInstance attribute, UUID id, String name, double amount, AttributeModifier.Operation op, boolean active) {

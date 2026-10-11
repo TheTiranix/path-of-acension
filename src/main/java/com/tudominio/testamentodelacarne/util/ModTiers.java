@@ -29,25 +29,25 @@ public class ModTiers {
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("sculkhorde", "diascite")))
     );
 
-    /** Herramientas de zafiro (pedido de alejandr0): como el diamante (nivel 3, 8 de velocidad, +3 de daño) con 100 usos
+    /** Herramientas de zafiro (pedido de alejandr0): nivel de minado del diamante y 3% mas rapidas (8.24), +3 de daño, 100 usos
      *  mas (1561 + 100); se reparan con el sapphire_gem de Ice and Fire. */
     public static final ForgeTier SAPPHIRE_TIER = new ForgeTier(
-            3, 1661, 8.0F, 3.0F, 10, BlockTags.NEEDS_DIAMOND_TOOL,
+            3, 1661, 8.24F, 3.0F, 10, BlockTags.NEEDS_DIAMOND_TOOL,
             () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("iceandfire", "sapphire_gem")))
     );
 
     /** Herramientas wintry (pedido de alejandr0): "como fiery pero frio", 1000 usos mas que netherite (3031); se reparan con la wintry gem. */
     public static final ForgeTier WINTRY_TIER = new ForgeTier(
-            4, 3031, 9.0F, 4.0F, 15, BlockTags.NEEDS_DIAMOND_TOOL,
+            5, 3031, 9.6F, 4.0F, 15, BlockTags.NEEDS_DIAMOND_TOOL,
             () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "wintry_gem")))
     );
 
-    /** Pico de Dark Metal: nivel por encima del diamante (se registra DESPUES del netherite en
-     *  TierSortingRegistry, ver TestamentoDeLaCarne#commonSetup), un poco mas rapido y duradero que el diamante. */
+    /** Pico de Dark Metal: un nivel por encima del diamante y al mismo nivel que el netherite (se registra entre el diamante y el
+     *  netherite en TierSortingRegistry, ver TestamentoDeLaCarne#commonSetup), 10% mas rapido que el diamante (8.8). */
     public static final ForgeTier DARK_METAL_TIER = new ForgeTier(
-            5, 1800, 8.5F, 3.0F, 12,
+            4, 1800, 8.8F, 3.0F, 12,
             net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("tcorigenes", "needs_dark_metal_tool")),
             () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(

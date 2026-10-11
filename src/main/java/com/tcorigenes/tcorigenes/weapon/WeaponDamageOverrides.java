@@ -194,13 +194,19 @@ public final class WeaponDamageOverrides {
         if (fixed != null) {
             Item reference = ForgeRegistries.ITEMS.getValue(fixed.uuidRef());
             if (reference != null) {
+                double toughness = fixed.toughness();
+                ResourceLocation toughnessLike = WeaponBalance.TOUGHNESS_LIKE.get(id);
+                if (Double.isNaN(toughness) && toughnessLike != null
+                        && ForgeRegistries.ITEMS.getValue(toughnessLike) instanceof net.minecraft.world.item.ArmorItem sameAs) {
+                    toughness = sameAs.getToughness(); // tenacidad igual a la de otra armadura (fiery y wintry = dragonsteel)
+                }
                 event.removeAttribute(Attributes.ARMOR);
-                if (!Double.isNaN(fixed.toughness())) {
+                if (!Double.isNaN(toughness)) {
                     event.removeAttribute(Attributes.ARMOR_TOUGHNESS);
                 }
                 for (var entry : reference.getDefaultAttributeModifiers(event.getSlotType()).entries()) {
                     double amount = entry.getKey() == Attributes.ARMOR ? fixed.defense()
-                            : entry.getKey() == Attributes.ARMOR_TOUGHNESS ? fixed.toughness() : Double.NaN;
+                            : entry.getKey() == Attributes.ARMOR_TOUGHNESS ? toughness : Double.NaN;
                     if (!Double.isNaN(amount)) {
                         // mismo UUID por ranura que la pieza de referencia (evita choques entre piezas equipadas)
                         event.addModifier(entry.getKey(), new AttributeModifier(

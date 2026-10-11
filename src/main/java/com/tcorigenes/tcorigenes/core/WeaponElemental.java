@@ -107,6 +107,9 @@ public final class WeaponElemental {
         if (!shot && direct == attacker) {
             applyGlove(attacker, event.getEntity(), spec);
         }
+        if (direct == attacker || direct instanceof net.minecraft.world.entity.projectile.AbstractArrow) {
+            applySetBonus(attacker, event.getEntity(), spec);
+        }
         if (spec == null || (spec.ranged && !shot)) {
             return; // un arco solo cuenta por el impacto de su proyectil
         }
@@ -149,6 +152,31 @@ public final class WeaponElemental {
             } else if (extra.element().equals(active)) {
                 extra(target, attacker, extra.element(), extra.amount());
             } // cualquier otro elemento del equipo directamente no funciona (ver ElementalRestriction)
+        }
+    }
+
+    /** Set completo de Valkyrie / Phoenix / Neptune: daño elemental fijo por golpe (sujeto a la restriccion de elemento). */
+    private static void applySetBonus(Player attacker, LivingEntity target, WeaponBalance.Spec weaponSpec) {
+        List<WeaponBalance.Extra> extras = com.tcorigenes.tcorigenes.weapon.ArmorSetBonus.flatExtras(attacker);
+        if (extras.isEmpty()) {
+            return;
+        }
+        ResourceKey<DamageType> converted = ElementalRestriction.converterElement(attacker);
+        ResourceKey<DamageType> active = ElementalRestriction.activeElement(attacker, weaponSpec);
+        ResourceKey<DamageType> absorb = converted == null ? ElementalRestriction.skillAbsorbElement(attacker, weaponSpec) : null;
+        for (WeaponBalance.Extra extra : extras) {
+            if (converted != null) {
+                extra(target, attacker, converted, extra.amount());
+            } else if (absorb != null) {
+                long fireAt = target.level().getGameTime() + PendingElementalHits.SAFE_DELAY_TICKS;
+                if (extra.element().equals(absorb)) {
+                    PendingElementalHits.queue(target, attacker, absorb, extra.amount(), fireAt);
+                } else {
+                    PendingElementalHits.queueNoEffect(target, attacker, absorb, extra.amount(), fireAt);
+                }
+            } else if (extra.element().equals(active)) {
+                extra(target, attacker, extra.element(), extra.amount());
+            }
         }
     }
 

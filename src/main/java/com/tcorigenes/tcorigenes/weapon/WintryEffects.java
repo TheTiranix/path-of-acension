@@ -32,7 +32,7 @@ public final class WintryEffects {
         return id != null && id.toString().startsWith(PREFIX);
     }
 
-    /** Congela: lentitud fuerte, la escarcha de la pantalla (ticks de congelacion) y particulas de nieve. */
+    /** Congela: lentitud nivel 1 (pedido de alejandr0: solo nivel 1), la escarcha de la pantalla (ticks de congelacion) y particulas de nieve. */
     private static void freeze(LivingEntity target, int ticks, int slowAmplifier) {
         target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, ticks, slowAmplifier, false, true));
         target.setTicksFrozen(Math.max(target.getTicksFrozen(), target.getTicksRequiredToFreeze() + ticks));
@@ -72,7 +72,7 @@ public final class WintryEffects {
         }
         // armas: golpe directo con algo wintry en la mano
         if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && attacker != victim && isWintry(attacker.getMainHandItem())) {
-            freeze(victim, 60, 3);
+            freeze(victim, 60, 0);
         }
         // armadura: quien te lastima (cuerpo a cuerpo o a distancia) queda congelado
         if (victim instanceof Player player && event.getSource().getEntity() instanceof LivingEntity attacker && attacker != player) {
@@ -83,7 +83,7 @@ public final class WintryEffects {
                 }
             }
             if (pieces > 0) {
-                freeze(attacker, 30 + 20 * pieces, Math.min(4, pieces));
+                freeze(attacker, 30 + 20 * pieces, 0);
             }
         }
     }
