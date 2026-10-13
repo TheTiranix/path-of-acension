@@ -89,6 +89,9 @@ public final class WeakPointManager {
     }
 
     private static boolean isBoss(LivingEntity entity) {
+        if (WeakPointAnchor.isCorpse(entity)) {
+            return false; // un cadaver (dragon muerto) no tiene punto debil
+        }
         var type = entity.getType();
         // los dragones de Ice and Fire sin dueño cuentan como jefes (no son Enemy ni estan en el tag de jefes, por eso nunca tenian punto debil)
         boolean wildDragon = WeakPointAnchor.isDragon(entity) && !(entity instanceof net.minecraft.world.entity.TamableAnimal tame && tame.isTame());
@@ -121,7 +124,7 @@ public final class WeakPointManager {
 
     /** Vale como enemigo: cualquier Enemy (incluye muchos mobs de mods) o un jefe. */
     private static boolean isEnemy(LivingEntity e) {
-        return e.isAlive() && (e instanceof Enemy || isBoss(e));
+        return e.isAlive() && !WeakPointAnchor.isCorpse(e) && (e instanceof Enemy || isBoss(e));
     }
 
     /** Hereje: un unico punto activo; si hay un jefe cerca se marca ese, si no el enemigo mas cercano. */
@@ -179,7 +182,7 @@ public final class WeakPointManager {
         while (it.hasNext()) {
             var entry = it.next();
             entry.getValue().removeIf(mark -> {
-                boolean expired = !mark.target.isAlive() || mark.target.isRemoved()
+                boolean expired = !mark.target.isAlive() || mark.target.isRemoved() || WeakPointAnchor.isCorpse(mark.target)
                         || mark.target.level().getGameTime() > mark.expiresAt;
                 if (expired) {
                     discard(mark);

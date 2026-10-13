@@ -10,10 +10,6 @@
       "required": false
     },
     {
-      "id": "twilightforest:yeti_boots",
-      "required": false
-    },
-    {
       "id": "cataclysm:ignitium_boots",
       "required": false
     },

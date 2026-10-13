@@ -30,7 +30,9 @@ public final class HeavyArmor {
             "iceandfire:dragonsteel_", "iceandfire:silver_metal_", "iceandfire:copper_metal_",
             "cataclysm:cursium_", "cataclysm:ignitium_", "mekanismtools:", "mekanism:mekasuit_",
             "celestisynth:solar_crystal_", "celestisynth:lunar_stone_", "eeeabsmobs:ghost_warrior_",
-            "alexscaves:diving_", "seadwellers:depth_", "mowziesmobs:wrought_"};
+            "alexscaves:diving_", "seadwellers:depth_", "mowziesmobs:wrought_", "create:netherite_diving_",
+            "panascraftrpgmod:upgraded_armor_", "panascraftrpgmod:void_armor_", "panascraftrpgmod:the_king_of_the_abyss_armor_",
+            "cataclysm:bone_reptile_"};
 
     private HeavyArmor() {
     }
@@ -44,6 +46,9 @@ public final class HeavyArmor {
             return false;
         }
         String s = id.toString();
+        if (id.getPath().contains("bone")) {
+            return true; // armaduras de hueso (de cualquier mod)
+        }
         for (String prefix : HEAVY_PREFIXES) {
             if (s.startsWith(prefix)) {
                 return true;

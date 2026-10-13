@@ -112,13 +112,14 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.NAGA_BOOTS.get());
                         output.accept((ItemLike) ModItems.DARKNESS_LEGGINGS.get());
                         output.accept((ItemLike) ModItems.DARKNESS_BOOTS.get());
+                        output.accept((ItemLike) ModItems.WROUGHT_SCRAP.get());
                         output.accept((ItemLike) ModItems.WROUGHT_CHESTPLATE.get());
                         output.accept((ItemLike) ModItems.WROUGHT_LEGGINGS.get());
                         output.accept((ItemLike) ModItems.WROUGHT_BOOTS.get());
                         output.accept((ItemLike) ModItems.PHOENIX_INGOT.get());
                         output.accept((ItemLike) ModItems.VALKYRIE_INGOT.get());
                         output.accept((ItemLike) ModItems.WINTRY_ESSENCE.get());
-                        output.accept((ItemLike) ModItems.WINTRY_GEM.get());
+                        output.accept((ItemLike) ModItems.WINTRY_INGOT.get());
                         output.accept((ItemLike) ModItems.WINTRY_HELMET.get());
                         output.accept((ItemLike) ModItems.WINTRY_CHESTPLATE.get());
                         output.accept((ItemLike) ModItems.WINTRY_LEGGINGS.get());

@@ -71,5 +71,8 @@ public final class KeresShadowControl {
         if (event.getOriginal().getPersistentData().getBoolean(KEY)) {
             event.getEntity().getPersistentData().putBoolean(KEY, true);
         }
+        if (event.getOriginal().getPersistentData().getBoolean("tc_lightning_off")) {
+            event.getEntity().getPersistentData().putBoolean("tc_lightning_off", true);
+        }
     }
 }

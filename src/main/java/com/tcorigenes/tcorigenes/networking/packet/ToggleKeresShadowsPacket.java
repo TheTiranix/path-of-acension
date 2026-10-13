@@ -35,7 +35,10 @@ public class ToggleKeresShadowsPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null && !holdsKeres(player)) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.a2df899162"), true);
+                // sin la Keres en la mano, la misma tecla prende o apaga el rayo que cae al golpear (proc de Aire)
+                boolean on = com.tudominio.elementaldamage.event.ElementalDamageEvents.toggleLightning(player);
+                player.displayClientMessage(net.minecraft.network.chat.Component.literal(com.tcorigenes.tcorigenes.core.Tr.s(
+                        on ? "Rayo al golpear: activado" : "Rayo al golpear: desactivado")), true);
             } else if (player != null) {
                 // el servidor alterna su propio estado (asi nunca quedan desfasados cliente y servidor) y avisa cual quedo
                 boolean now = !KeresShadowControl.enabled(player);

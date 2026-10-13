@@ -36,6 +36,31 @@ public final class WeakPointAnchor {
         return id != null && id.getNamespace().equals("iceandfire") && id.getPath().endsWith("_dragon");
     }
 
+    private static java.lang.reflect.Method deadMethod;
+    private static boolean deadMethodLooked;
+
+    /** Cadaver de dragon de Ice and Fire (el dragon muerto sigue como entidad "viva" un buen rato: EntityDragonBase#isModelDead). */
+    public static boolean isCorpse(LivingEntity target) {
+        if (target.getHealth() <= 0.0F || target.isDeadOrDying()) {
+            return true;
+        }
+        if (!isDragon(target)) {
+            return false;
+        }
+        try {
+            if (!deadMethodLooked) {
+                deadMethodLooked = true;
+                deadMethod = target.getClass().getMethod("isModelDead");
+            }
+            if (deadMethod != null && deadMethod.getDeclaringClass().isInstance(target)) {
+                return Boolean.TRUE.equals(deadMethod.invoke(target));
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            deadMethod = null;
+        }
+        return false;
+    }
+
     private static java.lang.reflect.Method headMethod;
     private static boolean headMethodLooked;
 

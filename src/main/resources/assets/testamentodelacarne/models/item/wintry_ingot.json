@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "testamentodelacarne:item/wintry_gem"
+    "layer0": "testamentodelacarne:item/wintry_ingot"
   }
 }

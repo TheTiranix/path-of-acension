@@ -101,7 +101,7 @@ public class WeakPointEntity extends Entity {
     public void tick() {
         super.tick();
         Entity target = this.level().getEntity(this.entityData.get(TARGET));
-        if (!(target instanceof LivingEntity living) || !living.isAlive()) {
+        if (!(target instanceof LivingEntity living) || !living.isAlive() || WeakPointAnchor.isCorpse(living)) {
             if (!this.level().isClientSide()) {
                 this.discard();
             }

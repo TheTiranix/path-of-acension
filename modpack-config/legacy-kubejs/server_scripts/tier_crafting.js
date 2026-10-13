@@ -53,3 +53,11 @@ ServerEvents.recipes(event => {
     event.remove({ id: 'aether:gravitite_' + piece });
   });
 });
+
+// Fiery (pedido de alejandr0): fuera los crafteos viejos que usaban piezas de hierro y viales (el lingote ahora se craftea con 4 de
+// netherite, 2 de osmium, 1 gema oculta y 1 fiery blood o fiery tears: receta fiery_ingot del mod).
+ServerEvents.recipes(event => {
+  ['fiery_iron_sword', 'fiery_iron_pickaxe', 'fiery_fiery_helmet', 'fiery_fiery_chestplate', 'fiery_fiery_leggings', 'fiery_fiery_boots', 'fiery_ingot_crafting'].forEach(name => {
+    event.remove({ id: 'twilightforest:equipment/' + name });
+  });
+});

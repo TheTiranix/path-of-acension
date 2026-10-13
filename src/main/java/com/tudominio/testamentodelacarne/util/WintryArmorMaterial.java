@@ -42,7 +42,7 @@ public final class WintryArmorMaterial implements ArmorMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        var gem = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "wintry_gem"));
+        var gem = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "wintry_ingot"));
         return gem == null ? Ingredient.EMPTY : Ingredient.of(gem);
     }
 

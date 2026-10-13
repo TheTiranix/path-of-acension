@@ -594,12 +594,10 @@ public final class WeaponBalance {
             // pieza e inmunidad al frio con el set completo (ver YetiArmor y ClimateImmunity).
             ARMOR_FIXED.put(rl("twilightforest:yeti_" + piece), new ArmorFixed(defense, 5, scaledDurability(defense, 5, defense), rl("minecraft:diamond_" + piece)));
             // Fiery (Twilight Forest): como la de gravitite pero 2 mas de proteccion por pieza y 1000 usos mas (2500)
-            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(times(piece, 6.0), Double.NaN, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
-            TOUGHNESS_LIKE.put(rl("twilightforest:fiery_" + piece), rl("iceandfire:dragonsteel_fire_" + piece));
+            ARMOR_FIXED.put(rl("twilightforest:fiery_" + piece), new ArmorFixed(times(piece, 6.0), 12, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
             EXACT_DURABILITY.add(rl("twilightforest:fiery_" + piece));
             // Wintry (nuestra): igual que la fiery pero fria
-            ARMOR_FIXED.put(rl("testamentodelacarne:wintry_" + piece), new ArmorFixed(times(piece, 6.0), Double.NaN, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
-            TOUGHNESS_LIKE.put(rl("testamentodelacarne:wintry_" + piece), rl("iceandfire:dragonsteel_fire_" + piece));
+            ARMOR_FIXED.put(rl("testamentodelacarne:wintry_" + piece), new ArmorFixed(times(piece, 6.0), 12, GRAVITITE_DURABILITY + 1000, rl("minecraft:diamond_" + piece)));
             EXACT_DURABILITY.add(rl("testamentodelacarne:wintry_" + piece));
             // Dragon scale armor (Ice and Fire, todos los colores): iguales a las de fiery (2.5 veces el diamante, 5 de tenacidad,
             // 2500 usos).
@@ -632,7 +630,7 @@ public final class WeaponBalance {
             ARMOR_LIKE.put(rl("seadwellers:depth_" + piece), rl("minecraft:diamond_" + piece));
             // Diving Armor (Alex's Caves): al nivel del netherite (proteccion y dureza).
             ARMOR_LIKE.put(rl("alexscaves:diving_" + (piece.equals("chestplate") ? "chestplate" : piece)), rl("minecraft:netherite_" + piece));
-            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 30 veces la proteccion del diamante (tenacidad sin tocar).
+            // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 30 veces la proteccion del diamante y 24 de tenacidad por pieza.
             double dragonsteelDefense = diamondDefenseOf(piece) * 30.0;
             int diamondPieceDurability = switch (piece) {
                 case "helmet" -> 363;
@@ -642,8 +640,20 @@ public final class WeaponBalance {
             };
             for (String element : new String[] {"fire", "ice", "lightning"}) {
                 ARMOR_FIXED.put(rl("iceandfire:dragonsteel_" + element + "_" + piece),
-                        new ArmorFixed(dragonsteelDefense, Double.NaN, 6000, rl("minecraft:diamond_" + piece)));
+                        new ArmorFixed(dragonsteelDefense, 24, 6000, rl("minecraft:diamond_" + piece)));
                 EXACT_DURABILITY.add(rl("iceandfire:dragonsteel_" + element + "_" + piece));
+            }
+            // Darkness (capucha y capa de Alex's Caves + pantalones y botas nuestros): 5 veces la proteccion del diamante.
+            if (piece.equals("helmet") || piece.equals("chestplate")) {
+                ARMOR_FIXED.put(rl("alexscaves:" + (piece.equals("helmet") ? "hood_of_darkness" : "cloak_of_darkness")),
+                        new ArmorFixed(diamondDefenseOf(piece) * 5.0, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
+            } else {
+                ARMOR_FIXED.put(rl("testamentodelacarne:darkness_" + piece), new ArmorFixed(diamondDefenseOf(piece) * 5.0, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
+            }
+            // Buceo de netherite (Create): casco y botas con 11 de proteccion y 7 de tenacidad, y la durabilidad del netherite.
+            if (piece.equals("helmet") || piece.equals("boots")) {
+                ARMOR_FIXED.put(rl("create:netherite_diving_" + piece), new ArmorFixed(11, 7, GRAVITITE_DURABILITY, rl("minecraft:diamond_" + piece)));
+                EXACT_DURABILITY.add(rl("create:netherite_diving_" + piece));
             }
             // Cursium e Ignitium (Cataclysm): 30 veces la proteccion del diamante y 20 de tenacidad por pieza (ignitium tambien en
             // su version con elytra).
@@ -669,6 +679,10 @@ public final class WeaponBalance {
             ARMOR_FIXED.put(rl("mekanismtools:osmium_" + piece),
                     new ArmorFixed(osmiumDefense, 1, scaledDurability(osmiumDefense, 1, defense), rl("minecraft:diamond_" + piece)));
             EXACT_DURABILITY.add(rl("mekanismtools:osmium_" + piece));
+            // Acero (Mekanism Tools): la misma proteccion y durabilidad que el osmium.
+            ARMOR_FIXED.put(rl("mekanismtools:steel_" + piece),
+                    new ArmorFixed(osmiumDefense, 1, scaledDurability(osmiumDefense, 1, defense), rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("mekanismtools:steel_" + piece));
             // Armaduras de arcane y black steel (nuestras): 4 veces la proteccion del diamante, 8 de tenacidad, 60000 usos cada pieza.
             for (String set : new String[] {"arcane", "black_steel"}) {
                 ARMOR_FIXED.put(rl("testamentodelacarne:" + set + "_" + piece),

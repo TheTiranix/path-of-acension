@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 
-/** Velocidad y nivel de minado en el tooltip de las herramientas de zafiro, dark metal, netherite, gravitite, fiery y wintry. */
+/** Velocidad y nivel de minado en el tooltip de TODAS las herramientas de excavar (picos, hachas, palas, azadas y paxeles). */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class ToolStatTooltip {
     private ToolStatTooltip() {
@@ -20,6 +20,10 @@ public final class ToolStatTooltip {
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         ToolBalance.Stat stat = ToolBalance.statOf(ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem()));
+        if (stat == null && event.getItemStack().getItem() instanceof net.minecraft.world.item.DiggerItem digger) {
+            // el resto de las herramientas del pack (vanilla y de otros mods): la velocidad y el nivel de su propio material
+            stat = new ToolBalance.Stat(digger.getTier().getSpeed() / ToolBalance.DIAMOND_SPEED, digger.getTier().getLevel());
+        }
         if (stat == null) {
             return;
         }

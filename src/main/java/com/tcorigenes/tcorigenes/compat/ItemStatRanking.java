@@ -119,7 +119,7 @@ public final class ItemStatRanking {
     }
 
     /** Suma solo los modifiers de tipo ADDITION (el "+X" que ya se ve en el tooltip vanilla). */
-    private static float sumModifiers(ItemStack stack, EquipmentSlot slot, Attribute attribute) {
+    public static float sumModifiers(ItemStack stack, EquipmentSlot slot, Attribute attribute) {
         Multimap<Attribute, AttributeModifier> modifiers = stack.getAttributeModifiers(slot);
         float total = 0.0F;
         for (AttributeModifier modifier : modifiers.get(attribute)) {

@@ -52,7 +52,7 @@ public final class MaterialWeapons {
             // diascite (Sculk Horde): al nivel del dark metal (espada de 10 de daño, 1800 usos)
             new Material("diascite", "Diascite", 10.0 / 7.0, 1800, "sculkhorde:diascite"),
             // wintry: como fiery pero frio (espada de 50, 3031 usos); las armas congelan al golpear (ver WintryEffects)
-            new Material("wintry", "Wintry", 50.0 / 7.0, 3031, "testamentodelacarne:wintry_gem"));
+            new Material("wintry", "Wintry", 50.0 / 7.0, 3031, "testamentodelacarne:wintry_ingot"));
 
     public static final List<Type> TYPES = List.of(
             new Type("dagger", "vtaw_mw:diamond_dagger", "Dagger"),

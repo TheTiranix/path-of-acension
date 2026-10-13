@@ -165,3 +165,27 @@ ServerEvents.recipes(event => {
 
 });
 
+
+
+// Pedidos de alejandr0 (Mekanism): la piedra luminosa refinada se hace con una mezcla de polvo de glowstone y polvo de acero (combinador),
+// y los items de bronce se vuelven a craftear usando el cobre de Ice and Fire.
+ServerEvents.recipes(event => {
+  event.remove({ id: 'mekanism:processing/refined_glowstone/ingot/from_dust' });
+  event.custom({
+    type: 'mekanism:combining',
+    mainInput: { ingredient: { tag: 'forge:dusts/glowstone' } },
+    extraInput: { ingredient: { tag: 'forge:dusts/steel' } },
+    output: { item: 'mekanism:ingot_refined_glowstone' }
+  });
+
+  event.shaped('mekanismtools:bronze_boots', ["I I", "I I"], {'I': 'iceandfire:copper_ingot'});
+  event.shaped('mekanismtools:bronze_chestplate', ["I I", "III", "III"], {'I': 'iceandfire:copper_ingot'});
+  event.shaped('mekanismtools:bronze_helmet', ["III", "I I"], {'I': 'iceandfire:copper_ingot'});
+  event.shaped('mekanismtools:bronze_leggings', ["III", "I I", "I I"], {'I': 'iceandfire:copper_ingot'});
+  event.shaped('mekanismtools:bronze_shield', ["IPI", "III", " I "], {'I': 'iceandfire:copper_ingot', 'P': 'minecraft:shield'});
+  event.shaped('mekanismtools:bronze_axe', ["II", "IR", " R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_hoe', ["II", " R", " R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_pickaxe', ["III", " R ", " R "], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_shovel', ["I", "R", "R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_sword', ["I", "I", "R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
+});

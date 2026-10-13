@@ -38,6 +38,14 @@ public final class MagicRestrictions {
                     return;
                 }
                 int level = spellLevel(event);
+                if (!castSourceAllowed(player, event)) {
+                    if (!player.level().isClientSide()) {
+                        player.displayClientMessage(Component.literal(com.tcorigenes.tcorigenes.core.Tr.s(
+                                "Necesitas un baston en alguna mano, o el hechizo imbuido en un item que lleves puesto.")), true);
+                    }
+                    event.setCanceled(true);
+                    return;
+                }
                 if (!isMage(player)) {
                     if (level > 1) {
                         deny(player, "pa.m.mage_lvl2");
@@ -86,6 +94,39 @@ public final class MagicRestrictions {
         } catch (ReflectiveOperationException | LinkageError e) {
             org.slf4j.LoggerFactory.getLogger(MagicRestrictions.class).warn("No se pudo enganchar {}: {}", className, e.toString());
         }
+    }
+
+    /**
+     * Pedido de alejandr0: solo se pueden castear hechizos si estan imbuidos en una equipacion puesta (espada, pechera, escudo...: fuente
+     * SWORD de Iron's Spellbooks) o si hay cualquier baston en alguna de las dos manos. Los hechizos de comandos y de mobs no se tocan.
+     */
+    private static boolean castSourceAllowed(Player player, Event event) {
+        String source;
+        try {
+            source = String.valueOf(event.getClass().getMethod("getCastSource").invoke(event));
+        } catch (ReflectiveOperationException e) {
+            return true;
+        }
+        if (source.equals("SWORD") || source.equals("COMMAND") || source.equals("MOB") || source.equals("NONE")
+                || player.isCreative() && player.hasPermissions(2)) {
+            return true;
+        }
+        return isStaff(player.getMainHandItem()) || isStaff(player.getOffhandItem());
+    }
+
+    private static boolean isStaff(net.minecraft.world.item.ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+        var id = net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if (id == null) {
+            return false;
+        }
+        String path = id.getPath();
+        if (path.contains("quarterstaff")) {
+            return false; // el baston de combate (arma cuerpo a cuerpo) no es un baston magico
+        }
+        return path.contains("staff") || stack.getItem().getClass().getName().startsWith("io.redspace.ironsspellbooks.item.weapons.Staff");
     }
 
     private static Player playerOf(Event event) {

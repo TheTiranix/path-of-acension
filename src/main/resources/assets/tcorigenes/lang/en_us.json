@@ -1054,5 +1054,11 @@
   "pa.t.6f84ddf8dd": "Weapon strength limit: 75 across both hands (no two-handed weapons or two pieces of 50). After the marriage it can exceed it, with -10% damage and -15% attack speed from 50.",
   "pa.t.2258a66ff1": "Going over 50 weapon strength is possible, but with -10% damage and -15% attack and draw speed.",
   "pa.t.49213ba296": "Base strength: 50 (up to 79 with the Flesh Marriage). Heavy armor requires 80: below that it penalizes movement and attack speed.",
-  "pa.t.c9990917e9": "Base strength: 80 (can wear heavy armor without penalty)."
+  "pa.t.c9990917e9": "Base strength: 80 (can wear heavy armor without penalty).",
+  "pa.t.c0fe09c319": "A dragon's body can only be harvested with an iron butcher's cleaver.",
+  "pa.t.0448c6a34f": "Lightning on hit: enabled",
+  "pa.t.7b1859cc7f": "Lightning on hit: disabled",
+  "pa.t.831ce8607a": "Light sets (mages)",
+  "pa.t.d5319cea5b": "Mage sets",
+  "pa.t.6baf9581fd": "You need a staff in either hand, or the spell imbued in an item you are wearing."
 }

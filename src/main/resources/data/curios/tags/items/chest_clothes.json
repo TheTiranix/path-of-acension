@@ -10,10 +10,6 @@
       "required": false
     },
     {
-      "id": "twilightforest:yeti_chestplate",
-      "required": false
-    },
-    {
       "id": "cataclysm:ignitium_chestplate",
       "required": false
     },

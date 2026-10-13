@@ -38,7 +38,7 @@ public final class RankingButtons {
             left -= 150;
         }
         // pedido de alejandr0: a la izquierda del inventario (debajo del boton de pacifista)
-        return new Rect2i(Math.max(2, left - WIDTH - GAP), screen.getGuiTop() + 28, WIDTH, HEIGHT * 2 + 4);
+        return new Rect2i(Math.max(2, left - WIDTH - GAP), screen.getGuiTop() + 28, WIDTH, HEIGHT * 3 + 8);
     }
 
     @SubscribeEvent
@@ -53,5 +53,8 @@ public final class RankingButtons {
         event.addListener(Button.builder(Component.translatable("pa.msg.21dbaa5cb3"),
                 button -> com.tcorigenes.tcorigenes.compat.jei.ModJeiPlugin.showArmor())
                 .bounds(area.getX(), area.getY() + HEIGHT + 4, WIDTH, HEIGHT).build());
+        event.addListener(Button.builder(Component.literal(com.tcorigenes.tcorigenes.core.Tr.s("Sets de magos")),
+                button -> com.tcorigenes.tcorigenes.compat.jei.ModJeiPlugin.showMageSets())
+                .bounds(area.getX(), area.getY() + (HEIGHT + 4) * 2, WIDTH, HEIGHT).build());
     }
 }

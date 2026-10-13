@@ -3,7 +3,16 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "testamentodelacarne:gravitite_gem"
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
     },
     {
       "item": "testamentodelacarne:gravitite_gem"
@@ -15,16 +24,7 @@
       "item": "testamentodelacarne:gravitite_gem"
     },
     {
-      "item": "mekanism:ingot_osmium"
-    },
-    {
-      "item": "mekanism:ingot_osmium"
-    },
-    {
-      "item": "mekanism:ingot_osmium"
-    },
-    {
-      "item": "mekanism:ingot_osmium"
+      "item": "testamentodelacarne:gravitite_gem"
     }
   ],
   "result": {

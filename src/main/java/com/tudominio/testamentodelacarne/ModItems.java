@@ -300,11 +300,11 @@ public class ModItems {
     public static final RegistryObject<Item> VALKYRIE_INGOT = ITEMS.register(
             "valkyrie_ingot", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
-    /** Esencia de invierno (drop de la Snow Queen) y gema invernal (gravitite + esencia): material de todo el set wintry. */
+    /** Esencia de invierno (drop de la Snow Queen) y lingote invernal (gravitite + esencia): material de todo el set wintry. */
     public static final RegistryObject<Item> WINTRY_ESSENCE = ITEMS.register(
             "wintry_essence", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> WINTRY_GEM = ITEMS.register(
-            "wintry_gem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> WINTRY_INGOT = ITEMS.register(
+            "wintry_ingot", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
     private static RegistryObject<Item> wintryArmor(String piece, net.minecraft.world.item.ArmorItem.Type type) {
         return ITEMS.register("wintry_" + piece, () -> new net.minecraft.world.item.ArmorItem(
@@ -414,6 +414,10 @@ public class ModItems {
     public static final RegistryObject<Item> DARKNESS_BOOTS = ITEMS.register(
             "darkness_boots", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.DARKNESS,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    /** Chatarra de Wrought: la suelta el Wroughtnaut (12) y se usa para craftear el set de Wrought. */
+    public static final RegistryObject<Item> WROUGHT_SCRAP = ITEMS.register(
+            "wrought_scrap", () -> new Item(new Item.Properties().fireResistant()));
 
     public static final RegistryObject<Item> WROUGHT_CHESTPLATE = ITEMS.register(
             "wrought_chestplate", () -> new net.minecraft.world.item.ArmorItem(com.tudominio.testamentodelacarne.util.MiscArmorMaterials.WROUGHT,

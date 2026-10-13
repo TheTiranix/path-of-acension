@@ -54,7 +54,7 @@ public final class WintryEffects {
         String key = null;
         if (path.startsWith("wintry_")) {
             boolean armor = path.endsWith("helmet") || path.endsWith("chestplate") || path.endsWith("leggings") || path.endsWith("boots");
-            key = armor ? "wintry_armor" : path.equals("wintry_gem") || path.equals("wintry_essence") ? (path.equals("wintry_essence") ? "wintry_essence" : null) : "wintry_weapon";
+            key = armor ? "wintry_armor" : path.equals("wintry_ingot") || path.equals("wintry_essence") ? (path.equals("wintry_essence") ? "wintry_essence" : null) : "wintry_weapon";
         } else if (path.equals("phoenix_ingot") || path.equals("valkyrie_ingot")) {
             key = path;
         }

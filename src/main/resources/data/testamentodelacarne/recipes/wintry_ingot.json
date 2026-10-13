@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "testamentodelacarne:gravitite_ingot"
+    },
+    {
+      "item": "testamentodelacarne:gravitite_ingot"
+    },
+    {
+      "item": "testamentodelacarne:gravitite_ingot"
+    },
+    {
+      "item": "testamentodelacarne:gravitite_ingot"
+    },
+    {
+      "item": "mekanism:ingot_osmium"
+    },
+    {
+      "item": "mekanism:ingot_osmium"
+    },
+    {
+      "item": "alexscaves:sea_glass_shards"
+    },
+    {
+      "item": "testamentodelacarne:wintry_essence"
+    }
+  ],
+  "result": {
+    "item": "testamentodelacarne:wintry_ingot"
+  }
+}

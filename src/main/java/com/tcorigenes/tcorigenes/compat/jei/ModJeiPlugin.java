@@ -36,6 +36,8 @@ import net.minecraft.world.item.Items;
 public class ModJeiPlugin implements IModPlugin {
     private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath("tcorigenes", "jei_plugin");
     public static final RecipeType<StatSortRecipe> DAMAGE_SORT = RecipeType.create("tcorigenes", "damage_sort", StatSortRecipe.class);
+    /** Sets de armadura livianos para magos, ordenados por proteccion total (ver LightArmorSets). */
+    public static final RecipeType<SetSortRecipe> MAGE_SETS = RecipeType.create("tcorigenes", "mage_sets", SetSortRecipe.class);
     public static final Map<ArmorCategory, RecipeType<StatSortRecipe>> ARMOR_SORT = new EnumMap<>(ArmorCategory.class);
 
     static {
@@ -116,6 +118,12 @@ public class ModJeiPlugin implements IModPlugin {
         }
     }
 
+    public static void showMageSets() {
+        if (runtime != null) {
+            runtime.getRecipesGui().showTypes(List.of(MAGE_SETS));
+        }
+    }
+
     private static Item iconOf(ArmorCategory category) {
         return switch (category) {
             case HELMET -> Items.NETHERITE_HELMET;
@@ -135,6 +143,8 @@ public class ModJeiPlugin implements IModPlugin {
             registration.addRecipeCategories(new StatSortCategory(ARMOR_SORT.get(category),
                     Component.translatable("pa.msg.6174639ae2", category.label()), new ItemStack(iconOf(category)), guiHelper));
         }
+        registration.addRecipeCategories(new SetSortCategory(MAGE_SETS, Component.literal(com.tcorigenes.tcorigenes.core.Tr.s("Sets livianos (magos)")),
+                new ItemStack(Items.LEATHER_CHESTPLATE), guiHelper));
         registration.addRecipeCategories(new TieredCraftingCategory(TIER2_CRAFTING, Component.translatable("pa.msg.13e24d7260"),
                 new ItemStack(com.tudominio.testamentodelacarne.crafting.ModCrafting.TIER2_TABLE_ITEM.get()), 3, guiHelper));
         registration.addRecipeCategories(new TieredCraftingCategory(TIER3_CRAFTING, Component.translatable("pa.msg.230719fc3d"),
@@ -147,6 +157,12 @@ public class ModJeiPlugin implements IModPlugin {
         org.slf4j.LoggerFactory.getLogger(ModJeiPlugin.class).info(
                 "[tcorigenes] JEI: {} items con daño, {} con armadura", damageEntries.size(), ItemStatRanking.armorRanking().size());
 
+        var mageSets = com.tcorigenes.tcorigenes.compat.LightArmorSets.sets();
+        List<SetSortRecipe> mageSetPages = new ArrayList<>();
+        for (int i = 0; i < mageSets.size(); i += SetSortCategory.ROWS_PER_PAGE) {
+            mageSetPages.add(new SetSortRecipe(mageSets.subList(i, Math.min(i + SetSortCategory.ROWS_PER_PAGE, mageSets.size()))));
+        }
+        registration.addRecipes(MAGE_SETS, mageSetPages);
         registration.addRecipes(TIER2_CRAFTING, craftingRecipes(2));
         registration.addRecipes(TIER3_CRAFTING, craftingRecipes(3));
         registration.addRecipes(DAMAGE_SORT, chunk(damageEntries, "Daño"));
@@ -192,6 +208,7 @@ public class ModJeiPlugin implements IModPlugin {
         // las mesas de nivel tambien hacen las recetas comunes
         registration.addRecipeCatalysts(mezz.jei.api.constants.RecipeTypes.CRAFTING, tier2, tier3);
         registration.addRecipeCatalysts(DAMAGE_SORT, ModItems.ORBE_DE_ORIGENES.get());
+        registration.addRecipeCatalysts(MAGE_SETS, ModItems.ANILLO_DE_PURIFICACION.get());
         for (ArmorCategory category : ArmorCategory.values()) {
             registration.addRecipeCatalysts(ARMOR_SORT.get(category), ModItems.ANILLO_DE_PURIFICACION.get());
         }

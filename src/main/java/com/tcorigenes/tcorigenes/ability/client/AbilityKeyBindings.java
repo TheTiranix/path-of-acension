@@ -59,12 +59,7 @@ public class AbilityKeyBindings {
             SkillTreeScreen.open();
         }
         while (TOGGLE_KERES_SHADOWS.consumeClick()) {
-            var self = net.minecraft.client.Minecraft.getInstance().player;
-            if (self != null && !com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket.holdsKeres(self)) {
-                self.displayClientMessage(net.minecraft.network.chat.Component.translatable("pa.msg.a2df899162"), true);
-            } else {
-                Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(true));
-            }
+            Networking.sendToServer(new com.tcorigenes.tcorigenes.networking.packet.ToggleKeresShadowsPacket(true));
         }
         while (ACTIVATE_RACIAL.consumeClick()) {
             Networking.sendToServer(new ActivateRacialAbilityPacket());

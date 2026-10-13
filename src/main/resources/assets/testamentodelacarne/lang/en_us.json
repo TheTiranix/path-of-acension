@@ -216,7 +216,7 @@
   "item.testamentodelacarne.phoenix_ingot": "Phoenix Ingot",
   "item.testamentodelacarne.valkyrie_ingot": "Valkyrie Ingot",
   "item.testamentodelacarne.wintry_essence": "Wintry Essence",
-  "item.testamentodelacarne.wintry_gem": "Wintry Gem",
+  "item.testamentodelacarne.wintry_ingot": "Wintry Ingot",
   "item.testamentodelacarne.wintry_helmet": "Wintry Helmet",
   "item.testamentodelacarne.wintry_chestplate": "Wintry Chestplate",
   "item.testamentodelacarne.wintry_leggings": "Wintry Leggings",
@@ -238,7 +238,7 @@
   "item.testamentodelacarne.wintry_spear": "Wintry Spear",
   "tooltip.testamentodelacarne.wintry_weapon": "Freezes the enemy it hits (Slowness I and frost).",
   "tooltip.testamentodelacarne.wintry_armor": "Freezes whoever hurts you: more pieces worn, a longer freeze.",
-  "tooltip.testamentodelacarne.wintry_essence": "Dropped by the Snow Queen. Combine with a gravitite gem to make a wintry gem.",
+  "tooltip.testamentodelacarne.wintry_essence": "Dropped by the Snow Queen. Used to craft the wintry ingot.",
   "tooltip.testamentodelacarne.phoenix_ingot": "Found in the Aether Gold Dungeon. Upgrade netherite armor to Phoenix armor on a smithing table.",
   "tooltip.testamentodelacarne.valkyrie_ingot": "Found in the Aether Gold Dungeon. Upgrade gravitite armor to Valkyrie armor on a smithing table.",
   "item.testamentodelacarne.gravitite_ingot": "Gravitite Ingot",
@@ -246,5 +246,6 @@
   "item.testamentodelacarne.dark_chainmail_helmet": "Dark Metal Chainmail Helmet",
   "item.testamentodelacarne.dark_chainmail_chestplate": "Dark Metal Chainmail Chestplate",
   "item.testamentodelacarne.dark_chainmail_leggings": "Dark Metal Chainmail Leggings",
-  "item.testamentodelacarne.dark_chainmail_boots": "Dark Metal Chainmail Boots"
+  "item.testamentodelacarne.dark_chainmail_boots": "Dark Metal Chainmail Boots",
+  "item.testamentodelacarne.wrought_scrap": "Wrought Scrap"
 }

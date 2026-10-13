@@ -1,13 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "testamentodelacarne:tier3_shaped",
   "category": "equipment",
   "pattern": [
-    "N N",
-    "N N"
+    "S",
+    "SXS",
+    "S"
   ],
   "key": {
-    "N": {
-      "item": "minecraft:netherite_ingot"
+    "S": {
+      "item": "testamentodelacarne:wrought_scrap"
+    },
+    "X": {
+      "item": "born_in_chaos_v1:dark_metal_armor_boots"
     }
   },
   "result": {

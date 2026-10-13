@@ -257,10 +257,26 @@ public class ElementalDamageEvents {
         ElementalProcCooldowns.startCooldown(attacker, ElementalProcCooldowns.Kind.EARTH, now + 20 * 20);
     }
 
+    private static final String LIGHTNING_OFF = "tc_lightning_off";
+
+    /** Pedido de alejandr0: la misma tecla de la Keres (K) apaga o prende el rayo al golpear. Devuelve true si quedo activado. */
+    public static boolean toggleLightning(net.minecraft.world.entity.player.Player player) {
+        boolean wasOff = player.getPersistentData().getBoolean(LIGHTNING_OFF);
+        if (wasOff) {
+            player.getPersistentData().remove(LIGHTNING_OFF);
+        } else {
+            player.getPersistentData().putBoolean(LIGHTNING_OFF, true);
+        }
+        return wasOff;
+    }
+
     /** Aire: invoca un rayo (solo visual/sonido, sin el daño/fuego vanilla) que hace 5 de daño
      *  cada 10 de daño base de aire (tope 50), como golpe elemental aparte (PendingElementalHits).
      *  Cooldown de 10s por atacante. */
     private static void applyAirLightning(LivingEntity target, LivingEntity attacker, float baseDamage) {
+        if (attacker instanceof net.minecraft.world.entity.player.Player lightningPlayer && lightningPlayer.getPersistentData().getBoolean(LIGHTNING_OFF)) {
+            return; // el jugador apago el rayo al golpear (tecla K)
+        }
         long now = target.level().getGameTime();
         if (!ElementalProcCooldowns.isReady(attacker, ElementalProcCooldowns.Kind.AIR, now)) {
             return;

@@ -41,7 +41,7 @@ public class ModTiers {
     public static final ForgeTier WINTRY_TIER = new ForgeTier(
             5, 3031, 9.6F, 4.0F, 15, BlockTags.NEEDS_DIAMOND_TOOL,
             () -> Ingredient.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(
-                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "wintry_gem")))
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("testamentodelacarne", "wintry_ingot")))
     );
 
     /** Pico de Dark Metal: un nivel por encima del diamante y al mismo nivel que el netherite (se registra entre el diamante y el
