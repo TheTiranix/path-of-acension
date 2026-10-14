@@ -20,6 +20,14 @@
     {
       "id": "testamentodelacarne:ice_cloth_hood",
       "required": false
+    },
+    {
+      "id": "mekanism:hazmat_mask",
+      "required": false
+    },
+    {
+      "id": "alexscaves:hazmat_mask",
+      "required": false
     }
   ]
 }

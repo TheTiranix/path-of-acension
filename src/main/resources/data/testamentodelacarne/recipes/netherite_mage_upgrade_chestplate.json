@@ -2,17 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "pattern": [
-    " N ",
+    "N",
     "NXN",
-    " N "
+    "N"
   ],
   "key": {
     "N": {
       "item": "minecraft:netherite_ingot"
     },
-    "X": {
-      "item": "irons_spellbooks:priest_chestplate"
-    }
+    "X": [
+      {
+        "item": "testamentodelacarne:dark_chainmail_chestplate"
+      },
+      {
+        "item": "born_in_chaos_v1:nightmare_mantleofthe_night_chestplate"
+      }
+    ]
   },
   "result": {
     "item": "irons_spellbooks:netherite_mage_chestplate"

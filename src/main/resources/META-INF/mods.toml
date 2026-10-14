@@ -110,6 +110,12 @@ description='''Sistema de razas propio de "La Caida de los Dioses": 8 origenes c
     versionRange="[0,)"
     ordering="AFTER"
     side="BOTH"
+[[dependencies.tcorigenes]]
+    modId="irons_spellbooks"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"
 
 # --- Tercer mod empaquetado en el mismo jar: tipos de dano elemental (luz/fuego/agua/lunar/ender) ---
 [[mods]]

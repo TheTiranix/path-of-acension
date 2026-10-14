@@ -211,6 +211,25 @@ public final class WeaponBalance {
         };
     }
 
+    /** Zafiro: casco y botas 4, pechera 9, pantalones 7. */
+    static double sapphireDefenseOf(String piece) {
+        return switch (piece) {
+            case "chestplate" -> 9;
+            case "leggings" -> 7;
+            default -> 4;
+        };
+    }
+
+    /** Durabilidad de cada pieza de zafiro (diamante + 100). */
+    static int sapphireDurabilityOf(String piece) {
+        return switch (piece) {
+            case "helmet" -> 363 + 100;
+            case "chestplate" -> 528 + 100;
+            case "leggings" -> 495 + 100;
+            default -> 429 + 100;
+        };
+    }
+
     /** Proteccion de la pieza como multiplo de la del diamante, redondeada a .0 o .5 (ej. 1.6 veces). */
     static double times(String piece, double factor) {
         return Math.round(diamondDefenseOf(piece) * factor * 2.0) / 2.0;
@@ -609,7 +628,7 @@ public final class WeaponBalance {
                 EXACT_DURABILITY.add(rl("iceandfire:armor_" + color + "_" + piece));
             }
             // Armaduras "como" otra (diamante / netherite): tambien igualan su durabilidad (nunca la bajan, ver ArmorDurability)
-            for (String set : new String[] {"twilightforest:steeleaf_", "seadwellers:depth_"}) {
+            for (String set : new String[] {"twilightforest:steeleaf_"}) {
                 ARMOR_DURABILITY_LIKE.put(rl(set + piece), rl("minecraft:diamond_" + piece));
             }
             ARMOR_DURABILITY_LIKE.put(rl("alexscaves:diving_" + piece), rl("minecraft:netherite_" + piece));
@@ -626,8 +645,6 @@ public final class WeaponBalance {
                 ARMOR_FIXED.put(rl(set + piece), new ArmorFixed(diamondDefense * 2500.0, Double.NaN, 0, rl("minecraft:diamond_" + piece)));
                 GUARDED_ARMOR.add(rl(set + piece));
             }
-            // Depth (Sea Dwellers): al nivel del diamante.
-            ARMOR_LIKE.put(rl("seadwellers:depth_" + piece), rl("minecraft:diamond_" + piece));
             // Diving Armor (Alex's Caves): al nivel del netherite (proteccion y dureza).
             ARMOR_LIKE.put(rl("alexscaves:diving_" + (piece.equals("chestplate") ? "chestplate" : piece)), rl("minecraft:netherite_" + piece));
             // Dragonsteel (Ice and Fire, fuego/hielo/rayo): 30 veces la proteccion del diamante y 24 de tenacidad por pieza.
@@ -715,8 +732,43 @@ public final class WeaponBalance {
             // Diascite (nuestra, Sculk Horde): igual que el dark metal.
             ARMOR_FIXED.put(rl("testamentodelacarne:diascite_" + piece), new ArmorFixed(darkMetalDefense, 3, scaledDurability(darkMetalDefense, 3, defense), rl("minecraft:diamond_" + piece)));
             // Armadura de zafiro (nuestra, ver SapphireArmorMaterial): 3.5 casco y botas, 8.5 pechera, 6.5 pantalones, 3 de tenacidad.
-            double sapphireDefense = times(piece, 1.2);
+            double sapphireDefense = sapphireDefenseOf(piece);
             ARMOR_FIXED.put(rl("testamentodelacarne:sapphire_" + piece), new ArmorFixed(sapphireDefense, 3, -1, rl("minecraft:diamond_" + piece)));
+            // Depth (Sea Dwellers): protege igual que el zafiro y tiene su durabilidad (las penalizaciones de velocidad y el bonus de agua estan
+            // en SeaArmorTweaks).
+            ARMOR_FIXED.put(rl("seadwellers:depth_" + piece), new ArmorFixed(sapphireDefense, 3, sapphireDurabilityOf(piece), rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("seadwellers:depth_" + piece));
+            // Tide Guardian (Ice and Fire, armadura de serpiente marina): 0.5 mas que el diamante por pieza, 2 de tenacidad y la durabilidad del zafiro.
+            for (String tideColor : new String[] {"blue", "bronze", "deepblue", "green", "purple", "red", "teal"}) {
+                ARMOR_FIXED.put(rl("iceandfire:tide_" + tideColor + "_" + piece),
+                        new ArmorFixed(diamondDefenseOf(piece) + 0.5, 2, sapphireDurabilityOf(piece), rl("minecraft:diamond_" + piece)));
+                EXACT_DURABILITY.add(rl("iceandfire:tide_" + tideColor + "_" + piece));
+            }
+            // Nightmare (Born in Chaos): igual que el diamante, 3 de tenacidad por pieza y la durabilidad del dark metal (set completo: +50%
+            // de poder de hechizos lunares, ver SetSpellPower).
+            double nightmareDarkMetal = times(piece, 1.6);
+            ARMOR_FIXED.put(rl("born_in_chaos_v1:nightmare_mantleofthe_night_" + piece),
+                    new ArmorFixed(diamondDefenseOf(piece), 3, scaledDurability(nightmareDarkMetal, 3, defense), rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("born_in_chaos_v1:nightmare_mantleofthe_night_" + piece));
+            // Holy (nuestra, tunicas blancas): las mismas stats que la nightmare; set completo: +50% de poder de hechizos de luz.
+            String holyName = switch (piece) {
+                case "helmet" -> "holy_hood";
+                case "chestplate" -> "holy_robes";
+                case "leggings" -> "holy_trousers";
+                default -> "holy_footpads";
+            };
+            ARMOR_FIXED.put(rl("testamentodelacarne:" + holyName),
+                    new ArmorFixed(diamondDefenseOf(piece), 3, scaledDurability(nightmareDarkMetal, 3, defense), rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("testamentodelacarne:" + holyName));
+            // Hazmat (Mekanism y Alex's Caves): 1 de proteccion por pieza.
+            String mekHazmat = switch (piece) {
+                case "helmet" -> "hazmat_mask";
+                case "chestplate" -> "hazmat_gown";
+                case "leggings" -> "hazmat_pants";
+                default -> "hazmat_boots";
+            };
+            ARMOR_FIXED.put(rl("mekanism:" + mekHazmat), new ArmorFixed(1, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("alexscaves:hazmat_" + (piece.equals("helmet") ? "mask" : piece)), new ArmorFixed(1, Double.NaN, -1, rl("minecraft:diamond_" + piece)));
             // Netherite Battlemage (Iron's Spellbooks, netherite_mage_*): valores fijos propios + 4 de tenacidad de armadura.
             // La Battlemage normal de Ars Nouveau NO se toca: usa los valores por defecto del mod.
             double battlemageDefense = times(piece, 4.0) - 2.0;
@@ -728,8 +780,9 @@ public final class WeaponBalance {
                     scaledDurability(times(piece, 1.2) - 0.5, 0, defense), rl("minecraft:diamond_" + piece)));
             ARMOR_FIXED.put(rl("irons_spellbooks:cultist_" + piece), new ArmorFixed(times(piece, 1.2) - 0.5, Double.NaN,
                     scaledDurability(times(piece, 1.2) - 0.5, 0, defense), rl("minecraft:diamond_" + piece)));
-            ARMOR_FIXED.put(rl("irons_spellbooks:priest_" + piece), new ArmorFixed(times(piece, 1.6) - 1.0, Double.NaN,
-                    scaledDurability(times(piece, 1.6) - 1.0, 0, defense), rl("minecraft:diamond_" + piece)));
+            ARMOR_FIXED.put(rl("irons_spellbooks:priest_" + piece), new ArmorFixed(battlemageDefense, 4,
+                    scaledDurability(battlemageDefense, 4, defense), rl("minecraft:diamond_" + piece)));
+            EXACT_DURABILITY.add(rl("irons_spellbooks:priest_" + piece));
             ARMOR_FIXED.put(rl("irons_spellbooks:plagued_" + piece), new ArmorFixed(times(piece, 1.6) - 1.0, Double.NaN,
                     scaledDurability(times(piece, 1.6) - 1.0, 0, defense), rl("minecraft:diamond_" + piece)));
             ARMOR_FIXED.put(rl("irons_spellbooks:pyromancer_" + piece), new ArmorFixed(times(piece, 1.6) - 1.0, Double.NaN,

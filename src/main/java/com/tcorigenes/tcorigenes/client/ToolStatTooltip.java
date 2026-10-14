@@ -22,7 +22,14 @@ public final class ToolStatTooltip {
         ToolBalance.Stat stat = ToolBalance.statOf(ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem()));
         if (stat == null && event.getItemStack().getItem() instanceof net.minecraft.world.item.DiggerItem digger) {
             // el resto de las herramientas del pack (vanilla y de otros mods): la velocidad y el nivel de su propio material
-            stat = new ToolBalance.Stat(digger.getTier().getSpeed() / ToolBalance.DIAMOND_SPEED, digger.getTier().getLevel());
+            try {
+                var tier = digger.getTier();
+                if (tier != null) {
+                    stat = new ToolBalance.Stat(tier.getSpeed() / ToolBalance.DIAMOND_SPEED, tier.getLevel());
+                }
+            } catch (RuntimeException ignored) {
+                // algun mod con tier raro (ej. armas de Cataclysm con forma de herramienta): sin datos de minado
+            }
         }
         if (stat == null) {
             return;

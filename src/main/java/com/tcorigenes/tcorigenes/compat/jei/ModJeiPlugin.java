@@ -89,6 +89,12 @@ public class ModJeiPlugin implements IModPlugin {
                 hidden.add(new ItemStack(item));
             }
         }
+        for (ResourceLocation id : com.tcorigenes.tcorigenes.compat.ItemConversion.MAP.keySet()) {
+            Item item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(id);
+            if (item != null && item != Items.AIR) {
+                hidden.add(new ItemStack(item)); // el bronce de Valoria se convierte en el de Mekanism: fuera de JEI
+            }
+        }
         if (!hidden.isEmpty()) {
             jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(mezz.jei.api.constants.VanillaTypes.ITEM_STACK, hidden);
         }

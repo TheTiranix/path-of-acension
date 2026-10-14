@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "N",
+    "NXN",
+    "N"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "X": [
+      {
+        "item": "testamentodelacarne:dark_chainmail_helmet"
+      },
+      {
+        "item": "born_in_chaos_v1:nightmare_mantleofthe_night_helmet"
+      }
+    ]
+  },
+  "result": {
+    "item": "irons_spellbooks:netherite_mage_helmet"
+  }
+}

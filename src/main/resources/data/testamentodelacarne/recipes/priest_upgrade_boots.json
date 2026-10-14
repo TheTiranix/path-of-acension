@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "N",
+    "NXN",
+    "N"
+  ],
+  "key": {
+    "N": {
+      "item": "born_in_chaos_v1:dark_metal_ingot"
+    },
+    "X": [
+      {
+        "item": "testamentodelacarne:holy_footpads"
+      },
+      {
+        "item": "testamentodelacarne:dark_chainmail_boots"
+      }
+    ]
+  },
+  "result": {
+    "item": "irons_spellbooks:priest_boots"
+  }
+}

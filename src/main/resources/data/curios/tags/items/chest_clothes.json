@@ -24,6 +24,14 @@
     {
       "id": "testamentodelacarne:ice_cloth_tunic",
       "required": false
+    },
+    {
+      "id": "mekanism:hazmat_gown",
+      "required": false
+    },
+    {
+      "id": "alexscaves:hazmat_chestplate",
+      "required": false
     }
   ]
 }

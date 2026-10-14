@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
  */
 public final class LightArmorSets {
     private static final String[][] PIECE_SUFFIXES = {
-            {"_helmet", "_hat", "_hood", "_cap", "_crown", "_mask", "_head"},
+            {"_helmet", "_hat", "_hood", "_cap", "_crown", "_mask", "_head", "_skull"},
             {"_chestplate", "_tunic", "_robe", "_robes", "_chest", "_cloak", "_jacket", "_body", "_vest", "_gown"},
             {"_leggings", "_pants", "_trousers", "_legs", "_skirt"},
             {"_boots", "_shoes", "_feet", "_sandals"}};
@@ -57,7 +57,26 @@ public final class LightArmorSets {
         return -1;
     }
 
+    /** "hood_of_darkness" / "cloak_of_darkness": la pieza va al principio del nombre; el set es lo que sigue a "_of_". */
+    private static String ofName(String path) {
+        int i = path.indexOf("_of_");
+        return i > 0 ? path.substring(i + 4) : null;
+    }
+
+    private static int ofSlot(String path) {
+        if (path.startsWith("hood_of_") || path.startsWith("helm_of_") || path.startsWith("mask_of_")) {
+            return 0;
+        }
+        if (path.startsWith("cloak_of_") || path.startsWith("robe_of_") || path.startsWith("tunic_of_")) {
+            return 1;
+        }
+        return -1;
+    }
+
     private static String stripSuffix(String path) {
+        if (ofSlot(path) >= 0 && ofName(path) != null) {
+            return ofName(path);
+        }
         for (String[] group : PIECE_SUFFIXES) {
             for (String suffix : group) {
                 if (path.endsWith(suffix)) {
@@ -87,7 +106,7 @@ public final class LightArmorSets {
                 case BOOTS -> 3;
             };
             String path = id.getPath();
-            int fromName = slotIndexOf(path);
+            int fromName = ofSlot(path) >= 0 ? ofSlot(path) : slotIndexOf(path);
             if (fromName >= 0 && fromName != index) {
                 continue; // nombre y ranura no coinciden: no se arriesga a mezclar sets
             }

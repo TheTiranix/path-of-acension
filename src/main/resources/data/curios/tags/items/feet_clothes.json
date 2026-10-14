@@ -20,6 +20,14 @@
     {
       "id": "testamentodelacarne:ice_cloth_boots",
       "required": false
+    },
+    {
+      "id": "mekanism:hazmat_boots",
+      "required": false
+    },
+    {
+      "id": "alexscaves:hazmat_boots",
+      "required": false
     }
   ]
 }

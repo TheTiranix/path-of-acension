@@ -261,6 +261,26 @@ public class ModItems {
                     com.tudominio.testamentodelacarne.util.DarkChainmailArmorMaterial.INSTANCE,
                     net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
 
+    public static final RegistryObject<Item> HOLY_HOOD = ITEMS.register(
+            "holy_hood", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.HolyArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> HOLY_ROBES = ITEMS.register(
+            "holy_robes", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.HolyArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> HOLY_TROUSERS = ITEMS.register(
+            "holy_trousers", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.HolyArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> HOLY_FOOTPADS = ITEMS.register(
+            "holy_footpads", () -> new net.minecraft.world.item.ArmorItem(
+                    com.tudominio.testamentodelacarne.util.HolyArmorMaterial.INSTANCE,
+                    net.minecraft.world.item.ArmorItem.Type.BOOTS, new Item.Properties()));
+
     public static final RegistryObject<Item> DIASCITE_SWORD = ITEMS.register(
             "diascite_sword", () -> new net.minecraft.world.item.SwordItem(
                     com.tudominio.testamentodelacarne.util.ModTiers.DIASCITE_TIER, 3, -2.4F, new Item.Properties()));

@@ -18,7 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
         "net.pixelbank.burnt.procedures.FireDamageProcedure",
         "net.pixelbank.burnt.procedures.SoulFireDamageProcedure",
         "net.pixelbank.burnt.procedures.TallGrassFireDamageProcedure",
-        "net.pixelbank.burnt.procedures.FlamingTarMobCollidesProcedure"}, remap = false)
+        "net.pixelbank.burnt.procedures.FlamingTarMobCollidesProcedure",
+        "net.pixelbank.burnt.procedures.SmokeInhalationDamageProcedure"}, remap = false)
 public abstract class BurntFireNoDamageMixin {
 
     @Inject(method = "execute", at = @At("HEAD"), cancellable = true, remap = false, require = 0)

@@ -189,3 +189,12 @@ ServerEvents.recipes(event => {
   event.shaped('mekanismtools:bronze_shovel', ["I", "R", "R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
   event.shaped('mekanismtools:bronze_sword', ["I", "I", "R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
 });
+
+// Pedido de alejandr0: sin el bronce de Valoria. Sus items de bronce se hacen con el bronce de Mekanism (lingote y pepita) y las recetas
+// que daban bronce de Valoria se sacan (el item se convierte solo en el de Mekanism, ver ItemConversion en el mod).
+ServerEvents.recipes(event => {
+  event.replaceInput({ mod: 'valoria' }, 'valoria:bronze_ingot', 'mekanism:ingot_bronze');
+  event.replaceInput({ mod: 'valoria' }, 'valoria:bronze_nugget', 'mekanism:nugget_bronze');
+  event.remove({ output: 'valoria:bronze_ingot' });
+  event.remove({ output: 'valoria:bronze_nugget' });
+});

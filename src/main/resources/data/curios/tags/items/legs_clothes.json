@@ -20,6 +20,14 @@
     {
       "id": "testamentodelacarne:ice_cloth_leggings",
       "required": false
+    },
+    {
+      "id": "mekanism:hazmat_pants",
+      "required": false
+    },
+    {
+      "id": "alexscaves:hazmat_leggings",
+      "required": false
     }
   ]
 }

@@ -17,7 +17,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class ArmorSetBonus {
     public static final double AMPLIFICATION = 0.20;
     /** prefijo de las piezas -> elemento amplificado */
-    public record SetBonus(String prefix, ResourceKey<DamageType> element, double amount) {
+    public record SetBonus(String prefix, ResourceKey<DamageType> element, double amount, boolean inWaterOnly) {
+        public SetBonus(String prefix, ResourceKey<DamageType> element, double amount) {
+            this(prefix, element, amount, false);
+        }
     }
 
     /** Daño elemental fijo por golpe con el set completo (ver arriba). */
@@ -26,7 +29,9 @@ public final class ArmorSetBonus {
             new SetBonus("aether:phoenix_", ModDamageTypes.FIRE_ELEMENTAL, 3.0),
             new SetBonus("aether:phoenix_", ModDamageTypes.LUNAR, 3.0),
             new SetBonus("aether:valkyrie_", ModDamageTypes.LIGHT, 3.0),
-            new SetBonus("aether:valkyrie_", ModDamageTypes.NATURAL, 3.0));
+            new SetBonus("aether:valkyrie_", ModDamageTypes.NATURAL, 3.0),
+            // Depth (Sea Dwellers): +2 de agua solo dentro del agua
+            new SetBonus("seadwellers:depth_", ModDamageTypes.WATER_ELEMENTAL, 2.0, true));
 
     /** Armaduras divinas (Celestisynth): +2.5% de daño elemental por pieza. */
     public static final double PIECE_BONUS = 0.025;
@@ -51,7 +56,7 @@ public final class ArmorSetBonus {
     public static java.util.List<WeaponBalance.Extra> flatExtras(Player player) {
         java.util.List<WeaponBalance.Extra> extras = new java.util.ArrayList<>();
         for (SetBonus bonus : SETS) {
-            if (hasFullSet(player, bonus.prefix())) {
+            if (hasFullSet(player, bonus.prefix()) && (!bonus.inWaterOnly() || player.isInWater() || player.isUnderWater())) {
                 extras.add(new WeaponBalance.Extra(bonus.element(), (float) bonus.amount()));
             }
         }

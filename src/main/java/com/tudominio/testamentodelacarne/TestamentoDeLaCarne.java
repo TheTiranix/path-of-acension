@@ -80,6 +80,10 @@ public class TestamentoDeLaCarne {
                         output.accept((ItemLike) ModItems.SAPPHIRE_LEGGINGS.get());
                         output.accept((ItemLike) ModItems.SAPPHIRE_BOOTS.get());
                         output.accept((ItemLike) ModItems.DARK_METAL_CHAIN.get());
+                        output.accept((ItemLike) ModItems.HOLY_HOOD.get());
+                        output.accept((ItemLike) ModItems.HOLY_ROBES.get());
+                        output.accept((ItemLike) ModItems.HOLY_TROUSERS.get());
+                        output.accept((ItemLike) ModItems.HOLY_FOOTPADS.get());
                         output.accept((ItemLike) ModItems.DARK_CHAINMAIL_HELMET.get());
                         output.accept((ItemLike) ModItems.DARK_CHAINMAIL_CHESTPLATE.get());
                         output.accept((ItemLike) ModItems.DARK_CHAINMAIL_LEGGINGS.get());

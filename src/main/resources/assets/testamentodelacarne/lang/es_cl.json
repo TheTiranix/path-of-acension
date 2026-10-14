@@ -247,5 +247,9 @@
   "item.testamentodelacarne.dark_chainmail_chestplate": "Peto de Cota de Malla de Dark Metal",
   "item.testamentodelacarne.dark_chainmail_leggings": "Pantalones de Cota de Malla de Dark Metal",
   "item.testamentodelacarne.dark_chainmail_boots": "Botas de Cota de Malla de Dark Metal",
-  "item.testamentodelacarne.wrought_scrap": "Chatarra de Wrought"
+  "item.testamentodelacarne.wrought_scrap": "Chatarra de Wrought",
+  "item.testamentodelacarne.holy_hood": "Capucha Sagrada",
+  "item.testamentodelacarne.holy_robes": "Túnica Sagrada",
+  "item.testamentodelacarne.holy_trousers": "Pantalones Sagrados",
+  "item.testamentodelacarne.holy_footpads": "Escarpines Sagrados"
 }

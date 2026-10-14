@@ -28,7 +28,8 @@
     "EntomophobiaPheromoneClientTickMixin",
     "GravititeSetNoAbilitiesMixin",
     "GravititeSwordNoLaunchMixin",
-    "BurntFireNoDamageMixin"
+    "BurntFireNoDamageMixin",
+    "LightningNoFireMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin",

@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 /**
  * Fuerza y armaduras pesadas (pedido de alejandr0). Las armaduras de metal, roca y gemas piden 80 de fuerza; las de cuero, escamas, piel, cota
  * de malla y tela no piden nada. Con menos de 80 de fuerza se pueden usar, pero con una penalizacion ABSOLUTA (igual que los debuff de raza,
- * ver OriginBonuses) a la velocidad de movimiento y de ataque: -100% con 0 de fuerza, bajando en linea recta hasta -20% con 79.
+ * ver OriginBonuses) a la velocidad de movimiento y de ataque: -100% con 0 de fuerza, bajando en linea recta hasta -35% con 79.
  * Fuerza base: Arquero 80; Ritualista Arcano 50, y hasta 79 una vez que consume el Matrimonio de Carne; el resto de las clases 100.
  */
 public final class HeavyArmor {
@@ -32,7 +32,9 @@ public final class HeavyArmor {
             "celestisynth:solar_crystal_", "celestisynth:lunar_stone_", "eeeabsmobs:ghost_warrior_",
             "alexscaves:diving_", "seadwellers:depth_", "mowziesmobs:wrought_", "create:netherite_diving_",
             "panascraftrpgmod:upgraded_armor_", "panascraftrpgmod:void_armor_", "panascraftrpgmod:the_king_of_the_abyss_armor_",
-            "cataclysm:bone_reptile_"};
+            "cataclysm:bone_reptile_",
+            "iceandfire:armor_copper_metal_", "iceandfire:armor_silver_metal_", "more_useful_copper:copper_",
+            "born_in_chaos_v1:spiny_shell_armor_", "mutantmonsters:mutant_skeleton_", "holyhell:evangelist_"};
 
     private HeavyArmor() {
     }
@@ -67,7 +69,7 @@ public final class HeavyArmor {
         };
     }
 
-    /** 0 sin armadura pesada o con fuerza suficiente; si no, de 1.0 (0 de fuerza) a 0.2 (79 de fuerza). */
+    /** 0 sin armadura pesada o con fuerza suficiente; si no, de 1.0 (0 de fuerza) a 0.35 (79 de fuerza). */
     public static double penalty(Player player) {
         boolean heavy = false;
         for (EquipmentSlot slot : new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
@@ -80,6 +82,6 @@ public final class HeavyArmor {
         if (!heavy || strength >= REQUIREMENT) {
             return 0.0;
         }
-        return 1.0 - 0.8 * Math.max(0, strength) / 79.0;
+        return 1.0 - 0.65 * Math.max(0, strength) / 79.0;
     }
 }

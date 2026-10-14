@@ -1060,5 +1060,11 @@
   "pa.t.7b1859cc7f": "Lightning on hit: disabled",
   "pa.t.831ce8607a": "Light sets (mages)",
   "pa.t.d5319cea5b": "Mage sets",
-  "pa.t.6baf9581fd": "You need a staff in either hand, or the spell imbued in an item you are wearing."
+  "pa.t.6baf9581fd": "You need a staff in either hand, or the spell imbued in an item you are wearing.",
+  "attribute.irons_spellbooks.holy_spell_power": "Light Spell Power",
+  "attribute.irons_spellbooks.lightning_spell_power": "Air Spell Power",
+  "attribute.irons_spellbooks.eldritch_spell_power": "Lunar Spell Power",
+  "school.irons_spellbooks.holy": "Light",
+  "school.irons_spellbooks.lightning": "Air",
+  "school.irons_spellbooks.eldritch": "Lunar"
 }

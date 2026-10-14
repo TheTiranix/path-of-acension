@@ -247,5 +247,9 @@
   "item.testamentodelacarne.dark_chainmail_chestplate": "Dark Metal Chainmail Chestplate",
   "item.testamentodelacarne.dark_chainmail_leggings": "Dark Metal Chainmail Leggings",
   "item.testamentodelacarne.dark_chainmail_boots": "Dark Metal Chainmail Boots",
-  "item.testamentodelacarne.wrought_scrap": "Wrought Scrap"
+  "item.testamentodelacarne.wrought_scrap": "Wrought Scrap",
+  "item.testamentodelacarne.holy_hood": "Holy Hood",
+  "item.testamentodelacarne.holy_robes": "Holy Robes",
+  "item.testamentodelacarne.holy_trousers": "Holy Trousers",
+  "item.testamentodelacarne.holy_footpads": "Holy Footpads"
 }
