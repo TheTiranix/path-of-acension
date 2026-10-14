@@ -10,9 +10,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import top.theillusivec4.curios.api.event.CurioEquipEvent;
 
 /**
- * Ender Warrior: el par de guantes normales (slot "hands", izquierda y derecha) y los guantes del
- * Aether (slot "aether_gloves") son alternativas para el combo de nado, no se acumulan: no se
- * puede equipar uno mientras se lleva puesto el otro.
+ * Pedido del usuario (antes solo Ender Warrior): los guantes comunes (slot "hands", izquierda y derecha) y los guantes del
+ * Aether (slot "aether_gloves") comparten lugar: no se acumulan, y no se puede equipar uno mientras se lleva puesto el otro.
  */
 @EventBusSubscriber(modid = "tcorigenes")
 public final class EnderGloveExclusion {
@@ -24,7 +23,7 @@ public final class EnderGloveExclusion {
 
     @SubscribeEvent
     public static void onEquip(CurioEquipEvent event) {
-        if (!(event.getSlotContext().entity() instanceof Player player) || !EnderWarriorSize.isEnderWarrior(player)) {
+        if (!(event.getSlotContext().entity() instanceof Player player)) {
             return;
         }
         String slot = event.getSlotContext().identifier();
