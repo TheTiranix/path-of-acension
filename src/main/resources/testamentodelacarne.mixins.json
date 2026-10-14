@@ -27,7 +27,8 @@
     "DarkMetalSwordUndeadMixin",
     "EntomophobiaPheromoneClientTickMixin",
     "GravititeSetNoAbilitiesMixin",
-    "GravititeSwordNoLaunchMixin"
+    "GravititeSwordNoLaunchMixin",
+    "BurntFireNoDamageMixin"
   ],
   "client": [
     "CelestisynthParticleEngineMixin",
