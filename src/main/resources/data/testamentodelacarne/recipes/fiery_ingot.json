@@ -33,6 +33,7 @@
     ]
   ],
   "result": {
-    "item": "twilightforest:fiery_ingot"
+    "item": "twilightforest:fiery_ingot",
+    "count": 4
   }
 }
