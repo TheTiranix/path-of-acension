@@ -3,7 +3,7 @@
   "generator": {
     "type": "minecraft:flat",
     "settings": {
-      "biome": "minecraft:meadow",
+      "biome": "tcorigenes:heaven",
       "features": false,
       "lakes": false,
       "structure_overrides": [],
@@ -13,7 +13,11 @@
           "height": 254
         },
         {
-          "block": "minecraft:glass",
+          "block": "minecraft:barrier",
+          "height": 1
+        },
+        {
+          "block": "aether:cold_aercloud",
           "height": 1
         }
       ]

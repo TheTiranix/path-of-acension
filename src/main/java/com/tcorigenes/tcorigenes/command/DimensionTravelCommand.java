@@ -12,7 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.Level;
 
-/** /heaven y /hell: viajan a las dimensiones Heaven (piso de vidrio en el cielo, nubes alrededor) y Hell (planicie de netherrack). */
+/** /heaven y /hell: viajan a las dimensiones Heaven (piso de nubes en el cielo, nubes pasando alrededor) y Hell (planicie de netherrack). */
 public final class DimensionTravelCommand {
     public static final ResourceKey<Level> HEAVEN = ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath("tcorigenes", "heaven"));
     public static final ResourceKey<Level> HELL = ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath("tcorigenes", "hell"));
@@ -21,8 +21,9 @@ public final class DimensionTravelCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        // el piso de vidrio de Heaven esta en y=190 (se para en 191, con los ojos dentro de la capa de nubes); el de Hell en y=63
-        dispatcher.register(Commands.literal("heaven").requires(s -> s.hasPermission(2)).executes(c -> go(c.getSource(), HEAVEN, 191.0)));
+        // el piso de Heaven es una barrera invisible en y=190 con nubes del Aether encima (y=191): se para en 192, con los ojos dentro de la capa
+        // de nubes del cielo; el de Hell en y=63
+        dispatcher.register(Commands.literal("heaven").requires(s -> s.hasPermission(2)).executes(c -> go(c.getSource(), HEAVEN, 192.0)));
         dispatcher.register(Commands.literal("hell").requires(s -> s.hasPermission(2)).executes(c -> go(c.getSource(), HELL, 63.0)));
     }
 
