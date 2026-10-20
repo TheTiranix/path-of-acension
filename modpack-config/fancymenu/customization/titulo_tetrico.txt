@@ -3,7 +3,7 @@ type = fancymenu_layout
 layout-meta {
   identifier = net.minecraft.client.gui.screens.TitleScreen
   render_custom_elements_behind_vanilla = false
-  last_edited_time = 1790000000000
+  last_edited_time = 1790000000001
   is_enabled = true
   randommode = false
   layout_index = 0
@@ -42,15 +42,97 @@ vanilla_button {
   is_hidden = true
 }
 
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_realms_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_singleplayer_button
+  anchor_point = top-left
+  x = 24
+  y = 96
+  width = 150
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_multiplayer_button
+  anchor_point = top-left
+  x = 24
+  y = 122
+  width = 150
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_options_button
+  anchor_point = top-left
+  x = 24
+  y = 148
+  width = 150
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = forge_titlescreen_mods_button
+  anchor_point = top-left
+  x = 24
+  y = 174
+  width = 150
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_quit_button
+  anchor_point = top-left
+  x = 24
+  y = 200
+  width = 150
+  height = 20
+}
+
 element {
   element_type = image
   instance_identifier = poa_logo_titulo
-  anchor_point = top-centered
+  anchor_point = top-left
   sticky_anchor = true
-  x = 0
+  x = 18
   y = 18
-  width = 380
-  height = 67
+  width = 320
+  height = 56
   stay_on_screen = false
   source = [source:local]/config/fancymenu/assets/menu_logo.png
+}
+
+element {
+  element_type = image
+  instance_identifier = poa_panel_objetivo
+  anchor_point = mid-right
+  sticky_anchor = true
+  x = -24
+  y = -20
+  width = 230
+  height = 144
+  stay_on_screen = false
+  source = [source:local]/config/fancymenu/assets/menu_panel.png
+}
+
+element {
+  element_type = image
+  instance_identifier = poa_lema_titulo
+  anchor_point = bottom-left
+  sticky_anchor = true
+  x = 14
+  y = -36
+  width = 160
+  height = 16
+  stay_on_screen = false
+  source = [source:local]/config/fancymenu/assets/menu_tagline.png
 }
