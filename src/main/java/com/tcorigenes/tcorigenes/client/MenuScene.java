@@ -119,7 +119,7 @@ public final class MenuScene {
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        g.fill(0, 0, sw, sh, 0xFF000000);
+        // ojo: fill() de GuiGraphics se dibuja diferido (al hacer flush) y blit() al instante: un fill de fondo taparia todas las capas
         layer(g, SKY, SKY_LIT, flash, sw, sh, 0.004F, 1.04F);
         layer(g, FAR, FAR_LIT, flash, sw, sh, 0.012F, 1.05F);
         fog(g, sw, sh, now, 0.5F, 0.016F, 0.3F, flash);
@@ -132,6 +132,7 @@ public final class MenuScene {
         rain(g, sw, sh, now, 1.5F, 2.4F, 0.50F, 0.075F);
         if (flash > 0.01F) { // destello blanco azulado
             g.fill(0, 0, sw, sh, ((int) (flash * 70) << 24) | 0xC8D8FF);
+            g.flush(); // que quede dibujado ya, antes de la vineta y de los botones
         }
         g.blit(VIGNETTE, 0, 0, sw, sh, 0, 0, TEX_W, TEX_H, TEX_W, TEX_H);
         g.setColor(1, 1, 1, 1);

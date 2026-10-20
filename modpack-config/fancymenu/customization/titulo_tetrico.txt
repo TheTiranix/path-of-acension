@@ -98,19 +98,6 @@ element {
 
 element {
   element_type = image
-  instance_identifier = poa_panel_objetivo
-  anchor_point = mid-right
-  sticky_anchor = true
-  x = -24
-  y = -20
-  width = 230
-  height = 144
-  stay_on_screen = false
-  source = [source:local]/config/fancymenu/assets/menu_panel.png
-}
-
-element {
-  element_type = image
   instance_identifier = poa_lema_titulo
   anchor_point = bottom-left
   sticky_anchor = true
