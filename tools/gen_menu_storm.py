@@ -6,7 +6,7 @@ Sin audio: el sonido (lluvia y truenos) lo pone el mod, sincronizado con los ray
 Formato de storm.bin (enteros de 4 bytes, big endian):
   ancho, alto, fps*1000, cuadros, cantidad_de_rayos, [cuadro de cada rayo]..., [offset de cada cuadro]... (cuadros+1), datos JPEG
 
-Uso:  python tools/gen_menu_storm.py [ruta_al_mp4] [ancho]
+Uso:  python tools/gen_menu_storm.py [ruta_al_mp4] [ancho] [cuadro_inicial] [cuadro_final]
 Salida: src/main/resources/assets/tcorigenes/menu/storm.bin
 """
 import os
@@ -19,6 +19,10 @@ import numpy as np
 SRC = sys.argv[1] if len(sys.argv) > 1 else "C:/Users/agust/Downloads/bosque_tormenta.mp4"
 OUT_W = int(sys.argv[2]) if len(sys.argv) > 2 else 1280
 QUALITY = 80
+# Tramo que se repite en bucle (cuadros del video original, 24 por segundo): los primeros 3 segundos. El video entero tiene la camara acercandose
+# a la criatura y un corte brusco al reiniciar; en estos 72 cuadros el principio y el final son oscuros y el empalme no se nota.
+START = int(sys.argv[3]) if len(sys.argv) > 3 else 0
+END = int(sys.argv[4]) if len(sys.argv) > 4 else 72
 OUT = os.path.join(os.path.dirname(__file__), "..", "src", "main", "resources", "assets", "tcorigenes", "menu", "storm.bin")
 
 
@@ -28,10 +32,14 @@ def main():
     in_w, in_h = int(cap.get(3)), int(cap.get(4))
     out_h = int(round(OUT_W * in_h / in_w / 2.0)) * 2
     frames, lum = [], []
+    index = -1
     while True:
         ok, fr = cap.read()
         if not ok:
             break
+        index += 1
+        if not (START <= index < END):
+            continue
         lum.append(float(cv2.resize(fr, (96, 54)).mean()))
         small = cv2.resize(fr, (OUT_W, out_h), interpolation=cv2.INTER_AREA)
         ok, buf = cv2.imencode(".jpg", small, [cv2.IMWRITE_JPEG_QUALITY, QUALITY])
