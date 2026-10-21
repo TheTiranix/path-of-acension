@@ -2,14 +2,17 @@
 # No se suben al repo por respeto a las licencias de sus autores.
 # pathofascension-0.1.0.jar es NUESTRO mod: viene en releases/ de este repo.
 
+
 1.20.1-damage_number-1.3.1.jar
 accessories-neoforge-1.0.0-beta.48+1.20.1.jar
 aether-1.20.1-1.5.2-neoforge.jar
+agony-1.0.0.jar
 alexscaves-2.0.2.jar
 alexsmobs-1.22.9.jar
 alloyium-1.0.0-Forge+1.20.1.jar
 alltheleaks-1.1.3+1.20.1-forge.jar
 almanac-1.20.x-forge-1.0.2.jar
+ancient_remnants-1.0.2.2.jar
 Apotheosis-1.20.1-7.4.8.jar
 ApothicAttributes-1.20.1-1.3.7.jar
 ApothicCombat-1.20.1-1.1.0.jar
@@ -39,7 +42,9 @@ celestisynth-1.20.1-1.3.1.jar
 chipped-forge-1.20.1-3.0.7.jar
 chloride-FORGE-mc1.20.1-v1.8.1.jar
 Chunky-1.3.146.jar
+Cinematic.Interaction-Forge-1.20.1-0.18.11.jar
 citadel-2.6.2-1.20.1.jar
+cleanswing-1.20-1.8.jar
 cloth-config-11.1.136-forge.jar
 controlflex-0.8.8.2-mc1.20.1-forge.jar
 Controlling-forge-1.20.1-12.0.2.jar
@@ -57,6 +62,7 @@ curios-forge-5.14.1+1.20.1.jar
 dummmmmmy-1.20-2.0.7.jar
 DungeonsArise-1.20.x-2.1.58-release.jar
 DungeonsAriseSevenSeas-1.20.x-1.0.2-forge.jar
+dx12gl-3.1.0.jar
 dynamiccrosshair-9.6+1.20.1-forge.jar
 eeeabsmobs-1.20.1-0.97-Fix.jar
 elytraslot-forge-6.4.4+1.20.1.jar
@@ -68,12 +74,14 @@ EnhancedVisuals_FORGE_v1.8.2_mc1.20.1.jar
 entity_model_features_forge_1.20.1-2.4.1.jar
 entity_texture_features_forge_1.20.1-6.2.9.jar
 entomophobia-1.1.0_HOME_SWEET_HOME.jar
+epicdeathscreen-forge-1.20.1-1.1.0-beta.2.jar
+epicterrain-v0.2.5-Beta-1.20~1.20.4.jar
 EquipmentCompare-1.20.1-forge-1.3.7.jar
 Essential_1-3-8-4_forge_1-20-1.jar
+Ethereal_Dreamscape.jar
 ExplorersCompass-1.20.1-1.3.3-forge.jar
 Explosion-Overhaul-0.2.3.0-forge-.jar
 fallingleaves-1.20.1-2.1.2.jar
-FallingTree-1.20.1-4.3.4.jar
 fancymenu_forge_3.9.12_MC_1.20.1.jar
 fastboot-1.20.x-1.2.jar
 Fastload-Reforged-mc1.20.1-3.4.0.jar
@@ -85,6 +93,7 @@ ftb-library-forge-2001.2.9.jar
 ftb-quests-forge-2001.4.13.jar
 ftb-teams-forge-2001.3.1.jar
 fzzy_config-0.7.7+1.20.1+forge.jar
+gamemenuremovegfarb-forge-mc1.19.4-2.1.2.jar
 gbf-1.0.2.jar
 geckolib-forge-1.20.1-4.8.4.jar
 GlitchCore-forge-1.20.1-0.0.1.1.jar
@@ -127,8 +136,6 @@ Mekanism-1.20.1-10.4.16.80.jar
 MekanismGenerators-1.20.1-10.4.16.80.jar
 MekanismTools-1.20.1-10.4.16.80.jar
 melody_forge_1.0.3_MC_1.20.1-1.20.4.jar
-WWOO-FABRIC+FORGE+QUILT-2.0.0.jar
-dx12gl-3.1.0.jar
 mobplayeranimator-forge-1.20.1-1.3.3-all.jar
 mobtimizations-forge-1.20.1-1.0.1.jar
 modelfix-1.15.jar
@@ -162,7 +169,6 @@ player-animation-lib-forge-1.0.2-rc1+1.20.jar
 playerladder-0.6.1-forge-1.20.1.jar
 PlayerRevive_FORGE_v2.0.31_mc1.20.1.jar
 Prism-1.20.1-forge-1.0.5.jar
-purescale-forge-mc1.20.1-1.2.jar
 PuzzlesLib-v8.1.32-1.20.1-Forge.jar
 quantified api-omni-2.2.4.jar
 Quark-4.0-462.jar
@@ -201,8 +207,9 @@ starlight-1.1.2+forge.1cda73c.jar
 Steam_Rails-1.6.11-alpha+forge-mc1.20.1.jar
 StreamsReflowing-1.20.1-forge-2.14.4.jar
 Structory_1.20.x_v1.3.5.jar
+studious-keybinds-forge-1.20.1-1.0.10-beta.1.jar
 TCTcore-1.20.1.jar
-epicterrain-v0.2.5-Beta-1.20~1.20.4.jar
+timber_tales-forge-mc1.20.1-1.1.4.jar
 ToughAsNails-forge-1.20.1-9.2.0.171.jar
 Towns-and-Towers-1.12-Fabric+Forge.jar
 tpsum-1.20.1-0.0.10.jar
@@ -216,6 +223,7 @@ villagergolemhealer 1.20.1.jar
 vtaw_mw-forge-1.20.1-1.0.4.jar
 watut-forge-1.20.1-1.2.3.jar
 waystones-forge-1.20.1-14.1.13.jar
+WWOO-FABRIC+FORGE+QUILT-2.0.0.jar
 Xaeros_Minimap_25.2.6_Forge_1.20.jar
 XaerosWorldMap_1.39.9_Forge_1.20.jar
 xptome-1.20.1-2.2.1.jar
