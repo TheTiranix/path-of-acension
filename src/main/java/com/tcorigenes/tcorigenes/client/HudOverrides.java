@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -34,22 +33,21 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class HudOverrides {
     private static final ResourceLocation ICONS = ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/gui/hud_icons.png");
-    private static final Style FONT = Style.EMPTY.withFont(new ResourceLocation("tcorigenes", "menu"));
     private static final int BAR_WIDTH = 81;   // el ancho de la fila de 10 corazones
-    private static final int BAR_HEIGHT = 11;
+    private static final int BAR_HEIGHT = 9;
 
     // paleta del pack
-    private static final int PANEL = 0xC00E080B;
-    private static final int EDGE = 0xFF6E1018;
+    private static final int PANEL = 0x900A0608;
+    private static final int EDGE = 0xFF45121A;
     private static final int EDGE_HOT = 0xFFE2242C;
-    private static final int INSIDE = 0xFF0F090C;
+    private static final int INSIDE = 0xE00C0709;
     private static final int TEXT = 0xFFF0E0E0;
-    private static final int CRIMSON_TOP = 0xFFE02A34;
-    private static final int CRIMSON_BOTTOM = 0xFF8E1220;
-    private static final int AMBER_TOP = 0xFFE6A23A;
-    private static final int AMBER_BOTTOM = 0xFF9A5E1A;
-    private static final int WATER_TOP = 0xFF55AEEA;
-    private static final int WATER_BOTTOM = 0xFF1F5FA0;
+    private static final int CRIMSON_TOP = 0xFFC4202C;
+    private static final int CRIMSON_BOTTOM = 0xFF8A1420;
+    private static final int AMBER_TOP = 0xFFC98A32;
+    private static final int AMBER_BOTTOM = 0xFF8A5A1E;
+    private static final int WATER_TOP = 0xFF3F8CC8;
+    private static final int WATER_BOTTOM = 0xFF2A64A0;
     private static final int XP_TOP = 0xFFEFCB62;
     private static final int XP_BOTTOM = 0xFFA9801F;
 
@@ -73,7 +71,7 @@ public final class HudOverrides {
     }
 
     private static Component styled(String text) {
-        return Component.literal(text).withStyle(FONT);
+        return Component.literal(text);
     }
 
     private static boolean survival(Minecraft mc) {
@@ -128,7 +126,7 @@ public final class HudOverrides {
             int top = height - gui.rightHeight;
             g.drawManaged(() -> drawFood(g, mc, player, width / 2 + 10, top - 1));
             gui.rightHeight += 10;
-        } else if (id.getNamespace().equals("toughasnails") && id.getPath().equals("thirst_level") && !(player.getVehicle() instanceof LivingEntity)) {
+        } else if (id.getNamespace().equals("toughasnails") && id.getPath().contains("thirst") && !(player.getVehicle() instanceof LivingEntity)) {
             int thirst = thirstOf(player);
             if (thirst >= 0) {
                 event.setCanceled(true);
@@ -151,10 +149,7 @@ public final class HudOverrides {
         int filled = Math.round(w * Mth.clamp(ratio, 0.0F, 1.0F));
         if (filled > 0) {
             g.fillGradient(x, y, x + filled, y + h, top, bottom);
-            g.fill(x, y, x + filled, y + 1, 0x40FFFFFF);
-        }
-        for (int i = w / 4; i < w; i += w / 4) {
-            g.fill(x + i, y, x + i + 1, y + h, 0x38000000);
+            g.fill(x, y, x + filled, y + 1, 0x30FFFFFF);
         }
     }
 
@@ -299,7 +294,7 @@ public final class HudOverrides {
                 g.fill(ox, y0, ox + 22, y0 + 22, PANEL);
             }
             int sx = x0 - 1 + selected * 20;
-            g.fill(sx + 1, y0, sx + 23, y0 + 22, 0x40E2242C);                 // brillo detras del slot elegido
+            g.fill(sx + 1, y0, sx + 23, y0 + 22, 0x1CE2242C);                 // brillo detras del slot elegido
             g.renderOutline(sx, y0 - 1, 24, 24, EDGE_HOT);
         });
         for (int i = 0; i < 9; i++) {
