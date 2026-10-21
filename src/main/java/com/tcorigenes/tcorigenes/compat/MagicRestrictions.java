@@ -111,7 +111,39 @@ public final class MagicRestrictions {
                 || player.isCreative() && player.hasPermissions(2)) {
             return true;
         }
-        return isStaff(player.getMainHandItem()) || isStaff(player.getOffhandItem());
+        return isStaff(player.getMainHandItem()) || isStaff(player.getOffhandItem()) || fromStarterBook(player, event, source);
+    }
+
+    /**
+     * Pedido del usuario: los hechizos de los libros iniciales (los de GodSpellbooks: libro soulbound con los hechizos bloqueados) se lanzan sin
+     * baston; cualquier otro hechizo sigue pidiendolo. El libro tiene que estar puesto (slot de Curios) y el hechizo ser uno de los suyos.
+     */
+    private static boolean fromStarterBook(Player player, Event event, String source) {
+        if (!source.equals("SPELLBOOK")) {
+            return false;
+        }
+        String spellId;
+        try {
+            spellId = String.valueOf(event.getClass().getMethod("getSpellId").invoke(event));
+        } catch (ReflectiveOperationException e) {
+            return false;
+        }
+        return top.theillusivec4.curios.api.CuriosApi.getCuriosInventory(player)
+                .map(handler -> handler.isEquipped(stack -> isStarterBook(stack, spellId))).orElse(false);
+    }
+
+    private static boolean isStarterBook(net.minecraft.world.item.ItemStack stack, String spellId) {
+        if (!com.tcorigenes.tcorigenes.core.SoulboundItems.hasMarker(stack) || !stack.hasTag()) {
+            return false;
+        }
+        var data = stack.getTag().getCompound("ISB_Spells").getList("data", net.minecraft.nbt.Tag.TAG_COMPOUND);
+        for (int i = 0; i < data.size(); i++) {
+            var spell = data.getCompound(i);
+            if (spell.getBoolean("locked") && spell.getString("id").equals(spellId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean isStaff(net.minecraft.world.item.ItemStack stack) {
