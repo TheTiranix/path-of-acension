@@ -1,7 +1,18 @@
 {
   "menu.ambient": {
     "sounds": [
-      { "name": "tcorigenes:menu_ambient", "stream": true }
+      {
+        "name": "tcorigenes:menu_ambient",
+        "stream": true
+      }
+    ]
+  },
+  "menu.rain": {
+    "sounds": [
+      {
+        "name": "tcorigenes:menu_rain",
+        "stream": true
+      }
     ]
   }
 }

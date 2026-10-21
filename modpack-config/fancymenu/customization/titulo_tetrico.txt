@@ -3,25 +3,10 @@ type = fancymenu_layout
 layout-meta {
   identifier = net.minecraft.client.gui.screens.TitleScreen
   render_custom_elements_behind_vanilla = false
-  last_edited_time = 1790000000000
+  last_edited_time = 1790000000004
   is_enabled = true
   randommode = false
   layout_index = 0
-}
-
-menu_background {
-  instance_identifier = poa_bg_titulo
-  background_type = image
-  show_background = true
-  image_path = [source:local]/config/fancymenu/assets/menu_bg.png
-  parallax = true
-  parallax_intensity_x = 0.012
-  parallax_intensity_y = 0.012
-}
-
-customization {
-  action = backgroundoptions
-  keepaspectratio = true
 }
 
 vanilla_button {
@@ -38,19 +23,101 @@ vanilla_button {
 
 vanilla_button {
   element_type = vanilla_button
+  instance_identifier = minecraft_branding_widget
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
   instance_identifier = minecraft_realms_notification_icons_widget
   is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_realms_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_singleplayer_button
+  anchor_point = top-left
+  x = 30
+  y = 96
+  width = 140
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_multiplayer_button
+  anchor_point = top-left
+  x = 30
+  y = 122
+  width = 140
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_options_button
+  anchor_point = top-left
+  x = 30
+  y = 148
+  width = 140
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = forge_titlescreen_mods_button
+  anchor_point = top-left
+  x = 30
+  y = 174
+  width = 140
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_quit_button
+  anchor_point = top-left
+  x = 30
+  y = 200
+  width = 140
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_language_button
+  anchor_point = bottom-left
+  x = 30
+  y = -36
+  width = 20
+  height = 20
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_accessibility_button
+  anchor_point = bottom-left
+  x = 56
+  y = -36
+  width = 20
+  height = 20
 }
 
 element {
   element_type = image
   instance_identifier = poa_logo_titulo
-  anchor_point = top-centered
+  anchor_point = top-left
   sticky_anchor = true
-  x = 0
-  y = 18
-  width = 380
-  height = 67
+  x = 26
+  y = 26
+  width = 230
+  height = 40
   stay_on_screen = false
   source = [source:local]/config/fancymenu/assets/menu_logo.png
 }

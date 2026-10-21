@@ -33,6 +33,7 @@
   ],
   "client": [
     "CelestisynthParticleEngineMixin",
+    "PanoramaRendererMixin",
     "PlayerRacialPoseMixin"
   ]
 }
