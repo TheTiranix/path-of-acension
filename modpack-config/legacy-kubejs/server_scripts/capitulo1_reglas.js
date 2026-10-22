@@ -15,14 +15,14 @@ ServerEvents.recipes(event => {
     // Ahora creamos nuestras propias reglas, una por cada tipo de madera.
     // 'event.shapeless' crea una receta que no importa el orden en la mesa de crafteo.
     // La nueva regla es: 1 Tronco -> 2 Tablones.
-    event.shapeless('2x minecraft:oak_planks', ['minecraft:oak_log']).id('tcorigenes:planks_from_oak_log');
-    event.shapeless('2x minecraft:spruce_planks', ['minecraft:spruce_log']).id('tcorigenes:planks_from_spruce_log');
-    event.shapeless('2x minecraft:birch_planks', ['minecraft:birch_log']).id('tcorigenes:planks_from_birch_log');
-    event.shapeless('2x minecraft:jungle_planks', ['minecraft:jungle_log']).id('tcorigenes:planks_from_jungle_log');
-    event.shapeless('2x minecraft:acacia_planks', ['minecraft:acacia_log']).id('tcorigenes:planks_from_acacia_log');
-    event.shapeless('2x minecraft:dark_oak_planks', ['minecraft:dark_oak_log']).id('tcorigenes:planks_from_dark_oak_log');
-    event.shapeless('2x minecraft:cherry_planks', ['minecraft:cherry_log']).id('tcorigenes:planks_from_cherry_log');
-    event.shapeless('2x minecraft:mangrove_planks', ['minecraft:mangrove_log']).id('tcorigenes:planks_from_mangrove_log');
+    // 1 tronco/leño (con o sin corteza, normal o sin descortezar) -> 2 tablones, para cada madera de vanilla. Se usan las etiquetas de cada madera
+    // (#minecraft:oak_logs incluye oak_log, oak_wood, stripped_oak_log y stripped_oak_wood): con solo el tronco el "Leño de roble" no servia.
+    ['oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'cherry', 'mangrove'].forEach(wood => {
+        event.shapeless('2x minecraft:' + wood + '_planks', ['#minecraft:' + wood + '_logs']).id('tcorigenes:planks_from_' + wood);
+    });
+    ['crimson', 'warped'].forEach(nether => {
+        event.shapeless('2x minecraft:' + nether + '_planks', ['#minecraft:' + nether + '_stems']).id('tcorigenes:planks_from_' + nether);
+    });
 
     // --- 2. INICIO DE LA SENDA DEL ACERO ---
 // Eliminamos la receta original de la Aleación de Andesita, el primer paso en Create.
