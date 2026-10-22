@@ -10,7 +10,7 @@ ServerEvents.recipes(event => {
     // El '#' antes de 'minecraft:planks' es muy poderoso: es una "etiqueta" (tag)
     // que agrupa a TODOS los tipos de tablones (roble, abedul, etc.).
     // Así, con una sola línea, bloqueamos todas las recetas de tablones a la vez.
-    event.remove({ output: '#minecraft:planks', input: '#minecraft:logs' });
+    event.remove({ mod: 'minecraft', output: '#minecraft:planks', input: '#minecraft:logs' }); // solo los de vanilla: las maderas de otros mods conservan su receta (si no, sus troncos no se pueden convertir en tablones ni en mesa de crafteo)
 
     // Ahora creamos nuestras propias reglas, una por cada tipo de madera.
     // 'event.shapeless' crea una receta que no importa el orden en la mesa de crafteo.

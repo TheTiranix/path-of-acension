@@ -45,7 +45,7 @@ ServerEvents.recipes(event => {
   });
 
 
-    event.remove({ output: '#minecraft:planks', input: '#minecraft:logs' });
+    event.remove({ mod: 'minecraft', output: '#minecraft:planks', input: '#minecraft:logs' }); // solo los de vanilla: las maderas de otros mods conservan su receta (si no, sus troncos no se pueden convertir en tablones ni en mesa de crafteo)
 
   // Crea una nueva receta menos eficiente: 1 tronco -> 2 tablones
   // Esto hace que la madera sea un recurso más valioso al principio.
