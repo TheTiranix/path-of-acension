@@ -178,16 +178,16 @@ ServerEvents.recipes(event => {
     output: { item: 'mekanism:ingot_refined_glowstone' }
   });
 
-  event.shaped('mekanismtools:bronze_boots', ["I I", "I I"], {'I': 'iceandfire:copper_ingot'});
-  event.shaped('mekanismtools:bronze_chestplate', ["I I", "III", "III"], {'I': 'iceandfire:copper_ingot'});
-  event.shaped('mekanismtools:bronze_helmet', ["III", "I I"], {'I': 'iceandfire:copper_ingot'});
-  event.shaped('mekanismtools:bronze_leggings', ["III", "I I", "I I"], {'I': 'iceandfire:copper_ingot'});
-  event.shaped('mekanismtools:bronze_shield', ["IPI", "III", " I "], {'I': 'iceandfire:copper_ingot', 'P': 'minecraft:shield'});
-  event.shaped('mekanismtools:bronze_axe', ["II", "IR", " R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
-  event.shaped('mekanismtools:bronze_hoe', ["II", " R", " R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
-  event.shaped('mekanismtools:bronze_pickaxe', ["III", " R ", " R "], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
-  event.shaped('mekanismtools:bronze_shovel', ["I", "R", "R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
-  event.shaped('mekanismtools:bronze_sword', ["I", "I", "R"], {'I': 'iceandfire:copper_ingot', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_boots', ["I I", "I I"], {'I': '#forge:ingots/copper'});
+  event.shaped('mekanismtools:bronze_chestplate', ["I I", "III", "III"], {'I': '#forge:ingots/copper'});
+  event.shaped('mekanismtools:bronze_helmet', ["III", "I I"], {'I': '#forge:ingots/copper'});
+  event.shaped('mekanismtools:bronze_leggings', ["III", "I I", "I I"], {'I': '#forge:ingots/copper'});
+  event.shaped('mekanismtools:bronze_shield', ["IPI", "III", " I "], {'I': '#forge:ingots/copper', 'P': 'minecraft:shield'});
+  event.shaped('mekanismtools:bronze_axe', ["II", "IR", " R"], {'I': '#forge:ingots/copper', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_hoe', ["II", " R", " R"], {'I': '#forge:ingots/copper', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_pickaxe', ["III", " R ", " R "], {'I': '#forge:ingots/copper', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_shovel', ["I", "R", "R"], {'I': '#forge:ingots/copper', 'R': '#forge:rods/wooden'});
+  event.shaped('mekanismtools:bronze_sword', ["I", "I", "R"], {'I': '#forge:ingots/copper', 'R': '#forge:rods/wooden'});
 });
 
 // Pedido de alejandr0: sin el bronce de Valoria. Sus items de bronce se hacen con el bronce de Mekanism (lingote y pepita) y las recetas
