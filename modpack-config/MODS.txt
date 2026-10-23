@@ -59,6 +59,7 @@ crittersandcompanions-forge-2.2.2.jar
 CullLessLeaves-Reforged-1.20.1-1.0.5.jar
 cupboard-1.20.1-4.2.jar
 curios-forge-5.14.1+1.20.1.jar
+curiosbackslot-4.0.6-nc.jar
 dummmmmmy-1.20-2.0.7.jar
 DungeonsArise-1.20.x-2.1.58-release.jar
 DungeonsAriseSevenSeas-1.20.x-1.0.2-forge.jar
