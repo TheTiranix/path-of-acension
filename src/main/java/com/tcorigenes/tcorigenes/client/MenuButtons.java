@@ -87,6 +87,22 @@ public final class MenuButtons {
         }
     }
 
+    /** Marco de 1 pixel real de pantalla (renderOutline dibuja 1 unidad de GUI = 3 pixeles con la escala de siempre). */
+    private static void thinOutline(GuiGraphics g, int x, int y, int w, int h, int color) {
+        double s = Minecraft.getInstance().getWindow().getGuiScale();
+        int px = (int) Math.round(x * s);
+        int py = (int) Math.round(y * s);
+        int pw = (int) Math.round(w * s);
+        int ph = (int) Math.round(h * s);
+        g.pose().pushPose();
+        g.pose().scale((float) (1.0 / s), (float) (1.0 / s), 1.0F);
+        g.fill(px, py, px + pw, py + 1, color);
+        g.fill(px, py + ph - 1, px + pw, py + ph, color);
+        g.fill(px, py + 1, px + 1, py + ph - 1, color);
+        g.fill(px + pw - 1, py + 1, px + pw, py + ph - 1, color);
+        g.pose().popPose();
+    }
+
     private static String labelLanguage() {
         String code = Minecraft.getInstance().getLanguageManager().getSelected();
         return code.startsWith("es") ? "es" : code.startsWith("en") ? "en" : null;
@@ -117,7 +133,7 @@ public final class MenuButtons {
             if (hot) {
                 g.fill(getX(), getY(), getX() + width, getY() + height, 0x50801018); // fondo rojo apagado solo al pasar el mouse
             }
-            g.renderOutline(getX(), getY(), width, height, !active ? 0xFF4A2024 : hot ? 0xFFE2242C : 0xFFA01018);
+            thinOutline(g, getX(), getY(), width, height, !active ? 0xFF6A6A6A : hot ? 0xFFFFFFFF : 0xFFE6E6E6);
             float red = !active ? 0.54F : hot ? 1.0F : 0.88F;
             float green = !active ? 0.47F : hot ? 1.0F : 0.81F;
             float blue = green;
