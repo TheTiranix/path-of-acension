@@ -7,124 +7,106 @@
 	images: [
 		{
 			image: "kubejs:textures/gui/quest/cap3_bg.png"
-			x: -10.60d
-			y: -2.24d
-			width: 32.00d
-			height: 18.00d
+			x: -29.57d
+			y: -16.62d
+			width: 59.15d
+			height: 33.27d
 			rotation: 0.0d
 			order: 0
 		}
 		{
-			image: "kubejs:textures/gui/quest/cap3_bg_f.png"
-			x: -10.60d
-			y: 15.76d
-			width: 32.00d
-			height: 18.00d
-			rotation: 0.0d
-			order: 0
-		}
-		{
-			image: "kubejs:textures/gui/quest/cap3_bg.png"
-			x: -10.60d
-			y: 33.76d
-			width: 32.00d
-			height: 18.00d
-			rotation: 0.0d
-			order: 0
-		}
-		{
-			image: "kubejs:textures/gui/quest/c3_s1.png"
-			x: 0.40d
-			y: -0.10d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s1_en.png"
+			x: -17.45d
+			y: -11.62d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s2.png"
-			x: 0.40d
-			y: 6.10d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s2_en.png"
+			x: -4.00d
+			y: -9.82d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s3.png"
-			x: 0.40d
-			y: 10.40d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s3_en.png"
+			x: 9.45d
+			y: -11.62d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s4.png"
-			x: 0.40d
-			y: 14.70d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s4_en.png"
+			x: 9.45d
+			y: -2.15d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s5.png"
-			x: 0.40d
-			y: 19.00d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s5_en.png"
+			x: -4.00d
+			y: -0.35d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s6.png"
-			x: 0.40d
-			y: 23.30d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s6_en.png"
+			x: -17.45d
+			y: -3.02d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s7.png"
-			x: 0.40d
-			y: 29.50d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s7_en.png"
+			x: -17.45d
+			y: 6.45d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s8.png"
-			x: 0.40d
-			y: 33.80d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s8_en.png"
+			x: -4.00d
+			y: 6.50d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c3_s9.png"
-			x: 0.40d
-			y: 40.00d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c3_s9_en.png"
+			x: 9.45d
+			y: 6.45d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 	]
 	order_index: 2
 	quest_links: [ ]
-	title: "III · Conociendo a los dioses"
+	title: "III · Meeting the Gods"
 	quests: [
 		{
 			id: "D6BFF8DB077382B2"
-			title: "El camino hacia lo desconocido"
-			description: ["Un bosque que existe fuera del tiempo. Para llegar, un charco de agua, flores a su alrededor y un diamante." "&7Pozo de agua de 2x2 rodeado de plantas, flores o setas."]
+			title: "The Road to the Unknown"
+			description: ["A forest that exists outside of time. To reach it: a pool of water, flowers around it and a diamond." "&7A 2x2 pool of water ringed by plants, flowers or mushrooms."]
 			icon: "minecraft:water_bucket"
-			x: 0.00d
-			y: 1.60d
+			x: -16.08d
+			y: -10.12d
 			shape: "circle"
 			tasks: [
 				{
@@ -148,18 +130,18 @@
 		}
 		{
 			id: "FF91F23505113D90"
-			title: "Un portal entre mundos"
-			description: ["Arroja el diamante al agua. Si el bosque te acepta, el charco brilla."]
+			title: "A Portal Between Worlds"
+			description: ["Throw the diamond into the water. If the forest accepts you, the pool glows."]
 			icon: "minecraft:diamond"
-			x: 1.80d
-			y: 1.87d
+			x: -14.33d
+			y: -9.90d
 			shape: "diamond"
 			dependencies: ["D6BFF8DB077382B2"]
 			tasks: [
 				{
 					id: "A572F3343FC7C0A6"
 					type: "checkmark"
-					title: "Activé el portal"
+					title: "I activated the portal"
 				}
 			]
 			rewards: [
@@ -172,18 +154,18 @@
 		}
 		{
 			id: "FCB5B52F2FD7BC7D"
-			title: "Los dioses olvidados"
-			description: ["Meidris dejó aquí lo que no cabía en el mundo: humanoides, magia vieja, elfos de luz. El bosque conserva su memoria."]
+			title: "The Forgotten Gods"
+			description: ["Meidris left here what didn't fit in the world: humanoids, old magic, light elves. The forest keeps their memory."]
 			icon: "minecraft:book"
-			x: 3.60d
-			y: 1.94d
+			x: -12.58d
+			y: -9.92d
 			shape: "diamond"
 			dependencies: ["FF91F23505113D90"]
 			tasks: [
 				{
 					id: "CD47CC8EA17C8AC6"
 					type: "checkmark"
-					title: "Leí la memoria del bosque"
+					title: "I read the forest's memory"
 				}
 			]
 			rewards: [
@@ -196,10 +178,10 @@
 		}
 		{
 			id: "550427B2D778035F"
-			title: "El bosque crepuscular"
-			description: ["El cielo se vuelve verde y el aire huele a hojas mojadas. Cruza."]
-			x: 5.40d
-			y: 1.75d
+			title: "The Twilight Forest"
+			description: ["The sky turns green and the air smells of wet leaves. Cross over."]
+			x: -10.83d
+			y: -10.16d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["FCB5B52F2FD7BC7D"]
@@ -226,10 +208,10 @@
 		}
 		{
 			id: "75F75A66EB52AE2C"
-			title: "Un mundo que explorar"
-			description: ["Bosque, pantano, bosque denso: cada rincón tiene sus reglas."]
-			x: 7.20d
-			y: 1.45d
+			title: "A World to Explore"
+			description: ["Forest, swamp, dense forest: every corner has its own rules."]
+			x: -10.83d
+			y: -8.61d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["550427B2D778035F"]
@@ -260,10 +242,10 @@
 		}
 		{
 			id: "DB153FCBB466C67A"
-			title: "Habitantes de otro mundo"
-			description: ["Capuchas rojas y lobos hostiles recorren el crepúsculo."]
-			x: 9.00d
-			y: 1.26d
+			title: "Dwellers of Another World"
+			description: ["Redcaps and hostile wolves roam the twilight."]
+			x: -12.58d
+			y: -8.55d
 			shape: "circle"
 			dependencies: ["75F75A66EB52AE2C"]
 			tasks: [
@@ -290,11 +272,11 @@
 		}
 		{
 			id: "75C7B2626EA8CB35"
-			title: "Recursos de tierras lejanas"
-			description: ["La madera de hierro: la dimensión te la da, el horno la termina."]
+			title: "Resources from Distant Lands"
+			description: ["Ironwood: the dimension gives it to you, the furnace finishes it."]
 			icon: "twilightforest:ironwood_ingot"
-			x: 10.80d
-			y: 1.33d
+			x: -14.33d
+			y: -8.30d
 			shape: "circle"
 			dependencies: ["DB153FCBB466C67A"]
 			tasks: [
@@ -315,11 +297,11 @@
 		}
 		{
 			id: "6FA5B2616F846779"
-			title: "Preparativos para la cacería"
-			description: ["Los mapas mágicos muestran lo que el crepúsculo esconde."]
+			title: "Preparing for the Hunt"
+			description: ["Magic maps show what the twilight hides."]
 			icon: "twilightforest:magic_map"
-			x: 10.80d
-			y: 3.51d
+			x: -16.08d
+			y: -8.13d
 			shape: "rsquare"
 			dependencies: ["75C7B2626EA8CB35"]
 			tasks: [
@@ -339,10 +321,10 @@
 		}
 		{
 			id: "D9C1E9C1F2E3D2E4"
-			title: "La serpiente del bosque"
-			description: ["En un patio de piedra, una serpiente gigante espera. Encuentra su guarida."]
-			x: 10.80d
-			y: 7.80d
+			title: "The Serpent of the Forest"
+			description: ["In a stone courtyard, a giant serpent waits. Find its lair."]
+			x: -2.62d
+			y: -8.32d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["6FA5B2616F846779"]
@@ -363,10 +345,10 @@
 		}
 		{
 			id: "450042A54892DB24"
-			title: "La Naga"
-			description: ["Rápida, y sus embestidas duelen. Dale batalla."]
-			x: 9.00d
-			y: 8.07d
+			title: "The Naga"
+			description: ["Fast, and its charges hurt. Give it battle."]
+			x: -0.88d
+			y: -8.10d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["D9C1E9C1F2E3D2E4"]
@@ -394,11 +376,11 @@
 		}
 		{
 			id: "F3D700B7401A5C7E"
-			title: "Escamas de una bestia"
-			description: ["Con sus escamas se forja armadura de Naga."]
+			title: "Scales of a Beast"
+			description: ["Its scales are forged into Naga armor."]
 			icon: "twilightforest:naga_scale"
-			x: 7.20d
-			y: 8.14d
+			x: 0.88d
+			y: -8.12d
 			shape: "circle"
 			dependencies: ["450042A54892DB24"]
 			tasks: [
@@ -419,10 +401,10 @@
 		}
 		{
 			id: "ADE88A745156B5B1"
-			title: "La torre del hechicero"
-			description: ["Una torre alta, con ilusiones por dentro. El Twilight Lich la habita."]
-			x: 5.40d
-			y: 7.95d
+			title: "The Sorcerer's Tower"
+			description: ["A tall tower, full of illusions inside. The Twilight Lich dwells there."]
+			x: 2.62d
+			y: -8.36d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["F3D700B7401A5C7E"]
@@ -443,10 +425,10 @@
 		}
 		{
 			id: "15A51363A1674BB8"
-			title: "El rey de las ilusiones"
-			description: ["Clones, relámpagos y bombas. Sobrevive y derríbalo."]
-			x: 3.60d
-			y: 7.65d
+			title: "The King of Illusions"
+			description: ["Clones, lightning and bombs. Survive and bring him down."]
+			x: 2.62d
+			y: -6.81d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["ADE88A745156B5B1"]
@@ -474,11 +456,11 @@
 		}
 		{
 			id: "439AE0E3B10B5799"
-			title: "Reliquias de magia antigua"
-			description: ["El cetro del Lich guarda un fragmento de lo que fue magia verdadera." "&7También cae el cetro de drenaje y el de zombis."]
+			title: "Relics of Ancient Magic"
+			description: ["The Lich's scepter holds a fragment of what was true magic." "&7The life drain scepter and the zombie scepter drop too."]
 			icon: "twilightforest:twilight_scepter"
-			x: 1.80d
-			y: 7.46d
+			x: 0.88d
+			y: -6.75d
 			shape: "circle"
 			dependencies: ["15A51363A1674BB8"]
 			tasks: [
@@ -498,10 +480,10 @@
 		}
 		{
 			id: "62A5BFCFD675F186"
-			title: "El laberinto subterráneo"
-			description: ["Bajo el bosque, un laberinto de piedra. El Minotauro guarda lo del fondo."]
-			x: 0.00d
-			y: 12.10d
+			title: "The Underground Labyrinth"
+			description: ["Beneath the forest, a stone maze. The Minotaur guards what lies at the bottom."]
+			x: 10.83d
+			y: -10.12d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["439AE0E3B10B5799"]
@@ -522,10 +504,10 @@
 		}
 		{
 			id: "950B58F110038098"
-			title: "El Minoshroom"
-			description: ["Un minotauro hongo. Si caes, el laberinto no te suelta."]
-			x: 1.80d
-			y: 12.37d
+			title: "The Minoshroom"
+			description: ["A mushroom minotaur. If you fall, the labyrinth won't let go."]
+			x: 12.58d
+			y: -9.90d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["62A5BFCFD675F186"]
@@ -553,10 +535,10 @@
 		}
 		{
 			id: "8A475404C967BFDD"
-			title: "La hidra de fuego"
-			description: ["En una caverna de lava, una bestia de muchas cabezas."]
-			x: 3.60d
-			y: 12.44d
+			title: "The Fire Hydra"
+			description: ["In a cavern of lava, a beast of many heads."]
+			x: 14.33d
+			y: -9.92d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["950B58F110038098"]
@@ -577,10 +559,10 @@
 		}
 		{
 			id: "6BA08D7C3BC05479"
-			title: "La bestia de las múltiples cabezas"
-			description: ["Corta cabeza tras cabeza. Cuidado con su aliento de fuego." "&7Lleva resistencia al fuego."]
-			x: 5.40d
-			y: 12.25d
+			title: "The Many-Headed Beast"
+			description: ["Cut head after head. Beware its fire breath." "&7Bring fire resistance."]
+			x: 16.08d
+			y: -10.16d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["8A475404C967BFDD"]
@@ -608,11 +590,11 @@
 		}
 		{
 			id: "D6F21BAC293090E9"
-			title: "Sangre ardiente"
-			description: ["La sangre de la hidra es el corazón de lo que se forja con fuego eterno."]
+			title: "Burning Blood"
+			description: ["The hydra's blood is the heart of what is forged with eternal fire."]
 			icon: "twilightforest:fiery_blood"
-			x: 7.20d
-			y: 11.95d
+			x: 16.08d
+			y: -8.61d
 			shape: "circle"
 			dependencies: ["6BA08D7C3BC05479"]
 			tasks: [
@@ -633,11 +615,11 @@
 		}
 		{
 			id: "5178CC1F126F61E5"
-			title: "El poder del fuego"
-			description: ["Sangre de hidra y hierro: así se forja el fiery, un metal que nunca se enfría."]
+			title: "The Power of Fire"
+			description: ["Hydra blood and iron: that is how fiery is forged, a metal that never cools."]
 			icon: "twilightforest:fiery_ingot"
-			x: 10.80d
-			y: 16.40d
+			x: 16.08d
+			y: -0.65d
 			shape: "rsquare"
 			dependencies: ["D6F21BAC293090E9"]
 			tasks: [
@@ -658,11 +640,11 @@
 		}
 		{
 			id: "B19548BC2EEB5ED1"
-			title: "La mesa de los dioses"
-			description: ["Lo que ahora forjas ya no cabe en la mesa de metal oscuro. Esta la sigue." "&7Mesa de nivel 3 (5x5): arcane, black steel, dragonsteel, fiery y wintry."]
+			title: "The Table of the Gods"
+			description: ["What you forge now no longer fits on the dark metal table. This one follows it." "&7Tier 3 table (5x5): arcane, black steel, dragonsteel, fiery and wintry."]
 			icon: "testamentodelacarne:tier3_crafting_table"
-			x: 9.00d
-			y: 16.67d
+			x: 14.33d
+			y: -0.43d
 			shape: "rsquare"
 			dependencies: ["5178CC1F126F61E5"]
 			tasks: [
@@ -682,11 +664,11 @@
 		}
 		{
 			id: "5F5793047A68FF9E"
-			title: "Herramientas de fuego eterno"
-			description: ["El pico y la espada del fiery, tibios al tacto."]
+			title: "Tools of Eternal Fire"
+			description: ["The fiery pickaxe and sword, warm to the touch."]
 			icon: "twilightforest:fiery_pickaxe"
-			x: 7.20d
-			y: 16.74d
+			x: 12.58d
+			y: -0.45d
 			shape: "rsquare"
 			dependencies: ["B19548BC2EEB5ED1"]
 			tasks: [
@@ -711,11 +693,11 @@
 		}
 		{
 			id: "FD69611FF225B453"
-			title: "Armaduras y armas ardientes"
-			description: ["Casco y coraza: nada que arda te toca."]
+			title: "Burning Armor and Weapons"
+			description: ["Helmet and breastplate: nothing that burns can touch you."]
 			icon: "twilightforest:fiery_helmet"
-			x: 5.40d
-			y: 16.55d
+			x: 10.83d
+			y: -0.69d
 			shape: "rsquare"
 			dependencies: ["5F5793047A68FF9E"]
 			tasks: [
@@ -740,10 +722,10 @@
 		}
 		{
 			id: "36E795F155D15CE7"
-			title: "La torre oscura"
-			description: ["Una torre que huele a alma y azufre. Los ghasts guardan sus pisos." "&7No confundir con la Torre Oscura de Born in Chaos (capítulo I)."]
-			x: 0.00d
-			y: 20.70d
+			title: "The Dark Tower"
+			description: ["A tower that smells of soul and sulfur. Ghasts guard its floors." "&7Not to be confused with Born in Chaos's Dark Tower (chapter I)."]
+			x: 2.62d
+			y: 1.15d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["FD69611FF225B453"]
@@ -764,10 +746,10 @@
 		}
 		{
 			id: "0E62A1F5354F01D2"
-			title: "El Ur-Ghast"
-			description: ["Un ghast descomunal. El techo de la torre es su arena."]
-			x: 1.80d
-			y: 20.97d
+			title: "The Ur-Ghast"
+			description: ["A monstrous ghast. The tower's roof is its arena."]
+			x: 0.88d
+			y: 1.37d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["36E795F155D15CE7"]
@@ -795,10 +777,10 @@
 		}
 		{
 			id: "4DD0ECA10C8ADABD"
-			title: "Los caballeros fantasma"
-			description: ["Una fortaleza donde aún se escuchan armaduras sin dueño."]
-			x: 3.60d
-			y: 21.04d
+			title: "The Phantom Knights"
+			description: ["A stronghold where armor without owners can still be heard."]
+			x: -0.88d
+			y: 1.35d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["0E62A1F5354F01D2"]
@@ -819,10 +801,10 @@
 		}
 		{
 			id: "96204562420A8C43"
-			title: "El guardián de la fortaleza"
-			description: ["Fantasmas con armadura. Derriba a los caballeros."]
-			x: 5.40d
-			y: 20.85d
+			title: "Guardian of the Stronghold"
+			description: ["Ghosts in armor. Bring the knights down."]
+			x: -2.62d
+			y: 1.11d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["4DD0ECA10C8ADABD"]
@@ -850,10 +832,10 @@
 		}
 		{
 			id: "74A11C4E5C663106"
-			title: "El frío de las montañas"
-			description: ["Más allá del bosque, la nieve y el hielo. Cruza los biomas fríos."]
-			x: 0.00d
-			y: 25.00d
+			title: "The Cold of the Mountains"
+			description: ["Beyond the forest, snow and ice. Cross the cold biomes."]
+			x: -10.83d
+			y: -1.52d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["96204562420A8C43"]
@@ -879,10 +861,10 @@
 		}
 		{
 			id: "B32D5FD9275F90E3"
-			title: "La cueva del yeti"
-			description: ["Bajo el hielo, una cueva con pieles y garras."]
-			x: 1.80d
-			y: 25.27d
+			title: "The Yeti Cave"
+			description: ["Beneath the ice, a cave of pelts and claws."]
+			x: -12.58d
+			y: -1.30d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["74A11C4E5C663106"]
@@ -903,10 +885,10 @@
 		}
 		{
 			id: "8A75103E349A6111"
-			title: "El Alpha Yeti"
-			description: ["Un gigante peludo y furioso. Lanza hielo y embiste."]
-			x: 3.60d
-			y: 25.34d
+			title: "The Alpha Yeti"
+			description: ["A furious, furry giant. It throws ice and charges."]
+			x: -14.33d
+			y: -1.32d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["B32D5FD9275F90E3"]
@@ -934,11 +916,11 @@
 		}
 		{
 			id: "F4AFBE53664E6CBA"
-			title: "El poder del invierno"
-			description: ["Hielo y plata: el wintry, un metal que no se derrite."]
+			title: "The Power of Winter"
+			description: ["Ice and silver: wintry, a metal that never melts."]
 			icon: "testamentodelacarne:wintry_ingot"
-			x: 5.40d
-			y: 25.15d
+			x: -16.08d
+			y: -1.56d
 			shape: "rsquare"
 			dependencies: ["8A75103E349A6111"]
 			tasks: [
@@ -959,11 +941,11 @@
 		}
 		{
 			id: "D55753A5CAEF5644"
-			title: "Herramientas de hielo eterno"
-			description: ["Tan frías que el aire a su alrededor se vuelve niebla."]
+			title: "Tools of Eternal Ice"
+			description: ["So cold the air around them turns to mist."]
 			icon: "testamentodelacarne:wintry_sword"
-			x: 7.20d
-			y: 24.85d
+			x: -16.08d
+			y: -0.01d
 			shape: "rsquare"
 			dependencies: ["F4AFBE53664E6CBA"]
 			tasks: [
@@ -983,11 +965,11 @@
 		}
 		{
 			id: "C145247E507CCCEE"
-			title: "Armaduras y armas congeladas"
-			description: ["Casco y coraza helados: protegen de todo lo que quema."]
+			title: "Frozen Armor and Weapons"
+			description: ["Icy helmet and breastplate: they protect from everything that burns."]
 			icon: "testamentodelacarne:wintry_helmet"
-			x: 9.00d
-			y: 24.66d
+			x: -14.33d
+			y: 0.05d
 			shape: "rsquare"
 			dependencies: ["D55753A5CAEF5644"]
 			tasks: [
@@ -1012,10 +994,10 @@
 		}
 		{
 			id: "FFABBF9E549943F6"
-			title: "El palacio de la Reina de las Nieves"
-			description: ["Un castillo de aurora. Todo lo que la rodea es hielo vivo."]
-			x: 10.80d
-			y: 24.73d
+			title: "The Snow Queen's Palace"
+			description: ["A castle of aurora. Everything around it is living ice."]
+			x: -12.58d
+			y: 0.30d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["C145247E507CCCEE"]
@@ -1036,10 +1018,10 @@
 		}
 		{
 			id: "243FCD3C0105A8BB"
-			title: "La Reina de las Nieves"
-			description: ["La señora del invierno. Su corte de cristal no perdona."]
-			x: 10.80d
-			y: 26.91d
+			title: "The Snow Queen"
+			description: ["The lady of winter. Her crystal court shows no mercy."]
+			x: -10.83d
+			y: 0.47d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["FFABBF9E549943F6"]
@@ -1067,10 +1049,10 @@
 		}
 		{
 			id: "E2DD44527AC91C73"
-			title: "Los secretos de los gigantes"
-			description: ["Cavernas de trolls y mineros gigantes. Lo que guardan no es poco."]
-			x: 10.80d
-			y: 31.20d
+			title: "The Secrets of the Giants"
+			description: ["Caves of trolls and giant miners. What they guard is no small thing."]
+			x: -11.70d
+			y: 7.95d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["243FCD3C0105A8BB"]
@@ -1091,10 +1073,10 @@
 		}
 		{
 			id: "E963B8372D82D77D"
-			title: "El último desafío del bosque"
-			description: ["Un castillo que solo se abre con el trofeo de cada jefe."]
-			x: 9.00d
-			y: 31.47d
+			title: "The Forest's Final Challenge"
+			description: ["A castle that only opens with each boss's trophy."]
+			x: -13.45d
+			y: 8.17d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["E2DD44527AC91C73"]
@@ -1115,18 +1097,18 @@
 		}
 		{
 			id: "337CE3862A1B4BAB"
-			title: "El precio de la victoria"
-			description: ["Cada jefe dejó algo: armas, armaduras, reliquias. Revisa lo que puedes forjar con ello."]
+			title: "The Price of Victory"
+			description: ["Each boss left something behind: weapons, armor, relics. Review what you can forge with them."]
 			icon: "minecraft:chest"
-			x: 7.20d
-			y: 31.54d
+			x: -15.20d
+			y: 8.15d
 			shape: "diamond"
 			dependencies: ["E963B8372D82D77D"]
 			tasks: [
 				{
 					id: "E2759C335AA79E4A"
 					type: "checkmark"
-					title: "Revisé las recompensas de los jefes"
+					title: "I reviewed the bosses' rewards"
 				}
 			]
 			rewards: [
@@ -1139,18 +1121,18 @@
 		}
 		{
 			id: "8EB876F505F1EE13"
-			title: "Un nuevo mundo bajo tierra"
-			description: ["Más allá de la capa de roca hay cavernas con clima y bestias propios. No hay puerta: hay que bajar." "&7Alex's Caves son biomas subterráneos del Overworld."]
+			title: "A New World Underground"
+			description: ["Beyond the layer of rock lie caverns with their own climate and beasts. There is no door: you have to dig down." "&7Alex's Caves are underground biomes of the Overworld."]
 			icon: "minecraft:glow_berries"
-			x: 10.80d
-			y: 35.50d
+			x: -2.62d
+			y: 8.00d
 			shape: "diamond"
 			dependencies: ["337CE3862A1B4BAB"]
 			tasks: [
 				{
 					id: "7821084957B4F8BD"
 					type: "checkmark"
-					title: "Quiero bajar"
+					title: "I want to go down"
 				}
 			]
 			rewards: [
@@ -1163,11 +1145,11 @@
 		}
 		{
 			id: "CA23A0B5EDCF3FFB"
-			title: "Preparar el descenso"
-			description: ["Antorchas, comida y una manzana de oro: nadie vuelve del fondo con las manos vacías."]
+			title: "Prepare the Descent"
+			description: ["Torches, food and a golden apple: nobody returns from the depths empty-handed."]
 			icon: "minecraft:torch"
-			x: 9.00d
-			y: 35.77d
+			x: -0.88d
+			y: 8.22d
 			shape: "rsquare"
 			dependencies: ["8EB876F505F1EE13"]
 			tasks: [
@@ -1193,10 +1175,10 @@
 		}
 		{
 			id: "D7062A3C373F09A8"
-			title: "El mundo primitivo"
-			description: ["Una caverna de selva y huesos. Aquí el tiempo se detuvo hace millones de años."]
-			x: 7.20d
-			y: 35.84d
+			title: "The Primitive World"
+			description: ["A cavern of jungle and bones. Here time stopped millions of years ago."]
+			x: 0.88d
+			y: 8.20d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["CA23A0B5EDCF3FFB"]
@@ -1223,18 +1205,18 @@
 		}
 		{
 			id: "0BB96667550D317A"
-			title: "Ecos de una era olvidada"
-			description: ["Lo que ves no es obra de dioses sino de la carne: una era antes de las razas, de los reinos, de los nombres."]
+			title: "Echoes of a Forgotten Age"
+			description: ["What you see isn't the work of gods but of flesh: an age before races, realms and names."]
 			icon: "minecraft:bone"
-			x: 5.40d
-			y: 35.65d
+			x: 2.62d
+			y: 7.96d
 			shape: "diamond"
 			dependencies: ["D7062A3C373F09A8"]
 			tasks: [
 				{
 					id: "7AD210C12953C47D"
 					type: "checkmark"
-					title: "Escuché los ecos"
+					title: "I heard the echoes"
 				}
 			]
 			rewards: [
@@ -1247,10 +1229,10 @@
 		}
 		{
 			id: "938DC102DAA89816"
-			title: "Gigantes de un mundo perdido"
-			description: ["Un cuenco de huesos descomunales. Aquí caminaron bestias de otro tiempo."]
-			x: 3.60d
-			y: 35.35d
+			title: "Giants of a Lost World"
+			description: ["A bowl of enormous bones. Beasts of another time walked here."]
+			x: 2.62d
+			y: 9.51d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["0BB96667550D317A"]
@@ -1271,11 +1253,11 @@
 		}
 		{
 			id: "131665DD86D08300"
-			title: "El conocimiento de las cavernas"
-			description: ["Un compendio que se llena a medida que descubres a sus habitantes."]
+			title: "Knowledge of the Caves"
+			description: ["A compendium that fills in as you discover its inhabitants."]
 			icon: "alexscaves:cave_book"
-			x: 1.80d
-			y: 35.16d
+			x: 0.88d
+			y: 9.57d
 			shape: "rsquare"
 			dependencies: ["938DC102DAA89816"]
 			tasks: [
@@ -1295,11 +1277,11 @@
 		}
 		{
 			id: "0CDD671988061335"
-			title: "Recursos de la antigüedad"
-			description: ["Ámbar, hueso pesado: lo que la caverna entrega a quien la recorre."]
+			title: "Resources of Antiquity"
+			description: ["Amber, heavy bone: what the cavern gives to those who traverse it."]
 			icon: "alexscaves:amber"
-			x: 0.00d
-			y: 35.23d
+			x: -0.88d
+			y: 9.83d
 			shape: "circle"
 			dependencies: ["131665DD86D08300"]
 			tasks: [
@@ -1326,10 +1308,10 @@
 		}
 		{
 			id: "8246D5A0B14C1645"
-			title: "Criaturas prehistóricas"
-			description: ["Raptores veloces y triceratops con coraza."]
-			x: 0.00d
-			y: 37.41d
+			title: "Prehistoric Creatures"
+			description: ["Swift raptors and armored triceratops."]
+			x: -2.62d
+			y: 10.00d
 			shape: "circle"
 			dependencies: ["0CDD671988061335"]
 			tasks: [
@@ -1356,10 +1338,10 @@
 		}
 		{
 			id: "BB366DE7E76A5288"
-			title: "Los colosos primitivos"
-			description: ["Un tiranosaurio de la edad antigua. Reza antes de acercarte." "&7Lleva armadura completa de metal nuevo y pociones."]
-			x: 1.80d
-			y: 37.68d
+			title: "The Primitive Colossi"
+			description: ["A tyrannosaur from the ancient age. Pray before you approach." "&7Bring full armor of the newest metal, and potions."]
+			x: -2.62d
+			y: 11.65d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["8246D5A0B14C1645"]
@@ -1387,18 +1369,18 @@
 		}
 		{
 			id: "762D8AF21867C4AF"
-			title: "Guía de supervivencia primitiva"
-			description: ["Lleva luz, comida y un plan de retirada. Las cavernas devoran a los distraídos."]
+			title: "Primitive Survival Guide"
+			description: ["Bring light, food and a plan to retreat. The caves devour the careless."]
 			icon: "minecraft:campfire"
-			x: 3.60d
-			y: 37.74d
+			x: -0.88d
+			y: 11.39d
 			shape: "diamond"
 			dependencies: ["BB366DE7E76A5288"]
 			tasks: [
 				{
 					id: "7B770FC1667034A3"
 					type: "checkmark"
-					title: "Entendí los riesgos"
+					title: "I understand the risks"
 				}
 			]
 			rewards: [
@@ -1411,11 +1393,11 @@
 		}
 		{
 			id: "ECC4198D10B5CCC2"
-			title: "Reliquias de las cavernas"
-			description: ["Un par de reliquias antiguas, para quien sepa leerlas."]
+			title: "Relics of the Caves"
+			description: ["A couple of ancient relics, for those who know how to read them."]
 			icon: "alexscaves:dinosaur_chop"
-			x: 0.00d
-			y: 41.70d
+			x: 10.83d
+			y: 7.95d
 			shape: "circle"
 			dependencies: ["762D8AF21867C4AF"]
 			tasks: [
@@ -1436,18 +1418,18 @@
 		}
 		{
 			id: "7B16B19083C5D7D6"
-			title: "El poder de los dioses antiguos"
-			description: ["Superaste el crepúsculo y las cavernas. Lo que antes eran mitos, hoy son nombres que has derrotado."]
+			title: "The Power of the Ancient Gods"
+			description: ["You overcame the twilight and the caves. What once were myths are now names you have defeated."]
 			icon: "minecraft:totem_of_undying"
-			x: 1.80d
-			y: 41.97d
+			x: 12.58d
+			y: 8.17d
 			shape: "diamond"
 			dependencies: ["ECC4198D10B5CCC2"]
 			tasks: [
 				{
 					id: "77BFCD1CDDC8CB79"
 					type: "checkmark"
-					title: "Estoy listo"
+					title: "I'm ready"
 				}
 			]
 			rewards: [
@@ -1460,11 +1442,11 @@
 		}
 		{
 			id: "D8E69FCDE74FD6BB"
-			title: "El conocimiento prohibido"
-			description: ["Fuego y hielo, juntos: dos metales para dos extremos. Muestra que los tienes."]
+			title: "Forbidden Knowledge"
+			description: ["Fire and ice, together: two metals for two extremes. Show that you hold them."]
 			icon: "twilightforest:fiery_ingot"
-			x: 3.60d
-			y: 42.04d
+			x: 14.33d
+			y: 8.15d
 			shape: "rsquare"
 			dependencies: ["7B16B19083C5D7D6"]
 			tasks: [
@@ -1489,11 +1471,11 @@
 		}
 		{
 			id: "6898744342A85930"
-			title: "Algo mucho más antiguo"
-			description: ["Los dioses y las bestias de estos mundos no son el principio. Son el eco de algo anterior a todos."]
+			title: "Something Far Older"
+			description: ["The gods and beasts of these worlds are not the beginning. They are the echo of something before them all."]
 			icon: "minecraft:ender_eye"
-			x: 5.40d
-			y: 41.85d
+			x: 16.08d
+			y: 7.91d
 			shape: "hexagon"
 			size: 2.0d
 			dependencies: ["D8E69FCDE74FD6BB"]
@@ -1501,7 +1483,7 @@
 				{
 					id: "827503955D979DC3"
 					type: "checkmark"
-					title: "Lo entiendo"
+					title: "I understand"
 				}
 			]
 			rewards: [

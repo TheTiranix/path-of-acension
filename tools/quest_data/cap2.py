@@ -10,6 +10,8 @@ KICKER = "Capítulo II"
 PREFIX = "c2"
 BG_SRC = "cap2_fondo.png"
 BG_OUT = "cap2_bg.png"
+GRID = (3, 3)
+
 BG_BRIGHT = 0.6
 
 

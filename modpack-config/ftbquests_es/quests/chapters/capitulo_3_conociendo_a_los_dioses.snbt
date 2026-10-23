@@ -1,0 +1,1504 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: "circle"
+	filename: "capitulo_3_conociendo_a_los_dioses"
+	id: "F71639882B9CF33F"
+	icon: "minecraft:ender_eye"
+	images: [
+		{
+			image: "kubejs:textures/gui/quest/cap3_bg.png"
+			x: -29.57d
+			y: -16.62d
+			width: 59.15d
+			height: 33.27d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s1_es.png"
+			x: -17.45d
+			y: -11.62d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s2_es.png"
+			x: -4.00d
+			y: -9.82d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s3_es.png"
+			x: 9.45d
+			y: -11.62d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s4_es.png"
+			x: 9.45d
+			y: -2.15d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s5_es.png"
+			x: -4.00d
+			y: -0.35d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s6_es.png"
+			x: -17.45d
+			y: -3.02d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s7_es.png"
+			x: -17.45d
+			y: 6.45d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s8_es.png"
+			x: -4.00d
+			y: 6.50d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c3_s9_es.png"
+			x: 9.45d
+			y: 6.45d
+			width: 8.00d
+			height: 1.20d
+			rotation: 0.0d
+			order: 1
+		}
+	]
+	order_index: 2
+	quest_links: [ ]
+	title: "III · Conociendo a los dioses"
+	quests: [
+		{
+			id: "D6BFF8DB077382B2"
+			title: "El camino hacia lo desconocido"
+			description: ["Un bosque que existe fuera del tiempo. Para llegar, un charco de agua, flores a su alrededor y un diamante." "&7Pozo de agua de 2x2 rodeado de plantas, flores o setas."]
+			icon: "minecraft:water_bucket"
+			x: -16.08d
+			y: -10.12d
+			shape: "circle"
+			tasks: [
+				{
+					id: "944F910DC5936210"
+					type: "item"
+					item: "minecraft:water_bucket"
+				}
+				{
+					id: "762113212C61428A"
+					type: "item"
+					item: "minecraft:diamond"
+				}
+			]
+			rewards: [
+				{
+					id: "9A23A8BCBCBB144C"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "FF91F23505113D90"
+			title: "Un portal entre mundos"
+			description: ["Arroja el diamante al agua. Si el bosque te acepta, el charco brilla."]
+			icon: "minecraft:diamond"
+			x: -14.33d
+			y: -9.90d
+			shape: "diamond"
+			dependencies: ["D6BFF8DB077382B2"]
+			tasks: [
+				{
+					id: "A572F3343FC7C0A6"
+					type: "checkmark"
+					title: "Activé el portal"
+				}
+			]
+			rewards: [
+				{
+					id: "46B0E47C5E7DE963"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "FCB5B52F2FD7BC7D"
+			title: "Los dioses olvidados"
+			description: ["Meidris dejó aquí lo que no cabía en el mundo: humanoides, magia vieja, elfos de luz. El bosque conserva su memoria."]
+			icon: "minecraft:book"
+			x: -12.58d
+			y: -9.92d
+			shape: "diamond"
+			dependencies: ["FF91F23505113D90"]
+			tasks: [
+				{
+					id: "CD47CC8EA17C8AC6"
+					type: "checkmark"
+					title: "Leí la memoria del bosque"
+				}
+			]
+			rewards: [
+				{
+					id: "0B3427D568211144"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "550427B2D778035F"
+			title: "El bosque crepuscular"
+			description: ["El cielo se vuelve verde y el aire huele a hojas mojadas. Cruza."]
+			x: -10.83d
+			y: -10.16d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["FCB5B52F2FD7BC7D"]
+			tasks: [
+				{
+					id: "765B75D36AB571BE"
+					type: "dimension"
+					dimension: "twilightforest:twilight_forest"
+				}
+			]
+			rewards: [
+				{
+					id: "A6F81FA9F4B7663D"
+					type: "xp"
+					xp: 150
+				}
+				{
+					id: "4CED8C930994B415"
+					type: "item"
+					item: "minecraft:golden_carrot"
+					count: 8
+				}
+			]
+		}
+		{
+			id: "75F75A66EB52AE2C"
+			title: "Un mundo que explorar"
+			description: ["Bosque, pantano, bosque denso: cada rincón tiene sus reglas."]
+			x: -10.83d
+			y: -8.61d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["550427B2D778035F"]
+			tasks: [
+				{
+					id: "355DF080663BFDEC"
+					type: "biome"
+					biome: "twilightforest:forest"
+				}
+				{
+					id: "3C66FDAE99E38057"
+					type: "biome"
+					biome: "twilightforest:dense_forest"
+				}
+				{
+					id: "897D5A522B975920"
+					type: "biome"
+					biome: "twilightforest:swamp"
+				}
+			]
+			rewards: [
+				{
+					id: "443E7CF47A415320"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "DB153FCBB466C67A"
+			title: "Habitantes de otro mundo"
+			description: ["Capuchas rojas y lobos hostiles recorren el crepúsculo."]
+			x: -12.58d
+			y: -8.55d
+			shape: "circle"
+			dependencies: ["75F75A66EB52AE2C"]
+			tasks: [
+				{
+					id: "D2D2770D705AD1DB"
+					type: "kill"
+					entity: "twilightforest:redcap"
+					value: 1L
+				}
+				{
+					id: "F28393039633910D"
+					type: "kill"
+					entity: "twilightforest:hostile_wolf"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "0D9F229266B92B64"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "75C7B2626EA8CB35"
+			title: "Recursos de tierras lejanas"
+			description: ["La madera de hierro: la dimensión te la da, el horno la termina."]
+			icon: "twilightforest:ironwood_ingot"
+			x: -14.33d
+			y: -8.30d
+			shape: "circle"
+			dependencies: ["DB153FCBB466C67A"]
+			tasks: [
+				{
+					id: "FF38177D76AF966F"
+					type: "item"
+					item: "twilightforest:ironwood_ingot"
+					count: 2L
+				}
+			]
+			rewards: [
+				{
+					id: "7B0E23E61EF563E0"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "6FA5B2616F846779"
+			title: "Preparativos para la cacería"
+			description: ["Los mapas mágicos muestran lo que el crepúsculo esconde."]
+			icon: "twilightforest:magic_map"
+			x: -16.08d
+			y: -8.13d
+			shape: "rsquare"
+			dependencies: ["75C7B2626EA8CB35"]
+			tasks: [
+				{
+					id: "C72D358071F49C8A"
+					type: "item"
+					item: "twilightforest:magic_map"
+				}
+			]
+			rewards: [
+				{
+					id: "444AE18A4D020B14"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "D9C1E9C1F2E3D2E4"
+			title: "La serpiente del bosque"
+			description: ["En un patio de piedra, una serpiente gigante espera. Encuentra su guarida."]
+			x: -2.62d
+			y: -8.32d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["6FA5B2616F846779"]
+			tasks: [
+				{
+					id: "0E21865093AC3C4B"
+					type: "structure"
+					structure: "twilightforest:naga_courtyard"
+				}
+			]
+			rewards: [
+				{
+					id: "47561BC1DFA561D1"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "450042A54892DB24"
+			title: "La Naga"
+			description: ["Rápida, y sus embestidas duelen. Dale batalla."]
+			x: -0.88d
+			y: -8.10d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["D9C1E9C1F2E3D2E4"]
+			tasks: [
+				{
+					id: "F0905355AB8AB32C"
+					type: "kill"
+					entity: "twilightforest:naga"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "28BF5F00915E1C03"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "2DCF430E3A5C9E27"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 2
+				}
+			]
+		}
+		{
+			id: "F3D700B7401A5C7E"
+			title: "Escamas de una bestia"
+			description: ["Con sus escamas se forja armadura de Naga."]
+			icon: "twilightforest:naga_scale"
+			x: 0.88d
+			y: -8.12d
+			shape: "circle"
+			dependencies: ["450042A54892DB24"]
+			tasks: [
+				{
+					id: "1138C3CC3E64DD56"
+					type: "item"
+					item: "twilightforest:naga_scale"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "1996C3E1C6498AA3"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "ADE88A745156B5B1"
+			title: "La torre del hechicero"
+			description: ["Una torre alta, con ilusiones por dentro. El Twilight Lich la habita."]
+			x: 2.62d
+			y: -8.36d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["F3D700B7401A5C7E"]
+			tasks: [
+				{
+					id: "8798582F121FF82C"
+					type: "structure"
+					structure: "twilightforest:lich_tower"
+				}
+			]
+			rewards: [
+				{
+					id: "B6645EEE063EB624"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "15A51363A1674BB8"
+			title: "El rey de las ilusiones"
+			description: ["Clones, relámpagos y bombas. Sobrevive y derríbalo."]
+			x: 2.62d
+			y: -6.81d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["ADE88A745156B5B1"]
+			tasks: [
+				{
+					id: "794F9CB9B72A9AA0"
+					type: "kill"
+					entity: "twilightforest:lich"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "C0065992ABE6F8A5"
+					type: "xp"
+					xp: 300
+				}
+				{
+					id: "2D64DC9419D9143C"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 3
+				}
+			]
+		}
+		{
+			id: "439AE0E3B10B5799"
+			title: "Reliquias de magia antigua"
+			description: ["El cetro del Lich guarda un fragmento de lo que fue magia verdadera." "&7También cae el cetro de drenaje y el de zombis."]
+			icon: "twilightforest:twilight_scepter"
+			x: 0.88d
+			y: -6.75d
+			shape: "circle"
+			dependencies: ["15A51363A1674BB8"]
+			tasks: [
+				{
+					id: "615DC0E213842F03"
+					type: "item"
+					item: "twilightforest:twilight_scepter"
+				}
+			]
+			rewards: [
+				{
+					id: "BC64ABF55E3AB5AA"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "62A5BFCFD675F186"
+			title: "El laberinto subterráneo"
+			description: ["Bajo el bosque, un laberinto de piedra. El Minotauro guarda lo del fondo."]
+			x: 10.83d
+			y: -10.12d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["439AE0E3B10B5799"]
+			tasks: [
+				{
+					id: "D4B8AE16B5CACDE0"
+					type: "structure"
+					structure: "twilightforest:labyrinth"
+				}
+			]
+			rewards: [
+				{
+					id: "14C416D3D60E3C8D"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "950B58F110038098"
+			title: "El Minoshroom"
+			description: ["Un minotauro hongo. Si caes, el laberinto no te suelta."]
+			x: 12.58d
+			y: -9.90d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["62A5BFCFD675F186"]
+			tasks: [
+				{
+					id: "D9AFA5620B40D586"
+					type: "kill"
+					entity: "twilightforest:minoshroom"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "2047924A8D47793C"
+					type: "xp"
+					xp: 300
+				}
+				{
+					id: "5F05B26ED03DEAC9"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 3
+				}
+			]
+		}
+		{
+			id: "8A475404C967BFDD"
+			title: "La hidra de fuego"
+			description: ["En una caverna de lava, una bestia de muchas cabezas."]
+			x: 14.33d
+			y: -9.92d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["950B58F110038098"]
+			tasks: [
+				{
+					id: "D59177F22590EF79"
+					type: "structure"
+					structure: "twilightforest:hydra_lair"
+				}
+			]
+			rewards: [
+				{
+					id: "923B23CE6C704EE0"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "6BA08D7C3BC05479"
+			title: "La bestia de las múltiples cabezas"
+			description: ["Corta cabeza tras cabeza. Cuidado con su aliento de fuego." "&7Lleva resistencia al fuego."]
+			x: 16.08d
+			y: -10.16d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["8A475404C967BFDD"]
+			tasks: [
+				{
+					id: "D1ACE93AAA4A747D"
+					type: "kill"
+					entity: "twilightforest:hydra"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "9790FB951F4F3B93"
+					type: "xp"
+					xp: 400
+				}
+				{
+					id: "313643DCE02A72D8"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "D6F21BAC293090E9"
+			title: "Sangre ardiente"
+			description: ["La sangre de la hidra es el corazón de lo que se forja con fuego eterno."]
+			icon: "twilightforest:fiery_blood"
+			x: 16.08d
+			y: -8.61d
+			shape: "circle"
+			dependencies: ["6BA08D7C3BC05479"]
+			tasks: [
+				{
+					id: "0CEE2BEDFF6A6574"
+					type: "item"
+					item: "twilightforest:fiery_blood"
+					count: 2L
+				}
+			]
+			rewards: [
+				{
+					id: "E6FAB791933028D7"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "5178CC1F126F61E5"
+			title: "El poder del fuego"
+			description: ["Sangre de hidra y hierro: así se forja el fiery, un metal que nunca se enfría."]
+			icon: "twilightforest:fiery_ingot"
+			x: 16.08d
+			y: -0.65d
+			shape: "rsquare"
+			dependencies: ["D6F21BAC293090E9"]
+			tasks: [
+				{
+					id: "D3EC67B7503BA3D9"
+					type: "item"
+					item: "twilightforest:fiery_ingot"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "A4844F27C203B0C6"
+					type: "xp"
+					xp: 150
+				}
+			]
+		}
+		{
+			id: "B19548BC2EEB5ED1"
+			title: "La mesa de los dioses"
+			description: ["Lo que ahora forjas ya no cabe en la mesa de metal oscuro. Esta la sigue." "&7Mesa de nivel 3 (5x5): arcane, black steel, dragonsteel, fiery y wintry."]
+			icon: "testamentodelacarne:tier3_crafting_table"
+			x: 14.33d
+			y: -0.43d
+			shape: "rsquare"
+			dependencies: ["5178CC1F126F61E5"]
+			tasks: [
+				{
+					id: "C537C7DD6B31F536"
+					type: "item"
+					item: "testamentodelacarne:tier3_crafting_table"
+				}
+			]
+			rewards: [
+				{
+					id: "6FB771FC9424E437"
+					type: "xp"
+					xp: 150
+				}
+			]
+		}
+		{
+			id: "5F5793047A68FF9E"
+			title: "Herramientas de fuego eterno"
+			description: ["El pico y la espada del fiery, tibios al tacto."]
+			icon: "twilightforest:fiery_pickaxe"
+			x: 12.58d
+			y: -0.45d
+			shape: "rsquare"
+			dependencies: ["B19548BC2EEB5ED1"]
+			tasks: [
+				{
+					id: "3E62E0AA5CA74BB0"
+					type: "item"
+					item: "twilightforest:fiery_pickaxe"
+				}
+				{
+					id: "81BF8A32011CB342"
+					type: "item"
+					item: "twilightforest:fiery_sword"
+				}
+			]
+			rewards: [
+				{
+					id: "02A74E9653ED16B6"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			id: "FD69611FF225B453"
+			title: "Armaduras y armas ardientes"
+			description: ["Casco y coraza: nada que arda te toca."]
+			icon: "twilightforest:fiery_helmet"
+			x: 10.83d
+			y: -0.69d
+			shape: "rsquare"
+			dependencies: ["5F5793047A68FF9E"]
+			tasks: [
+				{
+					id: "99CC8C72F143186F"
+					type: "item"
+					item: "twilightforest:fiery_helmet"
+				}
+				{
+					id: "D58AC6C10AEE44E2"
+					type: "item"
+					item: "twilightforest:fiery_chestplate"
+				}
+			]
+			rewards: [
+				{
+					id: "2B2D3E3FB17FF803"
+					type: "xp"
+					xp: 250
+				}
+			]
+		}
+		{
+			id: "36E795F155D15CE7"
+			title: "La torre oscura"
+			description: ["Una torre que huele a alma y azufre. Los ghasts guardan sus pisos." "&7No confundir con la Torre Oscura de Born in Chaos (capítulo I)."]
+			x: 2.62d
+			y: 1.15d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["FD69611FF225B453"]
+			tasks: [
+				{
+					id: "6B13C27275EF84AA"
+					type: "structure"
+					structure: "twilightforest:dark_tower"
+				}
+			]
+			rewards: [
+				{
+					id: "21068B7480833E61"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "0E62A1F5354F01D2"
+			title: "El Ur-Ghast"
+			description: ["Un ghast descomunal. El techo de la torre es su arena."]
+			x: 0.88d
+			y: 1.37d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["36E795F155D15CE7"]
+			tasks: [
+				{
+					id: "E251E8B3FF616BF7"
+					type: "kill"
+					entity: "twilightforest:ur_ghast"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "1AA1826A768FA975"
+					type: "xp"
+					xp: 400
+				}
+				{
+					id: "5F346AAA9F65ACEC"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "4DD0ECA10C8ADABD"
+			title: "Los caballeros fantasma"
+			description: ["Una fortaleza donde aún se escuchan armaduras sin dueño."]
+			x: -0.88d
+			y: 1.35d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["0E62A1F5354F01D2"]
+			tasks: [
+				{
+					id: "F60E00CB9C4EFCBD"
+					type: "structure"
+					structure: "twilightforest:knight_stronghold"
+				}
+			]
+			rewards: [
+				{
+					id: "38F153F713BDA840"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "96204562420A8C43"
+			title: "El guardián de la fortaleza"
+			description: ["Fantasmas con armadura. Derriba a los caballeros."]
+			x: -2.62d
+			y: 1.11d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["4DD0ECA10C8ADABD"]
+			tasks: [
+				{
+					id: "DFCF3261692C6C6D"
+					type: "kill"
+					entity: "twilightforest:knight_phantom"
+					value: 3L
+				}
+			]
+			rewards: [
+				{
+					id: "84459DB10867CA6A"
+					type: "xp"
+					xp: 400
+				}
+				{
+					id: "EAB3839D8721D7B8"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "74A11C4E5C663106"
+			title: "El frío de las montañas"
+			description: ["Más allá del bosque, la nieve y el hielo. Cruza los biomas fríos."]
+			x: -10.83d
+			y: -1.52d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["96204562420A8C43"]
+			tasks: [
+				{
+					id: "8514E34B7C25B063"
+					type: "biome"
+					biome: "twilightforest:snowy_forest"
+				}
+				{
+					id: "BF5A2B0192037521"
+					type: "biome"
+					biome: "twilightforest:glacier"
+				}
+			]
+			rewards: [
+				{
+					id: "513F1777356E560E"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "B32D5FD9275F90E3"
+			title: "La cueva del yeti"
+			description: ["Bajo el hielo, una cueva con pieles y garras."]
+			x: -12.58d
+			y: -1.30d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["74A11C4E5C663106"]
+			tasks: [
+				{
+					id: "3E31A0661CB579A5"
+					type: "structure"
+					structure: "twilightforest:yeti_cave"
+				}
+			]
+			rewards: [
+				{
+					id: "CC1619383632ADEE"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "8A75103E349A6111"
+			title: "El Alpha Yeti"
+			description: ["Un gigante peludo y furioso. Lanza hielo y embiste."]
+			x: -14.33d
+			y: -1.32d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["B32D5FD9275F90E3"]
+			tasks: [
+				{
+					id: "02957B820C774CFD"
+					type: "kill"
+					entity: "twilightforest:alpha_yeti"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "E7B984F60AF21402"
+					type: "xp"
+					xp: 400
+				}
+				{
+					id: "622B9889F5AA19E1"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "F4AFBE53664E6CBA"
+			title: "El poder del invierno"
+			description: ["Hielo y plata: el wintry, un metal que no se derrite."]
+			icon: "testamentodelacarne:wintry_ingot"
+			x: -16.08d
+			y: -1.56d
+			shape: "rsquare"
+			dependencies: ["8A75103E349A6111"]
+			tasks: [
+				{
+					id: "67D69B918AA2F7A5"
+					type: "item"
+					item: "testamentodelacarne:wintry_ingot"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "F9A709673C6F6975"
+					type: "xp"
+					xp: 150
+				}
+			]
+		}
+		{
+			id: "D55753A5CAEF5644"
+			title: "Herramientas de hielo eterno"
+			description: ["Tan frías que el aire a su alrededor se vuelve niebla."]
+			icon: "testamentodelacarne:wintry_sword"
+			x: -16.08d
+			y: -0.01d
+			shape: "rsquare"
+			dependencies: ["F4AFBE53664E6CBA"]
+			tasks: [
+				{
+					id: "3888D5DECF71DF9C"
+					type: "item"
+					item: "testamentodelacarne:wintry_sword"
+				}
+			]
+			rewards: [
+				{
+					id: "B9D26D9839CBD2B4"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			id: "C145247E507CCCEE"
+			title: "Armaduras y armas congeladas"
+			description: ["Casco y coraza helados: protegen de todo lo que quema."]
+			icon: "testamentodelacarne:wintry_helmet"
+			x: -14.33d
+			y: 0.05d
+			shape: "rsquare"
+			dependencies: ["D55753A5CAEF5644"]
+			tasks: [
+				{
+					id: "9456B567A75E91FF"
+					type: "item"
+					item: "testamentodelacarne:wintry_helmet"
+				}
+				{
+					id: "F08E48F4471E3114"
+					type: "item"
+					item: "testamentodelacarne:wintry_chestplate"
+				}
+			]
+			rewards: [
+				{
+					id: "B3BF5BBCF41A103B"
+					type: "xp"
+					xp: 250
+				}
+			]
+		}
+		{
+			id: "FFABBF9E549943F6"
+			title: "El palacio de la Reina de las Nieves"
+			description: ["Un castillo de aurora. Todo lo que la rodea es hielo vivo."]
+			x: -12.58d
+			y: 0.30d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["C145247E507CCCEE"]
+			tasks: [
+				{
+					id: "5750B0C061D921B3"
+					type: "structure"
+					structure: "twilightforest:aurora_palace"
+				}
+			]
+			rewards: [
+				{
+					id: "A5C7FA1CD9B23DD4"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "243FCD3C0105A8BB"
+			title: "La Reina de las Nieves"
+			description: ["La señora del invierno. Su corte de cristal no perdona."]
+			x: -10.83d
+			y: 0.47d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["FFABBF9E549943F6"]
+			tasks: [
+				{
+					id: "2CEA69EA6695CC16"
+					type: "kill"
+					entity: "twilightforest:snow_queen"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "813520B9D638E9A1"
+					type: "xp"
+					xp: 500
+				}
+				{
+					id: "A6BC42B17135EADF"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 5
+				}
+			]
+		}
+		{
+			id: "E2DD44527AC91C73"
+			title: "Los secretos de los gigantes"
+			description: ["Cavernas de trolls y mineros gigantes. Lo que guardan no es poco."]
+			x: -11.70d
+			y: 7.95d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["243FCD3C0105A8BB"]
+			tasks: [
+				{
+					id: "37F0EA5B29B17FF3"
+					type: "structure"
+					structure: "twilightforest:troll_cave"
+				}
+			]
+			rewards: [
+				{
+					id: "21896AAD38C2796D"
+					type: "xp"
+					xp: 120
+				}
+			]
+		}
+		{
+			id: "E963B8372D82D77D"
+			title: "El último desafío del bosque"
+			description: ["Un castillo que solo se abre con el trofeo de cada jefe."]
+			x: -13.45d
+			y: 8.17d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["E2DD44527AC91C73"]
+			tasks: [
+				{
+					id: "A0BFE85CF8847DC6"
+					type: "structure"
+					structure: "twilightforest:final_castle"
+				}
+			]
+			rewards: [
+				{
+					id: "97C066C6BB36C2C4"
+					type: "xp"
+					xp: 300
+				}
+			]
+		}
+		{
+			id: "337CE3862A1B4BAB"
+			title: "El precio de la victoria"
+			description: ["Cada jefe dejó algo: armas, armaduras, reliquias. Revisa lo que puedes forjar con ello."]
+			icon: "minecraft:chest"
+			x: -15.20d
+			y: 8.15d
+			shape: "diamond"
+			dependencies: ["E963B8372D82D77D"]
+			tasks: [
+				{
+					id: "E2759C335AA79E4A"
+					type: "checkmark"
+					title: "Revisé las recompensas de los jefes"
+				}
+			]
+			rewards: [
+				{
+					id: "415C340229E43A63"
+					type: "xp"
+					xp: 120
+				}
+			]
+		}
+		{
+			id: "8EB876F505F1EE13"
+			title: "Un nuevo mundo bajo tierra"
+			description: ["Más allá de la capa de roca hay cavernas con clima y bestias propios. No hay puerta: hay que bajar." "&7Alex's Caves son biomas subterráneos del Overworld."]
+			icon: "minecraft:glow_berries"
+			x: -2.62d
+			y: 8.00d
+			shape: "diamond"
+			dependencies: ["337CE3862A1B4BAB"]
+			tasks: [
+				{
+					id: "7821084957B4F8BD"
+					type: "checkmark"
+					title: "Quiero bajar"
+				}
+			]
+			rewards: [
+				{
+					id: "051F9EB5C8CE5A42"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "CA23A0B5EDCF3FFB"
+			title: "Preparar el descenso"
+			description: ["Antorchas, comida y una manzana de oro: nadie vuelve del fondo con las manos vacías."]
+			icon: "minecraft:torch"
+			x: -0.88d
+			y: 8.22d
+			shape: "rsquare"
+			dependencies: ["8EB876F505F1EE13"]
+			tasks: [
+				{
+					id: "E99336ECF8D710B3"
+					type: "item"
+					item: "minecraft:torch"
+					count: 32L
+				}
+				{
+					id: "D513BEBC8B38D400"
+					type: "item"
+					item: "minecraft:golden_apple"
+				}
+			]
+			rewards: [
+				{
+					id: "EF5CDAEF798D88A6"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "D7062A3C373F09A8"
+			title: "El mundo primitivo"
+			description: ["Una caverna de selva y huesos. Aquí el tiempo se detuvo hace millones de años."]
+			x: 0.88d
+			y: 8.20d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["CA23A0B5EDCF3FFB"]
+			tasks: [
+				{
+					id: "AA6526061FB759F7"
+					type: "biome"
+					biome: "alexscaves:primordial_caves"
+				}
+			]
+			rewards: [
+				{
+					id: "A7F7F932E98B41FD"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "1E09E1955D9E7CE2"
+					type: "item"
+					item: "minecraft:golden_carrot"
+					count: 8
+				}
+			]
+		}
+		{
+			id: "0BB96667550D317A"
+			title: "Ecos de una era olvidada"
+			description: ["Lo que ves no es obra de dioses sino de la carne: una era antes de las razas, de los reinos, de los nombres."]
+			icon: "minecraft:bone"
+			x: 2.62d
+			y: 7.96d
+			shape: "diamond"
+			dependencies: ["D7062A3C373F09A8"]
+			tasks: [
+				{
+					id: "7AD210C12953C47D"
+					type: "checkmark"
+					title: "Escuché los ecos"
+				}
+			]
+			rewards: [
+				{
+					id: "529E5FD957A71373"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "938DC102DAA89816"
+			title: "Gigantes de un mundo perdido"
+			description: ["Un cuenco de huesos descomunales. Aquí caminaron bestias de otro tiempo."]
+			x: 2.62d
+			y: 9.51d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["0BB96667550D317A"]
+			tasks: [
+				{
+					id: "745995C69B34BB96"
+					type: "structure"
+					structure: "alexscaves:dino_bowl"
+				}
+			]
+			rewards: [
+				{
+					id: "79C97EC060053EF0"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "131665DD86D08300"
+			title: "El conocimiento de las cavernas"
+			description: ["Un compendio que se llena a medida que descubres a sus habitantes."]
+			icon: "alexscaves:cave_book"
+			x: 0.88d
+			y: 9.57d
+			shape: "rsquare"
+			dependencies: ["938DC102DAA89816"]
+			tasks: [
+				{
+					id: "A02C67372F9E6D32"
+					type: "item"
+					item: "alexscaves:cave_book"
+				}
+			]
+			rewards: [
+				{
+					id: "DE0EDCDF5426F427"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "0CDD671988061335"
+			title: "Recursos de la antigüedad"
+			description: ["Ámbar, hueso pesado: lo que la caverna entrega a quien la recorre."]
+			icon: "alexscaves:amber"
+			x: -0.88d
+			y: 9.83d
+			shape: "circle"
+			dependencies: ["131665DD86D08300"]
+			tasks: [
+				{
+					id: "297279DB08EE8C8F"
+					type: "item"
+					item: "alexscaves:amber"
+					count: 4L
+				}
+				{
+					id: "2C17C634F0CFA643"
+					type: "item"
+					item: "alexscaves:heavy_bone"
+					count: 2L
+				}
+			]
+			rewards: [
+				{
+					id: "F9DB03A2DC230433"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "8246D5A0B14C1645"
+			title: "Criaturas prehistóricas"
+			description: ["Raptores veloces y triceratops con coraza."]
+			x: -2.62d
+			y: 10.00d
+			shape: "circle"
+			dependencies: ["0CDD671988061335"]
+			tasks: [
+				{
+					id: "E6684060017E1A2C"
+					type: "kill"
+					entity: "alexscaves:vallumraptor"
+					value: 1L
+				}
+				{
+					id: "E7855B52429BD92D"
+					type: "kill"
+					entity: "alexscaves:grottoceratops"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "F5AD50C2E2268B6C"
+					type: "xp"
+					xp: 120
+				}
+			]
+		}
+		{
+			id: "BB366DE7E76A5288"
+			title: "Los colosos primitivos"
+			description: ["Un tiranosaurio de la edad antigua. Reza antes de acercarte." "&7Lleva armadura completa de metal nuevo y pociones."]
+			x: -2.62d
+			y: 11.65d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["8246D5A0B14C1645"]
+			tasks: [
+				{
+					id: "D510F99D27051B07"
+					type: "kill"
+					entity: "alexscaves:luxtructosaurus"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "5B544F4DD05D6BE9"
+					type: "xp"
+					xp: 500
+				}
+				{
+					id: "A3224C8F265A17AF"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 5
+				}
+			]
+		}
+		{
+			id: "762D8AF21867C4AF"
+			title: "Guía de supervivencia primitiva"
+			description: ["Lleva luz, comida y un plan de retirada. Las cavernas devoran a los distraídos."]
+			icon: "minecraft:campfire"
+			x: -0.88d
+			y: 11.39d
+			shape: "diamond"
+			dependencies: ["BB366DE7E76A5288"]
+			tasks: [
+				{
+					id: "7B770FC1667034A3"
+					type: "checkmark"
+					title: "Entendí los riesgos"
+				}
+			]
+			rewards: [
+				{
+					id: "EE53E68EB823C1D5"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "ECC4198D10B5CCC2"
+			title: "Reliquias de las cavernas"
+			description: ["Un par de reliquias antiguas, para quien sepa leerlas."]
+			icon: "alexscaves:dinosaur_chop"
+			x: 10.83d
+			y: 7.95d
+			shape: "circle"
+			dependencies: ["762D8AF21867C4AF"]
+			tasks: [
+				{
+					id: "9EA2FEEF393C530C"
+					type: "item"
+					item: "alexscaves:dinosaur_chop"
+					count: 2L
+				}
+			]
+			rewards: [
+				{
+					id: "26CFDF5FCDF0B829"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "7B16B19083C5D7D6"
+			title: "El poder de los dioses antiguos"
+			description: ["Superaste el crepúsculo y las cavernas. Lo que antes eran mitos, hoy son nombres que has derrotado."]
+			icon: "minecraft:totem_of_undying"
+			x: 12.58d
+			y: 8.17d
+			shape: "diamond"
+			dependencies: ["ECC4198D10B5CCC2"]
+			tasks: [
+				{
+					id: "77BFCD1CDDC8CB79"
+					type: "checkmark"
+					title: "Estoy listo"
+				}
+			]
+			rewards: [
+				{
+					id: "AAD862C0287407DC"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			id: "D8E69FCDE74FD6BB"
+			title: "El conocimiento prohibido"
+			description: ["Fuego y hielo, juntos: dos metales para dos extremos. Muestra que los tienes."]
+			icon: "twilightforest:fiery_ingot"
+			x: 14.33d
+			y: 8.15d
+			shape: "rsquare"
+			dependencies: ["7B16B19083C5D7D6"]
+			tasks: [
+				{
+					id: "DC1D02EB350FE2B6"
+					type: "item"
+					item: "twilightforest:fiery_ingot"
+				}
+				{
+					id: "90E42A56F4EF90F9"
+					type: "item"
+					item: "testamentodelacarne:wintry_ingot"
+				}
+			]
+			rewards: [
+				{
+					id: "4094CC37DA42FAD2"
+					type: "xp"
+					xp: 250
+				}
+			]
+		}
+		{
+			id: "6898744342A85930"
+			title: "Algo mucho más antiguo"
+			description: ["Los dioses y las bestias de estos mundos no son el principio. Son el eco de algo anterior a todos."]
+			icon: "minecraft:ender_eye"
+			x: 16.08d
+			y: 7.91d
+			shape: "hexagon"
+			size: 2.0d
+			dependencies: ["D8E69FCDE74FD6BB"]
+			tasks: [
+				{
+					id: "827503955D979DC3"
+					type: "checkmark"
+					title: "Lo entiendo"
+				}
+			]
+			rewards: [
+				{
+					id: "DCFC9306D4A0E98C"
+					type: "xp"
+					xp: 1000
+				}
+				{
+					id: "9862069C56B9077B"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 8
+				}
+			]
+		}
+	]
+}

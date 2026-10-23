@@ -10,6 +10,9 @@ KICKER = "Capítulo I"
 PREFIX = "c1"
 BG_SRC = "cap1_fondo.png"
 BG_OUT = "cap1_bg.png"
+GRID = (4, 3)
+SAVED = "C:/Users/agust/AppData/Roaming/ATLauncher/instances/PRUEBAS/config/ftbquests/quests/chapters/capitulo_1_el_despertar.snbt"  # el capitulo 1 se acomoda a mano en el juego
+
 BG_BRIGHT = 1.25
 
 

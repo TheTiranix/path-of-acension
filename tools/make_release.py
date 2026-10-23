@@ -56,10 +56,10 @@ def main():
                 zf.write(full, dest)
                 count += 1
     print('%s (%d archivos)' % (out, count))
-    # quests en ingles: se descomprime encima del zip de configuracion (pisa los capitulos del Atlas y los grupos)
-    en_base = os.path.join(SRC, 'ftbquests_en', 'quests')
+    # quests en espanol (el zip de configuracion ya trae las de ingles): se descomprime encima (pisa los capitulos y los grupos)
+    en_base = os.path.join(SRC, 'ftbquests_es', 'quests')
     if os.path.isdir(en_base):
-        out_en = os.path.join(out_dir, 'PathOfAscension-quests-EN-%s.zip' % version)
+        out_en = os.path.join(out_dir, 'PathOfAscension-quests-ES-%s.zip' % version)
         with zipfile.ZipFile(out_en, 'w', zipfile.ZIP_DEFLATED) as zf:
             for dirpath, _, files in os.walk(en_base):
                 for name in files:

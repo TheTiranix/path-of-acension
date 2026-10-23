@@ -7,130 +7,112 @@
 	images: [
 		{
 			image: "kubejs:textures/gui/quest/cap2_bg.png"
-			x: -10.60d
-			y: -2.05d
-			width: 32.00d
-			height: 18.00d
+			x: -25.63d
+			y: -14.88d
+			width: 51.25d
+			height: 28.83d
 			rotation: 0.0d
 			order: 0
 		}
 		{
-			image: "kubejs:textures/gui/quest/cap2_bg_f.png"
-			x: -10.60d
-			y: 15.95d
-			width: 32.00d
-			height: 18.00d
-			rotation: 0.0d
-			order: 0
-		}
-		{
-			image: "kubejs:textures/gui/quest/cap2_bg.png"
-			x: -10.60d
-			y: 33.95d
-			width: 32.00d
-			height: 18.00d
-			rotation: 0.0d
-			order: 0
-		}
-		{
-			image: "kubejs:textures/gui/quest/c2_s1.png"
-			x: 0.40d
-			y: -0.10d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s1_en.png"
+			x: -14.72d
+			y: -9.88d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s2.png"
-			x: 0.40d
-			y: 4.20d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s2_en.png"
+			x: -4.00d
+			y: -8.07d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s3.png"
-			x: 0.40d
-			y: 8.50d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s3_en.png"
+			x: 6.72d
+			y: -9.88d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s4.png"
-			x: 0.40d
-			y: 12.80d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s4_en.png"
+			x: 6.72d
+			y: -2.15d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s5.png"
-			x: 0.40d
-			y: 17.10d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s5_en.png"
+			x: -4.00d
+			y: -1.23d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s6.png"
-			x: 0.40d
-			y: 21.40d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s6_en.png"
+			x: -14.72d
+			y: -2.15d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s7.png"
-			x: 0.40d
-			y: 25.70d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s7_en.png"
+			x: -14.72d
+			y: 3.82d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s8.png"
-			x: 0.40d
-			y: 30.00d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s8_en.png"
+			x: -4.00d
+			y: 5.62d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 		{
-			image: "kubejs:textures/gui/quest/c2_s9.png"
-			x: 0.40d
-			y: 34.30d
-			width: 10.00d
-			height: 1.50d
+			image: "kubejs:textures/gui/quest/c2_s9_en.png"
+			x: 6.72d
+			y: 4.70d
+			width: 8.00d
+			height: 1.20d
 			rotation: 0.0d
 			order: 1
 		}
 	]
 	order_index: 1
 	quest_links: [ ]
-	title: "II · Todo comienza con pequeños pasos"
+	title: "II · Every Journey Begins with Small Steps"
 	quests: [
 		{
 			id: "2D6937A5870F9892"
-			title: "Los reinos olvidados"
-			description: ["Nueve reinos sostienen lo que queda del mundo: de Páter, de Filis, de Meidris, de Deiros, de la Luna, y uno sin dios. Aún no sabes cómo llegar a ellos."]
+			title: "The Forgotten Realms"
+			description: ["Nine realms hold up what remains of the world: those of Pater, Filis, Meidris, Deiros, the Moon, and one without a god. You don't yet know how to reach them."]
 			icon: "minecraft:map"
-			x: 0.00d
-			y: 1.60d
+			x: -13.34d
+			y: -8.38d
 			shape: "diamond"
 			tasks: [
 				{
 					id: "BD56F2B7B37684EA"
 					type: "checkmark"
-					title: "Conozco la existencia de los reinos"
+					title: "I know the realms exist"
 				}
 			]
 			rewards: [
@@ -143,18 +125,18 @@
 		}
 		{
 			id: "88CBA5AB5A2A79AB"
-			title: "Mazmorras"
-			description: ["Entre las ruinas del viejo mundo duermen cámaras selladas, con monstruos y botín. Pocas se abren sin pelea."]
+			title: "Dungeons"
+			description: ["Among the ruins of the old world sleep sealed chambers, with monsters and loot. Few open without a fight."]
 			icon: "minecraft:iron_bars"
-			x: 1.80d
-			y: 1.87d
+			x: -11.59d
+			y: -8.15d
 			shape: "diamond"
 			dependencies: ["2D6937A5870F9892"]
 			tasks: [
 				{
 					id: "B7F35668E456391E"
 					type: "checkmark"
-					title: "Entendí qué es una mazmorra"
+					title: "I understand what a dungeon is"
 				}
 			]
 			rewards: [
@@ -167,10 +149,10 @@
 		}
 		{
 			id: "9DDE497DE1E40239"
-			title: "Una mazmorra"
-			description: ["Bajo tierra, un hueco con ruido de huesos. Encuentra tu primera mazmorra."]
-			x: 3.60d
-			y: 1.94d
+			title: "A Dungeon"
+			description: ["Underground, a hollow with the sound of bones. Find your first dungeon."]
+			x: -9.84d
+			y: -8.17d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["88CBA5AB5A2A79AB"]
@@ -191,11 +173,11 @@
 		}
 		{
 			id: "58A41A6C8FE58DFB"
-			title: "Prepararse para descender"
-			description: ["Provisiones y un arco: dentro no hay lugar para improvisar."]
+			title: "Prepare to Descend"
+			description: ["Provisions and a bow: inside there is no room to improvise."]
 			icon: "minecraft:cooked_beef"
-			x: 5.40d
-			y: 1.75d
+			x: -8.09d
+			y: -8.41d
 			shape: "rsquare"
 			dependencies: ["9DDE497DE1E40239"]
 			tasks: [
@@ -221,10 +203,10 @@
 		}
 		{
 			id: "56AE79A0BF577D2F"
-			title: "Botín de los caídos"
-			description: ["Los esqueletos guardan cámaras enteras. Explora una mazmorra de huesos y llévate lo tuyo."]
-			x: 7.20d
-			y: 1.45d
+			title: "Loot of the Fallen"
+			description: ["Skeletons guard entire chambers. Explore a bone dungeon and take what is yours."]
+			x: -8.09d
+			y: -6.86d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["58A41A6C8FE58DFB"]
@@ -255,11 +237,11 @@
 		}
 		{
 			id: "1C3B25968A74E385"
-			title: "Herramientas básicas"
-			description: ["Hierro para hacha y pala: lo básico para no depender de la suerte."]
+			title: "Basic Tools"
+			description: ["Iron for an axe and a shovel: the basics so you don't depend on luck."]
 			icon: "minecraft:iron_axe"
-			x: 10.80d
-			y: 5.90d
+			x: -2.62d
+			y: -6.57d
 			shape: "rsquare"
 			dependencies: ["56AE79A0BF577D2F"]
 			tasks: [
@@ -284,11 +266,11 @@
 		}
 		{
 			id: "00D870CCDB7316A3"
-			title: "Pedernal y mechero"
-			description: ["Grava, pedernal y hierro: la chispa que hará falta para abrir un portal."]
+			title: "Flint and Steel"
+			description: ["Gravel, flint and iron: the spark you will need to open a portal."]
 			icon: "minecraft:flint_and_steel"
-			x: 9.00d
-			y: 6.17d
+			x: -0.88d
+			y: -6.35d
 			shape: "rsquare"
 			dependencies: ["1C3B25968A74E385"]
 			tasks: [
@@ -308,11 +290,11 @@
 		}
 		{
 			id: "2F35018B9FED98E3"
-			title: "Brillo bajo la roca"
-			description: ["Los diamantes viven en lo hondo, cerca de la lava. No bajes sin agua a mano." "&7En este pack los diamantes aparecen menos y más profundo."]
+			title: "Glint Beneath the Rock"
+			description: ["Diamonds live deep, near the lava. Don't go down without water at hand." "&7In this pack diamonds are rarer and deeper."]
 			icon: "minecraft:diamond"
-			x: 7.20d
-			y: 6.24d
+			x: 0.88d
+			y: -6.37d
 			shape: "circle"
 			dependencies: ["00D870CCDB7316A3"]
 			tasks: [
@@ -333,11 +315,11 @@
 		}
 		{
 			id: "554C99E37862B956"
-			title: "Un pico de diamante"
-			description: ["Con él cae hasta la obsidiana."]
+			title: "A Diamond Pickaxe"
+			description: ["With it you can reach the obsidian."]
 			icon: "minecraft:diamond_pickaxe"
-			x: 5.40d
-			y: 6.05d
+			x: 2.62d
+			y: -6.61d
 			shape: "rsquare"
 			dependencies: ["2F35018B9FED98E3"]
 			tasks: [
@@ -357,11 +339,11 @@
 		}
 		{
 			id: "C78D76B5D177576C"
-			title: "Piedra de la noche"
-			description: ["Agua sobre lava quieta da obsidiana. Reúne diez bloques."]
+			title: "Stone of the Night"
+			description: ["Water over still lava gives obsidian. Gather ten blocks."]
 			icon: "minecraft:obsidian"
-			x: 3.60d
-			y: 5.75d
+			x: 2.62d
+			y: -5.06d
 			shape: "circle"
 			dependencies: ["554C99E37862B956"]
 			tasks: [
@@ -382,18 +364,18 @@
 		}
 		{
 			id: "8858B29A6E79DBEC"
-			title: "Un portal entre mundos"
-			description: ["Marco de obsidiana, un chispazo, y la puerta se abre hacia el infierno."]
+			title: "A Portal Between Worlds"
+			description: ["An obsidian frame, a spark, and the door opens onto the underworld."]
 			icon: "minecraft:obsidian"
-			x: 0.00d
-			y: 10.20d
+			x: 8.09d
+			y: -8.38d
 			shape: "diamond"
 			dependencies: ["C78D76B5D177576C"]
 			tasks: [
 				{
 					id: "DC1E98A9C2F76F21"
 					type: "checkmark"
-					title: "Levanté el portal"
+					title: "I raised the portal"
 				}
 			]
 			rewards: [
@@ -406,10 +388,10 @@
 		}
 		{
 			id: "C75C5599B24BC09C"
-			title: "Más allá del fuego"
-			description: ["Cruza. El aire quema, el cielo es roca."]
-			x: 1.80d
-			y: 10.47d
+			title: "Beyond the Fire"
+			description: ["Cross over. The air burns, the sky is rock."]
+			x: 9.84d
+			y: -8.15d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["8858B29A6E79DBEC"]
@@ -436,10 +418,10 @@
 		}
 		{
 			id: "5AAF2843E46131FD"
-			title: "Los biomas del infierno"
-			description: ["Bosques carmesí y distorsionados, valles de almas y deltas de basalto. Recórrelos."]
-			x: 3.60d
-			y: 10.54d
+			title: "The Biomes of Hell"
+			description: ["Crimson and warped forests, soul valleys and basalt deltas. Walk through them."]
+			x: 11.59d
+			y: -8.17d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["C75C5599B24BC09C"]
@@ -475,10 +457,10 @@
 		}
 		{
 			id: "872A9BFFB0033538"
-			title: "La fortaleza"
-			description: ["Piedra negra y esqueletos con calavera. Una fortaleza del Nether."]
-			x: 5.40d
-			y: 10.35d
+			title: "The Fortress"
+			description: ["Black stone and skeletons with skulls. A Nether fortress."]
+			x: 13.34d
+			y: -8.41d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["5AAF2843E46131FD"]
@@ -499,11 +481,11 @@
 		}
 		{
 			id: "24BA4E138BE24613"
-			title: "Varas de blaze"
-			description: ["Los blazes custodian lo que arde. Sus varas sirven de combustible y de ingrediente." "&7Búscalos dentro de la fortaleza."]
+			title: "Blaze Rods"
+			description: ["Blazes guard what burns. Their rods serve as fuel and as an ingredient." "&7Look for them inside the fortress."]
 			icon: "minecraft:blaze_rod"
-			x: 7.20d
-			y: 10.05d
+			x: 13.34d
+			y: -6.86d
 			shape: "circle"
 			dependencies: ["872A9BFFB0033538"]
 			tasks: [
@@ -524,10 +506,10 @@
 		}
 		{
 			id: "6CE57EAED921AD16"
-			title: "El bastión"
-			description: ["Un bastión remanente: oro, piglins y un cofre que vale la pelea."]
-			x: 9.00d
-			y: 9.86d
+			title: "The Bastion"
+			description: ["A bastion remnant: gold, piglins and a chest worth the fight."]
+			x: 11.59d
+			y: -6.80d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["24BA4E138BE24613"]
@@ -548,11 +530,11 @@
 		}
 		{
 			id: "A875086ED2E816A5"
-			title: "Tesoros de piglins"
-			description: ["Los piglins cambian oro por cosas raras. Reúne una buena cantidad."]
+			title: "Piglin Treasures"
+			description: ["Piglins trade gold for odd things. Gather a good amount."]
 			icon: "minecraft:gold_ingot"
-			x: 10.80d
-			y: 9.93d
+			x: 9.84d
+			y: -6.55d
 			shape: "circle"
 			dependencies: ["6CE57EAED921AD16"]
 			tasks: [
@@ -573,11 +555,11 @@
 		}
 		{
 			id: "6267A7ED4349FBCF"
-			title: "Osmio"
-			description: ["Un metal pesado y plateado. Hará falta para una mesa que aguanta aleaciones oscuras."]
+			title: "Osmium"
+			description: ["A heavy, silvery metal. You will need it for a table that withstands dark alloys."]
 			icon: "mekanism:ingot_osmium"
-			x: 10.80d
-			y: 14.50d
+			x: 8.09d
+			y: -0.65d
 			shape: "circle"
 			dependencies: ["A875086ED2E816A5"]
 			tasks: [
@@ -598,11 +580,11 @@
 		}
 		{
 			id: "BC44A8B32EE025CD"
-			title: "La lente de la verdad oculta"
-			description: ["Cuatro fragmentos de memoria y una perla de ender dan una lente que revela lo escondido." "&7Receta: perla de ender al centro, cuatro Fragmentos de Memoria en cruz."]
+			title: "The Lens of Hidden Truth"
+			description: ["Four memory fragments and an ender pearl make a lens that reveals what is hidden." "&7Recipe: ender pearl in the center, four Memory Fragments in a cross."]
 			icon: "testamentodelacarne:lente_de_la_verdad_oculta"
-			x: 9.00d
-			y: 14.77d
+			x: 9.84d
+			y: -0.43d
 			shape: "rsquare"
 			dependencies: ["6267A7ED4349FBCF"]
 			tasks: [
@@ -622,11 +604,11 @@
 		}
 		{
 			id: "804EF1C3449D8010"
-			title: "Una mesa de otro nivel"
-			description: ["El metal oscuro, la netherita y la gravitite no se trabajan en una mesa común. Esta sí." "&7Receta: osmio, lente, pólvora y una mesa de crafteo."]
+			title: "A Table of Another Level"
+			description: ["Dark metal, netherite and gravitite aren't worked on a common table. This one is." "&7Recipe: osmium, lens, gunpowder and a crafting table."]
 			icon: "testamentodelacarne:tier2_crafting_table"
-			x: 7.20d
-			y: 14.84d
+			x: 11.59d
+			y: -0.45d
 			shape: "rsquare"
 			dependencies: ["BC44A8B32EE025CD"]
 			tasks: [
@@ -646,11 +628,11 @@
 		}
 		{
 			id: "4C1D508136BE4DE7"
-			title: "La primera pieza oscura"
-			description: ["Con tus lingotes de dark metal y la mesa nueva, forja un pico: el primer eslabón del ascenso." "&7Se craftea solo en la mesa tier 2."]
+			title: "The First Dark Piece"
+			description: ["With your dark metal ingots and the new table, forge a pickaxe: the first link of the ascent." "&7Crafted only on the tier 2 table."]
 			icon: "testamentodelacarne:dark_metal_pickaxe"
-			x: 5.40d
-			y: 14.65d
+			x: 13.34d
+			y: -0.69d
 			shape: "rsquare"
 			dependencies: ["804EF1C3449D8010"]
 			tasks: [
@@ -670,11 +652,11 @@
 		}
 		{
 			id: "F92F951B384AB55E"
-			title: "Escombros ancestrales"
-			description: ["En lo hondo del infierno, restos de una era anterior. Se minan con pico de diamante." "&7Busca entre Y 8 y 22 con explosiones o minería en tira."]
+			title: "Ancient Debris"
+			description: ["Deep in the underworld, remains of an earlier age. Mined with a diamond pickaxe." "&7Look between Y 8 and 22 with explosions or strip mining."]
 			icon: "minecraft:ancient_debris"
-			x: 0.00d
-			y: 18.80d
+			x: 2.62d
+			y: 0.27d
 			shape: "circle"
 			dependencies: ["4C1D508136BE4DE7"]
 			tasks: [
@@ -695,11 +677,11 @@
 		}
 		{
 			id: "D45084C16DD69868"
-			title: "Fragmentos de netherita"
-			description: ["En el horno, el escombro se rompe en láminas."]
+			title: "Netherite Scraps"
+			description: ["In the furnace, the debris breaks into sheets."]
 			icon: "minecraft:netherite_scrap"
-			x: 1.80d
-			y: 19.07d
+			x: 0.88d
+			y: 0.50d
 			shape: "circle"
 			dependencies: ["F92F951B384AB55E"]
 			tasks: [
@@ -720,11 +702,11 @@
 		}
 		{
 			id: "7C7D54F72ADD1D5B"
-			title: "Un lingote de netherita"
-			description: ["Cuatro fragmentos y cuatro lingotes de oro: el metal más duro del mundo."]
+			title: "A Netherite Ingot"
+			description: ["Four scraps and four gold ingots: the hardest metal in the world."]
 			icon: "minecraft:netherite_ingot"
-			x: 3.60d
-			y: 19.14d
+			x: -0.88d
+			y: 0.48d
 			shape: "rsquare"
 			dependencies: ["D45084C16DD69868"]
 			tasks: [
@@ -744,11 +726,11 @@
 		}
 		{
 			id: "5F6625E6E204DE55"
-			title: "Una plantilla de mejora"
-			description: ["Los bastiones guardan moldes de herrería. Consigue la plantilla de netherita." "&7Cofres de bastión."]
+			title: "An Upgrade Template"
+			description: ["Bastions keep smithing molds. Get the netherite upgrade template." "&7Bastion chests."]
 			icon: "minecraft:netherite_upgrade_smithing_template"
-			x: 5.40d
-			y: 18.95d
+			x: -2.62d
+			y: 0.24d
 			shape: "circle"
 			dependencies: ["7C7D54F72ADD1D5B"]
 			tasks: [
@@ -768,11 +750,11 @@
 		}
 		{
 			id: "163C565251CE236E"
-			title: "Duplicar la plantilla"
-			description: ["Un molde, un bloque de netherrack y siete diamantes dan dos."]
+			title: "Duplicate the Template"
+			description: ["One mold, a block of netherrack and seven diamonds give two."]
 			icon: "minecraft:netherite_upgrade_smithing_template"
-			x: 7.20d
-			y: 18.65d
+			x: -2.62d
+			y: 1.79d
 			shape: "rsquare"
 			dependencies: ["5F6625E6E204DE55"]
 			tasks: [
@@ -793,11 +775,11 @@
 		}
 		{
 			id: "0EC85A68279468A0"
-			title: "Mejorar a netherita"
-			description: ["En este mundo la netherita no empieza de cero: mejora una pieza de dark metal con ella, en la mesa tier 2." "&7Un lingote para herramientas y armas; cuatro en cruz para armaduras."]
+			title: "Upgrade to Netherite"
+			description: ["In this world netherite doesn't start from scratch: upgrade a dark metal piece with it, on the tier 2 table." "&7One ingot for tools and weapons; four in a cross for armor."]
 			icon: "minecraft:netherite_pickaxe"
-			x: 9.00d
-			y: 18.46d
+			x: -0.88d
+			y: 1.85d
 			shape: "rsquare"
 			dependencies: ["163C565251CE236E"]
 			tasks: [
@@ -817,11 +799,11 @@
 		}
 		{
 			id: "75E5CFADF045B489"
-			title: "Crafteos básicos de netherita"
-			description: ["Arma y armadura: ya puedes enfrentar lo que habita los infiernos."]
+			title: "Basic Netherite Crafting"
+			description: ["Weapon and armor: now you can face what inhabits the underworld."]
 			icon: "minecraft:netherite_sword"
-			x: 10.80d
-			y: 18.53d
+			x: 0.88d
+			y: 2.10d
 			shape: "rsquare"
 			dependencies: ["0EC85A68279468A0"]
 			tasks: [
@@ -846,10 +828,10 @@
 		}
 		{
 			id: "6F541649AA585D12"
-			title: "Una mazmorra infernal"
-			description: ["Bajo el basalto hay cámaras selladas por quien te precedió. Encuentra una."]
-			x: 10.80d
-			y: 23.10d
+			title: "A Hellish Dungeon"
+			description: ["Beneath the basalt are chambers sealed by those who came before you. Find one."]
+			x: -8.09d
+			y: -0.65d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["75E5CFADF045B489"]
@@ -870,10 +852,10 @@
 		}
 		{
 			id: "1594CE02F7A7E8F2"
-			title: "Sus recompensas"
-			description: ["Los esqueletos del Nether no son comunes: tienen calaveras." "&7Se encuentran en fortalezas y mazmorras infernales."]
-			x: 9.00d
-			y: 23.37d
+			title: "Its Rewards"
+			description: ["Nether skeletons aren't common: they carry skulls." "&7Found in fortresses and hellish dungeons."]
+			x: -9.84d
+			y: -0.43d
 			shape: "circle"
 			dependencies: ["6F541649AA585D12"]
 			tasks: [
@@ -894,10 +876,10 @@
 		}
 		{
 			id: "0AEF80B318E942D1"
-			title: "Los primeros jefes"
-			description: ["Dos estructuras guardan lo peor del Nether: una arena en llamas y una forja de almas."]
-			x: 7.20d
-			y: 23.44d
+			title: "The First Bosses"
+			description: ["Two structures guard the worst of the Nether: a burning arena and a forge of souls."]
+			x: -11.59d
+			y: -0.45d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["1594CE02F7A7E8F2"]
@@ -923,10 +905,10 @@
 		}
 		{
 			id: "339C352B208A05BD"
-			title: "Derrotar a los jefes"
-			description: ["El Ignis y la Monstruosidad de Netherita. Si caen, el infierno es tuyo." "&7Ven con armadura de netherita y pociones de resistencia al fuego."]
-			x: 5.40d
-			y: 23.25d
+			title: "Defeat the Bosses"
+			description: ["Ignis and the Netherite Monstrosity. If they fall, the underworld is yours." "&7Come in netherite armor with fire resistance potions."]
+			x: -13.34d
+			y: -0.69d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["0AEF80B318E942D1"]
@@ -960,11 +942,11 @@
 		}
 		{
 			id: "EFAB086606333B69"
-			title: "Una lágrima del infierno"
-			description: ["Los ghasts lloran lágrimas que valen más que el oro. Consigue una." "&7Mata ghasts con arco a distancia."]
+			title: "A Tear from Hell"
+			description: ["Ghasts weep tears worth more than gold. Get one." "&7Kill ghasts from a distance with a bow."]
 			icon: "minecraft:ghast_tear"
-			x: 0.00d
-			y: 27.40d
+			x: -13.34d
+			y: 5.32d
 			shape: "circle"
 			dependencies: ["339C352B208A05BD"]
 			tasks: [
@@ -984,11 +966,11 @@
 		}
 		{
 			id: "395A88BAA25D8D6A"
-			title: "Un aparato de encantamiento"
-			description: ["Para forjar una Lágrima Consagrada hace falta un aparato de Ars Nouveau y gemas de fuente."]
+			title: "An Enchanting Apparatus"
+			description: ["To forge a Consecrated Tear you need an Ars Nouveau apparatus and source gems."]
 			icon: "ars_nouveau:enchanting_apparatus"
-			x: 1.80d
-			y: 27.67d
+			x: -11.59d
+			y: 5.55d
 			shape: "rsquare"
 			dependencies: ["EFAB086606333B69"]
 			tasks: [
@@ -1013,11 +995,11 @@
 		}
 		{
 			id: "F951DFBEE4D6E741"
-			title: "La Lágrima Consagrada"
-			description: ["Un llanto forjado con pura devoción: lágrima de ghast, fragmento de memoria, diamante, gema de fuente y agua." "&7En el aparato de encantamiento: lágrima de ghast al centro; en los pedestales, un Fragmento de Memoria, un diamante, una gema de fuente y un cubo de agua."]
+			title: "The Consecrated Tear"
+			description: ["A weeping forged with pure devotion: ghast tear, memory fragment, diamond, source gem and water." "&7In the enchanting apparatus: ghast tear in the center; on the pedestals, a Memory Fragment, a diamond, a source gem and a water bucket."]
 			icon: "testamentodelacarne:lagrima_consagrada"
-			x: 3.60d
-			y: 27.74d
+			x: -9.84d
+			y: 5.53d
 			shape: "rsquare"
 			dependencies: ["395A88BAA25D8D6A"]
 			tasks: [
@@ -1037,11 +1019,11 @@
 		}
 		{
 			id: "614F45A26D0B9DB9"
-			title: "El marco de luz"
-			description: ["Diez bloques de piedra luminosa en forma de puerta, hasta donde alcance el cielo." "&7Pide polvo de glowstone del Nether."]
+			title: "The Frame of Light"
+			description: ["Ten glowstone blocks in the shape of a door, reaching as high as the sky." "&7Needs glowstone dust from the Nether."]
 			icon: "minecraft:glowstone"
-			x: 5.40d
-			y: 27.55d
+			x: -8.09d
+			y: 5.29d
 			shape: "circle"
 			dependencies: ["F951DFBEE4D6E741"]
 			tasks: [
@@ -1062,18 +1044,18 @@
 		}
 		{
 			id: "43D64C24BDB3BFF1"
-			title: "Un portal al paraíso"
-			description: ["Haz clic derecho con la lágrima sobre un bloque del marco. El portal se enciende."]
+			title: "A Portal to Paradise"
+			description: ["Right-click a frame block with the tear. The portal ignites."]
 			icon: "minecraft:glowstone"
-			x: 7.20d
-			y: 27.25d
+			x: -8.09d
+			y: 6.84d
 			shape: "diamond"
 			dependencies: ["614F45A26D0B9DB9"]
 			tasks: [
 				{
 					id: "563304F0FC1D6283"
 					type: "checkmark"
-					title: "Encendí el portal del Aether"
+					title: "I lit the Aether portal"
 				}
 			]
 			rewards: [
@@ -1086,10 +1068,10 @@
 		}
 		{
 			id: "4DEEE484EA732BC3"
-			title: "El cielo del paraíso"
-			description: ["Cruza. Verás lo que quedó del cielo de los dioses."]
-			x: 9.00d
-			y: 27.06d
+			title: "The Sky of Paradise"
+			description: ["Cross over. You will see what remains of the gods' sky."]
+			x: -9.84d
+			y: 6.90d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["43D64C24BDB3BFF1"]
@@ -1116,11 +1098,11 @@
 		}
 		{
 			id: "AB349D8459281E55"
-			title: "Primeros pasos entre nubes"
-			description: ["Reúne lo que da el cielo: fragmentos de ambrosía y troncos de raíz de cielo."]
+			title: "First Steps Among Clouds"
+			description: ["Gather what the sky gives: ambrosium shards and skyroot logs."]
 			icon: "aether:ambrosium_shard"
-			x: 10.80d
-			y: 27.13d
+			x: -11.59d
+			y: 7.15d
 			shape: "circle"
 			dependencies: ["4DEEE484EA732BC3"]
 			tasks: [
@@ -1147,10 +1129,10 @@
 		}
 		{
 			id: "972B2802F15C1ED6"
-			title: "La mazmorra de bronce"
-			description: ["Un laberinto flotante vigilado por un coloso de piedra."]
-			x: 10.80d
-			y: 31.70d
+			title: "The Bronze Dungeon"
+			description: ["A floating labyrinth watched by a stone colossus."]
+			x: -2.62d
+			y: 7.12d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["AB349D8459281E55"]
@@ -1171,10 +1153,10 @@
 		}
 		{
 			id: "BDB318EBD114083C"
-			title: "El Slider"
-			description: ["Una piedra con ojos que embiste. Esquiva y golpea." "&7Ven con armadura buena: hace mucho daño por contacto."]
-			x: 9.00d
-			y: 31.97d
+			title: "The Slider"
+			description: ["A stone with eyes that charges. Dodge and strike." "&7Come with good armor: it deals heavy contact damage."]
+			x: -0.88d
+			y: 7.35d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["972B2802F15C1ED6"]
@@ -1201,10 +1183,10 @@
 		}
 		{
 			id: "2F5A529F79D74EC4"
-			title: "La mazmorra de plata"
-			description: ["Más arriba, otra, con los ecos de las valquirias."]
-			x: 7.20d
-			y: 32.04d
+			title: "The Silver Dungeon"
+			description: ["Higher up, another, with the echoes of the valkyries."]
+			x: 0.88d
+			y: 7.33d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["BDB318EBD114083C"]
@@ -1225,10 +1207,10 @@
 		}
 		{
 			id: "97E36FD27DCB189B"
-			title: "La reina valquiria"
-			description: ["La más fiera de las valquirias. Cuidado con su lanza."]
-			x: 5.40d
-			y: 31.85d
+			title: "The Valkyrie Queen"
+			description: ["The fiercest of the valkyries. Beware her lance."]
+			x: 2.62d
+			y: 7.09d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["2F5A529F79D74EC4"]
@@ -1256,10 +1238,10 @@
 		}
 		{
 			id: "147BB8B60E4B5D30"
-			title: "La mazmorra de oro"
-			description: ["La cima del Aether. Aquí empieza lo sagrado."]
-			x: 3.60d
-			y: 31.55d
+			title: "The Gold Dungeon"
+			description: ["The summit of the Aether. Here the sacred begins."]
+			x: 2.62d
+			y: 8.64d
 			shape: "octagon"
 			size: 1.2d
 			dependencies: ["97E36FD27DCB189B"]
@@ -1280,10 +1262,10 @@
 		}
 		{
 			id: "164EDF545882BA7D"
-			title: "El espíritu del sol"
-			description: ["El centinela final del cielo. Sus llamas queman lo que toca."]
-			x: 1.80d
-			y: 31.36d
+			title: "The Sun Spirit"
+			description: ["The final sentinel of the sky. Its flames burn what they touch."]
+			x: 0.88d
+			y: 8.70d
 			shape: "hexagon"
 			size: 1.5d
 			dependencies: ["147BB8B60E4B5D30"]
@@ -1311,11 +1293,11 @@
 		}
 		{
 			id: "E56820070C3207F1"
-			title: "Crafteos del cielo"
-			description: ["Zanite para el pico y la espada: tu herramienta de cielo."]
+			title: "Sky Crafting"
+			description: ["Zanite for the pickaxe and the sword: your tool of the sky."]
 			icon: "aether:zanite_pickaxe"
-			x: 0.00d
-			y: 31.43d
+			x: -0.88d
+			y: 8.95d
 			shape: "rsquare"
 			dependencies: ["164EDF545882BA7D"]
 			tasks: [
@@ -1340,18 +1322,18 @@
 		}
 		{
 			id: "CDD2E9F7F2387388"
-			title: "Los reinos pendientes"
-			description: ["Hay más reinos por descubrir. El mundo apenas empieza a mostrarse."]
+			title: "The Realms Yet Unfound"
+			description: ["There are more realms to discover. The world is only beginning to show itself."]
 			icon: "minecraft:map"
-			x: 0.00d
-			y: 36.00d
+			x: 9.84d
+			y: 6.20d
 			shape: "diamond"
 			dependencies: ["E56820070C3207F1"]
 			tasks: [
 				{
 					id: "982DEA172EFDBB29"
 					type: "checkmark"
-					title: "Estoy listo para seguir buscando"
+					title: "I'm ready to keep searching"
 				}
 			]
 			rewards: [
@@ -1364,11 +1346,11 @@
 		}
 		{
 			id: "676D23556BC5F7E3"
-			title: "Un poder desconocido"
-			description: ["El metal oscuro, la netherita y la gravitite no son un final: son la base de algo más. Hay metales aún más viejos, de fuego y de hielo." "&7Capítulo III: los dioses mismos."]
+			title: "An Unknown Power"
+			description: ["Dark metal, netherite and gravitite are not an end: they are the base of something more. There are metals older still, of fire and ice." "&7Chapter III: the gods themselves."]
 			icon: "minecraft:netherite_ingot"
-			x: 1.80d
-			y: 36.27d
+			x: 11.59d
+			y: 6.42d
 			shape: "hexagon"
 			size: 2.0d
 			dependencies: ["CDD2E9F7F2387388"]
@@ -1376,7 +1358,7 @@
 				{
 					id: "0115AA3F5F4871DC"
 					type: "checkmark"
-					title: "Lo comprendo"
+					title: "I understand"
 				}
 			]
 			rewards: [

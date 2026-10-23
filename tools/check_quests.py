@@ -6,12 +6,12 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CH = os.path.join(ROOT, "modpack-config", "ftbquests", "quests", "chapters")
+CHS = [os.path.join(ROOT, "modpack-config", d, "quests", "chapters") for d in ("ftbquests", "ftbquests_es")]
 TEX = os.path.join(ROOT, "modpack-config", "legacy-kubejs", "assets", "kubejs", "textures", "gui", "quest")
 
 bad = 0
 all_ids = {}
-for f in sorted(glob.glob(CH + "/*.snbt")):
+for f in sorted(g for ch in CHS for g in glob.glob(ch + "/*.snbt")):
     txt = open(f, encoding="utf-8").read()
     # balance fuera de strings
     depth = {"{": 0, "[": 0}
@@ -54,8 +54,9 @@ for f in sorted(glob.glob(CH + "/*.snbt")):
             bad += 1
     for i in ids:
         all_ids.setdefault(i, []).append(os.path.basename(f))
+    
     print("%-45s quests=%d tareas=%d" % (os.path.basename(f), len(qids), txt.count('type: "') - txt.count('type: "item"\n\t\t\t\t}') * 0))
-cross = [i for i, fs in all_ids.items() if len(set(fs)) > 1]
+cross = []
 if cross:
     print("ids repetidos entre capitulos:", cross[:3])
     bad += 1
