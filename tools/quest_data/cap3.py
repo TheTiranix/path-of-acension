@@ -8,10 +8,11 @@ TITLE = "III · Conociendo a los dioses"
 ICON = "minecraft:ender_eye"
 KICKER = "Capítulo III"
 PREFIX = "c3"
-BG_SRC = None
+BG_SRC = "cap3_fondo.png"
 BG_GRADIENT = ((8, 14, 30), (26, 8, 34))
 BG_ACCENT = (110, 210, 150)
 BG_OUT = "cap3_bg.png"
+BG_BRIGHT = 0.6
 
 
 def r(n, *gives):
