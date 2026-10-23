@@ -42,51 +42,31 @@ vanilla_button {
 vanilla_button {
   element_type = vanilla_button
   instance_identifier = mc_titlescreen_singleplayer_button
-  anchor_point = top-left
-  x = 30
-  y = 96
-  width = 140
-  height = 20
+  is_hidden = true
 }
 
 vanilla_button {
   element_type = vanilla_button
   instance_identifier = mc_titlescreen_multiplayer_button
-  anchor_point = top-left
-  x = 30
-  y = 122
-  width = 140
-  height = 20
+  is_hidden = true
 }
 
 vanilla_button {
   element_type = vanilla_button
   instance_identifier = mc_titlescreen_options_button
-  anchor_point = top-left
-  x = 30
-  y = 148
-  width = 140
-  height = 20
+  is_hidden = true
 }
 
 vanilla_button {
   element_type = vanilla_button
   instance_identifier = forge_titlescreen_mods_button
-  anchor_point = top-left
-  x = 30
-  y = 174
-  width = 140
-  height = 20
+  is_hidden = true
 }
 
 vanilla_button {
   element_type = vanilla_button
   instance_identifier = mc_titlescreen_quit_button
-  anchor_point = top-left
-  x = 30
-  y = 200
-  width = 140
-  height = 20
+  is_hidden = true
 }
 
 vanilla_button {
