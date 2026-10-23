@@ -1,0 +1,1397 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: "circle"
+	filename: "capitulo_2_pequenos_pasos"
+	id: "9D5B20ADCE88DB49"
+	icon: "minecraft:nether_star"
+	images: [
+		{
+			image: "kubejs:textures/gui/quest/cap2_bg.png"
+			x: -10.60d
+			y: -2.05d
+			width: 32.00d
+			height: 18.00d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/cap2_bg_f.png"
+			x: -10.60d
+			y: 15.95d
+			width: 32.00d
+			height: 18.00d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/cap2_bg.png"
+			x: -10.60d
+			y: 33.95d
+			width: 32.00d
+			height: 18.00d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s1.png"
+			x: 0.40d
+			y: -0.10d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s2.png"
+			x: 0.40d
+			y: 4.20d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s3.png"
+			x: 0.40d
+			y: 8.50d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s4.png"
+			x: 0.40d
+			y: 12.80d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s5.png"
+			x: 0.40d
+			y: 17.10d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s6.png"
+			x: 0.40d
+			y: 21.40d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s7.png"
+			x: 0.40d
+			y: 25.70d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s8.png"
+			x: 0.40d
+			y: 30.00d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c2_s9.png"
+			x: 0.40d
+			y: 34.30d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+	]
+	order_index: 1
+	quest_links: [ ]
+	title: "II · Todo comienza con pequeños pasos"
+	quests: [
+		{
+			id: "2D6937A5870F9892"
+			title: "Los reinos olvidados"
+			description: ["Nueve reinos sostienen lo que queda del mundo: de Páter, de Filis, de Meidris, de Deiros, de la Luna, y uno sin dios. Aún no sabes cómo llegar a ellos."]
+			icon: "minecraft:map"
+			x: 0.00d
+			y: 1.60d
+			shape: "diamond"
+			tasks: [
+				{
+					id: "BD56F2B7B37684EA"
+					type: "checkmark"
+					title: "Conozco la existencia de los reinos"
+				}
+			]
+			rewards: [
+				{
+					id: "2F80AAF772A1784E"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "88CBA5AB5A2A79AB"
+			title: "Mazmorras"
+			description: ["Entre las ruinas del viejo mundo duermen cámaras selladas, con monstruos y botín. Pocas se abren sin pelea."]
+			icon: "minecraft:iron_bars"
+			x: 1.80d
+			y: 1.87d
+			shape: "diamond"
+			dependencies: ["2D6937A5870F9892"]
+			tasks: [
+				{
+					id: "B7F35668E456391E"
+					type: "checkmark"
+					title: "Entendí qué es una mazmorra"
+				}
+			]
+			rewards: [
+				{
+					id: "234BFCFA7CBDC4AC"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "9DDE497DE1E40239"
+			title: "Una mazmorra"
+			description: ["Bajo tierra, un hueco con ruido de huesos. Encuentra tu primera mazmorra."]
+			x: 3.60d
+			y: 1.94d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["88CBA5AB5A2A79AB"]
+			tasks: [
+				{
+					id: "5045CD502BD51FB2"
+					type: "structure"
+					structure: "betterdungeons:small_dungeon"
+				}
+			]
+			rewards: [
+				{
+					id: "72FB4DA0257C778B"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "58A41A6C8FE58DFB"
+			title: "Prepararse para descender"
+			description: ["Provisiones y un arco: dentro no hay lugar para improvisar."]
+			icon: "minecraft:cooked_beef"
+			x: 5.40d
+			y: 1.75d
+			shape: "rsquare"
+			dependencies: ["9DDE497DE1E40239"]
+			tasks: [
+				{
+					id: "4276B7AE96C2107B"
+					type: "item"
+					item: "minecraft:cooked_beef"
+					count: 16L
+				}
+				{
+					id: "345CF133ACB818FF"
+					type: "item"
+					item: "minecraft:bow"
+				}
+			]
+			rewards: [
+				{
+					id: "D921FCBA69FB1F58"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "56AE79A0BF577D2F"
+			title: "Botín de los caídos"
+			description: ["Los esqueletos guardan cámaras enteras. Explora una mazmorra de huesos y llévate lo tuyo."]
+			x: 7.20d
+			y: 1.45d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["58A41A6C8FE58DFB"]
+			tasks: [
+				{
+					id: "EEDB9CA8E8F61080"
+					type: "structure"
+					structure: "betterdungeons:skeleton_dungeon"
+				}
+			]
+			rewards: [
+				{
+					id: "085074DE649F33D5"
+					type: "xp"
+					xp: 60
+				}
+				{
+					id: "B340383E2FDF125F"
+					type: "item"
+					item: "minecraft:diamond"
+				}
+				{
+					id: "83239727D8AC9BC5"
+					type: "item"
+					item: "minecraft:golden_apple"
+				}
+			]
+		}
+		{
+			id: "1C3B25968A74E385"
+			title: "Herramientas básicas"
+			description: ["Hierro para hacha y pala: lo básico para no depender de la suerte."]
+			icon: "minecraft:iron_axe"
+			x: 10.80d
+			y: 5.90d
+			shape: "rsquare"
+			dependencies: ["56AE79A0BF577D2F"]
+			tasks: [
+				{
+					id: "02D1EE817B9C79F6"
+					type: "item"
+					item: "minecraft:iron_axe"
+				}
+				{
+					id: "457CAF77968732B7"
+					type: "item"
+					item: "minecraft:iron_shovel"
+				}
+			]
+			rewards: [
+				{
+					id: "B46C9F1C4BFD73C9"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "00D870CCDB7316A3"
+			title: "Pedernal y mechero"
+			description: ["Grava, pedernal y hierro: la chispa que hará falta para abrir un portal."]
+			icon: "minecraft:flint_and_steel"
+			x: 9.00d
+			y: 6.17d
+			shape: "rsquare"
+			dependencies: ["1C3B25968A74E385"]
+			tasks: [
+				{
+					id: "5505E8500801E517"
+					type: "item"
+					item: "minecraft:flint_and_steel"
+				}
+			]
+			rewards: [
+				{
+					id: "D1DE283804832EB7"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "2F35018B9FED98E3"
+			title: "Brillo bajo la roca"
+			description: ["Los diamantes viven en lo hondo, cerca de la lava. No bajes sin agua a mano." "&7En este pack los diamantes aparecen menos y más profundo."]
+			icon: "minecraft:diamond"
+			x: 7.20d
+			y: 6.24d
+			shape: "circle"
+			dependencies: ["00D870CCDB7316A3"]
+			tasks: [
+				{
+					id: "1C7BE3D65A12DAC8"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 3L
+				}
+			]
+			rewards: [
+				{
+					id: "0239567EC99B8C73"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "554C99E37862B956"
+			title: "Un pico de diamante"
+			description: ["Con él cae hasta la obsidiana."]
+			icon: "minecraft:diamond_pickaxe"
+			x: 5.40d
+			y: 6.05d
+			shape: "rsquare"
+			dependencies: ["2F35018B9FED98E3"]
+			tasks: [
+				{
+					id: "787DA8880AFA86C1"
+					type: "item"
+					item: "minecraft:diamond_pickaxe"
+				}
+			]
+			rewards: [
+				{
+					id: "9D523A9691C60377"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			id: "C78D76B5D177576C"
+			title: "Piedra de la noche"
+			description: ["Agua sobre lava quieta da obsidiana. Reúne diez bloques."]
+			icon: "minecraft:obsidian"
+			x: 3.60d
+			y: 5.75d
+			shape: "circle"
+			dependencies: ["554C99E37862B956"]
+			tasks: [
+				{
+					id: "E7F6B8EC7BC1A3E0"
+					type: "item"
+					item: "minecraft:obsidian"
+					count: 10L
+				}
+			]
+			rewards: [
+				{
+					id: "B9766035C397D9FD"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "8858B29A6E79DBEC"
+			title: "Un portal entre mundos"
+			description: ["Marco de obsidiana, un chispazo, y la puerta se abre hacia el infierno."]
+			icon: "minecraft:obsidian"
+			x: 0.00d
+			y: 10.20d
+			shape: "diamond"
+			dependencies: ["C78D76B5D177576C"]
+			tasks: [
+				{
+					id: "DC1E98A9C2F76F21"
+					type: "checkmark"
+					title: "Levanté el portal"
+				}
+			]
+			rewards: [
+				{
+					id: "9CE5EE7C5459189F"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "C75C5599B24BC09C"
+			title: "Más allá del fuego"
+			description: ["Cruza. El aire quema, el cielo es roca."]
+			x: 1.80d
+			y: 10.47d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["8858B29A6E79DBEC"]
+			tasks: [
+				{
+					id: "9BAA3D696DDB9D8B"
+					type: "dimension"
+					dimension: "minecraft:the_nether"
+				}
+			]
+			rewards: [
+				{
+					id: "829D765936BF0237"
+					type: "xp"
+					xp: 80
+				}
+				{
+					id: "92451481B182258B"
+					type: "item"
+					item: "minecraft:golden_carrot"
+					count: 8
+				}
+			]
+		}
+		{
+			id: "5AAF2843E46131FD"
+			title: "Los biomas del infierno"
+			description: ["Bosques carmesí y distorsionados, valles de almas y deltas de basalto. Recórrelos."]
+			x: 3.60d
+			y: 10.54d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["C75C5599B24BC09C"]
+			tasks: [
+				{
+					id: "52266ACA4A952FDC"
+					type: "biome"
+					biome: "minecraft:crimson_forest"
+				}
+				{
+					id: "A68CA6619F326673"
+					type: "biome"
+					biome: "minecraft:warped_forest"
+				}
+				{
+					id: "33298C025D4CC07A"
+					type: "biome"
+					biome: "minecraft:soul_sand_valley"
+				}
+				{
+					id: "7D3A784595ECEB0B"
+					type: "biome"
+					biome: "minecraft:basalt_deltas"
+				}
+			]
+			rewards: [
+				{
+					id: "5311B300A182054A"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "872A9BFFB0033538"
+			title: "La fortaleza"
+			description: ["Piedra negra y esqueletos con calavera. Una fortaleza del Nether."]
+			x: 5.40d
+			y: 10.35d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["5AAF2843E46131FD"]
+			tasks: [
+				{
+					id: "FAAFEF66BCCA1737"
+					type: "structure"
+					structure: "betterfortresses:fortress"
+				}
+			]
+			rewards: [
+				{
+					id: "14A72CF7B5BA5A84"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "24BA4E138BE24613"
+			title: "Varas de blaze"
+			description: ["Los blazes custodian lo que arde. Sus varas sirven de combustible y de ingrediente." "&7Búscalos dentro de la fortaleza."]
+			icon: "minecraft:blaze_rod"
+			x: 7.20d
+			y: 10.05d
+			shape: "circle"
+			dependencies: ["872A9BFFB0033538"]
+			tasks: [
+				{
+					id: "7A2B95AD45231338"
+					type: "item"
+					item: "minecraft:blaze_rod"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "0BED27D39AA27EC2"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			id: "6CE57EAED921AD16"
+			title: "El bastión"
+			description: ["Un bastión remanente: oro, piglins y un cofre que vale la pelea."]
+			x: 9.00d
+			y: 9.86d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["24BA4E138BE24613"]
+			tasks: [
+				{
+					id: "90B3DAAB0235AFBC"
+					type: "structure"
+					structure: "minecraft:bastion_remnant"
+				}
+			]
+			rewards: [
+				{
+					id: "EEC6ADDFB036E8C5"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "A875086ED2E816A5"
+			title: "Tesoros de piglins"
+			description: ["Los piglins cambian oro por cosas raras. Reúne una buena cantidad."]
+			icon: "minecraft:gold_ingot"
+			x: 10.80d
+			y: 9.93d
+			shape: "circle"
+			dependencies: ["6CE57EAED921AD16"]
+			tasks: [
+				{
+					id: "AC2D8ADCC6913962"
+					type: "item"
+					item: "minecraft:gold_ingot"
+					count: 16L
+				}
+			]
+			rewards: [
+				{
+					id: "61059080B9D34259"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "6267A7ED4349FBCF"
+			title: "Osmio"
+			description: ["Un metal pesado y plateado. Hará falta para una mesa que aguanta aleaciones oscuras."]
+			icon: "mekanism:ingot_osmium"
+			x: 10.80d
+			y: 14.50d
+			shape: "circle"
+			dependencies: ["A875086ED2E816A5"]
+			tasks: [
+				{
+					id: "67BCE97733A80A04"
+					type: "item"
+					item: "mekanism:ingot_osmium"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "2D715AC02267416D"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "BC44A8B32EE025CD"
+			title: "La lente de la verdad oculta"
+			description: ["Cuatro fragmentos de memoria y una perla de ender dan una lente que revela lo escondido." "&7Receta: perla de ender al centro, cuatro Fragmentos de Memoria en cruz."]
+			icon: "testamentodelacarne:lente_de_la_verdad_oculta"
+			x: 9.00d
+			y: 14.77d
+			shape: "rsquare"
+			dependencies: ["6267A7ED4349FBCF"]
+			tasks: [
+				{
+					id: "5BF2E1EAEDA506ED"
+					type: "item"
+					item: "testamentodelacarne:lente_de_la_verdad_oculta"
+				}
+			]
+			rewards: [
+				{
+					id: "EAA56AE1FFB71ED9"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "804EF1C3449D8010"
+			title: "Una mesa de otro nivel"
+			description: ["El metal oscuro, la netherita y la gravitite no se trabajan en una mesa común. Esta sí." "&7Receta: osmio, lente, pólvora y una mesa de crafteo."]
+			icon: "testamentodelacarne:tier2_crafting_table"
+			x: 7.20d
+			y: 14.84d
+			shape: "rsquare"
+			dependencies: ["BC44A8B32EE025CD"]
+			tasks: [
+				{
+					id: "A4B1C379B4D9281C"
+					type: "item"
+					item: "testamentodelacarne:tier2_crafting_table"
+				}
+			]
+			rewards: [
+				{
+					id: "14ED9D8BF0D86735"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "4C1D508136BE4DE7"
+			title: "La primera pieza oscura"
+			description: ["Con tus lingotes de dark metal y la mesa nueva, forja un pico: el primer eslabón del ascenso." "&7Se craftea solo en la mesa tier 2."]
+			icon: "testamentodelacarne:dark_metal_pickaxe"
+			x: 5.40d
+			y: 14.65d
+			shape: "rsquare"
+			dependencies: ["804EF1C3449D8010"]
+			tasks: [
+				{
+					id: "D96524EC209CAE6A"
+					type: "item"
+					item: "testamentodelacarne:dark_metal_pickaxe"
+				}
+			]
+			rewards: [
+				{
+					id: "53CEFECA1703F02F"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "F92F951B384AB55E"
+			title: "Escombros ancestrales"
+			description: ["En lo hondo del infierno, restos de una era anterior. Se minan con pico de diamante." "&7Busca entre Y 8 y 22 con explosiones o minería en tira."]
+			icon: "minecraft:ancient_debris"
+			x: 0.00d
+			y: 18.80d
+			shape: "circle"
+			dependencies: ["4C1D508136BE4DE7"]
+			tasks: [
+				{
+					id: "4A78296106556E35"
+					type: "item"
+					item: "minecraft:ancient_debris"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "DBAA7C3C09E0F3F7"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "D45084C16DD69868"
+			title: "Fragmentos de netherita"
+			description: ["En el horno, el escombro se rompe en láminas."]
+			icon: "minecraft:netherite_scrap"
+			x: 1.80d
+			y: 19.07d
+			shape: "circle"
+			dependencies: ["F92F951B384AB55E"]
+			tasks: [
+				{
+					id: "46DCB1402E1882A6"
+					type: "item"
+					item: "minecraft:netherite_scrap"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "D374792698B9E432"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "7C7D54F72ADD1D5B"
+			title: "Un lingote de netherita"
+			description: ["Cuatro fragmentos y cuatro lingotes de oro: el metal más duro del mundo."]
+			icon: "minecraft:netherite_ingot"
+			x: 3.60d
+			y: 19.14d
+			shape: "rsquare"
+			dependencies: ["D45084C16DD69868"]
+			tasks: [
+				{
+					id: "A2FDB197CFB123BE"
+					type: "item"
+					item: "minecraft:netherite_ingot"
+				}
+			]
+			rewards: [
+				{
+					id: "A1DBE501697C80AD"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "5F6625E6E204DE55"
+			title: "Una plantilla de mejora"
+			description: ["Los bastiones guardan moldes de herrería. Consigue la plantilla de netherita." "&7Cofres de bastión."]
+			icon: "minecraft:netherite_upgrade_smithing_template"
+			x: 5.40d
+			y: 18.95d
+			shape: "circle"
+			dependencies: ["7C7D54F72ADD1D5B"]
+			tasks: [
+				{
+					id: "028B9ABA3C187C8D"
+					type: "item"
+					item: "minecraft:netherite_upgrade_smithing_template"
+				}
+			]
+			rewards: [
+				{
+					id: "C3E22DF353B29C23"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "163C565251CE236E"
+			title: "Duplicar la plantilla"
+			description: ["Un molde, un bloque de netherrack y siete diamantes dan dos."]
+			icon: "minecraft:netherite_upgrade_smithing_template"
+			x: 7.20d
+			y: 18.65d
+			shape: "rsquare"
+			dependencies: ["5F6625E6E204DE55"]
+			tasks: [
+				{
+					id: "67470C0071915D4B"
+					type: "item"
+					item: "minecraft:netherite_upgrade_smithing_template"
+					count: 2L
+				}
+			]
+			rewards: [
+				{
+					id: "4828E08F516832FB"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "0EC85A68279468A0"
+			title: "Mejorar a netherita"
+			description: ["En este mundo la netherita no empieza de cero: mejora una pieza de dark metal con ella, en la mesa tier 2." "&7Un lingote para herramientas y armas; cuatro en cruz para armaduras."]
+			icon: "minecraft:netherite_pickaxe"
+			x: 9.00d
+			y: 18.46d
+			shape: "rsquare"
+			dependencies: ["163C565251CE236E"]
+			tasks: [
+				{
+					id: "30EFFFF3961B808B"
+					type: "item"
+					item: "minecraft:netherite_pickaxe"
+				}
+			]
+			rewards: [
+				{
+					id: "6CBE0C61E1D4B1EF"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "75E5CFADF045B489"
+			title: "Crafteos básicos de netherita"
+			description: ["Arma y armadura: ya puedes enfrentar lo que habita los infiernos."]
+			icon: "minecraft:netherite_sword"
+			x: 10.80d
+			y: 18.53d
+			shape: "rsquare"
+			dependencies: ["0EC85A68279468A0"]
+			tasks: [
+				{
+					id: "01F276D764FBE1F1"
+					type: "item"
+					item: "minecraft:netherite_sword"
+				}
+				{
+					id: "77AEF728CAFBA360"
+					type: "item"
+					item: "minecraft:netherite_chestplate"
+				}
+			]
+			rewards: [
+				{
+					id: "09260BCB29C29C9C"
+					type: "xp"
+					xp: 120
+				}
+			]
+		}
+		{
+			id: "6F541649AA585D12"
+			title: "Una mazmorra infernal"
+			description: ["Bajo el basalto hay cámaras selladas por quien te precedió. Encuentra una."]
+			x: 10.80d
+			y: 23.10d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["75E5CFADF045B489"]
+			tasks: [
+				{
+					id: "052E956B392681DF"
+					type: "structure"
+					structure: "betterdungeons:small_nether_dungeon"
+				}
+			]
+			rewards: [
+				{
+					id: "95C17A16843B07E0"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "1594CE02F7A7E8F2"
+			title: "Sus recompensas"
+			description: ["Los esqueletos del Nether no son comunes: tienen calaveras." "&7Se encuentran en fortalezas y mazmorras infernales."]
+			x: 9.00d
+			y: 23.37d
+			shape: "circle"
+			dependencies: ["6F541649AA585D12"]
+			tasks: [
+				{
+					id: "15F0B9C39F8C9334"
+					type: "kill"
+					entity: "minecraft:wither_skeleton"
+					value: 3L
+				}
+			]
+			rewards: [
+				{
+					id: "FE1BDE703005439A"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "0AEF80B318E942D1"
+			title: "Los primeros jefes"
+			description: ["Dos estructuras guardan lo peor del Nether: una arena en llamas y una forja de almas."]
+			x: 7.20d
+			y: 23.44d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["1594CE02F7A7E8F2"]
+			tasks: [
+				{
+					id: "8D3059BD50E90F31"
+					type: "structure"
+					structure: "cataclysm:burning_arena"
+				}
+				{
+					id: "0547BC326EF874BB"
+					type: "structure"
+					structure: "cataclysm:soul_black_smith"
+				}
+			]
+			rewards: [
+				{
+					id: "28D5ABFD4A40947F"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "339C352B208A05BD"
+			title: "Derrotar a los jefes"
+			description: ["El Ignis y la Monstruosidad de Netherita. Si caen, el infierno es tuyo." "&7Ven con armadura de netherita y pociones de resistencia al fuego."]
+			x: 5.40d
+			y: 23.25d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["0AEF80B318E942D1"]
+			tasks: [
+				{
+					id: "4F9011A021337AD0"
+					type: "kill"
+					entity: "cataclysm:ignis"
+					value: 1L
+				}
+				{
+					id: "4A32F92B66CEA4B8"
+					type: "kill"
+					entity: "cataclysm:netherite_monstrosity"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "5C71CE897BC139C2"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "FCBD2386225E094F"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 3
+				}
+			]
+		}
+		{
+			id: "EFAB086606333B69"
+			title: "Una lágrima del infierno"
+			description: ["Los ghasts lloran lágrimas que valen más que el oro. Consigue una." "&7Mata ghasts con arco a distancia."]
+			icon: "minecraft:ghast_tear"
+			x: 0.00d
+			y: 27.40d
+			shape: "circle"
+			dependencies: ["339C352B208A05BD"]
+			tasks: [
+				{
+					id: "B3CAB20F0A5FFFFB"
+					type: "item"
+					item: "minecraft:ghast_tear"
+				}
+			]
+			rewards: [
+				{
+					id: "B534F10C8A5D6B2F"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "395A88BAA25D8D6A"
+			title: "Un aparato de encantamiento"
+			description: ["Para forjar una Lágrima Consagrada hace falta un aparato de Ars Nouveau y gemas de fuente."]
+			icon: "ars_nouveau:enchanting_apparatus"
+			x: 1.80d
+			y: 27.67d
+			shape: "rsquare"
+			dependencies: ["EFAB086606333B69"]
+			tasks: [
+				{
+					id: "4695FACF774C2AD1"
+					type: "item"
+					item: "ars_nouveau:enchanting_apparatus"
+				}
+				{
+					id: "82390F39208CC586"
+					type: "item"
+					item: "ars_nouveau:source_gem"
+				}
+			]
+			rewards: [
+				{
+					id: "E185F57FA8AC2CCB"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "F951DFBEE4D6E741"
+			title: "La Lágrima Consagrada"
+			description: ["Un llanto forjado con pura devoción: lágrima de ghast, fragmento de memoria, diamante, gema de fuente y agua." "&7En el aparato de encantamiento: lágrima de ghast al centro; en los pedestales, un Fragmento de Memoria, un diamante, una gema de fuente y un cubo de agua."]
+			icon: "testamentodelacarne:lagrima_consagrada"
+			x: 3.60d
+			y: 27.74d
+			shape: "rsquare"
+			dependencies: ["395A88BAA25D8D6A"]
+			tasks: [
+				{
+					id: "28B431EA7F7C6414"
+					type: "item"
+					item: "testamentodelacarne:lagrima_consagrada"
+				}
+			]
+			rewards: [
+				{
+					id: "055E107C86FA75A1"
+					type: "xp"
+					xp: 120
+				}
+			]
+		}
+		{
+			id: "614F45A26D0B9DB9"
+			title: "El marco de luz"
+			description: ["Diez bloques de piedra luminosa en forma de puerta, hasta donde alcance el cielo." "&7Pide polvo de glowstone del Nether."]
+			icon: "minecraft:glowstone"
+			x: 5.40d
+			y: 27.55d
+			shape: "circle"
+			dependencies: ["F951DFBEE4D6E741"]
+			tasks: [
+				{
+					id: "57EF6F8BABFB41FD"
+					type: "item"
+					item: "minecraft:glowstone"
+					count: 10L
+				}
+			]
+			rewards: [
+				{
+					id: "4C6C0CAB6DBBFFBE"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "43D64C24BDB3BFF1"
+			title: "Un portal al paraíso"
+			description: ["Haz clic derecho con la lágrima sobre un bloque del marco. El portal se enciende."]
+			icon: "minecraft:glowstone"
+			x: 7.20d
+			y: 27.25d
+			shape: "diamond"
+			dependencies: ["614F45A26D0B9DB9"]
+			tasks: [
+				{
+					id: "563304F0FC1D6283"
+					type: "checkmark"
+					title: "Encendí el portal del Aether"
+				}
+			]
+			rewards: [
+				{
+					id: "C39210E5A5EB4800"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "4DEEE484EA732BC3"
+			title: "El cielo del paraíso"
+			description: ["Cruza. Verás lo que quedó del cielo de los dioses."]
+			x: 9.00d
+			y: 27.06d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["43D64C24BDB3BFF1"]
+			tasks: [
+				{
+					id: "5FF3A6AAEA80E60C"
+					type: "dimension"
+					dimension: "aether:the_aether"
+				}
+			]
+			rewards: [
+				{
+					id: "80859C52AB11094F"
+					type: "xp"
+					xp: 150
+				}
+				{
+					id: "AA0A6D5EF63A8718"
+					type: "item"
+					item: "minecraft:golden_carrot"
+					count: 8
+				}
+			]
+		}
+		{
+			id: "AB349D8459281E55"
+			title: "Primeros pasos entre nubes"
+			description: ["Reúne lo que da el cielo: fragmentos de ambrosía y troncos de raíz de cielo."]
+			icon: "aether:ambrosium_shard"
+			x: 10.80d
+			y: 27.13d
+			shape: "circle"
+			dependencies: ["4DEEE484EA732BC3"]
+			tasks: [
+				{
+					id: "DF5FF3ADB4274E47"
+					type: "item"
+					item: "aether:ambrosium_shard"
+					count: 4L
+				}
+				{
+					id: "9EE11F1768D166E0"
+					type: "item"
+					item: "aether:skyroot_log"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "273F4E40FC93E5A4"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "972B2802F15C1ED6"
+			title: "La mazmorra de bronce"
+			description: ["Un laberinto flotante vigilado por un coloso de piedra."]
+			x: 10.80d
+			y: 31.70d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["AB349D8459281E55"]
+			tasks: [
+				{
+					id: "8152A146E0C58E83"
+					type: "structure"
+					structure: "aether:bronze_dungeon"
+				}
+			]
+			rewards: [
+				{
+					id: "B1154811BC6FAC91"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "BDB318EBD114083C"
+			title: "El Slider"
+			description: ["Una piedra con ojos que embiste. Esquiva y golpea." "&7Ven con armadura buena: hace mucho daño por contacto."]
+			x: 9.00d
+			y: 31.97d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["972B2802F15C1ED6"]
+			tasks: [
+				{
+					id: "9B05F7432E457642"
+					type: "kill"
+					entity: "aether:slider"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "094AAF3A999CEC46"
+					type: "xp"
+					xp: 150
+				}
+				{
+					id: "D1E0CB95790C2083"
+					type: "item"
+					item: "minecraft:golden_apple"
+				}
+			]
+		}
+		{
+			id: "2F5A529F79D74EC4"
+			title: "La mazmorra de plata"
+			description: ["Más arriba, otra, con los ecos de las valquirias."]
+			x: 7.20d
+			y: 32.04d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["BDB318EBD114083C"]
+			tasks: [
+				{
+					id: "057DBE630270C40B"
+					type: "structure"
+					structure: "aether:silver_dungeon"
+				}
+			]
+			rewards: [
+				{
+					id: "A7CD3B10A79DE06A"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "97E36FD27DCB189B"
+			title: "La reina valquiria"
+			description: ["La más fiera de las valquirias. Cuidado con su lanza."]
+			x: 5.40d
+			y: 31.85d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["2F5A529F79D74EC4"]
+			tasks: [
+				{
+					id: "880A22D35A01E8BB"
+					type: "kill"
+					entity: "aether:valkyrie_queen"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "06240D38A326383D"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "B918DEA5BF3780CC"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 2
+				}
+			]
+		}
+		{
+			id: "147BB8B60E4B5D30"
+			title: "La mazmorra de oro"
+			description: ["La cima del Aether. Aquí empieza lo sagrado."]
+			x: 3.60d
+			y: 31.55d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["97E36FD27DCB189B"]
+			tasks: [
+				{
+					id: "3AE5175022C376BC"
+					type: "structure"
+					structure: "aether:gold_dungeon"
+				}
+			]
+			rewards: [
+				{
+					id: "1B1512347AB3CE74"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "164EDF545882BA7D"
+			title: "El espíritu del sol"
+			description: ["El centinela final del cielo. Sus llamas queman lo que toca."]
+			x: 1.80d
+			y: 31.36d
+			shape: "hexagon"
+			size: 1.5d
+			dependencies: ["147BB8B60E4B5D30"]
+			tasks: [
+				{
+					id: "5B0BA01E0EE63F70"
+					type: "kill"
+					entity: "aether:sun_spirit"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "FF9B60FF0E98EEC1"
+					type: "xp"
+					xp: 300
+				}
+				{
+					id: "A3BFEEA9916E20E2"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 3
+				}
+			]
+		}
+		{
+			id: "E56820070C3207F1"
+			title: "Crafteos del cielo"
+			description: ["Zanite para el pico y la espada: tu herramienta de cielo."]
+			icon: "aether:zanite_pickaxe"
+			x: 0.00d
+			y: 31.43d
+			shape: "rsquare"
+			dependencies: ["164EDF545882BA7D"]
+			tasks: [
+				{
+					id: "E656BC6D34A1E17C"
+					type: "item"
+					item: "aether:zanite_pickaxe"
+				}
+				{
+					id: "DFBECDA0D60B17AF"
+					type: "item"
+					item: "aether:zanite_sword"
+				}
+			]
+			rewards: [
+				{
+					id: "A92F678307F2E967"
+					type: "xp"
+					xp: 80
+				}
+			]
+		}
+		{
+			id: "CDD2E9F7F2387388"
+			title: "Los reinos pendientes"
+			description: ["Hay más reinos por descubrir. El mundo apenas empieza a mostrarse."]
+			icon: "minecraft:map"
+			x: 0.00d
+			y: 36.00d
+			shape: "diamond"
+			dependencies: ["E56820070C3207F1"]
+			tasks: [
+				{
+					id: "982DEA172EFDBB29"
+					type: "checkmark"
+					title: "Estoy listo para seguir buscando"
+				}
+			]
+			rewards: [
+				{
+					id: "3DB4C51A80F6D36A"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			id: "676D23556BC5F7E3"
+			title: "Un poder desconocido"
+			description: ["El metal oscuro, la netherita y la gravitite no son un final: son la base de algo más. Hay metales aún más viejos, de fuego y de hielo." "&7Capítulo III: los dioses mismos."]
+			icon: "minecraft:netherite_ingot"
+			x: 1.80d
+			y: 36.27d
+			shape: "hexagon"
+			size: 2.0d
+			dependencies: ["CDD2E9F7F2387388"]
+			tasks: [
+				{
+					id: "0115AA3F5F4871DC"
+					type: "checkmark"
+					title: "Lo comprendo"
+				}
+			]
+			rewards: [
+				{
+					id: "34F3931E97D15F90"
+					type: "xp"
+					xp: 500
+				}
+				{
+					id: "1DEE2D669780A11C"
+					type: "item"
+					item: "minecraft:golden_apple"
+					count: 5
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1508 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: "circle"
+	filename: "capitulo_1_el_despertar"
+	id: "B943F6BEBB94BF97"
+	icon: "minecraft:torch"
+	images: [
+		{
+			image: "kubejs:textures/gui/quest/cap1_bg.png"
+			x: -10.60d
+			y: -1.90d
+			width: 32.00d
+			height: 18.00d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/cap1_bg_f.png"
+			x: -10.60d
+			y: 16.10d
+			width: 32.00d
+			height: 18.00d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/cap1_bg.png"
+			x: -10.60d
+			y: 34.10d
+			width: 32.00d
+			height: 18.00d
+			rotation: 0.0d
+			order: 0
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s1.png"
+			x: 0.40d
+			y: -0.10d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s2.png"
+			x: 0.40d
+			y: 4.20d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s3.png"
+			x: 0.40d
+			y: 10.40d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s4.png"
+			x: 0.40d
+			y: 14.70d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s5.png"
+			x: 0.40d
+			y: 19.00d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s6.png"
+			x: 0.40d
+			y: 23.30d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s7.png"
+			x: 0.40d
+			y: 27.60d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s8.png"
+			x: 0.40d
+			y: 31.90d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s9.png"
+			x: 0.40d
+			y: 36.20d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+		{
+			image: "kubejs:textures/gui/quest/c1_s10.png"
+			x: 0.40d
+			y: 40.50d
+			width: 10.00d
+			height: 1.50d
+			rotation: 0.0d
+			order: 1
+		}
+	]
+	order_index: 0
+	quest_links: [ ]
+	title: "I · El Despertar"
+	quests: [
+		{
+			id: "4FD2AB62616BB62F"
+			title: "El comienzo"
+			description: ["Abres los ojos en un mundo que ya no recuerda a sus dioses. Todo empieza aquí." "&7Pulsa el botón de la tarea para completarla."]
+			icon: "minecraft:compass"
+			x: 0.00d
+			y: 1.60d
+			shape: "diamond"
+			tasks: [
+				{
+					id: "9D969E45447A99A4"
+					type: "checkmark"
+					title: "Estoy despierto"
+				}
+			]
+			rewards: [
+				{
+					id: "870BC3094DB8EE68"
+					type: "xp"
+					xp: 10
+				}
+				{
+					id: "DD15359AD9307043"
+					type: "item"
+					item: "minecraft:bread"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "162A38C605BBE6ED"
+			title: "Un mundo desconocido"
+			description: ["No recuerdas cómo llegaste. Revisa lo poco que llevas encima." "&7Abre el inventario con la tecla E."]
+			icon: "minecraft:chest"
+			x: 1.80d
+			y: 1.87d
+			shape: "diamond"
+			dependencies: ["4FD2AB62616BB62F"]
+			tasks: [
+				{
+					id: "B6F42990CE3101E4"
+					type: "checkmark"
+					title: "Revisé mi inventario"
+				}
+			]
+			rewards: [
+				{
+					id: "E6752DB16A0901CB"
+					type: "xp"
+					xp: 10
+				}
+			]
+		}
+		{
+			id: "D64F02FF6C7FD6AE"
+			title: "Las manos vacías"
+			description: ["Antes que cualquier herramienta, tus manos. Rompe lo que la tierra te ofrece y recógelo." "&7Mantén pulsado el clic izquierdo sobre un bloque."]
+			icon: "minecraft:dirt"
+			x: 3.60d
+			y: 1.94d
+			shape: "circle"
+			dependencies: ["162A38C605BBE6ED"]
+			tasks: [
+				{
+					id: "C188BC79C8322994"
+					type: "item"
+					item: "minecraft:dirt"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "E0531B4AB44E8945"
+					type: "xp"
+					xp: 10
+				}
+				{
+					id: "E19B14943CBF69A2"
+					type: "item"
+					item: "minecraft:apple"
+					count: 2
+				}
+			]
+		}
+		{
+			id: "3E1E75CEE1DC6309"
+			title: "El primer recurso"
+			description: ["El bosque es tu primer aliado. Arranca un tronco a golpes." "&7Sirve el tronco de cualquier árbol."]
+			icon: "minecraft:oak_log"
+			x: 0.00d
+			y: 5.90d
+			shape: "diamond"
+			dependencies: ["D64F02FF6C7FD6AE"]
+			tasks: [
+				{
+					id: "087899EB2D4E0FE3"
+					type: "checkmark"
+					title: "Conseguí un tronco"
+				}
+			]
+			rewards: [
+				{
+					id: "0E64E7E4E527D984"
+					type: "xp"
+					xp: 10
+				}
+			]
+		}
+		{
+			id: "68A2896EA15EECB5"
+			title: "Madera trabajada"
+			description: ["La madera escasea: aquí un tronco rinde solo dos tablones. Úsalos con cabeza." "&71 tronco = 2 tablones, de cualquier madera."]
+			icon: "minecraft:oak_planks"
+			x: 1.80d
+			y: 6.17d
+			shape: "diamond"
+			dependencies: ["3E1E75CEE1DC6309"]
+			tasks: [
+				{
+					id: "AC9AA6E9E24644CC"
+					type: "checkmark"
+					title: "Conseguí tablones"
+				}
+			]
+			rewards: [
+				{
+					id: "7CEC93BC2A6D1564"
+					type: "xp"
+					xp: 10
+				}
+			]
+		}
+		{
+			id: "C21923662703D7AD"
+			title: "Una superficie de trabajo"
+			description: ["Con cuatro tablones tendrás un lugar donde construir de verdad."]
+			icon: "minecraft:crafting_table"
+			x: 3.60d
+			y: 6.24d
+			shape: "rsquare"
+			dependencies: ["68A2896EA15EECB5"]
+			tasks: [
+				{
+					id: "F794B51F09DD1E56"
+					type: "item"
+					item: "minecraft:crafting_table"
+				}
+			]
+			rewards: [
+				{
+					id: "59DE2038DA89B53F"
+					type: "xp"
+					xp: 15
+				}
+			]
+		}
+		{
+			id: "C4CFDA51D4906707"
+			title: "Pequeñas herramientas"
+			description: ["Dos tablones, uno sobre otro, dan palos. Casi todo empieza con ellos."]
+			icon: "minecraft:stick"
+			x: 5.40d
+			y: 6.05d
+			shape: "rsquare"
+			dependencies: ["C21923662703D7AD"]
+			tasks: [
+				{
+					id: "DBDFD85CAB53F4AE"
+					type: "item"
+					item: "minecraft:stick"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "2E4A0311A48AFF49"
+					type: "xp"
+					xp: 10
+				}
+			]
+		}
+		{
+			id: "61C8E015E8A516FD"
+			title: "Un pico rudimentario"
+			description: ["Madera tosca, pero basta para arrancarle la piedra al suelo."]
+			icon: "minecraft:wooden_pickaxe"
+			x: 7.20d
+			y: 5.75d
+			shape: "rsquare"
+			dependencies: ["C4CFDA51D4906707"]
+			tasks: [
+				{
+					id: "1F417267707460CB"
+					type: "item"
+					item: "minecraft:wooden_pickaxe"
+				}
+			]
+			rewards: [
+				{
+					id: "58959816409FF86A"
+					type: "xp"
+					xp: 15
+				}
+			]
+		}
+		{
+			id: "983C64C15428FC09"
+			title: "La piedra bajo nuestros pies"
+			description: ["Mina piedra con tu pico. Algo en ella susurra." "&7Cada bloque de piedra tiene un 8% de soltar un Fragmento de Memoria."]
+			icon: "minecraft:cobblestone"
+			x: 9.00d
+			y: 5.56d
+			shape: "circle"
+			dependencies: ["61C8E015E8A516FD"]
+			tasks: [
+				{
+					id: "BE40C2618020B402"
+					type: "item"
+					item: "minecraft:cobblestone"
+					count: 8L
+				}
+			]
+			rewards: [
+				{
+					id: "8B885F44E4A5AEEE"
+					type: "xp"
+					xp: 15
+				}
+			]
+		}
+		{
+			id: "8787323C2EB8F1E4"
+			title: "Susurros cristalizados"
+			description: ["Un cristal tenue que vibra: un eco de un mundo olvidado. Reúne cuatro." "&7Sigue minando piedra: sale uno cada tantos bloques."]
+			icon: "testamentodelacarne:fragmento_de_memoria"
+			x: 10.80d
+			y: 5.63d
+			shape: "circle"
+			dependencies: ["983C64C15428FC09"]
+			tasks: [
+				{
+					id: "735826C9B86B7FA0"
+					type: "item"
+					item: "testamentodelacarne:fragmento_de_memoria"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "93F26BFCF1F879B0"
+					type: "xp"
+					xp: 25
+				}
+			]
+		}
+		{
+			id: "155BE04DEA0ACA8D"
+			title: "El corazón palpitante"
+			description: ["Cuatro fragmentos alrededor de la piedra forman un Corazón de Piedra Inerte. Todo metal de este mundo pasa por él." "&7Receta: piedra y Fragmento de Memoria, alternados en una mesa de crafteo (S F S / F _ F / S F S)."]
+			icon: "testamentodelacarne:corazon_de_piedra_inerte"
+			x: 10.80d
+			y: 7.81d
+			shape: "rsquare"
+			dependencies: ["8787323C2EB8F1E4"]
+			tasks: [
+				{
+					id: "1E028214AA163B3E"
+					type: "item"
+					item: "testamentodelacarne:corazon_de_piedra_inerte"
+				}
+			]
+			rewards: [
+				{
+					id: "5833950D1F1B1462"
+					type: "xp"
+					xp: 30
+				}
+				{
+					id: "70B9D39A55CD30B7"
+					type: "item"
+					item: "minecraft:cobblestone"
+					count: 16
+				}
+			]
+		}
+		{
+			id: "EC98E1F88CAF871E"
+			title: "Herramientas de verdad"
+			description: ["Las herramientas de piedra de este mundo no se tallan: se forjan con corazones de piedra." "&7Hacha y pala: un corazón de piedra cada una, más palos."]
+			icon: "minecraft:stone_axe"
+			x: 9.00d
+			y: 8.08d
+			shape: "rsquare"
+			dependencies: ["155BE04DEA0ACA8D"]
+			tasks: [
+				{
+					id: "513CFACAFB07A757"
+					type: "item"
+					item: "minecraft:stone_axe"
+				}
+				{
+					id: "8484AA10C146A803"
+					type: "item"
+					item: "minecraft:stone_shovel"
+				}
+			]
+			rewards: [
+				{
+					id: "375B2BFE2CC832B5"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "9AEDAEC4913413B4"
+			title: "No estamos solos"
+			description: ["Cuando cae el sol, la tierra rota despierta. Pasa tu primera noche sin morir."]
+			icon: "minecraft:skeleton_skull"
+			x: 10.80d
+			y: 12.10d
+			shape: "diamond"
+			dependencies: ["EC98E1F88CAF871E"]
+			tasks: [
+				{
+					id: "4FAC21B434123E34"
+					type: "checkmark"
+					title: "Sobreviví a mi primera noche"
+				}
+			]
+			rewards: [
+				{
+					id: "0F0FBC1604925D9B"
+					type: "xp"
+					xp: 15
+				}
+			]
+		}
+		{
+			id: "6B47DACF6AF45C5B"
+			title: "El primer filo"
+			description: ["Un arma, aunque sea de madera, es la diferencia entre correr y resistir."]
+			icon: "minecraft:wooden_sword"
+			x: 9.00d
+			y: 12.37d
+			shape: "rsquare"
+			dependencies: ["9AEDAEC4913413B4"]
+			tasks: [
+				{
+					id: "1035AFE5B3BE0C4E"
+					type: "item"
+					item: "minecraft:wooden_sword"
+				}
+			]
+			rewards: [
+				{
+					id: "BB3C4A31EF2AB179"
+					type: "xp"
+					xp: 15
+				}
+			]
+		}
+		{
+			id: "E0326F2D07AAFFE8"
+			title: "La carne corrupta"
+			description: ["Los muertos andan. Derriba a cinco y quédate con lo que dejen." "&7Los zombis, esqueletos, arañas y creepers suelen soltar Almas Corruptas."]
+			x: 7.20d
+			y: 12.44d
+			shape: "circle"
+			dependencies: ["6B47DACF6AF45C5B"]
+			tasks: [
+				{
+					id: "3F988CDDA6CBFAD0"
+					type: "kill"
+					entity: "minecraft:zombie"
+					value: 5L
+				}
+			]
+			rewards: [
+				{
+					id: "65998FB495248CF4"
+					type: "xp"
+					xp: 25
+				}
+				{
+					id: "16091920A9624ECE"
+					type: "item"
+					item: "minecraft:cooked_beef"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "F9F85EA3E382702E"
+			title: "Ecos de los caídos"
+			description: ["Lo que dejan los corruptos es moneda para los que buscan ascender. Guarda estas almas." "&7Cuatro tipos de mob las sueltan: zombi, esqueleto, araña y creeper."]
+			icon: "testamentodelacarne:alma_corrupta"
+			x: 5.40d
+			y: 12.25d
+			shape: "circle"
+			dependencies: ["E0326F2D07AAFFE8"]
+			tasks: [
+				{
+					id: "DB301C5A847104E8"
+					type: "item"
+					item: "testamentodelacarne:alma_corrupta"
+					count: 3L
+				}
+			]
+			rewards: [
+				{
+					id: "3A5AF45AA0AA2939"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "A354C165DF7D4F69"
+			title: "Prepararse para la noche"
+			description: ["Carbón y palos: una antorcha mantiene a raya a lo que acecha en la oscuridad."]
+			icon: "minecraft:torch"
+			x: 3.60d
+			y: 11.95d
+			shape: "rsquare"
+			dependencies: ["F9F85EA3E382702E"]
+			tasks: [
+				{
+					id: "548B093860991F56"
+					type: "item"
+					item: "minecraft:torch"
+					count: 8L
+				}
+			]
+			rewards: [
+				{
+					id: "29268F651A7C4CC5"
+					type: "xp"
+					xp: 15
+				}
+			]
+		}
+		{
+			id: "7A60FE0268EA6EC3"
+			title: "Piedra y profundidad"
+			description: ["El cobre no cede a la madera. Forja un pico de piedra." "&7Pide tres corazones de piedra: planifica tus fragmentos."]
+			icon: "minecraft:stone_pickaxe"
+			x: 0.00d
+			y: 16.40d
+			shape: "rsquare"
+			dependencies: ["A354C165DF7D4F69"]
+			tasks: [
+				{
+					id: "608B92853B98BDE6"
+					type: "item"
+					item: "minecraft:stone_pickaxe"
+				}
+			]
+			rewards: [
+				{
+					id: "4A9F7C99D4BA02D4"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "311B97FE9D2FEE59"
+			title: "Bajo la superficie"
+			description: ["Vetas verdosas en la roca: cobre. Arráncalo en bruto."]
+			icon: "minecraft:raw_copper"
+			x: 1.80d
+			y: 16.67d
+			shape: "circle"
+			dependencies: ["7A60FE0268EA6EC3"]
+			tasks: [
+				{
+					id: "5DCFA43EF5F806BB"
+					type: "item"
+					item: "minecraft:raw_copper"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "2ED49342AAC6FE61"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "636BABCC27581107"
+			title: "El calor transforma la roca"
+			description: ["Ocho piedras y fuego. El horno convierte lo crudo en metal."]
+			icon: "minecraft:furnace"
+			x: 3.60d
+			y: 16.74d
+			shape: "rsquare"
+			dependencies: ["311B97FE9D2FEE59"]
+			tasks: [
+				{
+					id: "9362181EF429D2BB"
+					type: "item"
+					item: "minecraft:furnace"
+				}
+			]
+			rewards: [
+				{
+					id: "FC12053EFD02C97A"
+					type: "xp"
+					xp: 15
+				}
+				{
+					id: "E667457498899875"
+					type: "item"
+					item: "minecraft:coal"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "10ADE20B4332EF9C"
+			title: "El primer lingote"
+			description: ["Fundir el cobre da un metal blando, pero tuyo."]
+			icon: "minecraft:copper_ingot"
+			x: 5.40d
+			y: 16.55d
+			shape: "circle"
+			dependencies: ["636BABCC27581107"]
+			tasks: [
+				{
+					id: "93659771DEFDFEA3"
+					type: "item"
+					item: "minecraft:copper_ingot"
+					count: 4L
+				}
+			]
+			rewards: [
+				{
+					id: "202E9DE94DB463E6"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "4D944BECCFCF1C34"
+			title: "Un metal con posibilidades"
+			description: ["El cobre no es solo adorno: protege del rayo y se acumula en bloques." "&7Consulta más usos con JEI: tecla R sobre el lingote."]
+			icon: "minecraft:copper_block"
+			x: 7.20d
+			y: 16.25d
+			shape: "rsquare"
+			dependencies: ["10ADE20B4332EF9C"]
+			tasks: [
+				{
+					id: "AF01F9160F802388"
+					type: "item"
+					item: "minecraft:copper_block"
+				}
+				{
+					id: "45B24B29C202C526"
+					type: "item"
+					item: "minecraft:lightning_rod"
+				}
+			]
+			rewards: [
+				{
+					id: "5A5CD00EC0D7DDF9"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "AE565E821A1B27BB"
+			title: "Bronce con cobre"
+			description: ["Con cobre y palos se forja bronce de Mekanism: la primera armadura y herramientas de verdad." "&7Receta: tres lingotes de cobre y dos palos (como el pico de hierro)."]
+			icon: "mekanismtools:bronze_pickaxe"
+			x: 9.00d
+			y: 16.06d
+			shape: "rsquare"
+			dependencies: ["4D944BECCFCF1C34"]
+			tasks: [
+				{
+					id: "38DFC82C2C12CAF8"
+					type: "item"
+					item: "mekanismtools:bronze_pickaxe"
+				}
+			]
+			rewards: [
+				{
+					id: "1AAB62601E14682F"
+					type: "xp"
+					xp: 30
+				}
+				{
+					id: "E2B7949381D6612C"
+					type: "item"
+					item: "minecraft:cooked_beef"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "A4CC728E55A569CE"
+			title: "Más profundo"
+			description: ["Baja hasta donde el hierro duerme. Lleva carbón de sobra para fundirlo."]
+			icon: "minecraft:coal"
+			x: 10.80d
+			y: 20.70d
+			shape: "circle"
+			dependencies: ["AE565E821A1B27BB"]
+			tasks: [
+				{
+					id: "D99B6E529290F739"
+					type: "item"
+					item: "minecraft:coal"
+					count: 8L
+				}
+			]
+			rewards: [
+				{
+					id: "77D059738426734E"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "1B649937FB19BE3A"
+			title: "Mineral sin refinar"
+			description: ["Hierro en bruto, rojizo y pesado. Reúne una buena carga."]
+			icon: "minecraft:raw_iron"
+			x: 9.00d
+			y: 20.97d
+			shape: "circle"
+			dependencies: ["A4CC728E55A569CE"]
+			tasks: [
+				{
+					id: "0680BBB0FF93DCBA"
+					type: "item"
+					item: "minecraft:raw_iron"
+					count: 16L
+				}
+			]
+			rewards: [
+				{
+					id: "1ECB1E0FF3DABA0E"
+					type: "xp"
+					xp: 25
+				}
+			]
+		}
+		{
+			id: "63D6F1F33815656B"
+			title: "El hierro toma forma"
+			description: ["En el horno, el mineral se vuelve lingote."]
+			icon: "minecraft:iron_ingot"
+			x: 7.20d
+			y: 21.04d
+			shape: "circle"
+			dependencies: ["1B649937FB19BE3A"]
+			tasks: [
+				{
+					id: "BCBA499998B729EE"
+					type: "item"
+					item: "minecraft:iron_ingot"
+					count: 16L
+				}
+			]
+			rewards: [
+				{
+					id: "012235AD76EC782C"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "1C67C904DF4FA91E"
+			title: "Un nuevo nivel de herramientas"
+			description: ["Pico y espada de hierro: ya no eres presa fácil."]
+			icon: "minecraft:iron_pickaxe"
+			x: 5.40d
+			y: 20.85d
+			shape: "rsquare"
+			dependencies: ["63D6F1F33815656B"]
+			tasks: [
+				{
+					id: "7E76145EB3567F1E"
+					type: "item"
+					item: "minecraft:iron_pickaxe"
+				}
+				{
+					id: "9C776A629ADFAFCC"
+					type: "item"
+					item: "minecraft:iron_sword"
+				}
+			]
+			rewards: [
+				{
+					id: "C68BF6DD06499FB6"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "74E4D8C30FB26421"
+			title: "Hierro que protege"
+			description: ["Un escudo y una coraza. Lo que los dioses olvidaron, tú lo recuerdas."]
+			icon: "minecraft:shield"
+			x: 3.60d
+			y: 20.55d
+			shape: "rsquare"
+			dependencies: ["1C67C904DF4FA91E"]
+			tasks: [
+				{
+					id: "2589A5EE4A005A3C"
+					type: "item"
+					item: "minecraft:shield"
+				}
+				{
+					id: "E1A10EA586C5E8F4"
+					type: "item"
+					item: "minecraft:iron_chestplate"
+				}
+			]
+			rewards: [
+				{
+					id: "65047628C47A51A8"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "8A4C77890E8BB4B9"
+			title: "Los secretos del hierro"
+			description: ["Cubos para el agua, tolvas para mover objetos. El hierro sirve para casi todo." "&7Mira en JEI qué más se hace con hierro: yunques, raíles, calderos..."]
+			icon: "minecraft:bucket"
+			x: 1.80d
+			y: 20.36d
+			shape: "rsquare"
+			dependencies: ["74E4D8C30FB26421"]
+			tasks: [
+				{
+					id: "576B583889B012B5"
+					type: "item"
+					item: "minecraft:bucket"
+				}
+				{
+					id: "6A5CD1C5B4B4FC0C"
+					type: "item"
+					item: "minecraft:hopper"
+				}
+			]
+			rewards: [
+				{
+					id: "4827FD3846BB2907"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "B21A060D71C0D1EF"
+			title: "La era industrial"
+			description: ["Un engranaje de Create necesita aleación de andesita, y la aleación necesita memoria. Así empieza la máquina." "&7Aleación: andesita, pepita de hierro y un Fragmento de Memoria."]
+			icon: "create:andesite_alloy"
+			x: 0.00d
+			y: 20.43d
+			shape: "rsquare"
+			dependencies: ["8A4C77890E8BB4B9"]
+			tasks: [
+				{
+					id: "32E9E72D565B31FE"
+					type: "item"
+					item: "create:andesite_alloy"
+					count: 2L
+				}
+				{
+					id: "7C2B32D542F182A1"
+					type: "item"
+					item: "create:cogwheel"
+				}
+			]
+			rewards: [
+				{
+					id: "B0CFEB2930454B3C"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			id: "7284915FD6E09F11"
+			title: "Materiales para un hogar"
+			description: ["Piedra para las paredes. Mucha piedra."]
+			icon: "minecraft:cobblestone"
+			x: 0.00d
+			y: 25.00d
+			shape: "circle"
+			dependencies: ["B21A060D71C0D1EF"]
+			tasks: [
+				{
+					id: "AA10E6DF83835E8F"
+					type: "item"
+					item: "minecraft:cobblestone"
+					count: 64L
+				}
+			]
+			rewards: [
+				{
+					id: "70D35438511D731B"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "E4F101B011DFD4AD"
+			title: "Cuatro paredes y un techo"
+			description: ["Levanta un refugio cerrado donde la noche no pueda entrar."]
+			icon: "minecraft:oak_door"
+			x: 1.80d
+			y: 25.27d
+			shape: "diamond"
+			dependencies: ["7284915FD6E09F11"]
+			tasks: [
+				{
+					id: "34A305710711F1FC"
+					type: "checkmark"
+					title: "Construí un refugio"
+				}
+			]
+			rewards: [
+				{
+					id: "BB3002404C28DA5E"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "3A34E966004B6B6A"
+			title: "Que no reine la oscuridad"
+			description: ["Ilumina cada rincón: lo que no ves, te caza."]
+			icon: "minecraft:torch"
+			x: 3.60d
+			y: 25.34d
+			shape: "rsquare"
+			dependencies: ["E4F101B011DFD4AD"]
+			tasks: [
+				{
+					id: "1F88AD97FC07D16D"
+					type: "item"
+					item: "minecraft:torch"
+					count: 16L
+				}
+			]
+			rewards: [
+				{
+					id: "CAC18AD407EE9095"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "A3D7A5CBD9DEB8B3"
+			title: "Un lecho para descansar"
+			description: ["Tres lanas y tres tablones. Descansar también es sobrevivir." "&7Lana blanca de oveja."]
+			icon: "minecraft:white_bed"
+			x: 5.40d
+			y: 25.15d
+			shape: "rsquare"
+			dependencies: ["3A34E966004B6B6A"]
+			tasks: [
+				{
+					id: "741055DC625FBD22"
+					type: "item"
+					item: "minecraft:white_bed"
+				}
+			]
+			rewards: [
+				{
+					id: "6F71829C812F54F5"
+					type: "xp"
+					xp: 25
+				}
+			]
+		}
+		{
+			id: "05E0A570A8274275"
+			title: "Guardar el progreso"
+			description: ["Duerme en tu cama: ese será tu punto de regreso." "&7Solo cuenta si duermes de verdad (de noche)."]
+			x: 7.20d
+			y: 24.85d
+			shape: "circle"
+			dependencies: ["A3D7A5CBD9DEB8B3"]
+			tasks: [
+				{
+					id: "E1B00E16892EA37F"
+					type: "advancement"
+					advancement: "minecraft:adventure/sleep_in_bed"
+					criterion: ""
+				}
+			]
+			rewards: [
+				{
+					id: "FB98D3747DFBA99D"
+					type: "xp"
+					xp: 30
+				}
+				{
+					id: "A1E3766026E8E1A8"
+					type: "item"
+					item: "minecraft:golden_carrot"
+					count: 4
+				}
+			]
+		}
+		{
+			id: "405D78897AAFAE81"
+			title: "La llamada de otros mundos"
+			description: ["Se habla de nueve reinos en pie, cada uno fiel a un dios caído. Ninguno sabe de los demás."]
+			icon: "minecraft:filled_map"
+			x: 10.80d
+			y: 29.30d
+			shape: "diamond"
+			dependencies: ["05E0A570A8274275"]
+			tasks: [
+				{
+					id: "59D586E05D59797A"
+					type: "checkmark"
+					title: "Escuché la llamada"
+				}
+			]
+			rewards: [
+				{
+					id: "49BAD35967DD5590"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "F8AC9BD62CAAC249"
+			title: "Preparar la expedición"
+			description: ["Comida, hierro en la cabeza y paso firme. Nadie vuelve de un viaje sin provisiones."]
+			icon: "minecraft:cooked_beef"
+			x: 9.00d
+			y: 29.57d
+			shape: "rsquare"
+			dependencies: ["405D78897AAFAE81"]
+			tasks: [
+				{
+					id: "4AB6969C08A1C3E0"
+					type: "item"
+					item: "minecraft:cooked_beef"
+					count: 8L
+				}
+				{
+					id: "484AD49DC321E5B0"
+					type: "item"
+					item: "minecraft:iron_helmet"
+				}
+			]
+			rewards: [
+				{
+					id: "7FE76AABAB9F3A42"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "EEA0386546AD3127"
+			title: "Señales de otro reino"
+			description: ["En el bosque oscuro la luz no llega y lo viejo respira. Busca esa penumbra."]
+			x: 7.20d
+			y: 29.64d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["F8AC9BD62CAAC249"]
+			tasks: [
+				{
+					id: "5C1CB32DA6B4DA48"
+					type: "biome"
+					biome: "minecraft:dark_forest"
+				}
+			]
+			rewards: [
+				{
+					id: "A749B7A6FE82B708"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "DDA471955CBFDD4D"
+			title: "El primer reino"
+			description: ["Una torre de piedra negra se alza entre los árboles. Lo que la habita no sirve a ningún dios." "&7Es una estructura de bosques; puede estar lejos."]
+			x: 5.40d
+			y: 29.45d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["EEA0386546AD3127"]
+			tasks: [
+				{
+					id: "9421D0ACBA6690B9"
+					type: "structure"
+					structure: "born_in_chaos_v1:dark_tower_forest"
+				}
+			]
+			rewards: [
+				{
+					id: "E519F55CDADAD307"
+					type: "xp"
+					xp: 60
+				}
+				{
+					id: "4F8EF67E8EAD9C45"
+					type: "item"
+					item: "minecraft:golden_apple"
+				}
+			]
+		}
+		{
+			id: "5D1DC6B7961A4BB1"
+			title: "El problema del espacio"
+			description: ["Tus bolsillos ya no dan abasto. Reúne cuero, cuerda y un cofre."]
+			icon: "minecraft:leather"
+			x: 0.00d
+			y: 33.60d
+			shape: "circle"
+			dependencies: ["DDA471955CBFDD4D"]
+			tasks: [
+				{
+					id: "547F34ECA460B360"
+					type: "item"
+					item: "minecraft:leather"
+					count: 4L
+				}
+				{
+					id: "1AFA44F9B878B184"
+					type: "item"
+					item: "minecraft:string"
+					count: 4L
+				}
+				{
+					id: "97E13E1C71FCFD15"
+					type: "item"
+					item: "minecraft:chest"
+				}
+			]
+			rewards: [
+				{
+					id: "41BE3811810E41D1"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "4EF0CB1DD3CD7622"
+			title: "Un inventario más grande"
+			description: ["Cuero, cuerda y un cofre: una mochila que cargas a la espalda."]
+			icon: "sophisticatedbackpacks:backpack"
+			x: 1.80d
+			y: 33.87d
+			shape: "rsquare"
+			dependencies: ["5D1DC6B7961A4BB1"]
+			tasks: [
+				{
+					id: "E865AE25D9FE9269"
+					type: "item"
+					item: "sophisticatedbackpacks:backpack"
+				}
+			]
+			rewards: [
+				{
+					id: "316BA5ABD4A643EC"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "36BD9E72E67E8DAC"
+			title: "Preparar una expedición"
+			description: ["Llena la mochila: comida, herramientas y recursos para días lejos de casa."]
+			icon: "minecraft:bundle"
+			x: 3.60d
+			y: 33.94d
+			shape: "diamond"
+			dependencies: ["4EF0CB1DD3CD7622"]
+			tasks: [
+				{
+					id: "44C406D862753655"
+					type: "checkmark"
+					title: "Llené mi mochila"
+				}
+			]
+			rewards: [
+				{
+					id: "9044AB981086EAD6"
+					type: "xp"
+					xp: 20
+				}
+				{
+					id: "626CCB7A58AC1869"
+					type: "item"
+					item: "minecraft:cooked_beef"
+					count: 8
+				}
+			]
+		}
+		{
+			id: "B8B625AA9E20AA49"
+			title: "Agua hasta donde alcanza la vista"
+			description: ["El mundo no termina en la costa. Encuentra el océano."]
+			x: 0.00d
+			y: 37.90d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["36BD9E72E67E8DAC"]
+			tasks: [
+				{
+					id: "C8A1F855A25D909F"
+					type: "biome"
+					biome: "minecraft:ocean"
+				}
+			]
+			rewards: [
+				{
+					id: "E18850245031EE0B"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "246B98CD9A6E5316"
+			title: "Antes de zarpar"
+			description: ["Unos tablones sobre el agua te llevan donde los pies no llegan."]
+			icon: "minecraft:oak_boat"
+			x: 1.80d
+			y: 38.17d
+			shape: "diamond"
+			dependencies: ["B8B625AA9E20AA49"]
+			tasks: [
+				{
+					id: "A4371C5CD1569C3E"
+					type: "checkmark"
+					title: "Navegué en un bote"
+				}
+			]
+			rewards: [
+				{
+					id: "CCACD80FF8B0A52E"
+					type: "xp"
+					xp: 20
+				}
+			]
+		}
+		{
+			id: "81D2D3E2F0247124"
+			title: "Lo que dejó el mar"
+			description: ["Cascos hundidos guardan cofres. También hay barcos piratas en el horizonte." "&7Con Dungeons Arise Seven Seas aparecen naves enteras sobre el agua."]
+			x: 3.60d
+			y: 38.24d
+			shape: "octagon"
+			size: 1.2d
+			dependencies: ["246B98CD9A6E5316"]
+			tasks: [
+				{
+					id: "792F60A5B028F700"
+					type: "structure"
+					structure: "minecraft:shipwreck"
+				}
+			]
+			rewards: [
+				{
+					id: "AE3C29044C339DB8"
+					type: "xp"
+					xp: 40
+				}
+				{
+					id: "7C2FDCBAAAD4045C"
+					type: "item"
+					item: "minecraft:emerald"
+					count: 3
+				}
+			]
+		}
+		{
+			id: "D11B4FB788F7898C"
+			title: "El peligro de las profundidades"
+			description: ["Bajo el agua el aire se acaba. Come bien y no te alejes de la luz."]
+			icon: "minecraft:cooked_cod"
+			x: 5.40d
+			y: 38.05d
+			shape: "circle"
+			dependencies: ["81D2D3E2F0247124"]
+			tasks: [
+				{
+					id: "447DC3B6DD56A7FC"
+					type: "item"
+					item: "minecraft:cooked_cod"
+					count: 8L
+				}
+			]
+			rewards: [
+				{
+					id: "085BDEB470753575"
+					type: "xp"
+					xp: 25
+				}
+			]
+		}
+		{
+			id: "9110AB84A5F30480"
+			title: "Una veta imposible"
+			description: ["Fragmentos negros que no brillan: metal oscuro. Los sueltan los caídos de la torre y ciertos depósitos." "&7Sale de mobs de Born in Chaos y de los depósitos de dark metal (con Fortuna dan más)."]
+			icon: "born_in_chaos_v1:pieceofdarkmetal"
+			x: 0.00d
+			y: 42.20d
+			shape: "circle"
+			dependencies: ["D11B4FB788F7898C"]
+			tasks: [
+				{
+					id: "FD0D37669A9CE8DD"
+					type: "item"
+					item: "born_in_chaos_v1:pieceofdarkmetal"
+				}
+			]
+			rewards: [
+				{
+					id: "AECED2434F978EEC"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "B9C7D304D1E12D96"
+			title: "Extracción desconocida"
+			description: ["Un fragmento es nada. Nueve ya son algo."]
+			icon: "born_in_chaos_v1:pieceofdarkmetal"
+			x: 1.80d
+			y: 42.47d
+			shape: "circle"
+			dependencies: ["9110AB84A5F30480"]
+			tasks: [
+				{
+					id: "CEF79AE9640F9637"
+					type: "item"
+					item: "born_in_chaos_v1:pieceofdarkmetal"
+					count: 9L
+				}
+			]
+			rewards: [
+				{
+					id: "C5E3EC0F249B0FDC"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "35BA5A2F8DB2504E"
+			title: "Un montón de oscuridad"
+			description: ["Nueve fragmentos, en cuadrado, forman un montón de metal oscuro." "&7Fórmula 3x3 en la mesa de crafteo."]
+			icon: "born_in_chaos_v1:pileof_dark_metal"
+			x: 3.60d
+			y: 42.54d
+			shape: "rsquare"
+			dependencies: ["B9C7D304D1E12D96"]
+			tasks: [
+				{
+					id: "8FB7CDEF73ACE0DC"
+					type: "item"
+					item: "born_in_chaos_v1:pileof_dark_metal"
+				}
+			]
+			rewards: [
+				{
+					id: "A21AC96124EA788E"
+					type: "xp"
+					xp: 40
+				}
+			]
+		}
+		{
+			id: "C72E90B73C207BE5"
+			title: "Un horno más fiero"
+			description: ["Este metal no se funde en un horno común. Necesitas un alto horno." "&7Receta: hierro, horno y piedra lisa."]
+			icon: "minecraft:blast_furnace"
+			x: 5.40d
+			y: 42.35d
+			shape: "rsquare"
+			dependencies: ["35BA5A2F8DB2504E"]
+			tasks: [
+				{
+					id: "5AEC43625D2896E3"
+					type: "item"
+					item: "minecraft:blast_furnace"
+				}
+			]
+			rewards: [
+				{
+					id: "EB6D8A9023749068"
+					type: "xp"
+					xp: 30
+				}
+			]
+		}
+		{
+			id: "18C4841942ED972A"
+			title: "El metal que no debería existir"
+			description: ["En el alto horno, el montón se vuelve lingote. Lo que sale pesa más de lo que debería." "&7Cuatrocientos ticks de fundición por montón."]
+			icon: "born_in_chaos_v1:dark_metal_ingot"
+			x: 7.20d
+			y: 42.05d
+			shape: "circle"
+			dependencies: ["C72E90B73C207BE5"]
+			tasks: [
+				{
+					id: "1B72C34C76B0F091"
+					type: "item"
+					item: "born_in_chaos_v1:dark_metal_ingot"
+				}
+			]
+			rewards: [
+				{
+					id: "DC617F2E7BFEFB00"
+					type: "xp"
+					xp: 60
+				}
+			]
+		}
+		{
+			id: "6BC384F57AFB77B4"
+			title: "Un secreto para otro día"
+			description: ["El metal oscuro guarda más de lo que ves. Revisa sus usos: hará falta una mesa de otro nivel." "&7Todo lo hecho de dark metal se craftea solo en una mesa tier 2 (capítulo II)."]
+			icon: "born_in_chaos_v1:dark_metal_ingot"
+			x: 9.00d
+			y: 41.86d
+			shape: "hexagon"
+			size: 2.0d
+			dependencies: ["18C4841942ED972A"]
+			tasks: [
+				{
+					id: "EF7C482ADDA06EC1"
+					type: "checkmark"
+					title: "Revisé sus usos en JEI"
+				}
+			]
+			rewards: [
+				{
+					id: "7B79C4EB177C82C3"
+					type: "xp"
+					xp: 40
+				}
+				{
+					id: "F56AA4557CF4783F"
+					type: "item"
+					item: "minecraft:ender_pearl"
+					count: 2
+				}
+			]
+		}
+	]
+}
