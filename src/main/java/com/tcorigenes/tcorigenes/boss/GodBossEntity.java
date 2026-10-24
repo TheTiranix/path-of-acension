@@ -33,16 +33,38 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
  * Los seis dioses como jefes (huevo de aparicion en el creativo): enormes (3 a 4 veces el jugador), vuelan, tienen barra de jefe y cada uno un
  * poder propio que usa cada pocos segundos: Pater lanza rayos, Deiros una lluvia de bolas de fuego, Meidris enreda con raices venenosas, Filis se
- * cura y marchita, Luna trae oscuridad y marchitamiento y Tempo se teletransporta y ciega. Los modelos son de cubos (ver GodModelData).
+ * cura y marchita, Luna trae oscuridad y marchitamiento y Tempo se teletransporta y ciega. Deiros y Pater usan modelos de Blockbench con
+ * animaciones (GeckoLib, ver GodGeoRenderer); los demas son de cubos (ver GodModelData).
  */
-public class GodBossEntity extends Monster {
+public class GodBossEntity extends Monster implements GeoEntity {
+    private static final RawAnimation PATER_LEVITAR = RawAnimation.begin().thenLoop("animation.pater.levitar");
+    private static final RawAnimation PATER_VOLAR = RawAnimation.begin().thenLoop("animation.pater.volar");
+    private static final RawAnimation PATER_ATAQUE = RawAnimation.begin().thenPlay("animation.pater.ataque");
+    private static final RawAnimation DEIROS_IDLE = RawAnimation.begin().thenLoop("animation.deiros.idle");
+    private static final RawAnimation DEIROS_CERRAR_OJOS = RawAnimation.begin().thenPlayAndHold("animation.deiros.cerrar_ojos");
+    private static final RawAnimation DEIROS_ABRIR_OJOS = RawAnimation.begin().thenPlay("animation.deiros.abrir_ojos");
+    private static final RawAnimation DEIROS_ATAQUE = RawAnimation.begin().thenPlay("animation.deiros.ataque");
+
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final ServerBossEvent bossEvent;
     private final String god;
     private int abilityCooldown = 100;
+
+    /** Dioses que se dibujan con GodGeoRenderer en vez del modelo de cubos. */
+    public static boolean usesGeoModel(String god) {
+        return "deiros".equals(god) || "pater".equals(god);
+    }
 
     public GodBossEntity(EntityType<? extends Monster> type, Level level) {
         super(type, level);
@@ -69,6 +91,37 @@ public class GodBossEntity extends Monster {
 
     public String god() {
         return this.god;
+    }
+
+    // ---- animaciones (solo los dioses con modelo de Blockbench)
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        switch (this.god) {
+            case "pater" -> {
+                controllers.add(new AnimationController<>(this, "cuerpo", 6, state -> state.setAndContinue(state.isMoving() ? PATER_VOLAR : PATER_LEVITAR)));
+                controllers.add(new AnimationController<>(this, "ataque", 0, state -> PlayState.STOP).triggerableAnim("ataque", PATER_ATAQUE));
+            }
+            case "deiros" -> {
+                controllers.add(new AnimationController<>(this, "cuerpo", 6, state -> state.setAndContinue(DEIROS_IDLE)));
+                // duerme con los ojos cerrados hasta que tiene a quien atacar
+                controllers.add(new AnimationController<>(this, "ojos", 0,
+                        state -> state.setAndContinue(this.isAggressive() ? DEIROS_ABRIR_OJOS : DEIROS_CERRAR_OJOS)));
+                controllers.add(new AnimationController<>(this, "ataque", 0, state -> PlayState.STOP).triggerableAnim("ataque", DEIROS_ATAQUE));
+            }
+            default -> {
+            }
+        }
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
+    }
+
+    /** Los modelos son mucho mas anchos que el hitbox: no dejar de dibujarlos cuando solo se ven las alas. */
+    @Override
+    public AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(8.0, 4.0, 8.0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -128,6 +181,9 @@ public class GodBossEntity extends Monster {
             if (--attackDelay <= 0 && boss.distanceToSqr(target) <= (reach + 1.5) * (reach + 1.5)) {
                 attackDelay = 24;
                 boss.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
+                if (usesGeoModel(boss.god)) {
+                    boss.triggerAnim("ataque", "ataque");
+                }
                 boss.doHurtTarget(target);
             }
         }
@@ -141,6 +197,7 @@ public class GodBossEntity extends Monster {
         }
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         LivingEntity target = this.getTarget();
+        this.setAggressive(target != null); // se sincroniza al cliente: Deiros abre los ojos
         if (target == null) {
             // sin blanco flota a poca altura del suelo
             if (this.level().getBlockState(this.blockPosition().below(3)).isAir()) {

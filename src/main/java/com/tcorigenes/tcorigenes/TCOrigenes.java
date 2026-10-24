@@ -91,7 +91,11 @@ public class TCOrigenes {
         event.registerEntityRenderer(ModEntityTypes.DAMAGE_DUMMY.get(), com.tcorigenes.tcorigenes.client.DamageDummyRenderer::new);
         for (int i = 0; i < ModEntityTypes.GOD_NAMES.length; i++) {
             String god = ModEntityTypes.GOD_NAMES[i];
-            event.registerEntityRenderer(ModEntityTypes.GODS.get(i).get(), context -> new com.tcorigenes.tcorigenes.client.boss.GodBossRenderer(context, god));
+            if (com.tcorigenes.tcorigenes.boss.GodBossEntity.usesGeoModel(god)) { // modelo y animaciones de Blockbench (GeckoLib)
+                event.registerEntityRenderer(ModEntityTypes.GODS.get(i).get(), context -> new com.tcorigenes.tcorigenes.client.boss.GodGeoRenderer(context, god));
+            } else {
+                event.registerEntityRenderer(ModEntityTypes.GODS.get(i).get(), context -> new com.tcorigenes.tcorigenes.client.boss.GodBossRenderer(context, god));
+            }
         }
     }
 

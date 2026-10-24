@@ -8,9 +8,9 @@ public final class GodSizes {
 
     /** {ancho del hitbox, alto del hitbox, escala del modelo} por dios. */
     public static final java.util.Map<String, float[]> SIZES = java.util.Map.of(
-        "pater", new float[] {3.0F, 7.2F, 1.60F},
+        "pater", new float[] {4.0F, 14.0F, 1.0F}, // modelo GeckoLib: ~17 bloques de alto con el eclipse
         "luna", new float[] {3.6F, 7.6F, 1.55F},
-        "deiros", new float[] {3.2F, 7.8F, 1.45F},
+        "deiros", new float[] {6.0F, 20.0F, 1.0F}, // modelo GeckoLib: ~18 de ancho y ~22 de alto
         "meidris", new float[] {6.0F, 7.0F, 1.00F},
         "filis", new float[] {3.4F, 7.4F, 1.55F},
         "tempo", new float[] {4.5F, 7.4F, 1.60F}
