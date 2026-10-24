@@ -24,8 +24,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * Libros de hechizos de los dioses (diseño de la magia): el Ritualista Arcano recibe un libro con la magia del dios con el que esta a favor
- * (el de mayor favor, desde 10 y sin empate); el Hereje, a quien los dioses ignoran, recibe uno de magia neutra (evocacion, sin elemento).
+ * Libros de hechizos iniciales (diseño de la magia): el Ritualista Arcano recibe el libro de SU RAZA (Angel, Devoto, Demonio, Siervo de la Luna, Malnacido,
+ * Gigante Rocoso, Ender Warrior; el Hereje, a quien los dioses ignoran, uno de magia neutra), distinto para cada raza. El Humano recibe un libro con la
+ * magia del dios con el que esta a favor (el de mayor favor, desde 10 y sin empate).
  * Pater: rayo. Deiros: fuego. Meidris: naturaleza. Filis: sagrada (curacion). Luna: eldritch (magia oscura).
  * Es un libro de cobre de Iron's Spellbooks con los hechizos ya grabados (bloqueados) y marcado soulbound. Si el favor cambia de dueño, llega el
  * libro del nuevo dios y se conservan los anteriores. Se entrega una sola vez por libro.
@@ -47,6 +48,12 @@ public final class GodSpellbooks {
             case "filis" -> new String[] {"guiding_bolt", "healing_circle", "blessing_of_life"};
             case "luna" -> new String[] {"ray_of_siphoning", "heartstop", "magic_missile"};
             case "ender" -> new String[] {"magic_missile", "dragon_breath"};
+            case "angel" -> new String[] {"divine_smite", "sunbeam", "wisp"};
+            case "devoto" -> new String[] {"heal", "fortify", "cleanse"};
+            case "demonio" -> new String[] {"fireball", "scorch", "heat_surge"};
+            case "siervo" -> new String[] {"eldritch_blast", "planar_sight", "abyssal_shroud"};
+            case "malnacido" -> new String[] {"blood_slash", "blood_needles", "blood_step"};
+            case "gigante" -> new String[] {"stomp", "root", "earthquake"};
             default -> new String[] {"fang_strike", "shield", "gust"}; // neutro
         };
     }
@@ -86,16 +93,17 @@ public final class GodSpellbooks {
         return stack;
     }
 
-    /** Libros permitidos por raza (el primero es el de la raza); null = cualquiera segun el favor. Un angel no dispara rayos ni un malnacido usa magia sagrada. */
-    private static String[] allowedBooks(Race race) {
+    /** Libro propio de cada raza (ninguna comparte libro con otra); null = el Humano, que recibe el del dios con mas favor. */
+    private static String raceBook(Race race) {
         return switch (race) {
-            case ANGEL -> new String[] {"filis"};
-            case DEVOTO -> new String[] {"filis", "meidris"};
-            case DEMONIO -> new String[] {"deiros"};
-            case SIERVO_DE_LA_LUNA -> new String[] {"luna"};
-            case MALNACIDO -> new String[] {"luna"};
-            case STONE_GIANT -> new String[] {"meidris"};
-            case ENDER_WARRIOR -> new String[] {"ender"};
+            case ANGEL -> "angel";
+            case DEVOTO -> "devoto";
+            case DEMONIO -> "demonio";
+            case SIERVO_DE_LA_LUNA -> "siervo";
+            case MALNACIDO -> "malnacido";
+            case STONE_GIANT -> "gigante";
+            case ENDER_WARRIOR -> "ender";
+            case HEREJE -> "neutral";
             default -> null;
         };
     }
@@ -156,25 +164,14 @@ public final class GodSpellbooks {
         if (race == Race.AUTOMATA) {
             return; // el Autómata tiene prohibida la magia (ver AutomataMagicBan)
         }
-        if (race == Race.HEREJE) {
-            grant(player, "neutral");
+        String own = raceBook(race);
+        if (own != null) {
+            grant(player, own); // cada raza tiene su libro; no recibe los de los dioses
             return;
         }
         String god = leader(player);
-        String[] allowed = allowedBooks(race);
-        if (allowed == null) {
-            if (god != null) {
-                grant(player, god); // Humano: el dios con mas favor
-            }
-            return;
+        if (god != null) {
+            grant(player, god); // Humano: el dios con mas favor
         }
-        // las razas con magia propia solo reciben libros de su afinidad; si el dios con mas favor no es de ellas, reciben el de la raza
-        for (String candidate : allowed) {
-            if (candidate.equals(god)) {
-                grant(player, god);
-                return;
-            }
-        }
-        grant(player, allowed[0]);
     }
 }
