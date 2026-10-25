@@ -1,4 +1,4 @@
-"""Texturas de la interfaz del jugador (HudOverrides), de estilo frio: marcos finos y translucidos de acero azulado, rombo central chico, casillas
+"""Texturas de la interfaz del jugador (HudOverrides), de estilo frio y limpio: marcos finos y translucidos rojos, rombo central chico, casillas
 sueltas. Las piezas "tintables" (gemas, resplandor, casilla elegida) son blancas y el codigo las pinta con el color de la
 raza del jugador. Cada textura lleva su .mcmeta con blur, porque se dibuja a 1/4 de su tamano (4 px de textura por pixel de interfaz).
 Se dibuja a 8x y se reduce a 4x para que los bordes salgan suaves.
@@ -11,12 +11,12 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "src", "main", "resources", 
 K = 8  # supersampling
 TEX = 4  # pixeles de textura por pixel de interfaz
 
-STEEL = (150, 190, 215, 255)
-STEEL_DK = (62, 92, 118, 255)
-NAVY = (8, 14, 24, 238)
-NAVY2 = (16, 26, 40, 205)
-CYAN = (110, 220, 255, 255)
-ICE = (226, 246, 255, 255)
+STEEL = (146, 20, 32, 255)
+STEEL_DK = (74, 12, 20, 255)
+NAVY = (14, 4, 7, 240)
+NAVY2 = (30, 8, 12, 210)
+CYAN = (196, 36, 50, 255)
+ICE = (200, 84, 90, 255)
 WHITE = (255, 255, 255, 255)
 CLEAR = (0, 0, 0, 0)
 
@@ -65,7 +65,7 @@ def save(im, name, w, h):
 
 
 def frame(w, h, name, hole, c):
-    """Marco fino: contorno de acero con el borde de arriba mas claro, fondo azul translucido, hueco oscuro y marcas cian en los extremos."""
+    """Marco fino: contorno de acero con el borde de arriba mas claro, fondo rojo oscuro translucido, hueco oscuro y marcas rojas en los extremos."""
     im = canvas(w, h)
     d = ImageDraw.Draw(im)
     poly(d, chamfer(0, 0, w, h, c), STEEL)
@@ -75,7 +75,7 @@ def frame(w, h, name, hole, c):
     rect(d, x0, y0, x1, y0 + 0.8, (0, 0, 0, 120))                 # sombra interior de arriba
     rect(d, c + 2, 0, w - c - 2, 0.7, ICE)                          # filo claro del borde de arriba
     mid = h / 2
-    for tx in (1.15, w - 1.95):                                      # marcas cian de los extremos
+    for tx in (1.15, w - 1.95):                                      # marcas rojas de los extremos
         rect(d, tx, mid - 1.6, tx + 0.8, mid + 1.6, CYAN)
     save(im, name, w, h)
 
@@ -137,7 +137,7 @@ def emblem(name, gem_name, glow_name):
     poly(d, diamond(c, c, c), STEEL)
     poly(d, diamond(c, c, c - 1.0), NAVY2)
     poly(d, diamond(c, c, c - 2.6), STEEL_DK)
-    poly(d, diamond(c, c, c - 3.1), (30, 44, 62, 255))   # mas claro que las barras para que se lea el icono
+    poly(d, diamond(c, c, c - 3.1), (48, 16, 22, 255))   # mas claro que las barras para que se lea el icono
     d.line(pts([(c, 0.5), (0.5, c)]), fill=ICE, width=int(0.5 * K))   # filo claro arriba a la izquierda
     for gx, gy in GEMS:
         circle(d, gx, gy, 1.9, STEEL)
@@ -159,12 +159,12 @@ def emblem(name, gem_name, glow_name):
 
 
 def slot(name):
-    """Casilla suelta: contorno fino de acero oscuro, fondo azul translucido y filo claro arriba."""
+    """Casilla suelta: contorno fino de acero oscuro, fondo rojo oscuro translucido y filo claro arriba."""
     S = 18
     im = canvas(S, S)
     d = ImageDraw.Draw(im)
     poly(d, chamfer(0, 0, S, S, 1.4), STEEL_DK)
-    poly(d, chamfer(0.9, 0.9, S - 0.9, S - 0.9, 0.8), (10, 16, 26, 175))
+    poly(d, chamfer(0.9, 0.9, S - 0.9, S - 0.9, 0.8), (18, 5, 8, 180))
     rect(d, 2, 0, S - 2, 0.7, STEEL)
     rect(d, 1, 1, S - 1, 2, (0, 0, 0, 90))
     save(im, name, S, S)
@@ -184,14 +184,14 @@ def selected(name):
 
 
 def slot_big(name):
-    """Casilla de la mano secundaria: mas grande, doble contorno de acero y gemas cian en las esquinas."""
+    """Casilla de la mano secundaria: mas grande, doble contorno de acero y gemas rojas en las esquinas."""
     S = 24
     im = canvas(S, S)
     d = ImageDraw.Draw(im)
     poly(d, chamfer(0, 0, S, S, 2.4), STEEL)
-    poly(d, chamfer(1.0, 1.0, S - 1.0, S - 1.0, 1.6), (14, 22, 34, 235))
+    poly(d, chamfer(1.0, 1.0, S - 1.0, S - 1.0, 1.6), (24, 7, 11, 235))
     poly(d, chamfer(1.8, 1.8, S - 1.8, S - 1.8, 1.0), STEEL_DK)
-    poly(d, chamfer(2.4, 2.4, S - 2.4, S - 2.4, 0.7), (10, 16, 26, 190))
+    poly(d, chamfer(2.4, 2.4, S - 2.4, S - 2.4, 0.7), (18, 5, 8, 195))
     rect(d, 4, 0, S - 4, 0.7, ICE)
     for x, y in ((2.0, 2.0), (S - 2.0, 2.0), (2.0, S - 2.0), (S - 2.0, S - 2.0)):
         poly(d, diamond(x, y, 1.1), CYAN)

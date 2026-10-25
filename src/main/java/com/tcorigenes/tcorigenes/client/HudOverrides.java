@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * Interfaz del jugador del pack, de estilo frio: marcos finos y translucidos de acero azulado (texturas de textures/gui/hud, hechas con
+ * Interfaz del jugador del pack: marcos finos y translucidos rojos (texturas de textures/gui/hud, hechas con
  * tools/gen_hud.py). Sobre la barra rapida van dos filas de barras a cada lado de un rombo chico bajo el que se meten sus extremos: vida y
  * hambre (con la sed de Tough As Nails al lado) a la izquierda; mana (Iron's Spellbooks) y estamina (ParCool) a la derecha. El rombo lleva el
  * icono de la raza y, si tiene habilidad racial, hace de indicador de su cooldown. La experiencia es una linea fina sobre la barra rapida con
@@ -65,10 +65,10 @@ public final class HudOverrides {
     private static final int ROW2 = 37;        // idem, fila baja
     private static final int TUCK = 8;         // cuanto entra cada marco bajo el rombo central
 
-    // paleta fria
+    // paleta
     private static final int EDGE = 0xFF2A3A4C;
     private static final int EDGE_HOT = 0xFFFF4458;
-    private static final int TEXT = 0xFFEAF4FF;
+    private static final int TEXT = 0xFFFFEEEE;
     private static final int HEALTH_TOP = 0xFFF0586A;
     private static final int HEALTH_BOTTOM = 0xFFB02440;
     private static final int FOOD_TOP = 0xFFF0B050;
@@ -379,7 +379,7 @@ public final class HudOverrides {
             case ENDER_WARRIOR -> 0xB050F0;
             case AUTOMATA -> 0x40D8E0;
             case HEREJE -> 0xA8A8A8;
-            default -> 0x6CC8FF;
+            default -> 0xD42A40;
         };
     }
 
