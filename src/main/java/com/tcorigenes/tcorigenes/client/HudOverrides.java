@@ -15,7 +15,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,7 +22,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -33,57 +31,56 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * Interfaz del jugador del pack: oscura, con marcos ornamentados bronce y oro y acentos carmesi (texturas de textures/gui/hud, hechas con
- * tools/gen_hud.py). Arriba de la barra rapida van tres filas de barras a cada lado de un rombo con el nivel: vida, hambre y sed a la izquierda;
- * mana (Iron's Spellbooks), estamina (ParCool) y experiencia a la derecha; tambien reemplaza la barra de los jefes. Reemplaza la vida, la proteccion, el hambre, la sed de Tough As Nails, la experiencia y la barra rapida de vanilla. La vida es una barra
- * que se llena segun vida actual / vida maxima con el texto "actual/maxima" (el color se elige en la pestaña "Interfaz": por defecto el
- * carmesi del pack, que late cuando queda poca). La proteccion son dos numeros: proteccion con un escudito y dureza con su icono. Se apaga
- * entero con la opcion customHud (HudConfig): vuelven los corazones y la barra de vanilla.
+ * Interfaz del jugador del pack, de estilo frio: marcos finos y translucidos de acero azulado (texturas de textures/gui/hud, hechas con
+ * tools/gen_hud.py). Sobre la barra rapida van dos filas de barras a cada lado de un rombo chico bajo el que se meten sus extremos: vida y
+ * hambre (con la sed de Tough As Nails al lado) a la izquierda; mana (Iron's Spellbooks) y estamina (ParCool) a la derecha. El rombo lleva el
+ * icono de la raza y, si tiene habilidad racial, hace de indicador de su cooldown. La experiencia es una linea fina sobre la barra rapida con
+ * el nivel al lado. Tambien reemplaza la proteccion (dos numeros), y la barra rapida con casillas sueltas (la barra de los jefes queda la de vanilla). La vida se
+ * llena segun vida actual / maxima (el color se elige en la pestaña "Interfaz" y late cuando queda poca). Se apaga entero con la opcion
+ * customHud (HudConfig): vuelven los corazones y la barra de vanilla.
  */
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class HudOverrides {
     private static final ResourceLocation ICONS = ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/gui/hud_icons.png");
     private static final ResourceLocation BAR = tex("bar");
-    private static final ResourceLocation BOSS = tex("boss");
-    private static final ResourceLocation CREST = tex("boss_crest");
-    private static final ResourceLocation BADGE = tex("badge");
+    private static final ResourceLocation BAR_HALF = tex("bar_half");
     private static final ResourceLocation EMBLEM = tex("emblem");
     private static final ResourceLocation EMBLEM_GEM = tex("emblem_gem");
     private static final ResourceLocation EMBLEM_GLOW = tex("emblem_glow");
-    private static final ResourceLocation PLATE = tex("hotbar_plate");
     private static final ResourceLocation SLOT = tex("slot");
     private static final ResourceLocation SLOT_ON = tex("slot_selected");
+    private static final ResourceLocation SLOT_BIG = tex("slot_big");
     private static final ResourceLocation ICON_HEALTH = tex("icon_health");
     private static final ResourceLocation ICON_FOOD = tex("icon_food");
     private static final ResourceLocation ICON_THIRST = tex("icon_thirst");
     private static final ResourceLocation ICON_MANA = tex("icon_mana");
     private static final ResourceLocation ICON_STAMINA = tex("icon_stamina");
-    private static final ResourceLocation ICON_XP = tex("icon_xp");
-    private static final int FRAME_W = 92;     // marco de la barra (la textura tiene 4 px por pixel de interfaz)
-    private static final int FRAME_H = 15;
-    private static final int BAR_WIDTH = 86;   // hueco del marco donde se dibuja el relleno
-    private static final int BAR_HEIGHT = 7;
-    private static final int ROW1 = 70;        // distancia desde abajo de la pantalla al marco de cada fila de barras (3 filas, 14 px entre una y otra)
-    private static final int ROW2 = 56;
-    private static final int ROW3 = 42;
-    private static final int CENTER_GAP = 27;  // de la mitad de la pantalla al borde interno de las barras (deja sitio a las alas del emblema)
 
-    // paleta del pack
-    private static final int EDGE = 0xFF45121A;
-    private static final int EDGE_HOT = 0xFFE2242C;
-    private static final int TEXT = 0xFFF0E0E0;
-    private static final int CRIMSON_TOP = 0xFFC4202C;
-    private static final int CRIMSON_BOTTOM = 0xFF8A1420;
-    private static final int AMBER_TOP = 0xFFC98A32;
-    private static final int AMBER_BOTTOM = 0xFF8A5A1E;
-    private static final int WATER_TOP = 0xFF3F8CC8;
-    private static final int WATER_BOTTOM = 0xFF2A64A0;
-    private static final int XP_TOP = 0xFFEFCB62;
-    private static final int XP_BOTTOM = 0xFFA9801F;
-    private static final int STAMINA_TOP = 0xFF5CC86A;
-    private static final int STAMINA_BOTTOM = 0xFF2C7A3C;
-    private static final int MANA_TOP = 0xFF7A5CE8;
-    private static final int MANA_BOTTOM = 0xFF3B2A9E;
+    private static final int FRAME_W = 92;     // marco de la barra; las texturas tienen 4 px por pixel de interfaz
+    private static final int FRAME_H = 11;
+    private static final int BAR_WIDTH = 86;   // hueco del marco donde se dibuja el relleno (3 px de marco a cada lado, 2 arriba y abajo)
+    private static final int HALF_WIDTH = 39;  // hueco de la media barra (hambre y sed comparten la fila)
+    private static final int BAR_HEIGHT = 7;
+    private static final int ROW1 = 50;        // distancia desde abajo de la pantalla al marco de la fila alta
+    private static final int ROW2 = 37;        // idem, fila baja
+    private static final int TUCK = 8;         // cuanto entra cada marco bajo el rombo central
+
+    // paleta fria
+    private static final int EDGE = 0xFF2A3A4C;
+    private static final int EDGE_HOT = 0xFFFF4458;
+    private static final int TEXT = 0xFFEAF4FF;
+    private static final int HEALTH_TOP = 0xFFF0586A;
+    private static final int HEALTH_BOTTOM = 0xFFB02440;
+    private static final int FOOD_TOP = 0xFFF0B050;
+    private static final int FOOD_BOTTOM = 0xFFB87828;
+    private static final int WATER_TOP = 0xFF58C8F8;
+    private static final int WATER_BOTTOM = 0xFF2C80C8;
+    private static final int STAMINA_TOP = 0xFF60E0A8;
+    private static final int STAMINA_BOTTOM = 0xFF2C9870;
+    private static final int MANA_TOP = 0xFFA080FF;
+    private static final int MANA_BOTTOM = 0xFF5038D0;
+    private static final int XP_TOP = 0xFFFFE890;
+    private static final int XP_BOTTOM = 0xFFC8A040;
 
     private static ResourceLocation tex(String name) {
         return ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/gui/hud/" + name + ".png");
@@ -92,16 +89,22 @@ public final class HudOverrides {
     private HudOverrides() {
     }
 
-    // se dibujaba ocho veces el texto en cada cuadro creando el arreglo de desplazamientos de nuevo y formateando los numeros con String.format:
-    // ahora el texto (y su ancho) se recalculan solo cuando cambian la vida o la armadura
+    // el texto de la vida y de la armadura se recalcula solo cuando cambian los valores
     private static float cachedCurrent = Float.NaN;
     private static float cachedMax = Float.NaN;
-    private static Component cachedHealthText = Component.empty();
-    private static int cachedHealthWidth;
+    private static String cachedHealthText = "";
     private static double cachedArmor = Double.NaN;
     private static double cachedToughness = Double.NaN;
     private static Component cachedArmorText = Component.empty();
     private static Component cachedToughnessText = Component.empty();
+
+    // los numeros de las barras se acumulan y se dibujan en un segundo lote, asi quedan siempre por encima de formas y texturas
+    private static final int MAX_LABELS = 8;
+    private static final String[] LABEL_TEXT = new String[MAX_LABELS];
+    private static final int[] LABEL_X = new int[MAX_LABELS];
+    private static final int[] LABEL_Y = new int[MAX_LABELS];
+    private static final int[] LABEL_COLOR = new int[MAX_LABELS];
+    private static int labels;
 
     private static String number(double value) {
         String text = String.format(Locale.ROOT, "%.1f", value);
@@ -114,6 +117,34 @@ public final class HudOverrides {
 
     private static boolean survival(Minecraft mc) {
         return mc.gameMode != null && mc.gameMode.canHurtPlayer() && mc.getCameraEntity() instanceof LocalPlayer;
+    }
+
+    private static void label(String text, int centerX, int y, int color) {
+        if (labels < MAX_LABELS) {
+            LABEL_TEXT[labels] = text;
+            LABEL_X[labels] = centerX;
+            LABEL_Y[labels] = y;
+            LABEL_COLOR[labels] = color;
+            labels++;
+        }
+    }
+
+    /** Texto chico (0.8) centrado en cx, alineado al hueco de una barra que empieza en y; si no cabe en 70 px se achica. */
+    private static void smallText(GuiGraphics g, Minecraft mc, String text, int cx, int y, int color, float maxScale) {
+        float width = mc.font.width(text);
+        float scale = Math.min(maxScale, 70.0F / Math.max(1.0F, width));
+        g.pose().pushPose();
+        g.pose().translate(cx - width * scale / 2.0F, y + (BAR_HEIGHT - 8 * scale) / 2.0F + 0.4F, 0.0F);
+        g.pose().scale(scale, scale, 1.0F);
+        g.drawString(mc.font, text, 0, 0, color, true);
+        g.pose().popPose();
+    }
+
+    private static void drawLabels(GuiGraphics g, Minecraft mc) {
+        for (int i = 0; i < labels; i++) {
+            smallText(g, mc, LABEL_TEXT[i], LABEL_X[i], LABEL_Y[i], LABEL_COLOR[i], 0.8F);
+        }
+        labels = 0;
     }
 
     // ------------------------------------------------------------------ eventos
@@ -144,89 +175,82 @@ public final class HudOverrides {
             return;
         }
         if (id.getNamespace().equals("irons_spellbooks") && id.getPath().equals("mana_overlay")) {
-            event.setCanceled(true); // la barra de mana la dibuja este HUD, a la derecha del rombo
+            event.setCanceled(true); // la barra de mana la dibuja este HUD, arriba a la derecha del rombo
             return;
         }
         if (id.getNamespace().equals("parcool") && id.getPath().contains("stamina")) {
-            event.setCanceled(true); // la estamina la dibuja este HUD, en la fila del medio a la derecha
+            event.setCanceled(true); // la estamina la dibuja este HUD, abajo a la derecha del rombo
             return;
         }
         if (!survival(mc)) {
             return;
         }
-        int left = width / 2 - 91;
-        int barL = width / 2 - CENTER_GAP - FRAME_W + 3;   // hueco interior de las barras de la izquierda
-        int barR = width / 2 + CENTER_GAP + 3;             // y de la derecha
+        boolean riding = player.getVehicle() instanceof LivingEntity;
         if (id.equals(VanillaGuiOverlay.PLAYER_HEALTH.id())) {
             event.setCanceled(true);
-            int top = height - ROW1 + 4;
-            g.drawManaged(() -> lowHealthVignette(g, player, width, height));
-            // dos lotes: primero las barras y despues el texto, asi el numero queda siempre por encima aunque otro mod reordene los lotes
-            g.drawManaged(() -> drawHealthBarShapes(g, player, barL, top));
-            g.drawManaged(() -> drawHealthText(g, mc, player, barL, top));
-            g.drawManaged(() -> drawEmblem(g, mc, player, width, height));
-            if (manaMax(player) > 0) {
-                g.drawManaged(() -> drawMana(g, mc, player, barR, top));
-            }
-            g.drawManaged(() -> drawStamina(g, mc, player, barR, height - ROW2 + 4));
+            // todas las barras y el rombo van en el mismo evento: el rombo se dibuja ultimo y tapa los extremos de los marcos
+            g.drawManaged(() -> drawBars(g, player, width, height, riding));
+            g.drawManaged(() -> drawLabels(g, mc));
             gui.leftHeight = ROW1 + 8; // lo que se apila encima (proteccion) va sobre la fila alta
         } else if (id.equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
             event.setCanceled(true);
             int top = height - gui.leftHeight;
-            g.drawManaged(() -> drawArmor(g, mc, player, barL - 3, top));
+            g.drawManaged(() -> drawArmor(g, mc, player, width / 2 - TUCK - FRAME_W, top));
             gui.leftHeight += 10;
-        } else if (id.equals(VanillaGuiOverlay.FOOD_LEVEL.id()) && !(player.getVehicle() instanceof LivingEntity)) {
-            event.setCanceled(true);
-            int top = height - ROW2 + 4;
-            g.drawManaged(() -> drawFood(g, mc, player, barL, top));
+        } else if (id.equals(VanillaGuiOverlay.FOOD_LEVEL.id()) && !riding) {
+            event.setCanceled(true); // ya la dibujo drawBars
             gui.rightHeight = ROW1 + 8;
-        } else if (id.getNamespace().equals("toughasnails") && id.getPath().contains("thirst") && !(player.getVehicle() instanceof LivingEntity)) {
-            int thirst = thirstOf(player);
-            if (thirst >= 0) {
-                event.setCanceled(true);
-                int top = height - ROW3 + 4;
-                g.drawManaged(() -> drawThirst(g, mc, thirst, barL, top));
-                gui.rightHeight = ROW1 + 8;
-            }
+        } else if (id.getNamespace().equals("toughasnails") && id.getPath().contains("thirst") && !riding && thirstOf(player) >= 0) {
+            event.setCanceled(true); // idem
+            gui.rightHeight = ROW1 + 8;
         }
+    }
+
+    private static void drawBars(GuiGraphics g, LocalPlayer player, int width, int height, boolean riding) {
+        int cx = width / 2;
+        int barL = cx - TUCK - FRAME_W + 3;   // hueco interior de las barras de la izquierda
+        int barR = cx + TUCK + 3;             // y de la derecha
+        int row1 = height - ROW1 + 2;
+        int row2 = height - ROW2 + 2;
+        lowHealthVignette(g, player, width, height);
+        drawHealth(g, player, barL, row1);
+        if (!riding) {
+            drawFood(g, player, barL, row2, thirstOf(player));
+        }
+        if (manaMax(player) > 0) {
+            drawMana(g, player, barR, row1);
+        }
+        drawStamina(g, player, barR, row2);
+        drawEmblem(g, player, cx, height - 38);
     }
 
     // ------------------------------------------------------------------ piezas
     /**
-     * Barra con marco ornamentado y medallon con icono en el extremo de afuera: (x, y) es el hueco interior. Relleno con degradado, marcas cada 10 %,
-     * brillo arriba y un destello que lo recorre; si "edge" no es el borde normal, un filete late en el hueco.
+     * Barra con marco fino: (x, y) es el hueco interior. Relleno con degradado y brillo arriba (las de la izquierda se llenan hacia el rombo, las de
+     * la derecha tambien), un destello lo recorre y un icono chico va en el extremo de afuera; si "edge" no es el borde normal, un filete late.
      */
-    private static void bar(GuiGraphics g, int x, int y, int w, int h, float ratio, int top, int bottom, int edge, ResourceLocation icon) {
-        g.blit(BAR, x - 3, y - 4, FRAME_W, FRAME_H, 0, 0, FRAME_W * 4, FRAME_H * 4, FRAME_W * 4, FRAME_H * 4);
+    private static void bar(GuiGraphics g, int x, int y, int w, float ratio, int top, int bottom, int edge, ResourceLocation icon, boolean left) {
+        int fw = w + 6;
+        g.blit(w == HALF_WIDTH ? BAR_HALF : BAR, x - 3, y - 2, fw, FRAME_H, 0, 0, fw * 4, FRAME_H * 4, fw * 4, FRAME_H * 4);
         int filled = Math.round(w * Mth.clamp(ratio, 0.0F, 1.0F));
         if (filled > 0) {
-            g.fillGradient(x, y, x + filled, y + h, top, bottom);
-            for (int i = 1; i < 10; i++) {
-                int tx = x + w * i / 10;
-                if (tx < x + filled) {
-                    g.fill(tx, y, tx + 1, y + h, 0x26000000);
-                }
-            }
-            g.fill(x, y, x + filled, y + 1, 0x50FFFFFF);
-            g.fill(x, y + h - 1, x + filled, y + h, 0x30000000);
-            int sx = x + (int) ((filled + 16) * (System.currentTimeMillis() % 2600L) / 2600.0F) - 8;
-            int lo = Math.max(x, sx);
-            int hi = Math.min(x + filled, sx + 5);
+            int x0 = left ? x : x + w - filled;
+            int x1 = x0 + filled;
+            g.fillGradient(x0, y, x1, y + BAR_HEIGHT, top, bottom);
+            g.fill(x0, y, x1, y + 3, 0x24FFFFFF);
+            g.fill(x0, y, x1, y + 1, 0x44FFFFFF);
+            int sx = x0 + (int) ((filled + 16) * (System.currentTimeMillis() % 2600L) / 2600.0F) - 8;
+            int lo = Math.max(x0, sx);
+            int hi = Math.min(x1, sx + 5);
             if (hi > lo) {
-                g.fill(lo, y, hi, y + h, 0x2CFFFFFF);
+                g.fill(lo, y, hi, y + BAR_HEIGHT, 0x2CFFFFFF);
             }
         }
         if (edge != EDGE) {
-            g.renderOutline(x, y, w, h, edge & 0x80FFFFFF);
+            g.renderOutline(x, y, w, BAR_HEIGHT, edge & 0x80FFFFFF);
         }
-        boolean left = x + w / 2 < Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2;
-        int bx = left ? x - 14 : x + w;
-        g.blit(BADGE, bx, y - 4, 14, 14, 0, 0, 56, 56, 56, 56);
-        g.blit(icon, bx + 2, y - 2, 10, 10, 0, 0, 40, 40, 40, 40);
-    }
-
-    private static void centered(GuiGraphics g, Minecraft mc, Component text, int cx, int y, int color) {
-        g.drawString(mc.font, text, cx - mc.font.width(text) / 2, y, color, true);
+        g.flush(); // las formas van en lote; sin esto el icono (textura) quedaria debajo del relleno
+        g.blit(icon, left ? x + 1 : x + w - 8, y, 7, 7, 0, 0, 40, 40, 40, 40);
     }
 
     private static int pulse(int quiet, int hot, double speed) {
@@ -259,42 +283,28 @@ public final class HudOverrides {
         }
     }
 
-    private static void drawHealthBarShapes(GuiGraphics g, LocalPlayer player, int x, int y) {
+    private static void drawHealth(GuiGraphics g, LocalPlayer player, int x, int y) {
         float max = Math.max(1.0F, player.getMaxHealth());
         float current = Mth.clamp(player.getHealth(), 0.0F, max);
         float ratio = current / max;
         int solid = HudConfig.solidColor(HudConfig.HEALTH_COLOR.get());
-        int top = solid != 0 ? solid : CRIMSON_TOP;
-        int bottom = solid != 0 ? (solid & 0xFEFEFE) >> 1 | 0xFF000000 : CRIMSON_BOTTOM;
+        int top = solid != 0 ? solid : HEALTH_TOP;
+        int bottom = solid != 0 ? (solid & 0xFEFEFE) >> 1 | 0xFF000000 : HEALTH_BOTTOM;
         int edge = ratio <= 0.3F ? pulse(EDGE, EDGE_HOT, 7.0) : EDGE; // poca vida: el borde late
-        bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, ratio, top, bottom, edge, ICON_HEALTH);
+        bar(g, x, y, BAR_WIDTH, ratio, top, bottom, edge, ICON_HEALTH, true);
         float absorption = player.getAbsorptionAmount();
         if (absorption > 0.0F) {
             int gold = Math.min(BAR_WIDTH, Math.round(BAR_WIDTH * absorption / max));
             g.fill(x, y + BAR_HEIGHT - 2, x + gold, y + BAR_HEIGHT, 0xFFE6C040);
         }
-    }
-
-    private static void drawHealthText(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
-        if (!HudConfig.HEALTH_TEXT.get()) {
-            return;
+        if (HudConfig.HEALTH_TEXT.get()) {
+            if (current != cachedCurrent || max != cachedMax) {
+                cachedCurrent = current;
+                cachedMax = max;
+                cachedHealthText = number(current) + " / " + number(max);
+            }
+            label(cachedHealthText, x + BAR_WIDTH / 2 + 3, y, TEXT);
         }
-        float max = Math.max(1.0F, player.getMaxHealth());
-        float current = Mth.clamp(player.getHealth(), 0.0F, max);
-        if (current != cachedCurrent || max != cachedMax) {
-            cachedCurrent = current;
-            cachedMax = max;
-            cachedHealthText = styled(number(current) + " / " + number(max));
-            cachedHealthWidth = mc.font.width(cachedHealthText);
-        }
-        float scale = cachedHealthWidth > BAR_WIDTH - 4 ? (BAR_WIDTH - 4) / (float) cachedHealthWidth : 1.0F;
-        float tx = x + (BAR_WIDTH - cachedHealthWidth * scale) / 2.0F;
-        float ty = y + (BAR_HEIGHT - 8 * scale) / 2.0F + 0.5F;
-        g.pose().pushPose();
-        g.pose().translate(tx, ty, 0.0F);
-        g.pose().scale(scale, scale, 1.0F);
-        g.drawString(mc.font, cachedHealthText, 0, 0, TEXT, true);
-        g.pose().popPose();
     }
 
     // ------------------------------------------------------------------ proteccion
@@ -315,23 +325,24 @@ public final class HudOverrides {
         g.drawString(mc.font, cachedToughnessText, next + 11, y + 1, 0xFF9AE9F5, true);
     }
 
-    // ------------------------------------------------------------------ hambre y sed
-    private static void drawFood(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
+    // ------------------------------------------------------------------ hambre y sed (comparten la fila baja de la izquierda)
+    private static void drawFood(GuiGraphics g, LocalPlayer player, int x, int y, int thirst) {
         int food = player.getFoodData().getFoodLevel();
         boolean starving = player.hasEffect(MobEffects.HUNGER);
         int edge = food <= 6 ? pulse(EDGE, EDGE_HOT, 5.0) : EDGE;
-        bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, food / 20.0F, starving ? 0xFF8FA040 : AMBER_TOP, starving ? 0xFF4A5A1C : AMBER_BOTTOM, edge, ICON_FOOD);
+        int w = thirst >= 0 ? HALF_WIDTH : BAR_WIDTH;
+        bar(g, x, y, w, food / 20.0F, starving ? 0xFF8FA040 : FOOD_TOP, starving ? 0xFF4A5A1C : FOOD_BOTTOM, edge, ICON_FOOD, true);
         float saturation = Math.min(player.getFoodData().getSaturationLevel(), food);
         if (saturation > 0.0F) {
-            g.fill(x, y + BAR_HEIGHT - 2, x + Math.round(BAR_WIDTH * saturation / 20.0F), y + BAR_HEIGHT, 0xFFF5E2A8);
+            g.fill(x, y + BAR_HEIGHT - 2, x + Math.round(w * saturation / 20.0F), y + BAR_HEIGHT, 0xFFF5E2A8);
         }
-        centered(g, mc, styled(Integer.toString(food)), x + BAR_WIDTH / 2, y, TEXT);
-    }
-
-    private static void drawThirst(GuiGraphics g, Minecraft mc, int thirst, int x, int y) {
-        int edge = thirst <= 6 ? pulse(EDGE, EDGE_HOT, 5.0) : EDGE;
-        bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, thirst / 20.0F, WATER_TOP, WATER_BOTTOM, edge, ICON_THIRST);
-        centered(g, mc, styled(Integer.toString(thirst)), x + BAR_WIDTH / 2, y, TEXT);
+        label(Integer.toString(food), x + w / 2 + 3, y, TEXT);
+        if (thirst >= 0) {
+            int tx = x + HALF_WIDTH + 8;
+            int thirstEdge = thirst <= 6 ? pulse(EDGE, EDGE_HOT, 5.0) : EDGE;
+            bar(g, tx, y, HALF_WIDTH, thirst / 20.0F, WATER_TOP, WATER_BOTTOM, thirstEdge, ICON_THIRST, true);
+            label(Integer.toString(thirst), tx + HALF_WIDTH / 2 + 3, y, TEXT);
+        }
     }
 
     private static Method thirstHelper;
@@ -356,7 +367,7 @@ public final class HudOverrides {
     }
 
     // ------------------------------------------------------------------ emblema central: icono de la raza + cooldown de su habilidad racial
-    /** Color de acento de cada raza (RGB): tine el resplandor, las gemas del emblema y el realce de la casilla elegida. */
+    /** Color de acento de cada raza (RGB): tine el resplandor, las gemas del rombo y el realce de la casilla elegida. */
     private static int accentOf(Race race) {
         return switch (race) {
             case ANGEL -> 0xFFF2B0;
@@ -368,7 +379,7 @@ public final class HudOverrides {
             case ENDER_WARRIOR -> 0xB050F0;
             case AUTOMATA -> 0x40D8E0;
             case HEREJE -> 0xA8A8A8;
-            default -> 0xE0B050;
+            default -> 0x6CC8FF;
         };
     }
 
@@ -385,9 +396,7 @@ public final class HudOverrides {
      * Rombo del centro: el icono de la raza elegida. Si la raza tiene habilidad racial, el rombo es su indicador de cooldown (una cortina oscura
      * que baja del tope y se va recogiendo, con el tiempo que falta) y late cuando esta lista.
      */
-    private static void drawEmblem(GuiGraphics g, Minecraft mc, LocalPlayer player, int width, int height) {
-        int cx = width / 2;
-        int cy = height - 48; // centro de la fila del medio
+    private static void drawEmblem(GuiGraphics g, LocalPlayer player, int cx, int cy) {
         Race race = ClientRaceData.get(player.getUUID());
         int accent = accentOf(race);
         String abilityId = ActivateRacialAbilityPacket.RACE_ABILITIES.get(race);
@@ -396,22 +405,24 @@ public final class HudOverrides {
         float beat = 0.5F + 0.5F * (float) Math.sin(System.currentTimeMillis() / 1000.0 * 2.2);
         boolean ready = ability != null && remaining <= 0;
 
-        tint(g, accent, ready ? 0.45F + 0.35F * beat : 0.26F + 0.10F * beat);
-        g.blit(EMBLEM_GLOW, cx - 28, cy - 28, 56, 56, 0, 0, 224, 224, 224, 224);
+        g.flush(); // las formas de las barras van en lote: salen antes de que el rombo las tape
+        tint(g, accent, ready ? 0.45F + 0.35F * beat : 0.24F + 0.10F * beat);
+        g.blit(EMBLEM_GLOW, cx - 22, cy - 22, 44, 44, 0, 0, 176, 176, 176, 176);
         g.setColor(1.0F, 1.0F, 1.0F, 1.0F);
-        g.blit(EMBLEM, cx - 24, cy - 22, 48, 44, 0, 0, 192, 176, 192, 176);
+        g.blit(EMBLEM, cx - 15, cy - 15, 30, 30, 0, 0, 120, 120, 120, 120);
         g.blit(raceIcon(race), cx - 8, cy - 8, 16, 16, 0, 0, 32, 32, 32, 32);
         if (remaining > 0) {
             float left = Mth.clamp(remaining / (ability.cooldownTicks() * 50.0F), 0.0F, 1.0F);
-            int covered = Math.round(24 * left);
-            for (int i = 0; i < covered; i++) { // la cortina se recorta al hueco del rombo (media diagonal 12)
-                int half = (int) (12 - Math.abs(i + 0.5F - 12));
-                g.fill(cx - half, cy - 12 + i, cx + half, cy - 11 + i, 0xB4000000);
+            int covered = Math.round(22 * left);
+            for (int i = 0; i < covered; i++) { // la cortina se recorta al hueco del rombo (media diagonal 11)
+                int half = (int) (11 - Math.abs(i + 0.5F - 11));
+                g.fill(cx - half, cy - 11 + i, cx + half, cy - 10 + i, 0xB4000000);
             }
-            centered(g, mc, styled(clock(remaining)), cx, cy - 4, 0xFFFFFFFF);
+            label(clock(remaining), cx, cy - 4, 0xFFFFFFFF);
         }
+        g.flush();
         tint(g, accent, 1.0F);
-        g.blit(EMBLEM_GEM, cx - 24, cy - 22, 48, 44, 0, 0, 192, 176, 192, 176);
+        g.blit(EMBLEM_GEM, cx - 15, cy - 15, 30, 30, 0, 0, 120, 120, 120, 120);
         g.setColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
@@ -424,11 +435,19 @@ public final class HudOverrides {
         return ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/gui/origin/" + name + ".png");
     }
 
+    // ------------------------------------------------------------------ experiencia: linea fina sobre la barra rapida, con el nivel a la derecha
     private static void drawExperience(GuiGraphics g, Minecraft mc, LocalPlayer player, int width, int height) {
-        int x = width / 2 + CENTER_GAP + 3;
-        int y = height - ROW3 + 4;
-        g.drawManaged(() -> bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, player.experienceProgress, XP_TOP, XP_BOTTOM, EDGE, ICON_XP));
-        g.drawManaged(() -> centered(g, mc, styled(Integer.toString(player.experienceLevel)), x + BAR_WIDTH / 2, y, 0xFFFFF0C0));
+        int x = width / 2 - 91;
+        int y = height - 24;
+        g.drawManaged(() -> {
+            g.fill(x - 1, y - 1, x + 171, y + 3, 0xA0060A12);
+            int filled = Math.round(170 * Mth.clamp(player.experienceProgress, 0.0F, 1.0F));
+            if (filled > 0) {
+                g.fillGradient(x, y, x + filled, y + 2, XP_TOP, XP_BOTTOM);
+            }
+        });
+        String level = Integer.toString(player.experienceLevel);
+        g.drawManaged(() -> smallText(g, mc, level, x + 182 - (int) (mc.font.width(level) * 0.35F), y - 3, 0xFFFFF0C0, 0.7F));
     }
 
     // ------------------------------------------------------------------ mana (Iron's Spellbooks, por reflexion)
@@ -443,7 +462,7 @@ public final class HudOverrides {
         return attribute == null ? 0 : player.getAttributeValue(attribute);
     }
 
-    private static void drawMana(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
+    private static void drawMana(GuiGraphics g, LocalPlayer player, int x, int y) {
         int mana;
         try {
             if (manaGetter == null) {
@@ -455,8 +474,8 @@ public final class HudOverrides {
             return;
         }
         double max = manaMax(player);
-        bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, (float) (mana / max), MANA_TOP, MANA_BOTTOM, EDGE, ICON_MANA);
-        centered(g, mc, styled(mana + " / " + (int) max), x + BAR_WIDTH / 2, y, TEXT);
+        bar(g, x, y, BAR_WIDTH, (float) (mana / max), MANA_TOP, MANA_BOTTOM, EDGE, ICON_MANA, false);
+        label(mana + " / " + (int) max, x + BAR_WIDTH / 2 - 3, y, TEXT);
     }
 
     // ------------------------------------------------------------------ estamina (ParCool, por reflexion)
@@ -466,7 +485,7 @@ public final class HudOverrides {
     private static Method staminaExhausted;
     private static boolean staminaMissing;
 
-    private static void drawStamina(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
+    private static void drawStamina(GuiGraphics g, LocalPlayer player, int x, int y) {
         if (staminaMissing || !ModList.get().isLoaded("parcool")) {
             return;
         }
@@ -496,74 +515,26 @@ public final class HudOverrides {
             return;
         }
         int edge = exhausted ? pulse(EDGE, EDGE_HOT, 6.0) : EDGE;
-        bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, value / (float) max, exhausted ? 0xFF8A8A8A : STAMINA_TOP, exhausted ? 0xFF4A4A4A : STAMINA_BOTTOM, edge, ICON_STAMINA);
-        centered(g, mc, styled(Integer.toString(value)), x + BAR_WIDTH / 2, y, TEXT);
+        bar(g, x, y, BAR_WIDTH, value / (float) max, exhausted ? 0xFF8A8A8A : STAMINA_TOP, exhausted ? 0xFF4A4A4A : STAMINA_BOTTOM, edge, ICON_STAMINA, false);
+        label(Integer.toString(value), x + BAR_WIDTH / 2 - 3, y, TEXT);
     }
 
-    // ------------------------------------------------------------------ barra de los jefes
-    @SubscribeEvent
-    public static void onBossBar(CustomizeGuiOverlayEvent.BossEventProgress event) {
-        if (!HudConfig.CUSTOM_HUD.get()) {
-            return;
-        }
-        Minecraft mc = Minecraft.getInstance();
-        GuiGraphics g = event.getGuiGraphics();
-        BossEvent boss = event.getBossEvent();
-        int x = event.getWindow().getGuiScaledWidth() / 2 - 95;
-        int y = event.getY();
-        event.setCanceled(true);
-        int[] colors = bossColors(boss.getColor());
-        g.drawManaged(() -> {
-            g.blit(BOSS, x, y + 8, 190, 15, 0, 0, 760, 60, 760, 60);
-            int filled = Math.round(182 * Mth.clamp(boss.getProgress(), 0.0F, 1.0F));
-            if (filled > 0) {
-                g.fillGradient(x + 4, y + 12, x + 4 + filled, y + 19, colors[0], colors[1]);
-                g.fill(x + 4, y + 12, x + 4 + filled, y + 13, 0x50FFFFFF);
-                int sx = x + 4 + (int) ((filled + 16) * (System.currentTimeMillis() % 3200L) / 3200.0F) - 8;
-                int lo = Math.max(x + 4, sx);
-                int hi = Math.min(x + 4 + filled, sx + 6);
-                if (hi > lo) {
-                    g.fill(lo, y + 12, hi, y + 19, 0x2CFFFFFF);
-                }
-            }
-            g.blit(CREST, x + 95 - 22, y, 44, 18, 0, 0, 176, 72, 176, 72);
-            Component name = boss.getName();
-            g.drawString(mc.font, name, x + 95 - mc.font.width(name) / 2, y - 9, 0xFFF0E0C0, true);
-        });
-        event.setIncrement(38);
-    }
-
-    private static int[] bossColors(BossEvent.BossBarColor color) {
-        return switch (color) {
-            case RED -> new int[] {CRIMSON_TOP, CRIMSON_BOTTOM};
-            case BLUE -> new int[] {WATER_TOP, WATER_BOTTOM};
-            case GREEN -> new int[] {0xFF4FB85A, 0xFF2A7A36};
-            case YELLOW -> new int[] {XP_TOP, XP_BOTTOM};
-            case PURPLE -> new int[] {MANA_TOP, MANA_BOTTOM};
-            case PINK -> new int[] {0xFFE070B0, 0xFF9A3A78};
-            default -> new int[] {0xFFE8E8E8, 0xFF9A9A9A};
-        };
-    }
-
-    // ------------------------------------------------------------------ barra rapida
+    // ------------------------------------------------------------------ barra rapida: casillas sueltas y la mano secundaria aparte
     private static void drawHotbar(GuiGraphics g, Minecraft mc, LocalPlayer player, int width, int height) {
         int x0 = width / 2 - 91;
         int y0 = height - 22;
         int selected = player.getInventory().selected;
         ItemStack off = player.getOffhandItem();
-        int ox = player.getMainArm().getOpposite() == HumanoidArm.LEFT ? x0 - 33 : x0 + 195;
+        int ox = player.getMainArm().getOpposite() == HumanoidArm.LEFT ? x0 - 30 : x0 + 188;
         int accent = accentOf(ClientRaceData.get(player.getUUID()));
         float beat = 0.8F + 0.2F * (float) Math.sin(System.currentTimeMillis() / 1000.0 * 4.0);
         g.drawManaged(() -> {
-            g.blit(PLATE, x0 - 9, y0 - 2, 200, 28, 0, 0, 800, 112, 800, 112);
             for (int i = 0; i < 9; i++) {
-                g.blit(SLOT, x0 + i * 20, y0 + 1, 20, 20, 0, 0, 80, 80, 80, 80);
+                g.blit(SLOT, x0 + i * 20 + 1, y0 + 2, 18, 18, 0, 0, 72, 72, 72, 72);
             }
-            if (!off.isEmpty()) {
-                g.blit(SLOT, ox + 1, y0 + 1, 20, 20, 0, 0, 80, 80, 80, 80);
-            }
+            g.blit(SLOT_BIG, ox, y0 - 1, 24, 24, 0, 0, 96, 96, 96, 96);
             tint(g, accent, beat);
-            g.blit(SLOT_ON, x0 + selected * 20 - 2, y0 - 1, 24, 24, 0, 0, 96, 96, 96, 96);
+            g.blit(SLOT_ON, x0 + selected * 20 - 1, y0, 22, 22, 0, 0, 88, 88, 88, 88);
             g.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         });
         for (int i = 0; i < 9; i++) {
@@ -572,8 +543,8 @@ public final class HudOverrides {
             g.renderItemDecorations(mc.font, stack, x0 + 2 + i * 20, y0 + 3);
         }
         if (!off.isEmpty()) {
-            g.renderItem(off, ox + 3, y0 + 3);
-            g.renderItemDecorations(mc.font, off, ox + 3, y0 + 3);
+            g.renderItem(off, ox + 4, y0 + 3);
+            g.renderItemDecorations(mc.font, off, ox + 4, y0 + 3);
         }
     }
 }
