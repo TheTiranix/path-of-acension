@@ -15,7 +15,7 @@ import net.minecraftforge.network.NetworkEvent.Context;
 /** Cliente->servidor: "activa mi habilidad racial" (distinta del slot de clase/puntos).
  *  El servidor decide segun la raza real del jugador, nunca confia en el cliente. */
 public class ActivateRacialAbilityPacket {
-    private static final Map<Race, String> RACE_ABILITIES = Map.of(
+    public static final Map<Race, String> RACE_ABILITIES = Map.of(
             Race.ENDER_WARRIOR, "tcorigenes:teletransporte_ender",
             Race.AUTOMATA, "tcorigenes:sobrecarga_automata",
             Race.ANGEL, "tcorigenes:impulso_angel",
