@@ -32,7 +32,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * Interfaz del jugador del pack: marcos finos y translucidos rojos (texturas de textures/gui/hud, hechas con
- * tools/gen_hud.py). Sobre la barra rapida van dos filas de barras a cada lado de un rombo chico bajo el que se meten sus extremos: vida y
+ * tools/gen_hud.py). Sobre la barra rapida van dos filas de barras a cada lado de un rombo chico, separadas de el: vida y
  * hambre (con la sed de Tough As Nails al lado) a la izquierda; mana (Iron's Spellbooks) y estamina (ParCool) a la derecha. El rombo lleva el
  * icono de la raza y, si tiene habilidad racial, hace de indicador de su cooldown. La experiencia es una linea fina sobre la barra rapida con
  * el nivel al lado. Tambien reemplaza la proteccion (dos numeros), y la barra rapida con casillas sueltas (la barra de los jefes queda la de vanilla). La vida se
@@ -63,7 +63,7 @@ public final class HudOverrides {
     private static final int BAR_HEIGHT = 7;
     private static final int ROW1 = 50;        // distancia desde abajo de la pantalla al marco de la fila alta
     private static final int ROW2 = 37;        // idem, fila baja
-    private static final int TUCK = 8;         // cuanto entra cada marco bajo el rombo central
+    private static final int CENTER_GAP = 19;  // de la mitad de la pantalla al borde interno de cada marco (el rombo mide 15 de media diagonal)
 
     // paleta
     private static final int EDGE = 0xFF2A3A4C;
@@ -195,7 +195,7 @@ public final class HudOverrides {
         } else if (id.equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
             event.setCanceled(true);
             int top = height - gui.leftHeight;
-            g.drawManaged(() -> drawArmor(g, mc, player, width / 2 - TUCK - FRAME_W, top));
+            g.drawManaged(() -> drawArmor(g, mc, player, width / 2 - CENTER_GAP - FRAME_W, top));
             gui.leftHeight += 10;
         } else if (id.equals(VanillaGuiOverlay.FOOD_LEVEL.id()) && !riding) {
             event.setCanceled(true); // ya la dibujo drawBars
@@ -208,8 +208,8 @@ public final class HudOverrides {
 
     private static void drawBars(GuiGraphics g, LocalPlayer player, int width, int height, boolean riding) {
         int cx = width / 2;
-        int barL = cx - TUCK - FRAME_W + 3;   // hueco interior de las barras de la izquierda
-        int barR = cx + TUCK + 3;             // y de la derecha
+        int barL = cx - CENTER_GAP - FRAME_W + 3;   // hueco interior de las barras de la izquierda
+        int barR = cx + CENTER_GAP + 3;             // y de la derecha
         int row1 = height - ROW1 + 2;
         int row2 = height - ROW2 + 2;
         lowHealthVignette(g, player, width, height);
