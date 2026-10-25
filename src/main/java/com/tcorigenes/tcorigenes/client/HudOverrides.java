@@ -29,8 +29,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * Interfaz del jugador del pack: oscura, con marcos ornamentados bronce y oro y acentos carmesi (texturas de textures/gui/hud, hechas con
- * tools/gen_hud.py). Arriba de la barra rapida van dos filas de barras a cada lado de un rombo con el nivel: vida y hambre a la izquierda, mana
- * (Iron's Spellbooks) y sed a la derecha; tambien reemplaza la barra de los jefes. Reemplaza la vida, la proteccion, el hambre, la sed de Tough As Nails, la experiencia y la barra rapida de vanilla. La vida es una barra
+ * tools/gen_hud.py). Arriba de la barra rapida van tres filas de barras a cada lado de un rombo con el nivel: vida, hambre y sed a la izquierda;
+ * mana (Iron's Spellbooks), estamina (ParCool) y experiencia a la derecha; tambien reemplaza la barra de los jefes. Reemplaza la vida, la proteccion, el hambre, la sed de Tough As Nails, la experiencia y la barra rapida de vanilla. La vida es una barra
  * que se llena segun vida actual / vida maxima con el texto "actual/maxima" (el color se elige en la pestaña "Interfaz": por defecto el
  * carmesi del pack, que late cuando queda poca). La proteccion son dos numeros: proteccion con un escudito y dureza con su icono. Se apaga
  * entero con la opcion customHud (HudConfig): vuelven los corazones y la barra de vanilla.
@@ -47,8 +47,9 @@ public final class HudOverrides {
     private static final int FRAME_H = 15;
     private static final int BAR_WIDTH = 86;   // hueco del marco donde se dibuja el relleno
     private static final int BAR_HEIGHT = 7;
-    private static final int ROW2 = 40;        // distancia desde abajo de la pantalla a la fila baja de barras
-    private static final int ROW1 = 56;        // idem, fila alta
+    private static final int ROW1 = 64;        // distancia desde abajo de la pantalla al marco de cada fila de barras (3 filas, 12 px entre una y otra)
+    private static final int ROW2 = 52;
+    private static final int ROW3 = 40;
     private static final int CENTER_GAP = 18;  // de la mitad de la pantalla al borde interno de las barras
 
     // paleta del pack
@@ -64,6 +65,8 @@ public final class HudOverrides {
     private static final int WATER_BOTTOM = 0xFF2A64A0;
     private static final int XP_TOP = 0xFFEFCB62;
     private static final int XP_BOTTOM = 0xFFA9801F;
+    private static final int STAMINA_TOP = 0xFF5CC86A;
+    private static final int STAMINA_BOTTOM = 0xFF2C7A3C;
     private static final int MANA_TOP = 0xFF7A5CE8;
     private static final int MANA_BOTTOM = 0xFF3B2A9E;
 
@@ -125,6 +128,10 @@ public final class HudOverrides {
             event.setCanceled(true); // la barra de mana la dibuja este HUD, a la derecha del rombo
             return;
         }
+        if (id.getNamespace().equals("parcool") && id.getPath().contains("stamina")) {
+            event.setCanceled(true); // la estamina la dibuja este HUD, en la fila del medio a la derecha
+            return;
+        }
         if (!survival(mc)) {
             return;
         }
@@ -141,6 +148,7 @@ public final class HudOverrides {
             if (manaMax(player) > 0) {
                 g.drawManaged(() -> drawMana(g, mc, player, barR, top));
             }
+            g.drawManaged(() -> drawStamina(g, mc, player, barR, height - ROW2 + 4));
             gui.leftHeight = ROW1 + 8; // lo que se apila encima (proteccion) va sobre la fila alta
         } else if (id.equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
             event.setCanceled(true);
@@ -156,8 +164,8 @@ public final class HudOverrides {
             int thirst = thirstOf(player);
             if (thirst >= 0) {
                 event.setCanceled(true);
-                int top = height - ROW2 + 4;
-                g.drawManaged(() -> drawThirst(g, mc, thirst, barR, top));
+                int top = height - ROW3 + 4;
+                g.drawManaged(() -> drawThirst(g, mc, thirst, barL, top));
                 gui.rightHeight = ROW1 + 8;
             }
         }
@@ -293,21 +301,15 @@ public final class HudOverrides {
     // ------------------------------------------------------------------ nivel (rombo central) y experiencia
     private static void drawEmblem(GuiGraphics g, Minecraft mc, LocalPlayer player, int width, int height) {
         int cx = width / 2;
-        int cy = height - 40; // entre la fila alta y la baja
+        int cy = height - 44; // centro de la fila del medio
         g.blit(EMBLEM, cx - 16, cy - 16, 32, 32, 0, 0, 128, 128, 128, 128);
         centered(g, mc, styled(Integer.toString(player.experienceLevel)), cx, cy - 4, 0xFFEFCB62);
     }
 
     private static void drawExperience(GuiGraphics g, Minecraft mc, LocalPlayer player, int width, int height) {
-        int x = width / 2 - 91;
-        int y = height - 24;
-        g.drawManaged(() -> {
-            g.fill(x, y, x + 182, y + 2, 0xB0000000);
-            int filled = Math.round(182 * Mth.clamp(player.experienceProgress, 0.0F, 1.0F));
-            if (filled > 0) {
-                g.fillGradient(x, y, x + filled, y + 2, XP_TOP, XP_BOTTOM);
-            }
-        });
+        int x = width / 2 + CENTER_GAP + 3;
+        int y = height - ROW3 + 4;
+        g.drawManaged(() -> bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, player.experienceProgress, XP_TOP, XP_BOTTOM, EDGE));
     }
 
     // ------------------------------------------------------------------ mana (Iron's Spellbooks, por reflexion)
@@ -336,6 +338,47 @@ public final class HudOverrides {
         double max = manaMax(player);
         bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, (float) (mana / max), MANA_TOP, MANA_BOTTOM, EDGE);
         centered(g, mc, styled(mana + " / " + (int) max), x + BAR_WIDTH / 2, y, TEXT);
+    }
+
+    // ------------------------------------------------------------------ estamina (ParCool, por reflexion)
+    private static Method staminaOf;
+    private static Method staminaValue;
+    private static Method staminaMax;
+    private static Method staminaExhausted;
+    private static boolean staminaMissing;
+
+    private static void drawStamina(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
+        if (staminaMissing || !ModList.get().isLoaded("parcool")) {
+            return;
+        }
+        int value;
+        int max;
+        boolean exhausted;
+        try {
+            if (staminaOf == null) {
+                Class<?> type = Class.forName("com.alrex.parcool.common.capability.IStamina");
+                staminaValue = type.getMethod("get");
+                staminaMax = type.getMethod("getActualMaxStamina");
+                staminaExhausted = type.getMethod("isExhausted");
+                staminaOf = type.getMethod("get", Player.class);
+            }
+            Object stamina = staminaOf.invoke(null, player);
+            if (stamina == null) {
+                return;
+            }
+            value = (Integer) staminaValue.invoke(stamina);
+            max = (Integer) staminaMax.invoke(stamina);
+            exhausted = (Boolean) staminaExhausted.invoke(stamina);
+        } catch (Throwable t) {
+            staminaMissing = true;
+            return;
+        }
+        if (max <= 0) {
+            return;
+        }
+        int edge = exhausted ? pulse(EDGE, EDGE_HOT, 6.0) : EDGE;
+        bar(g, x, y, BAR_WIDTH, BAR_HEIGHT, value / (float) max, exhausted ? 0xFF8A8A8A : STAMINA_TOP, exhausted ? 0xFF4A4A4A : STAMINA_BOTTOM, edge);
+        centered(g, mc, styled(Integer.toString(value)), x + BAR_WIDTH / 2, y, TEXT);
     }
 
     // ------------------------------------------------------------------ barra de los jefes
