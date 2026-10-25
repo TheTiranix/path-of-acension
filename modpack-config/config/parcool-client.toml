@@ -56,7 +56,7 @@
 
 [Animations]
 	#Enable custom animations
-	enable_animation = true
+	enable_animation = false
 	#Enable custom animation of falling
 	enable_falling_animation = true
 	#Enable lean animation while FastRun
