@@ -215,3 +215,61 @@ emblem("emblem.png", "emblem_gem.png", "emblem_glow.png")
 slot("slot.png")
 selected("slot_selected.png")
 slot_big("slot_big.png")
+
+
+GLYPHS = "0123456789/:."
+CELL_W, CELL_H = 7, 9  # celda de cada caracter en px de interfaz (el digito mide 5x7 y el resto es margen para el contorno)
+STROKE = 1.0           # grosor del trazo
+OUTLINE = 0.8          # contorno oscuro
+
+
+def _mirror(path):
+    return [(5 - x, 7 - y) for x, y in path]
+
+
+# Digitos de aspecto antiguo, angulares, como tallados, parecidos a la muestra del usuario (cuña afilada, 2 con barra, 3 con curva, 6 con marca,
+# 8 tachado, 0 con cuernos). Cada glifo es una lista de trazos (lineas) en una caja de 5x7; ("fill", puntos) es una forma rellena.
+_SIX = [(4.4, 0), (1.5, 0), (0, 1.5), (0, 5.5), (1.5, 7), (3.5, 7), (5, 5.5), (5, 4), (3.5, 3), (0, 3.4)]
+STROKES = {
+    "0": [[(1.2, 0), (3.8, 0), (5, 1.6), (5, 5.4), (3.8, 7), (1.2, 7), (0, 5.4), (0, 1.6), (1.2, 0)], [(1.0, -0.7), (1.0, 0.4)], [(4.0, -0.7), (4.0, 0.4)]],
+    "1": [("fill", [(1.3, 0), (3.7, 0), (3.0, 5.4), (2.5, 7), (2.0, 5.4)])],
+    "2": [[(0, 1.4), (1.4, 0), (3.6, 0), (5, 1.4), (5, 2.8), (0, 7), (5, 7)], [(0.9, 4.2), (4.1, 4.2)]],
+    "3": [[(0.2, 0.2), (4.8, 0.2), (1.8, 3.0), (3.8, 3.0), (5, 4.2), (5, 5.6), (3.8, 7), (1.0, 7), (0, 6.2)]],
+    "4": [[(4.4, 7), (4.4, 0.2), (1.2, 4.8), (5, 4.8)]],
+    "5": [[(4.8, 0.2), (0.6, 0.2), (0, 3.3), (3.6, 2.6), (5, 4), (5, 5.8), (3.8, 7), (0, 7)]],
+    "6": [_SIX, [(-0.5, 0.9), (1.0, 0.9)]],
+    "7": [[(0, 2), (1.6, 0), (3.8, 0), (4.8, 1.4), (3.0, 3.6), (2.4, 7)]],
+    "8": [[(1.2, 0), (3.8, 0), (5, 1.2), (5, 2.4), (3.8, 3.5), (1.2, 3.5), (0, 2.4), (0, 1.2), (1.2, 0)],
+          [(1.2, 3.5), (3.8, 3.5), (5, 4.7), (5, 5.8), (3.8, 7), (1.2, 7), (0, 5.8), (0, 4.7), (1.2, 3.5)], [(0.3, 6.6), (4.7, 0.4)]],
+    "9": [_mirror(_SIX), [(5.5, 6.1), (4.0, 6.1)]],
+    "/": [[(0.2, 7), (4.8, 0)]],
+    ":": [[(2.5, 1.9), (2.5, 2.7)], [(2.5, 4.9), (2.5, 5.7)]],
+    ".": [[(2.5, 6.2), (2.5, 7)]],
+}
+
+
+def digits(name):
+    """Atlas de los numeros del HUD: 0-9 / : . en glifos angulares de aspecto antiguo, blancos con contorno oscuro marcado (se tinen por codigo)."""
+    im = Image.new("RGBA", (CELL_W * K * len(GLYPHS), CELL_H * K), CLEAR)
+    ox, oy = (CELL_W - 5) / 2, (CELL_H - 7) / 2
+    r = STROKE * K / 2
+    for i, c in enumerate(GLYPHS):
+        mask = Image.new("L", (CELL_W * K, CELL_H * K), 0)
+        md = ImageDraw.Draw(mask)
+        for path in STROKES[c]:
+            if isinstance(path, tuple):   # forma rellena
+                md.polygon([((x + ox) * K, (y + oy) * K) for x, y in path[1]], fill=255)
+                continue
+            xy = [((x + ox) * K, (y + oy) * K) for x, y in path]
+            md.line(xy, fill=255, width=int(STROKE * K), joint="curve")
+            for px, py in (xy[0], xy[-1]):   # extremos redondos para que no queden cortes feos
+                md.ellipse((px - r, py - r, px + r, py + r), fill=255)
+        outline = mask.filter(ImageFilter.MaxFilter(int(OUTLINE * K) * 2 + 1))
+        cell = Image.new("RGBA", mask.size, CLEAR)
+        cell.paste((10, 2, 4, 255), mask=outline)
+        cell.paste(WHITE, mask=mask)
+        im.alpha_composite(cell, (i * CELL_W * K, 0))
+    save(im, name, CELL_W * len(GLYPHS), CELL_H)
+
+
+digits("digits.png")

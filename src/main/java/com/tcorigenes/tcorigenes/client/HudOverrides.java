@@ -11,7 +11,6 @@ import java.util.Locale;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -55,6 +54,8 @@ public final class HudOverrides {
     private static final ResourceLocation ICON_THIRST = tex("icon_thirst");
     private static final ResourceLocation ICON_MANA = tex("icon_mana");
     private static final ResourceLocation ICON_STAMINA = tex("icon_stamina");
+    private static final ResourceLocation DIGITS = tex("digits");
+    private static final String GLYPHS = "0123456789/:.";   // orden de las celdas de digits.png (7x9 px de interfaz cada una)
 
     private static final int FRAME_W = 92;     // marco de la barra; las texturas tienen 4 px por pixel de interfaz
     private static final int FRAME_H = 11;
@@ -95,8 +96,8 @@ public final class HudOverrides {
     private static String cachedHealthText = "";
     private static double cachedArmor = Double.NaN;
     private static double cachedToughness = Double.NaN;
-    private static Component cachedArmorText = Component.empty();
-    private static Component cachedToughnessText = Component.empty();
+    private static String cachedArmorText = "";
+    private static String cachedToughnessText = "";
 
     // los numeros de las barras se acumulan y se dibujan en un segundo lote, asi quedan siempre por encima de formas y texturas
     private static final int MAX_LABELS = 8;
@@ -109,10 +110,6 @@ public final class HudOverrides {
     private static String number(double value) {
         String text = String.format(Locale.ROOT, "%.1f", value);
         return text.endsWith(".0") ? text.substring(0, text.length() - 2) : text;
-    }
-
-    private static Component styled(String text) {
-        return Component.literal(text);
     }
 
     private static boolean survival(Minecraft mc) {
@@ -129,20 +126,50 @@ public final class HudOverrides {
         }
     }
 
-    /** Texto chico (0.8) centrado en cx, alineado al hueco de una barra que empieza en y; si no cabe en 70 px se achica. */
-    private static void smallText(GuiGraphics g, Minecraft mc, String text, int cx, int y, int color, float maxScale) {
-        float width = mc.font.width(text);
-        float scale = Math.min(maxScale, 70.0F / Math.max(1.0F, width));
-        g.pose().pushPose();
-        g.pose().translate(cx - width * scale / 2.0F, y + (BAR_HEIGHT - 8 * scale) / 2.0F + 0.4F, 0.0F);
-        g.pose().scale(scale, scale, 1.0F);
-        g.drawString(mc.font, text, 0, 0, color, true);
-        g.pose().popPose();
+    private static float advance(char c) {
+        return c >= '0' && c <= '9' ? 6.0F : c == '/' ? 5.0F : 3.0F; // los digitos, la barra, y ':' '.' ' '
     }
 
-    private static void drawLabels(GuiGraphics g, Minecraft mc) {
+    private static float glyphWidth(String text) {
+        float width = 0.0F;
+        for (int i = 0; i < text.length(); i++) {
+            width += advance(text.charAt(i));
+        }
+        return width;
+    }
+
+    /**
+     * Numeros con la textura digits.png (glifos angulares de aspecto antiguo, con contorno oscuro), alineados a la izquierda en x. La altura
+     * de la celda es 9; "y" es el tope de un hueco de barra (7 de alto), asi que el numero queda centrado en el.
+     */
+    private static void glyphs(GuiGraphics g, String text, float x, float y, int color, float scale) {
+        tint(g, color & 0xFFFFFF, 1.0F);
+        g.pose().pushPose();
+        g.pose().translate(x, y + (BAR_HEIGHT - 9 * scale) / 2.0F, 0.0F);
+        g.pose().scale(scale, scale, 1.0F);
+        float cursor = 0.0F;
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            int cell = GLYPHS.indexOf(c);
+            if (cell >= 0) {
+                g.blit(DIGITS, Math.round(cursor), 0, 7, 9, cell * 28, 0, 28, 36, 364, 36);
+            }
+            cursor += advance(c);
+        }
+        g.pose().popPose();
+        g.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    /** Igual, centrado en cx; si no cabe en 70 px se achica. */
+    private static void centeredGlyphs(GuiGraphics g, String text, float cx, float y, int color, float maxScale) {
+        float width = glyphWidth(text);
+        float scale = Math.min(maxScale, 70.0F / Math.max(1.0F, width));
+        glyphs(g, text, cx - width * scale / 2.0F, y, color, scale);
+    }
+
+    private static void drawLabels(GuiGraphics g) {
         for (int i = 0; i < labels; i++) {
-            smallText(g, mc, LABEL_TEXT[i], LABEL_X[i], LABEL_Y[i], LABEL_COLOR[i], 0.8F);
+            centeredGlyphs(g, LABEL_TEXT[i], LABEL_X[i], LABEL_Y[i], LABEL_COLOR[i], 0.85F);
         }
         labels = 0;
     }
@@ -170,7 +197,7 @@ public final class HudOverrides {
         if (id.equals(VanillaGuiOverlay.EXPERIENCE_BAR.id())) {
             if (mc.gameMode.hasExperience() && player.jumpableVehicle() == null) {
                 event.setCanceled(true);
-                drawExperience(g, mc, player, width, height);
+                drawExperience(g, player, width, height);
             }
             return;
         }
@@ -190,12 +217,12 @@ public final class HudOverrides {
             event.setCanceled(true);
             // todas las barras y el rombo van en el mismo evento: el rombo se dibuja ultimo y tapa los extremos de los marcos
             g.drawManaged(() -> drawBars(g, player, width, height, riding));
-            g.drawManaged(() -> drawLabels(g, mc));
+            g.drawManaged(() -> drawLabels(g));
             gui.leftHeight = ROW1 + 8; // lo que se apila encima (proteccion) va sobre la fila alta
         } else if (id.equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
             event.setCanceled(true);
             int top = height - gui.leftHeight;
-            g.drawManaged(() -> drawArmor(g, mc, player, width / 2 - CENTER_GAP - FRAME_W, top));
+            g.drawManaged(() -> drawArmor(g, player, width / 2 - CENTER_GAP - FRAME_W, top));
             gui.leftHeight += 10;
         } else if (id.equals(VanillaGuiOverlay.FOOD_LEVEL.id()) && !riding) {
             event.setCanceled(true); // ya la dibujo drawBars
@@ -308,21 +335,21 @@ public final class HudOverrides {
     }
 
     // ------------------------------------------------------------------ proteccion
-    private static void drawArmor(GuiGraphics g, Minecraft mc, LocalPlayer player, int x, int y) {
+    private static void drawArmor(GuiGraphics g, LocalPlayer player, int x, int y) {
         double armorValue = player.getArmorValue();
         double toughnessValue = player.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
         if (armorValue != cachedArmor || toughnessValue != cachedToughness) {
             cachedArmor = armorValue;
             cachedToughness = toughnessValue;
-            cachedArmorText = styled(number(armorValue));
-            cachedToughnessText = styled(number(toughnessValue));
+            cachedArmorText = number(armorValue);
+            cachedToughnessText = number(toughnessValue);
         }
         g.blit(ICONS, x, y, 0, 0, 9, 9, 32, 16);
         int tx = x + 11;
-        g.drawString(mc.font, cachedArmorText, tx, y + 1, TEXT, true);
-        int next = tx + mc.font.width(cachedArmorText) + 8;
+        glyphs(g, cachedArmorText, tx, y + 1, TEXT, 0.9F);
+        int next = tx + (int) (glyphWidth(cachedArmorText) * 0.9F) + 6;
         g.blit(ICONS, next, y, 10, 0, 9, 9, 32, 16);
-        g.drawString(mc.font, cachedToughnessText, next + 11, y + 1, 0xFF9AE9F5, true);
+        glyphs(g, cachedToughnessText, next + 11, y + 1, 0xFF9AE9F5, 0.9F);
     }
 
     // ------------------------------------------------------------------ hambre y sed (comparten la fila baja de la izquierda)
@@ -436,7 +463,7 @@ public final class HudOverrides {
     }
 
     // ------------------------------------------------------------------ experiencia: linea fina sobre la barra rapida, con el nivel a la derecha
-    private static void drawExperience(GuiGraphics g, Minecraft mc, LocalPlayer player, int width, int height) {
+    private static void drawExperience(GuiGraphics g, LocalPlayer player, int width, int height) {
         int x = width / 2 - 91;
         int y = height - 24;
         g.drawManaged(() -> {
@@ -447,7 +474,7 @@ public final class HudOverrides {
             }
         });
         String level = Integer.toString(player.experienceLevel);
-        g.drawManaged(() -> smallText(g, mc, level, x + 182 - (int) (mc.font.width(level) * 0.35F), y - 3, 0xFFFFF0C0, 0.7F));
+        g.drawManaged(() -> glyphs(g, level, x + 182 - glyphWidth(level) * 0.7F, y - 3, 0xFFFFF0C0, 0.7F));
     }
 
     // ------------------------------------------------------------------ mana (Iron's Spellbooks, por reflexion)
