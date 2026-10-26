@@ -6,6 +6,7 @@ import com.tcorigenes.tcorigenes.favor.Deity;
 import com.tcorigenes.tcorigenes.favor.FavorManager;
 import com.tcorigenes.tcorigenes.playerclass.PlayerClass;
 import com.tcorigenes.tcorigenes.playerclass.capability.PlayerClassProvider;
+import java.lang.reflect.Method;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
@@ -14,6 +15,7 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -129,6 +131,46 @@ public final class GodSpellbooks {
         return best == null || tie ? null : best.name().toLowerCase(java.util.Locale.ROOT);
     }
 
+    private static Method getMagicData;
+    private static Method getSyncedData;
+    private static Method getSpellByKey;
+    private static Method needsLearning;
+    private static Method isLearned;
+    private static Method learn;
+    private static boolean learnBroken;
+
+    /**
+     * Iron's Spellbooks obliga a "aprender" los hechizos de la escuela eldritch (la magia de Luna) antes de lanzarlos ("No puedes entender la
+     * complejidad de este Hechizo"): los del libro de la raza se marcan como aprendidos, por reflexion porque el mod no es dependencia de compilacion.
+     */
+    private static void learnRequired(ServerPlayer player, String[] spells) {
+        if (learnBroken) {
+            return;
+        }
+        try {
+            if (learn == null) {
+                Class<?> magic = Class.forName("io.redspace.ironsspellbooks.api.magic.MagicData");
+                Class<?> spellType = Class.forName("io.redspace.ironsspellbooks.api.spells.AbstractSpell");
+                Class<?> synced = Class.forName("io.redspace.ironsspellbooks.capabilities.magic.SyncedSpellData");
+                getMagicData = magic.getMethod("getPlayerMagicData", LivingEntity.class);
+                getSyncedData = magic.getMethod("getSyncedData");
+                getSpellByKey = Class.forName("io.redspace.ironsspellbooks.api.registry.SpellRegistry").getMethod("getSpell", ResourceLocation.class);
+                needsLearning = spellType.getMethod("needsLearning");
+                isLearned = synced.getMethod("isSpellLearned", spellType);
+                learn = synced.getMethod("learnSpell", spellType);
+            }
+            Object synced = getSyncedData.invoke(getMagicData.invoke(null, player));
+            for (String id : spells) {
+                Object spell = getSpellByKey.invoke(null, ResourceLocation.fromNamespaceAndPath("irons_spellbooks", id));
+                if ((Boolean) needsLearning.invoke(spell) && !(Boolean) isLearned.invoke(synced, spell)) {
+                    learn.invoke(synced, spell);
+                }
+            }
+        } catch (Throwable t) {
+            learnBroken = true;
+        }
+    }
+
     private static void grant(ServerPlayer player, String id) {
         CompoundTag persisted = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
         CompoundTag granted = persisted.getCompound(GRANTED_KEY);
@@ -167,6 +209,7 @@ public final class GodSpellbooks {
         String own = raceBook(race);
         if (own != null) {
             grant(player, own); // cada raza tiene su libro; no recibe los de los dioses
+            learnRequired(player, spellsOf(own));
             return;
         }
         String god = leader(player);
