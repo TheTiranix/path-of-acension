@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.HumanoidArm;
@@ -24,6 +25,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -41,6 +43,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @EventBusSubscriber(modid = "tcorigenes", value = Dist.CLIENT)
 public final class HudOverrides {
     private static final ResourceLocation ICONS = ResourceLocation.fromNamespaceAndPath("tcorigenes", "textures/gui/hud_icons.png");
+    private static final ResourceLocation VANILLA_ICONS = ResourceLocation.withDefaultNamespace("textures/gui/icons.png"); // las burbujas de aire
     private static final ResourceLocation BAR = tex("bar");
     private static final ResourceLocation BAR_HALF = tex("bar_half");
     private static final ResourceLocation EMBLEM = tex("emblem");
@@ -230,6 +233,33 @@ public final class HudOverrides {
         } else if (id.getNamespace().equals("toughasnails") && id.getPath().contains("thirst") && !riding && thirstOf(player) >= 0) {
             event.setCanceled(true); // idem
             gui.rightHeight = ROW1 + 8;
+        }
+    }
+
+    /**
+     * Tough As Nails (9.x) no registra una capa de sed: GlitchCore envuelve la capa del aire y TAN dibuja sus gotas ahi dentro. Como la sed ya
+     * tiene su barra, se cancela la capa del aire antes que nadie (prioridad maxima) y las burbujas de vanilla se dibujan a mano (misma cuenta
+     * que Gui.renderAir), sobre las filas de barras.
+     */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onAirOverlay(RenderGuiOverlayEvent.Pre event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (!event.getOverlay().id().equals(VanillaGuiOverlay.AIR_LEVEL.id()) || !(mc.gui instanceof ForgeGui gui) || mc.player == null
+                || !HudConfig.CUSTOM_HUD.get() || !survival(mc) || mc.player.getVehicle() instanceof LivingEntity || thirstOf(mc.player) < 0) {
+            return;
+        }
+        event.setCanceled(true);
+        int air = mc.player.getAirSupply();
+        int max = mc.player.getMaxAirSupply();
+        if (mc.player.isEyeInFluid(FluidTags.WATER) || air < max) {
+            int y = event.getWindow().getGuiScaledHeight() - gui.rightHeight;
+            int x = event.getWindow().getGuiScaledWidth() / 2 + 91;
+            gui.rightHeight += 10;
+            int full = Mth.ceil((air - 2) * 10.0 / max);
+            int shown = Mth.ceil(air * 10.0 / max); // las "completas" y la ultima a medias (la que revienta)
+            for (int i = 0; i < shown; i++) {
+                event.getGuiGraphics().blit(VANILLA_ICONS, x - i * 8 - 9, y, i < full ? 16 : 25, 18, 9, 9);
+            }
         }
     }
 
