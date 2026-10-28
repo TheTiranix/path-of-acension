@@ -195,8 +195,15 @@ public class ModEvents {
         return world.isDay() && world.canSeeSky(player.blockPosition());
     }
 
-    /** Cordura: la luz del sol la baja y la de la luna la sube (0,5% de la barra por segundo, al cielo abierto). */
+    /** Cordura: la luz del sol la baja (al cielo abierto) y la de la luna la sube (0,5% de la barra por segundo). */
     private static final float LUNAR_SANITY_PER_SECOND = 0.005F;
+    /** Luz de cielo (0 a 15) minima para que cuente como "luz de la luna": bajo hojas o un techo fino llega de sobra, en una cueva o bajo techo no. */
+    private static final int MOONLIGHT_MIN_SKY_LIGHT = 8;
+
+    private static boolean isMoonlit(Player player) {
+        Level world = player.level();
+        return world.isNight() && world.getBrightness(net.minecraft.world.level.LightLayer.SKY, player.blockPosition()) >= MOONLIGHT_MIN_SKY_LIGHT;
+    }
     private static final org.apache.logging.log4j.Logger LOGGER_SANITY = org.apache.logging.log4j.LogManager.getLogger();
 
     private static void tickSiervoLunaSanity(Player player) {
@@ -204,10 +211,11 @@ public class ModEvents {
             return;
         }
         if (player.tickCount % 200 == 0) {
-            LOGGER_SANITY.info("[Sanity] noche={} sol={} cordura={}", isMoonExposed(player), isSunExposed(player),
+            LOGGER_SANITY.info("[Sanity] noche={} sol={} luzDeCielo={} cordura={}", isMoonlit(player), isSunExposed(player),
+                    player.level().getBrightness(net.minecraft.world.level.LightLayer.SKY, player.blockPosition()),
                     com.tcorigenes.tcorigenes.compat.SanityCompat.get(serverPlayer));
         }
-        if (isMoonExposed(player)) {
+        if (isMoonlit(player)) {
             com.tcorigenes.tcorigenes.compat.SanityCompat.add(serverPlayer, LUNAR_SANITY_PER_SECOND);
         } else if (isSunExposed(player)) {
             com.tcorigenes.tcorigenes.compat.SanityCompat.add(serverPlayer, -LUNAR_SANITY_PER_SECOND);
